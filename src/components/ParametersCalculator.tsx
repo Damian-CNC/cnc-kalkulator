@@ -7,12 +7,11 @@ const ParametersCalculator = () => {
   const [diameter, setDiameter] = useState('');
   const [fz, setFz] = useState('');
   const [teeth, setTeeth] = useState('');
-  const [rpm, setRpm] = useState('');
   const [holeDia, setHoleDia] = useState('');
 
-  const [rpmResult, setRpmResult] = useState<string | null>(null);
-  const [feedResult, setFeedResult] = useState<string | null>(null);
-  const [centerFeedResult, setCenterFeedResult] = useState<string | null>(null);
+  const [rpmResult, setRpmResult] = useState<number | null>(null);
+  const [feedResult, setFeedResult] = useState<number | null>(null);
+  const [centerFeedResult, setCenterFeedResult] = useState<number | null>(null);
 
   const calculateRPM = useCallback(() => {
     const vcNum = parseFloat(vc);
@@ -20,8 +19,7 @@ const ParametersCalculator = () => {
 
     if (vcNum && dNum) {
       const n = (vcNum * 1000) / (Math.PI * dNum);
-      setRpm(n.toFixed(0));
-      setRpmResult(`🌀 ${n.toFixed(0)} obr/min`);
+      setRpmResult(n);
       return n;
     }
     setRpmResult(null);
@@ -31,16 +29,15 @@ const ParametersCalculator = () => {
   const calculateFeed = useCallback((rpmValue: number | null) => {
     const fzNum = parseFloat(fz);
     const teethNum = parseFloat(teeth);
-    const rpmNum = rpmValue || parseFloat(rpm);
 
-    if (fzNum && teethNum && rpmNum) {
-      const feed = fzNum * teethNum * rpmNum;
-      setFeedResult(`🚀 ${feed.toFixed(1)} mm/min`);
+    if (fzNum && teethNum && rpmValue) {
+      const feed = fzNum * teethNum * rpmValue;
+      setFeedResult(feed);
       return feed;
     }
     setFeedResult(null);
     return null;
-  }, [fz, teeth, rpm]);
+  }, [fz, teeth]);
 
   const calculateCenterFeed = useCallback((feedValue: number | null) => {
     const d1 = parseFloat(diameter);
@@ -48,7 +45,7 @@ const ParametersCalculator = () => {
 
     if (feedValue && d1 && d2 && d2 > d1) {
       const fc = (feedValue * (d2 - d1)) / d2;
-      setCenterFeedResult(`🎯 ${fc.toFixed(1)} mm/min`);
+      setCenterFeedResult(fc);
     } else {
       setCenterFeedResult(null);
     }
@@ -65,7 +62,6 @@ const ParametersCalculator = () => {
     setDiameter('');
     setFz('');
     setTeeth('');
-    setRpm('');
     setHoleDia('');
     setRpmResult(null);
     setFeedResult(null);
@@ -87,7 +83,6 @@ const ParametersCalculator = () => {
               step="0.1"
               value={vc}
               onChange={(e) => setVc(e.target.value)}
-              placeholder="np. 200"
             />
             <InputField
               label="Średnica narzędzia D [mm]"
@@ -95,11 +90,10 @@ const ParametersCalculator = () => {
               step="0.1"
               value={diameter}
               onChange={(e) => setDiameter(e.target.value)}
-              placeholder="np. 10"
             />
           </div>
           <ResultDisplay>
-            {rpmResult && <span className="text-primary">{rpmResult}</span>}
+            {rpmResult && <span className="text-primary">🌀 {rpmResult.toFixed(0)} obr/min</span>}
           </ResultDisplay>
         </div>
 
@@ -115,25 +109,21 @@ const ParametersCalculator = () => {
               step="0.01"
               value={fz}
               onChange={(e) => setFz(e.target.value)}
-              placeholder="np. 0.1"
             />
             <InputField
               label="Liczba zębów Z"
               type="number"
               value={teeth}
               onChange={(e) => setTeeth(e.target.value)}
-              placeholder="np. 4"
-            />
-            <InputField
-              label="Obroty n [obr/min]"
-              type="number"
-              value={rpm}
-              readOnly
-              className="opacity-70"
             />
           </div>
           <ResultDisplay>
-            {feedResult && <span className="text-primary">{feedResult}</span>}
+            {(rpmResult || feedResult) && (
+              <div className="flex flex-col items-center gap-1">
+                {rpmResult && <span className="text-muted-foreground text-sm">🌀 {rpmResult.toFixed(0)} obr/min</span>}
+                {feedResult && <span className="text-primary text-lg">🚀 {feedResult.toFixed(1)} mm/min</span>}
+              </div>
+            )}
           </ResultDisplay>
         </div>
 
@@ -157,11 +147,10 @@ const ParametersCalculator = () => {
               step="0.1"
               value={holeDia}
               onChange={(e) => setHoleDia(e.target.value)}
-              placeholder="np. 20"
             />
           </div>
           <ResultDisplay>
-            {centerFeedResult && <span className="text-primary">{centerFeedResult}</span>}
+            {centerFeedResult && <span className="text-primary">🎯 {centerFeedResult.toFixed(1)} mm/min</span>}
           </ResultDisplay>
         </div>
 
