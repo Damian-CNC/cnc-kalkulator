@@ -74,7 +74,7 @@ const ParametersCalculator = () => {
         {/* Module 1: RPM */}
         <div className="glass-module animate-slide-in stagger-1">
           <h2 className="text-primary font-semibold text-lg mb-4 flex items-center gap-2">
-            ⚡ Obroty
+            🌀 Obroty
           </h2>
           <div className="flex flex-col gap-4">
             <InputField
