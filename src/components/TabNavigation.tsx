@@ -1,6 +1,6 @@
 interface TabNavigationProps {
-  activeTab: 'parameters' | 'weight';
-  onTabChange: (tab: 'parameters' | 'weight') => void;
+  activeTab: 'parameters' | 'weight' | 'cone';
+  onTabChange: (tab: 'parameters' | 'weight' | 'cone') => void;
 }
 
 const TabNavigation = ({ activeTab, onTabChange }: TabNavigationProps) => {
@@ -11,13 +11,19 @@ const TabNavigation = ({ activeTab, onTabChange }: TabNavigationProps) => {
         className={`nav-tab ${activeTab === 'parameters' ? 'active' : ''}`}
         onClick={() => onTabChange('parameters')}
       >
-        🔧 Parametry skrawania
+        🔧 Parametry
       </button>
       <button
         className={`nav-tab ${activeTab === 'weight' ? 'active' : ''}`}
         onClick={() => onTabChange('weight')}
       >
-        ⚖️ Kalkulator wagi
+        ⚖️ Waga
+      </button>
+      <button
+        className={`nav-tab ${activeTab === 'cone' ? 'active' : ''}`}
+        onClick={() => onTabChange('cone')}
+      >
+        🔺 Stożek
       </button>
     </div>
   );
