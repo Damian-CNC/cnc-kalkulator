@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import InputField from './InputField';
 import SelectField from './SelectField';
 import ResultDisplay from './ResultDisplay';
@@ -140,7 +140,6 @@ const WeightCalculator = () => {
                 step="0.1"
                 value={rodDiameter}
                 onChange={(e) => setRodDiameter(e.target.value)}
-                placeholder="np. 50"
               />
               <InputField
                 label="Długość [mm]"
@@ -148,7 +147,6 @@ const WeightCalculator = () => {
                 step="0.1"
                 value={rodLength}
                 onChange={(e) => setRodLength(e.target.value)}
-                placeholder="np. 100"
               />
             </div>
           )}
@@ -162,7 +160,6 @@ const WeightCalculator = () => {
                 step="0.1"
                 value={tubeOuterDia}
                 onChange={(e) => setTubeOuterDia(e.target.value)}
-                placeholder="np. 50"
               />
               <InputField
                 label="Średnica wewnętrzna [mm]"
@@ -170,7 +167,6 @@ const WeightCalculator = () => {
                 step="0.1"
                 value={tubeInnerDia}
                 onChange={(e) => setTubeInnerDia(e.target.value)}
-                placeholder="np. 40"
               />
               <InputField
                 label="Długość [mm]"
@@ -178,7 +174,6 @@ const WeightCalculator = () => {
                 step="0.1"
                 value={tubeLength}
                 onChange={(e) => setTubeLength(e.target.value)}
-                placeholder="np. 100"
               />
             </div>
           )}
@@ -192,7 +187,6 @@ const WeightCalculator = () => {
                 step="0.1"
                 value={flatA}
                 onChange={(e) => setFlatA(e.target.value)}
-                placeholder="np. 50"
               />
               <InputField
                 label="Wymiar B [mm]"
@@ -200,7 +194,6 @@ const WeightCalculator = () => {
                 step="0.1"
                 value={flatB}
                 onChange={(e) => setFlatB(e.target.value)}
-                placeholder="np. 20"
               />
               <InputField
                 label="Długość [mm]"
@@ -208,7 +201,6 @@ const WeightCalculator = () => {
                 step="0.1"
                 value={flatLength}
                 onChange={(e) => setFlatLength(e.target.value)}
-                placeholder="np. 100"
               />
             </div>
           )}
