@@ -69,10 +69,10 @@ const ParametersCalculator = () => {
   };
 
   return (
-    <div className="glass-container animate-fade-in">
+    <div className="glass-container">
       <div className="flex flex-col gap-6">
         {/* Module 1: RPM */}
-        <div className="glass-module animate-slide-in stagger-1">
+        <div className="glass-module">
           <h2 className="text-primary font-semibold text-lg mb-4 flex items-center gap-2">
             🌀 Obroty
           </h2>
@@ -98,7 +98,7 @@ const ParametersCalculator = () => {
         </div>
 
         {/* Module 2: Feed Rate */}
-        <div className="glass-module animate-slide-in stagger-2">
+        <div className="glass-module">
           <h2 className="text-primary font-semibold text-lg mb-4 flex items-center gap-2">
             🚀 Posuw minutowy
           </h2>
@@ -128,7 +128,7 @@ const ParametersCalculator = () => {
         </div>
 
         {/* Module 3: Center Feed */}
-        <div className="glass-module animate-slide-in stagger-3">
+        <div className="glass-module">
           <h2 className="text-primary font-semibold text-lg mb-4 flex items-center gap-2">
             🎯 Posuw centralny
           </h2>

@@ -28,7 +28,7 @@ const DrillConeCalculator = () => {
   };
 
   return (
-    <div className="glass-container animate-fade-in">
+    <div className="glass-container">
       <div className="glass-module">
         <h2 className="text-primary font-semibold text-lg mb-4 flex items-center gap-2">
           🔺 Wysokość stożka wiertła

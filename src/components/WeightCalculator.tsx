@@ -117,7 +117,7 @@ const WeightCalculator = () => {
   };
 
   return (
-    <div className="glass-container animate-fade-in">
+    <div className="glass-container">
       <div className="glass-module">
         <h2 className="text-primary font-semibold text-lg mb-4 flex items-center gap-2">
           ⚖️ Kalkulator wagi przygotówki
@@ -133,7 +133,7 @@ const WeightCalculator = () => {
 
           {/* Rod Fields */}
           {shapeType === 'rod' && (
-            <div className="flex flex-col gap-4 animate-fade-in">
+            <div className="flex flex-col gap-4">
               <InputField
                 label="Średnica zewnętrzna [mm]"
                 type="number"
@@ -153,7 +153,7 @@ const WeightCalculator = () => {
 
           {/* Tube Fields */}
           {shapeType === 'tube' && (
-            <div className="flex flex-col gap-4 animate-fade-in">
+            <div className="flex flex-col gap-4">
               <InputField
                 label="Średnica zewnętrzna [mm]"
                 type="number"
@@ -180,7 +180,7 @@ const WeightCalculator = () => {
 
           {/* Flat Fields */}
           {shapeType === 'flat' && (
-            <div className="flex flex-col gap-4 animate-fade-in">
+            <div className="flex flex-col gap-4">
               <InputField
                 label="Wymiar A [mm]"
                 type="number"
