@@ -120,8 +120,8 @@ const ParametersCalculator = () => {
           <ResultDisplay>
             {(rpmResult || feedResult) && (
               <div className="flex flex-col items-center gap-1">
-                {rpmResult && <span className="text-muted-foreground text-sm">🌀 {rpmResult.toFixed(0)} obr/min</span>}
-                {feedResult && <span className="text-primary text-lg">🚀 {feedResult.toFixed(1)} mm/min</span>}
+                {rpmResult && <span className="text-primary">🌀 {rpmResult.toFixed(0)} obr/min</span>}
+                {feedResult && <span className="text-primary">🚀 {feedResult.toFixed(1)} mm/min</span>}
               </div>
             )}
           </ResultDisplay>
