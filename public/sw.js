@@ -1,8 +1,8 @@
-const CACHE_NAME = 'cnc-calculator-v1';
+const CACHE_NAME = 'cnc-calculator-v2';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/manifest.json'
+  './',
+  './index.html',
+  './manifest.json'
 ];
 
 // Install event
