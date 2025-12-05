@@ -7,28 +7,27 @@ import { convertHardness, ConversionDirection, ConversionResult, getHbRange, get
 const HardnessConverter = () => {
   const [direction, setDirection] = useState<ConversionDirection>('hb-to-hrc');
   const [inputValue, setInputValue] = useState('');
-  const [result, setResult] = useState<ConversionResult | null>(null);
 
   const directionOptions = [
     { value: 'hb-to-hrc', label: 'HB → HRC' },
     { value: 'hrc-to-hb', label: 'HRC → HB' },
   ];
 
-  const handleConvert = () => {
+  const getResult = () => {
     const value = parseFloat(inputValue);
-    const conversionResult = convertHardness(value, direction);
-    setResult(conversionResult);
+    if (isNaN(value)) return null;
+    return convertHardness(value, direction);
   };
+
+  const result = getResult();
 
   const handleClear = () => {
     setInputValue('');
-    setResult(null);
   };
 
   const handleDirectionChange = (newDirection: ConversionDirection) => {
     setDirection(newDirection);
     setInputValue('');
-    setResult(null);
   };
 
   const getInputLabel = () => {
@@ -66,28 +65,7 @@ const HardnessConverter = () => {
             step="1"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
-            placeholder={direction === 'hb-to-hrc' ? 'np. 400' : 'np. 43'}
           />
-
-          <button
-            onClick={handleConvert}
-            className="w-full py-3 px-6 rounded-2xl font-semibold uppercase tracking-wider transition-all duration-300 mt-2"
-            style={{
-              background: 'var(--gradient-primary)',
-              color: 'white',
-              boxShadow: 'var(--shadow-button)'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 244, 226, 0.4)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = 'var(--shadow-button)';
-            }}
-          >
-            Przelicz
-          </button>
 
           <ResultDisplay className="!min-h-[5rem]">
             {result !== null ? (
@@ -110,11 +88,7 @@ const HardnessConverter = () => {
                   </div>
                 </div>
               )
-            ) : (
-              inputValue ? (
-                <span className="text-muted-foreground">Kliknij "Przelicz" aby zobaczyć wynik</span>
-              ) : null
-            )}
+            ) : null}
           </ResultDisplay>
         </div>
       </div>
