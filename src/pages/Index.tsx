@@ -3,9 +3,10 @@ import TabNavigation from '@/components/TabNavigation';
 import ParametersCalculator from '@/components/ParametersCalculator';
 import WeightCalculator from '@/components/WeightCalculator';
 import DrillConeCalculator from '@/components/DrillConeCalculator';
+import HardnessConverter from '@/components/HardnessConverter';
 
 const Index = () => {
-  const [activeTab, setActiveTab] = useState<'parameters' | 'weight' | 'cone'>('parameters');
+  const [activeTab, setActiveTab] = useState<'parameters' | 'weight' | 'cone' | 'hardness'>('parameters');
 
   return (
     <div className="min-h-screen flex flex-col items-center px-4 py-6">
@@ -22,6 +23,7 @@ const Index = () => {
         {activeTab === 'parameters' && <ParametersCalculator />}
         {activeTab === 'weight' && <WeightCalculator />}
         {activeTab === 'cone' && <DrillConeCalculator />}
+        {activeTab === 'hardness' && <HardnessConverter />}
       </main>
 
       {/* Footer */}
