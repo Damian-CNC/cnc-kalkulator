@@ -2,7 +2,7 @@ import { useState } from 'react';
 import InputField from './InputField';
 import SelectField from './SelectField';
 import ResultDisplay from './ResultDisplay';
-import { convertHardness, ConversionDirection, ConversionResult, getHbRange, getHrcRange } from '@/utils/isoHardnessConversion';
+import { convertHardness, ConversionDirection } from '@/utils/isoHardnessConversion';
 
 const HardnessConverter = () => {
   const [direction, setDirection] = useState<ConversionDirection>('hb-to-hrc');
@@ -31,13 +31,7 @@ const HardnessConverter = () => {
   };
 
   const getInputLabel = () => {
-    if (direction === 'hb-to-hrc') {
-      const range = getHbRange();
-      return `Twardość HB (${range.min}–${range.max})`;
-    } else {
-      const range = getHrcRange();
-      return `Twardość HRC (${range.min}–${range.max})`;
-    }
+    return direction === 'hb-to-hrc' ? 'Twardość HB' : 'Twardość HRC';
   };
 
   const getResultLabel = () => {
