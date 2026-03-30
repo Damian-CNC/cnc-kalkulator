@@ -139,6 +139,11 @@ const ThreadCalculatorPage = () => {
                   max={selectedThread.external_6g.d3_max}
                   min={selectedThread.external_6g.d3_min}
                 />
+                <CamCard
+                  label="Wysokość nacinania (h3)"
+                  value={nominal.externalThreadHeight}
+                  note="Użyj w Fusion 360 jako Thread Depth"
+                />
               </div>
             </TabsContent>
 
@@ -166,8 +171,16 @@ const ThreadCalculatorPage = () => {
                   tapDrill={selectedThread.internal_6H.tap_drill}
                   formTapDrill={nominal.formTapDrillSize}
                 />
+                <CamCard
+                  label="Wysokość profilu (H1)"
+                  value={nominal.internalThreadHeight}
+                />
               </div>
             </TabsContent>
+
+            <p className="text-zinc-600 text-xs text-center mt-4">
+              Wysokości obliczone dla teoretycznego profilu ISO 60°
+            </p>
           </Tabs>
         )}
 
@@ -220,6 +233,18 @@ function DrillCard({ tapDrill, formTapDrill }: { tapDrill: number; formTapDrill:
           <p className="text-xl md:text-2xl font-bold text-violet-400">{formTapDrill} mm</p>
         </div>
       </div>
+    </div>
+  );
+}
+
+function CamCard({ label, value, note }: { label: string; value: number; note?: string }) {
+  return (
+    <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4">
+      <p className="text-cyan-300 text-sm font-medium mb-1">{label}</p>
+      <p className="text-2xl md:text-3xl font-bold text-cyan-400">{value} mm</p>
+      {note && (
+        <p className="text-cyan-600 text-xs mt-1.5">({note})</p>
+      )}
     </div>
   );
 }
