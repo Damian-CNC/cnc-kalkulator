@@ -48,24 +48,25 @@ const Index = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-zinc-950 flex flex-col items-center px-4 py-8">
-      <h1 className="text-3xl md:text-4xl font-black tracking-wide mb-8 text-zinc-100 select-none text-center">
+    <div className="min-h-screen bg-zinc-950 flex flex-col items-center px-4 pb-8"
+         style={{ paddingTop: 'max(1.5rem, env(safe-area-inset-top))' }}>
+      <h1 className="text-2xl md:text-4xl font-black tracking-wide mb-6 text-zinc-100 select-none text-center">
         ⚙️ Kalkulator CNC
       </h1>
 
-      <div className="w-full max-w-2xl grid grid-cols-2 sm:grid-cols-3 gap-4">
+      <div className="w-full max-w-md flex flex-col gap-3 px-2">
         {tiles.map((tile) => {
           const Icon = tile.icon;
           return (
             <button
               key={tile.id}
               onClick={() => navigate(tile.route)}
-              className={`group flex flex-col items-center justify-center gap-3 p-6 rounded-2xl border border-zinc-800 bg-zinc-900/80 backdrop-blur-sm hover:border-zinc-600 transition-all duration-300 hover:scale-[1.03] hover:shadow-lg ${tile.shadow}`}
+              className={`group flex items-center gap-4 px-5 py-4 rounded-2xl border border-zinc-800 bg-zinc-900/80 backdrop-blur-sm hover:border-zinc-600 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg ${tile.shadow} w-full text-left`}
             >
-              <div className={`p-3 rounded-xl bg-gradient-to-br ${tile.color} shadow-lg`}>
-                <Icon className="w-7 h-7 text-white" strokeWidth={2} />
+              <div className={`p-3 rounded-xl bg-gradient-to-br ${tile.color} shadow-lg shrink-0`}>
+                <Icon className="w-6 h-6 text-white" strokeWidth={2} />
               </div>
-              <span className="text-sm md:text-base font-semibold text-zinc-200 text-center leading-tight">
+              <span className="text-base font-semibold text-zinc-200 leading-tight">
                 {tile.label}
               </span>
             </button>
