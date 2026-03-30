@@ -1,7 +1,15 @@
 import { useNavigate } from 'react-router-dom';
-import { Settings, Scale, Triangle, Gem } from 'lucide-react';
+import { Settings, Scale, Triangle, Gem, Wrench } from 'lucide-react';
 
 const tiles = [
+  {
+    id: 'threads',
+    label: 'Gwinty Metryczne',
+    icon: Wrench,
+    route: '/kalkulator-gwintow',
+    color: 'from-emerald-500 to-green-400',
+    shadow: 'shadow-emerald-500/20',
+  },
   {
     id: 'parameters',
     label: 'Parametry Skrawania',
@@ -34,14 +42,6 @@ const tiles = [
     color: 'from-rose-500 to-pink-400',
     shadow: 'shadow-rose-500/20',
   },
-  {
-    id: 'threads',
-    label: 'Gwinty Metryczne',
-    icon: Settings,
-    route: '/kalkulator-gwintow',
-    color: 'from-emerald-500 to-green-400',
-    shadow: 'shadow-emerald-500/20',
-  },
 ];
 
 const Index = () => {
@@ -49,8 +49,8 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-zinc-950 flex flex-col items-center px-4 py-8">
-      <h1 className="text-4xl md:text-5xl font-black tracking-wider mb-10 gradient-text select-none text-center">
-        Kalkulator CNC
+      <h1 className="text-3xl md:text-4xl font-black tracking-wide mb-8 text-zinc-100 select-none text-center">
+        ⚙️ Kalkulator CNC
       </h1>
 
       <div className="w-full max-w-2xl grid grid-cols-2 sm:grid-cols-3 gap-4">
@@ -60,7 +60,7 @@ const Index = () => {
             <button
               key={tile.id}
               onClick={() => navigate(tile.route)}
-              className={`group relative flex flex-col items-center justify-center gap-3 p-6 rounded-2xl border border-zinc-800 bg-zinc-900/80 backdrop-blur-sm hover:border-zinc-600 transition-all duration-300 hover:scale-[1.03] hover:shadow-lg ${tile.shadow}`}
+              className={`group flex flex-col items-center justify-center gap-3 p-6 rounded-2xl border border-zinc-800 bg-zinc-900/80 backdrop-blur-sm hover:border-zinc-600 transition-all duration-300 hover:scale-[1.03] hover:shadow-lg ${tile.shadow}`}
             >
               <div className={`p-3 rounded-xl bg-gradient-to-br ${tile.color} shadow-lg`}>
                 <Icon className="w-7 h-7 text-white" strokeWidth={2} />
@@ -74,7 +74,7 @@ const Index = () => {
       </div>
 
       <footer className="text-center mt-auto pt-10 text-zinc-600 text-sm">
-        Copyright © 2025 Damian Drewniak
+        © 2025 Damian Drewniak
       </footer>
     </div>
   );
