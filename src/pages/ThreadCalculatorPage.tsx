@@ -1,0 +1,227 @@
+import { useState, useMemo } from 'react';
+import PageLayout from '@/components/PageLayout';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
+import { calculateMetricThread } from '@/utils/threadMath';
+import threadsData from '@/data/metric_threads.json';
+
+interface ThreadEntry {
+  designation: string;
+  d: number;
+  P: number;
+  external_6g: {
+    d_max: number;
+    d_min: number;
+    d2_max: number;
+    d2_min: number;
+    d3_max: number;
+    d3_min: number;
+  };
+  internal_6H: {
+    D1_min: number;
+    D1_max: number;
+    D2_min: number;
+    D2_max: number;
+    D_min: number;
+    D_max: number;
+    tap_drill: number;
+  };
+}
+
+const threads = threadsData as ThreadEntry[];
+
+const ThreadCalculatorPage = () => {
+  const [selectedD, setSelectedD] = useState<string>('');
+  const [selectedP, setSelectedP] = useState<string>('');
+
+  const uniqueDiameters = useMemo(() => {
+    const set = new Set(threads.map((t) => t.d));
+    return Array.from(set).sort((a, b) => a - b);
+  }, []);
+
+  const availablePitches = useMemo(() => {
+    if (!selectedD) return [];
+    const d = parseFloat(selectedD);
+    return threads.filter((t) => t.d === d).map((t) => t.P).sort((a, b) => a - b);
+  }, [selectedD]);
+
+  const selectedThread = useMemo(() => {
+    if (!selectedD || !selectedP) return null;
+    return threads.find((t) => t.d === parseFloat(selectedD) && t.P === parseFloat(selectedP)) || null;
+  }, [selectedD, selectedP]);
+
+  const nominal = useMemo(() => {
+    if (!selectedD || !selectedP) return null;
+    return calculateMetricThread(parseFloat(selectedD), parseFloat(selectedP));
+  }, [selectedD, selectedP]);
+
+  const handleDiameterChange = (val: string) => {
+    setSelectedD(val);
+    setSelectedP('');
+  };
+
+  return (
+    <PageLayout title="Gwinty Metryczne">
+      <div className="space-y-5">
+        {/* Selectors */}
+        <div className="grid grid-cols-2 gap-3">
+          <div className="flex flex-col gap-1.5">
+            <label className="text-zinc-400 text-sm font-medium">Średnica (d)</label>
+            <Select value={selectedD} onValueChange={handleDiameterChange}>
+              <SelectTrigger className="bg-zinc-900 border-zinc-700 text-zinc-100">
+                <SelectValue placeholder="Wybierz d" />
+              </SelectTrigger>
+              <SelectContent className="bg-zinc-900 border-zinc-700 max-h-60">
+                {uniqueDiameters.map((d) => (
+                  <SelectItem key={d} value={String(d)} className="text-zinc-100 focus:bg-zinc-800">
+                    {d} mm
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="flex flex-col gap-1.5">
+            <label className="text-zinc-400 text-sm font-medium">Skok (P)</label>
+            <Select value={selectedP} onValueChange={setSelectedP} disabled={!selectedD}>
+              <SelectTrigger className="bg-zinc-900 border-zinc-700 text-zinc-100">
+                <SelectValue placeholder="Wybierz P" />
+              </SelectTrigger>
+              <SelectContent className="bg-zinc-900 border-zinc-700">
+                {availablePitches.map((p) => (
+                  <SelectItem key={p} value={String(p)} className="text-zinc-100 focus:bg-zinc-800">
+                    {p} mm
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
+        {/* Designation badge */}
+        {selectedThread && (
+          <div className="text-center">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-emerald-500/15 text-emerald-400 font-bold text-lg tracking-wide border border-emerald-500/30">
+              {selectedThread.designation}
+            </span>
+          </div>
+        )}
+
+        {/* Results */}
+        {selectedThread && nominal && (
+          <Tabs defaultValue="external" className="w-full">
+            <TabsList className="w-full bg-zinc-900 border border-zinc-800">
+              <TabsTrigger value="external" className="flex-1 data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50">
+                🔩 Śruba (6g)
+              </TabsTrigger>
+              <TabsTrigger value="internal" className="flex-1 data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50">
+                🔧 Nakrętka (6H)
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="external">
+              <div className="space-y-3 mt-3">
+                <DimensionCard
+                  label="Średnica zewnętrzna (d)"
+                  nominal={nominal.nominalDiameter}
+                  max={selectedThread.external_6g.d_max}
+                  min={selectedThread.external_6g.d_min}
+                />
+                <DimensionCard
+                  label="Średnica podziałowa (d2)"
+                  nominal={nominal.pitchDiameter}
+                  max={selectedThread.external_6g.d2_max}
+                  min={selectedThread.external_6g.d2_min}
+                />
+                <DimensionCard
+                  label="Średnica rdzenia (d3)"
+                  nominal={nominal.externalMinorDiameter}
+                  max={selectedThread.external_6g.d3_max}
+                  min={selectedThread.external_6g.d3_min}
+                />
+              </div>
+            </TabsContent>
+
+            <TabsContent value="internal">
+              <div className="space-y-3 mt-3">
+                <DimensionCard
+                  label="Średnica wewnętrzna (D1)"
+                  nominal={nominal.internalMinorDiameter}
+                  max={selectedThread.internal_6H.D1_max}
+                  min={selectedThread.internal_6H.D1_min}
+                />
+                <DimensionCard
+                  label="Średnica podziałowa (D2)"
+                  nominal={nominal.pitchDiameter}
+                  max={selectedThread.internal_6H.D2_max}
+                  min={selectedThread.internal_6H.D2_min}
+                />
+                <DimensionCard
+                  label="Średnica zewnętrzna (D)"
+                  nominal={null}
+                  max={selectedThread.internal_6H.D_max}
+                  min={selectedThread.internal_6H.D_min}
+                />
+                <DrillCard
+                  tapDrill={selectedThread.internal_6H.tap_drill}
+                  formTapDrill={nominal.formTapDrillSize}
+                />
+              </div>
+            </TabsContent>
+          </Tabs>
+        )}
+
+        {!selectedThread && selectedD && selectedP && (
+          <p className="text-center text-zinc-500 py-6">Brak danych dla wybranej kombinacji.</p>
+        )}
+
+        {(!selectedD || !selectedP) && (
+          <p className="text-center text-zinc-500 py-10">Wybierz średnicę i skok, aby zobaczyć wymiary gwintu.</p>
+        )}
+      </div>
+    </PageLayout>
+  );
+};
+
+/* ---- Sub-components ---- */
+
+function DimensionCard({ label, nominal, max, min }: { label: string; nominal: number | null; max: number; min: number }) {
+  return (
+    <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
+      <p className="text-zinc-400 text-sm font-medium mb-2">{label}</p>
+      {nominal !== null && (
+        <p className="text-zinc-500 text-xs mb-2">Nominalna: {nominal} mm</p>
+      )}
+      <div className="grid grid-cols-2 gap-3">
+        <div className="text-center">
+          <span className="text-xs text-zinc-500 uppercase tracking-wider">Max</span>
+          <p className="text-xl md:text-2xl font-bold text-emerald-400">{max}</p>
+        </div>
+        <div className="text-center">
+          <span className="text-xs text-zinc-500 uppercase tracking-wider">Min</span>
+          <p className="text-xl md:text-2xl font-bold text-amber-400">{min}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function DrillCard({ tapDrill, formTapDrill }: { tapDrill: number; formTapDrill: number }) {
+  return (
+    <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
+      <p className="text-zinc-400 text-sm font-medium mb-3">Wiertła</p>
+      <div className="grid grid-cols-2 gap-3">
+        <div className="text-center">
+          <span className="text-xs text-zinc-500">Gwintownik</span>
+          <p className="text-xl md:text-2xl font-bold text-cyan-400">{tapDrill} mm</p>
+        </div>
+        <div className="text-center">
+          <span className="text-xs text-zinc-500">Wygniatak</span>
+          <p className="text-xl md:text-2xl font-bold text-violet-400">{formTapDrill} mm</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default ThreadCalculatorPage;
