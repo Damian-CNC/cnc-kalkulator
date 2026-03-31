@@ -1,9 +1,10 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import PageLayout from '@/components/PageLayout';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import { calculateMetricThread } from '@/utils/threadMath';
 import threadsData from '@/data/metric_threads.json';
+import standardMetricPitches from '@/data/standardMetricPitches';
 
 interface ThreadEntry {
   designation: string;
@@ -30,31 +31,63 @@ interface ThreadEntry {
 
 const threads = threadsData as ThreadEntry[];
 
-const STANDARD_PITCHES = [0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.6, 0.7, 0.75, 0.8, 1.0, 1.25, 1.5, 1.75, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0];
-
 const ThreadCalculatorPage = () => {
   const [diameterInput, setDiameterInput] = useState<string>('');
   const [selectedP, setSelectedP] = useState<string>('');
+  const [manualPitch, setManualPitch] = useState<string>('');
 
   const parsedD = useMemo(() => {
     const val = parseFloat(diameterInput.replace(',', '.'));
     return isNaN(val) || val <= 0 ? null : val;
   }, [diameterInput]);
 
+  // Check if diameter is standard ISO
+  const isStandardDiameter = useMemo(() => {
+    if (parsedD === null) return false;
+    const key = String(parsedD);
+    return key in standardMetricPitches;
+  }, [parsedD]);
+
+  const availablePitches = useMemo(() => {
+    if (parsedD === null || !isStandardDiameter) return [];
+    return standardMetricPitches[String(parsedD)] || [];
+  }, [parsedD, isStandardDiameter]);
+
+  // Auto-select coarse pitch (largest) when diameter changes
+  useEffect(() => {
+    if (isStandardDiameter && availablePitches.length > 0) {
+      const coarsePitch = availablePitches[availablePitches.length - 1];
+      setSelectedP(String(coarsePitch));
+      setManualPitch('');
+    } else {
+      setSelectedP('');
+    }
+  }, [parsedD, isStandardDiameter, availablePitches]);
+
+  // Effective pitch value (from select or manual input)
+  const effectivePitch = useMemo(() => {
+    if (isStandardDiameter) {
+      return selectedP ? parseFloat(selectedP) : null;
+    }
+    const val = parseFloat(manualPitch.replace(',', '.'));
+    return isNaN(val) || val <= 0 ? null : val;
+  }, [isStandardDiameter, selectedP, manualPitch]);
+
   const selectedThread = useMemo(() => {
-    if (parsedD === null || !selectedP) return null;
-    return threads.find((t) => t.d === parsedD && t.P === parseFloat(selectedP)) || null;
-  }, [parsedD, selectedP]);
+    if (parsedD === null || effectivePitch === null) return null;
+    return threads.find((t) => t.d === parsedD && t.P === effectivePitch) || null;
+  }, [parsedD, effectivePitch]);
 
   const nominal = useMemo(() => {
-    if (parsedD === null || !selectedP) return null;
-    return calculateMetricThread(parsedD, parseFloat(selectedP));
-  }, [parsedD, selectedP]);
+    if (parsedD === null || effectivePitch === null) return null;
+    return calculateMetricThread(parsedD, effectivePitch);
+  }, [parsedD, effectivePitch]);
 
-  const handleDiameterChange = (val: string) => {
-    setDiameterInput(val);
-    setSelectedP('');
-  };
+  const designation = useMemo(() => {
+    if (parsedD === null || effectivePitch === null) return null;
+    if (selectedThread) return selectedThread.designation;
+    return `M${parsedD}×${effectivePitch}`;
+  }, [parsedD, effectivePitch, selectedThread]);
 
   return (
     <PageLayout title="Gwinty Metryczne">
@@ -69,33 +102,48 @@ const ThreadCalculatorPage = () => {
               pattern="[0-9]*[.,]?[0-9]*"
               placeholder="np. 10"
               value={diameterInput}
-              onChange={(e) => handleDiameterChange(e.target.value)}
+              onChange={(e) => setDiameterInput(e.target.value)}
               className="flex h-10 w-full rounded-md border border-zinc-700 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50"
             />
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-zinc-400 text-sm font-medium">Skok (P)</label>
-            <Select value={selectedP} onValueChange={setSelectedP}>
-              <SelectTrigger className="bg-zinc-900 border-zinc-700 text-zinc-100">
-                <SelectValue placeholder="Wybierz P" />
-              </SelectTrigger>
-              <SelectContent className="bg-zinc-900 border-zinc-700 max-h-60">
-                {STANDARD_PITCHES.map((p) => (
-                  <SelectItem key={p} value={String(p)} className="text-zinc-100 focus:bg-zinc-800">
-                    {p} mm
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <label className="text-zinc-400 text-sm font-medium">
+              Skok (P) {!isStandardDiameter && parsedD !== null && <span className="text-amber-400 text-xs">— specjalny</span>}
+            </label>
+            {isStandardDiameter ? (
+              <Select value={selectedP} onValueChange={setSelectedP}>
+                <SelectTrigger className="bg-zinc-900 border-zinc-700 text-zinc-100">
+                  <SelectValue placeholder="Wybierz P" />
+                </SelectTrigger>
+                <SelectContent className="bg-zinc-900 border-zinc-700 max-h-60">
+                  {availablePitches.map((p) => (
+                    <SelectItem key={p} value={String(p)} className="text-zinc-100 focus:bg-zinc-800">
+                      {p} mm {p === availablePitches[availablePitches.length - 1] ? '(zwykły)' : ''}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            ) : (
+              <input
+                type="text"
+                inputMode="decimal"
+                pattern="[0-9]*[.,]?[0-9]*"
+                placeholder="np. 1.5"
+                value={manualPitch}
+                onChange={(e) => setManualPitch(e.target.value)}
+                disabled={parsedD === null}
+                className="flex h-10 w-full rounded-md border border-zinc-700 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 disabled:opacity-50 disabled:cursor-not-allowed"
+              />
+            )}
           </div>
         </div>
 
         {/* Designation badge */}
-        {selectedThread && (
+        {designation && (
           <div className="text-center">
             <span className="inline-block px-4 py-1.5 rounded-full bg-emerald-500/15 text-emerald-400 font-bold text-lg tracking-wide border border-emerald-500/30">
-              {selectedThread.designation}
+              {designation}
             </span>
           </div>
         )}
@@ -179,11 +227,7 @@ const ThreadCalculatorPage = () => {
           </Tabs>
         )}
 
-        {(parsedD === null || !selectedP) && (
-          <p className="text-center text-zinc-500 py-10">Wpisz średnicę i wybierz skok, aby zobaczyć wymiary gwintu.</p>
-        )}
-
-        {(parsedD === null || !selectedP) && (
+        {(parsedD === null || effectivePitch === null) && (
           <p className="text-center text-zinc-500 py-10">Wpisz średnicę i wybierz skok, aby zobaczyć wymiary gwintu.</p>
         )}
       </div>
