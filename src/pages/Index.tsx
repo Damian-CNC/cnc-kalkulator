@@ -48,7 +48,7 @@ const Index = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-zinc-950 flex flex-col items-center px-4 pb-8"
+    <div className="min-h-screen bg-background flex flex-col items-center px-4 pb-8"
          style={{ paddingTop: 'max(1.5rem, env(safe-area-inset-top))' }}>
       <h1 className="text-2xl md:text-4xl font-black tracking-wide mb-6 text-zinc-100 select-none text-center">
         ⚙️ Kalkulator CNC
