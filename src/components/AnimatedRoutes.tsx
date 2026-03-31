@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigationType } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
 import Index from '@/pages/Index';
@@ -12,8 +12,11 @@ import NotFound from '@/pages/NotFound';
 
 const AnimatedRoutes = () => {
   const location = useLocation();
+  const navigationType = useNavigationType();
   const prevPath = useRef(location.pathname);
   const [direction, setDirection] = useState(1);
+
+  const isPopNavigation = navigationType === 'POP';
 
   useEffect(() => {
     const isGoingHome = location.pathname === '/';
@@ -23,8 +26,8 @@ const AnimatedRoutes = () => {
 
   const pageVariants = {
     initial: (dir: number) => ({
-      x: dir > 0 ? '100vw' : '-100vw',
-      opacity: 0,
+      x: isPopNavigation ? 0 : (dir > 0 ? '100vw' : '-100vw'),
+      opacity: isPopNavigation ? 1 : 0,
     }),
     animate: {
       x: 0,
@@ -32,22 +35,22 @@ const AnimatedRoutes = () => {
       transition: {
         type: 'tween' as const,
         ease: 'easeOut' as const,
-        duration: 0.25,
+        duration: isPopNavigation ? 0 : 0.25,
       },
     },
     exit: (dir: number) => ({
-      x: dir > 0 ? '-100vw' : '100vw',
-      opacity: 0,
+      x: isPopNavigation ? 0 : (dir > 0 ? '-100vw' : '100vw'),
+      opacity: isPopNavigation ? 1 : 0,
       transition: {
         type: 'tween' as const,
         ease: 'easeIn' as const,
-        duration: 0.2,
+        duration: isPopNavigation ? 0 : 0.2,
       },
     }),
   };
 
   return (
-    <div className="relative w-full h-[100dvh] overflow-hidden bg-zinc-950">
+    <div className="relative w-full h-[100dvh] overflow-hidden bg-zinc-950 touch-pan-y">
       <AnimatePresence initial={false} custom={direction} mode="popLayout">
         <motion.div
           key={location.pathname}
