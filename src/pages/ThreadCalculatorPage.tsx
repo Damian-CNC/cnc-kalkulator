@@ -101,7 +101,7 @@ const ThreadCalculatorPage = () => {
         )}
 
         {/* Results */}
-        {selectedThread && nominal && (
+        {nominal && (
           <Tabs defaultValue="external" className="w-full">
             <TabsList className="w-full bg-zinc-900 border border-zinc-800">
               <TabsTrigger value="external" className="flex-1 data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50">
@@ -117,20 +117,20 @@ const ThreadCalculatorPage = () => {
                 <DimensionCard
                   label="Średnica zewnętrzna (d)"
                   nominal={nominal.nominalDiameter}
-                  max={selectedThread.external_6g.d_max}
-                  min={selectedThread.external_6g.d_min}
+                  max={selectedThread?.external_6g.d_max ?? null}
+                  min={selectedThread?.external_6g.d_min ?? null}
                 />
                 <DimensionCard
                   label="Średnica podziałowa (d2)"
                   nominal={nominal.pitchDiameter}
-                  max={selectedThread.external_6g.d2_max}
-                  min={selectedThread.external_6g.d2_min}
+                  max={selectedThread?.external_6g.d2_max ?? null}
+                  min={selectedThread?.external_6g.d2_min ?? null}
                 />
                 <DimensionCard
                   label="Średnica rdzenia (d3)"
                   nominal={nominal.externalMinorDiameter}
-                  max={selectedThread.external_6g.d3_max}
-                  min={selectedThread.external_6g.d3_min}
+                  max={selectedThread?.external_6g.d3_max ?? null}
+                  min={selectedThread?.external_6g.d3_min ?? null}
                 />
                 <CamCard
                   label="Wysokość nacinania (h3)"
@@ -145,23 +145,23 @@ const ThreadCalculatorPage = () => {
                 <DimensionCard
                   label="Średnica wewnętrzna (D1)"
                   nominal={nominal.internalMinorDiameter}
-                  max={selectedThread.internal_6H.D1_max}
-                  min={selectedThread.internal_6H.D1_min}
+                  max={selectedThread?.internal_6H.D1_max ?? null}
+                  min={selectedThread?.internal_6H.D1_min ?? null}
                 />
                 <DimensionCard
                   label="Średnica podziałowa (D2)"
                   nominal={nominal.pitchDiameter}
-                  max={selectedThread.internal_6H.D2_max}
-                  min={selectedThread.internal_6H.D2_min}
+                  max={selectedThread?.internal_6H.D2_max ?? null}
+                  min={selectedThread?.internal_6H.D2_min ?? null}
                 />
                 <DimensionCard
                   label="Średnica zewnętrzna (D)"
                   nominal={null}
-                  max={selectedThread.internal_6H.D_max}
-                  min={selectedThread.internal_6H.D_min}
+                  max={selectedThread?.internal_6H.D_max ?? null}
+                  min={selectedThread?.internal_6H.D_min ?? null}
                 />
                 <DrillCard
-                  tapDrill={selectedThread.internal_6H.tap_drill}
+                  tapDrill={selectedThread?.internal_6H.tap_drill ?? nominal.tapDrillSize}
                   formTapDrill={nominal.formTapDrillSize}
                 />
                 <CamCard
@@ -172,13 +172,15 @@ const ThreadCalculatorPage = () => {
             </TabsContent>
 
             <p className="text-zinc-600 text-xs text-center mt-4">
-              Wysokości obliczone dla teoretycznego profilu ISO 60°
+              {selectedThread
+                ? 'Tolerancje wg ISO 965-1 · Wysokości dla profilu ISO 60°'
+                : 'Wymiary nominalne obliczone ze wzorów · Brak tolerancji w bazie'}
             </p>
           </Tabs>
         )}
 
-        {!selectedThread && parsedD !== null && selectedP && (
-          <p className="text-center text-zinc-500 py-6">Brak danych w bazie — wymiary obliczone ze wzorów.</p>
+        {(parsedD === null || !selectedP) && (
+          <p className="text-center text-zinc-500 py-10">Wpisz średnicę i wybierz skok, aby zobaczyć wymiary gwintu.</p>
         )}
 
         {(parsedD === null || !selectedP) && (
