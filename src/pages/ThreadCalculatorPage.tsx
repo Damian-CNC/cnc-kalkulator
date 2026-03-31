@@ -30,33 +30,29 @@ interface ThreadEntry {
 
 const threads = threadsData as ThreadEntry[];
 
+const STANDARD_PITCHES = [0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.6, 0.7, 0.75, 0.8, 1.0, 1.25, 1.5, 1.75, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0];
+
 const ThreadCalculatorPage = () => {
-  const [selectedD, setSelectedD] = useState<string>('');
+  const [diameterInput, setDiameterInput] = useState<string>('');
   const [selectedP, setSelectedP] = useState<string>('');
 
-  const uniqueDiameters = useMemo(() => {
-    const set = new Set(threads.map((t) => t.d));
-    return Array.from(set).sort((a, b) => a - b);
-  }, []);
-
-  const availablePitches = useMemo(() => {
-    if (!selectedD) return [];
-    const d = parseFloat(selectedD);
-    return threads.filter((t) => t.d === d).map((t) => t.P).sort((a, b) => a - b);
-  }, [selectedD]);
+  const parsedD = useMemo(() => {
+    const val = parseFloat(diameterInput.replace(',', '.'));
+    return isNaN(val) || val <= 0 ? null : val;
+  }, [diameterInput]);
 
   const selectedThread = useMemo(() => {
-    if (!selectedD || !selectedP) return null;
-    return threads.find((t) => t.d === parseFloat(selectedD) && t.P === parseFloat(selectedP)) || null;
-  }, [selectedD, selectedP]);
+    if (parsedD === null || !selectedP) return null;
+    return threads.find((t) => t.d === parsedD && t.P === parseFloat(selectedP)) || null;
+  }, [parsedD, selectedP]);
 
   const nominal = useMemo(() => {
-    if (!selectedD || !selectedP) return null;
-    return calculateMetricThread(parseFloat(selectedD), parseFloat(selectedP));
-  }, [selectedD, selectedP]);
+    if (parsedD === null || !selectedP) return null;
+    return calculateMetricThread(parsedD, parseFloat(selectedP));
+  }, [parsedD, selectedP]);
 
   const handleDiameterChange = (val: string) => {
-    setSelectedD(val);
+    setDiameterInput(val);
     setSelectedP('');
   };
 
@@ -66,29 +62,26 @@ const ThreadCalculatorPage = () => {
         {/* Selectors */}
         <div className="grid grid-cols-2 gap-3">
           <div className="flex flex-col gap-1.5">
-            <label className="text-zinc-400 text-sm font-medium">Średnica (d)</label>
-            <Select value={selectedD} onValueChange={handleDiameterChange}>
-              <SelectTrigger className="bg-zinc-900 border-zinc-700 text-zinc-100">
-                <SelectValue placeholder="Wybierz d" />
-              </SelectTrigger>
-              <SelectContent className="bg-zinc-900 border-zinc-700 max-h-60">
-                {uniqueDiameters.map((d) => (
-                  <SelectItem key={d} value={String(d)} className="text-zinc-100 focus:bg-zinc-800">
-                    {d} mm
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <label className="text-zinc-400 text-sm font-medium">Średnica (d) mm</label>
+            <input
+              type="text"
+              inputMode="decimal"
+              pattern="[0-9]*[.,]?[0-9]*"
+              placeholder="np. 10"
+              value={diameterInput}
+              onChange={(e) => handleDiameterChange(e.target.value)}
+              className="flex h-10 w-full rounded-md border border-zinc-700 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50"
+            />
           </div>
 
           <div className="flex flex-col gap-1.5">
             <label className="text-zinc-400 text-sm font-medium">Skok (P)</label>
-            <Select value={selectedP} onValueChange={setSelectedP} disabled={!selectedD}>
+            <Select value={selectedP} onValueChange={setSelectedP}>
               <SelectTrigger className="bg-zinc-900 border-zinc-700 text-zinc-100">
                 <SelectValue placeholder="Wybierz P" />
               </SelectTrigger>
-              <SelectContent className="bg-zinc-900 border-zinc-700">
-                {availablePitches.map((p) => (
+              <SelectContent className="bg-zinc-900 border-zinc-700 max-h-60">
+                {STANDARD_PITCHES.map((p) => (
                   <SelectItem key={p} value={String(p)} className="text-zinc-100 focus:bg-zinc-800">
                     {p} mm
                   </SelectItem>
