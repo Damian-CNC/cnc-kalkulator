@@ -70,6 +70,7 @@ const AnimatedRoutes = () => {
             <Route path="/twardosc" element={<HardnessPage />} />
             <Route path="/kalkulator-gwintow" element={<ThreadCalculatorPage />} />
             <Route path="/tolerancje" element={<TolerancesPage />} />
+            <Route path="/standardowe-parametry" element={<StandardCuttingPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </motion.div>

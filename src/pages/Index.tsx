@@ -19,6 +19,14 @@ const tiles = [
     shadow: 'shadow-cyan-500/20',
   },
   {
+    id: 'std-cutting',
+    label: 'Standardowe Parametry',
+    icon: ClipboardList,
+    route: '/standardowe-parametry',
+    color: 'from-lime-500 to-green-400',
+    shadow: 'shadow-lime-500/20',
+  },
+  {
     id: 'weight',
     label: 'Kalkulator Wagi',
     icon: Scale,
