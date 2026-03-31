@@ -193,23 +193,27 @@ const ThreadCalculatorPage = () => {
 
 /* ---- Sub-components ---- */
 
-function DimensionCard({ label, nominal, max, min }: { label: string; nominal: number | null; max: number; min: number }) {
+function DimensionCard({ label, nominal, max, min }: { label: string; nominal: number | null; max: number | null; min: number | null }) {
   return (
     <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
       <p className="text-zinc-400 text-sm font-medium mb-2">{label}</p>
       {nominal !== null && (
         <p className="text-zinc-500 text-xs mb-2">Nominalna: {nominal} mm</p>
       )}
-      <div className="grid grid-cols-2 gap-3">
-        <div className="text-center">
-          <span className="text-xs text-zinc-500 uppercase tracking-wider">Max</span>
-          <p className="text-xl md:text-2xl font-bold text-emerald-400">{max}</p>
+      {(max !== null || min !== null) ? (
+        <div className="grid grid-cols-2 gap-3">
+          <div className="text-center">
+            <span className="text-xs text-zinc-500 uppercase tracking-wider">Max</span>
+            <p className="text-xl md:text-2xl font-bold text-emerald-400">{max ?? '—'}</p>
+          </div>
+          <div className="text-center">
+            <span className="text-xs text-zinc-500 uppercase tracking-wider">Min</span>
+            <p className="text-xl md:text-2xl font-bold text-amber-400">{min ?? '—'}</p>
+          </div>
         </div>
-        <div className="text-center">
-          <span className="text-xs text-zinc-500 uppercase tracking-wider">Min</span>
-          <p className="text-xl md:text-2xl font-bold text-amber-400">{min}</p>
-        </div>
-      </div>
+      ) : (
+        <p className="text-zinc-600 text-xs italic">Brak tolerancji w bazie</p>
+      )}
     </div>
   );
 }
