@@ -177,12 +177,12 @@ const ThreadCalculatorPage = () => {
           </Tabs>
         )}
 
-        {!selectedThread && selectedD && selectedP && (
-          <p className="text-center text-zinc-500 py-6">Brak danych dla wybranej kombinacji.</p>
+        {!selectedThread && parsedD !== null && selectedP && (
+          <p className="text-center text-zinc-500 py-6">Brak danych w bazie — wymiary obliczone ze wzorów.</p>
         )}
 
-        {(!selectedD || !selectedP) && (
-          <p className="text-center text-zinc-500 py-10">Wybierz średnicę i skok, aby zobaczyć wymiary gwintu.</p>
+        {(parsedD === null || !selectedP) && (
+          <p className="text-center text-zinc-500 py-10">Wpisz średnicę i wybierz skok, aby zobaczyć wymiary gwintu.</p>
         )}
       </div>
     </PageLayout>
