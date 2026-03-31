@@ -10,7 +10,7 @@ const PageLayout = ({ title, children }: PageLayoutProps) => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center px-4 py-6">
+    <div className="min-h-screen bg-background flex flex-col items-center px-4 py-6 pt-[max(1rem,env(safe-area-inset-top))]">
       <header className="w-full max-w-2xl flex items-center gap-3 mb-6">
         <button
           onClick={() => navigate('/')}
