@@ -16,38 +16,38 @@ const AnimatedRoutes = () => {
 
   useEffect(() => {
     const isGoingHome = location.pathname === '/';
-    const wasHome = prevPath.current === '/';
-    setDirection(isGoingHome ? -1 : wasHome ? 1 : 1);
+    setDirection(isGoingHome ? -1 : 1);
     prevPath.current = location.pathname;
   }, [location.pathname]);
 
-  const variants = {
-    enter: (dir: number) => ({
-      x: `${dir * 100}%`,
-      opacity: 1,
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-    },
-    exit: (dir: number) => ({
-      x: `${dir * -100}%`,
-      opacity: 1,
-    }),
-  };
-
   return (
-    <div className="overflow-x-hidden w-full">
-      <AnimatePresence mode="wait" custom={direction} initial={false}>
+    <div className="relative w-full h-dvh overflow-hidden bg-background">
+      <AnimatePresence initial={false} custom={direction}>
         <motion.div
           key={location.pathname}
           custom={direction}
-          variants={variants}
           initial="enter"
           animate="center"
           exit="exit"
-          transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
-          className="w-full"
+          variants={{
+            enter: (dir: number) => ({
+              x: dir > 0 ? '100%' : '0%',
+              zIndex: dir > 0 ? 2 : 0,
+              opacity: dir > 0 ? 1 : 0.5,
+            }),
+            center: {
+              x: '0%',
+              zIndex: 1,
+              opacity: 1,
+            },
+            exit: (dir: number) => ({
+              x: dir > 0 ? '0%' : '100%',
+              zIndex: dir > 0 ? 0 : 2,
+              opacity: dir > 0 ? 1 : 1,
+            }),
+          }}
+          transition={{ duration: 0.28, ease: [0.32, 0.72, 0, 1] }}
+          className="absolute inset-0 w-full h-full overflow-y-auto bg-background"
         >
           <Routes location={location}>
             <Route path="/" element={<Index />} />
