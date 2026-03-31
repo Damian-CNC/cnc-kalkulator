@@ -60,7 +60,7 @@ const AnimatedRoutes = () => {
           initial="initial"
           animate="animate"
           exit="exit"
-          className="absolute top-0 left-0 w-full min-h-[100dvh] overflow-y-auto bg-zinc-950"
+          className="absolute top-0 left-0 w-full h-[100dvh] overflow-y-auto bg-zinc-950 pb-20"
         >
           <Routes location={location}>
             <Route path="/" element={<Index />} />
