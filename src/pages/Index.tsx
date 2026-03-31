@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Settings, Scale, Triangle, Gem, Wrench } from 'lucide-react';
+import { Settings, Scale, Triangle, Gem, Wrench, Ruler } from 'lucide-react';
 
 const tiles = [
   {
@@ -41,6 +41,14 @@ const tiles = [
     route: '/twardosc',
     color: 'from-rose-500 to-pink-400',
     shadow: 'shadow-rose-500/20',
+  },
+  {
+    id: 'tolerances',
+    label: 'Tolerancje ISO 286',
+    icon: Ruler,
+    route: '/tolerancje',
+    color: 'from-sky-500 to-blue-400',
+    shadow: 'shadow-sky-500/20',
   },
 ];
 
