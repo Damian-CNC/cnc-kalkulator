@@ -8,6 +8,7 @@ import ConePage from '@/pages/ConePage';
 import HardnessPage from '@/pages/HardnessPage';
 import ThreadCalculatorPage from '@/pages/ThreadCalculatorPage';
 import TolerancesPage from '@/pages/TolerancesPage';
+import StandardCuttingPage from '@/pages/StandardCuttingPage';
 import NotFound from '@/pages/NotFound';
 
 const AnimatedRoutes = () => {
@@ -69,6 +70,7 @@ const AnimatedRoutes = () => {
             <Route path="/twardosc" element={<HardnessPage />} />
             <Route path="/kalkulator-gwintow" element={<ThreadCalculatorPage />} />
             <Route path="/tolerancje" element={<TolerancesPage />} />
+            <Route path="/standardowe-parametry" element={<StandardCuttingPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </motion.div>

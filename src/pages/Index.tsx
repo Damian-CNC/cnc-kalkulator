@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Settings, Scale, Triangle, Gem, Wrench, Ruler } from 'lucide-react';
+import { Settings, Scale, Triangle, Gem, Wrench, Ruler, ClipboardList } from 'lucide-react';
 
 const tiles = [
   {
@@ -17,6 +17,14 @@ const tiles = [
     route: '/parametry',
     color: 'from-cyan-500 to-teal-400',
     shadow: 'shadow-cyan-500/20',
+  },
+  {
+    id: 'std-cutting',
+    label: 'Standardowe Parametry',
+    icon: ClipboardList,
+    route: '/standardowe-parametry',
+    color: 'from-lime-500 to-green-400',
+    shadow: 'shadow-lime-500/20',
   },
   {
     id: 'weight',
