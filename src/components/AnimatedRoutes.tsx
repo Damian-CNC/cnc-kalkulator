@@ -47,7 +47,7 @@ const AnimatedRoutes = () => {
   };
 
   return (
-    <div className="relative w-full h-dvh overflow-hidden bg-background">
+    <div className="relative w-full h-[100dvh] overflow-hidden bg-zinc-950">
       <AnimatePresence initial={false} custom={direction} mode="popLayout">
         <motion.div
           key={location.pathname}
@@ -56,7 +56,7 @@ const AnimatedRoutes = () => {
           initial="initial"
           animate="animate"
           exit="exit"
-          className="absolute inset-0 w-full h-full overflow-y-auto bg-background"
+          className="absolute top-0 left-0 w-full min-h-[100dvh] overflow-y-auto bg-zinc-950"
         >
           <Routes location={location}>
             <Route path="/" element={<Index />} />
