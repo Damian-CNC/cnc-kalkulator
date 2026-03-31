@@ -42,6 +42,14 @@ const tiles = [
     color: 'from-rose-500 to-pink-400',
     shadow: 'shadow-rose-500/20',
   },
+  {
+    id: 'tolerances',
+    label: 'Tolerancje ISO 286',
+    icon: Ruler,
+    route: '/tolerancje',
+    color: 'from-sky-500 to-blue-400',
+    shadow: 'shadow-sky-500/20',
+  },
 ];
 
 const Index = () => {

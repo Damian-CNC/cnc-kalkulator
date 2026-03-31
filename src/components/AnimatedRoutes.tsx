@@ -57,6 +57,7 @@ const AnimatedRoutes = () => {
             <Route path="/stozek" element={<ConePage />} />
             <Route path="/twardosc" element={<HardnessPage />} />
             <Route path="/kalkulator-gwintow" element={<ThreadCalculatorPage />} />
+            <Route path="/tolerancje" element={<TolerancesPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </motion.div>
