@@ -8,6 +8,7 @@ import ConePage from '@/pages/ConePage';
 import HardnessPage from '@/pages/HardnessPage';
 import ThreadCalculatorPage from '@/pages/ThreadCalculatorPage';
 import TolerancesPage from '@/pages/TolerancesPage';
+import StandardCuttingPage from '@/pages/StandardCuttingPage';
 import NotFound from '@/pages/NotFound';
 
 const AnimatedRoutes = () => {
