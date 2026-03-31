@@ -40,7 +40,7 @@ const AnimatedRoutes = () => {
       opacity: 0,
       transition: {
         type: 'tween' as const,
-        ease: 'easeIn',
+        ease: 'easeIn' as const,
         duration: 0.2,
       },
     }),
