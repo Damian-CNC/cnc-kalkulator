@@ -57,7 +57,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center px-4 pb-8"
-         style={{ paddingTop: 'max(1.5rem, env(safe-area-inset-top))' }}>
+         style={{ paddingTop: 'max(2rem, env(safe-area-inset-top))' }}>
       <h1 className="text-2xl md:text-4xl font-black tracking-wide mb-6 text-zinc-100 select-none text-center">
         ⚙️ Kalkulator CNC
       </h1>
