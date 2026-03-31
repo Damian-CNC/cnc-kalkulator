@@ -30,18 +30,18 @@ const AnimatedRoutes = () => {
       x: 0,
       opacity: 1,
       transition: {
-        type: 'spring' as const,
-        stiffness: 300,
-        damping: 30,
+        type: 'tween' as const,
+        ease: 'easeOut',
+        duration: 0.25,
       },
     },
     exit: (dir: number) => ({
       x: dir > 0 ? '-100vw' : '100vw',
       opacity: 0,
       transition: {
-        type: 'spring' as const,
-        stiffness: 300,
-        damping: 30,
+        type: 'tween' as const,
+        ease: 'easeIn',
+        duration: 0.2,
       },
     }),
   };
