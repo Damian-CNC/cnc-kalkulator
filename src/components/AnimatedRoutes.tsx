@@ -21,33 +21,41 @@ const AnimatedRoutes = () => {
     prevPath.current = location.pathname;
   }, [location.pathname]);
 
+  const pageVariants = {
+    initial: (dir: number) => ({
+      x: dir > 0 ? '100vw' : '-100vw',
+      opacity: 0,
+    }),
+    animate: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        type: 'spring' as const,
+        stiffness: 300,
+        damping: 30,
+      },
+    },
+    exit: (dir: number) => ({
+      x: dir > 0 ? '-100vw' : '100vw',
+      opacity: 0,
+      transition: {
+        type: 'spring' as const,
+        stiffness: 300,
+        damping: 30,
+      },
+    }),
+  };
+
   return (
     <div className="relative w-full h-dvh overflow-hidden bg-background">
-      <AnimatePresence initial={false} custom={direction}>
+      <AnimatePresence initial={false} custom={direction} mode="popLayout">
         <motion.div
           key={location.pathname}
           custom={direction}
-          initial="enter"
-          animate="center"
+          variants={pageVariants}
+          initial="initial"
+          animate="animate"
           exit="exit"
-          variants={{
-            enter: (dir: number) => ({
-              x: dir > 0 ? '100%' : '0%',
-              zIndex: dir > 0 ? 2 : 0,
-              opacity: dir > 0 ? 1 : 0.5,
-            }),
-            center: {
-              x: '0%',
-              zIndex: 1,
-              opacity: 1,
-            },
-            exit: (dir: number) => ({
-              x: dir > 0 ? '0%' : '100%',
-              zIndex: dir > 0 ? 0 : 2,
-              opacity: dir > 0 ? 1 : 1,
-            }),
-          }}
-          transition={{ duration: 0.55, ease: [0.32, 0.72, 0, 1] }}
           className="absolute inset-0 w-full h-full overflow-y-auto bg-background"
         >
           <Routes location={location}>
