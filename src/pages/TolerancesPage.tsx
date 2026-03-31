@@ -3,33 +3,30 @@ import PageLayout from '@/components/PageLayout';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import {
   calculateTolerance,
-  HOLE_LETTERS,
-  SHAFT_LETTERS,
-  IT_GRADES,
+  HOLE_TOLERANCES,
+  SHAFT_TOLERANCES,
 } from '@/utils/isoTolerancesDatabase';
 
 const TolerancesPage = () => {
   const [nominalInput, setNominalInput] = useState('');
   const [isHole, setIsHole] = useState(true);
-  const [selectedLetter, setSelectedLetter] = useState('H');
-  const [selectedIT, setSelectedIT] = useState('7');
+  const [selectedTolerance, setSelectedTolerance] = useState('H7');
 
   const parsedNominal = useMemo(() => {
     const val = parseFloat(nominalInput.replace(',', '.'));
     return isNaN(val) || val <= 0 ? null : val;
   }, [nominalInput]);
 
-  const letters = isHole ? HOLE_LETTERS : SHAFT_LETTERS;
+  const toleranceOptions = isHole ? HOLE_TOLERANCES : SHAFT_TOLERANCES;
 
   const result = useMemo(() => {
-    if (parsedNominal === null || !selectedLetter || !selectedIT) return null;
-    return calculateTolerance(parsedNominal, isHole, selectedLetter, parseInt(selectedIT));
-  }, [parsedNominal, isHole, selectedLetter, selectedIT]);
+    if (parsedNominal === null || !selectedTolerance) return null;
+    return calculateTolerance(parsedNominal, isHole, selectedTolerance);
+  }, [parsedNominal, isHole, selectedTolerance]);
 
   const handleTypeChange = (hole: boolean) => {
     setIsHole(hole);
-    setSelectedLetter(hole ? 'H' : 'h');
-    setSelectedIT('7');
+    setSelectedTolerance(hole ? 'H7' : 'h7');
   };
 
   return (
@@ -59,7 +56,7 @@ const TolerancesPage = () => {
                 : 'bg-zinc-900 border-zinc-700 text-zinc-500'
             }`}
           >
-            🕳️ Otwór (A–ZC)
+            🕳️ Otwór
           </button>
           <button
             onClick={() => handleTypeChange(false)}
@@ -69,43 +66,25 @@ const TolerancesPage = () => {
                 : 'bg-zinc-900 border-zinc-700 text-zinc-500'
             }`}
           >
-            🔩 Wałek (a–zc)
+            🔩 Wałek
           </button>
         </div>
 
-        {/* Letter + IT grade selectors */}
-        <div className="grid grid-cols-2 gap-3">
-          <div className="flex flex-col gap-1.5">
-            <label className="text-zinc-400 text-sm font-medium">Litera tolerancji</label>
-            <Select value={selectedLetter} onValueChange={setSelectedLetter}>
-              <SelectTrigger className="bg-zinc-900 border-zinc-700 text-zinc-100">
-                <SelectValue placeholder="Litera" />
-              </SelectTrigger>
-              <SelectContent className="bg-zinc-900 border-zinc-700 max-h-60">
-                {letters.map((l) => (
-                  <SelectItem key={l} value={l} className="text-zinc-100 focus:bg-zinc-800">
-                    {l}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="flex flex-col gap-1.5">
-            <label className="text-zinc-400 text-sm font-medium">Klasa IT</label>
-            <Select value={selectedIT} onValueChange={setSelectedIT}>
-              <SelectTrigger className="bg-zinc-900 border-zinc-700 text-zinc-100">
-                <SelectValue placeholder="IT" />
-              </SelectTrigger>
-              <SelectContent className="bg-zinc-900 border-zinc-700 max-h-60">
-                {IT_GRADES.map((g) => (
-                  <SelectItem key={g} value={String(g)} className="text-zinc-100 focus:bg-zinc-800">
-                    IT{g}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+        {/* Tolerance selector */}
+        <div className="flex flex-col gap-1.5">
+          <label className="text-zinc-400 text-sm font-medium">Tolerancja</label>
+          <Select value={selectedTolerance} onValueChange={setSelectedTolerance}>
+            <SelectTrigger className="bg-zinc-900 border-zinc-700 text-zinc-100">
+              <SelectValue placeholder="Wybierz tolerancję" />
+            </SelectTrigger>
+            <SelectContent className="bg-zinc-900 border-zinc-700 max-h-60">
+              {toleranceOptions.map((t) => (
+                <SelectItem key={t} value={t} className="text-zinc-100 focus:bg-zinc-800">
+                  {t}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
         {/* Result display */}
@@ -120,7 +99,7 @@ const TolerancesPage = () => {
 
             {/* Range info */}
             <p className="text-center text-zinc-500 text-xs">
-              Przedział wymiarowy: {result.rangeLabel} mm · Tolerancja IT{result.itGrade} = {result.toleranceValue} μm
+              Przedział wymiarowy: {result.rangeLabel} mm
             </p>
 
             {/* Deviations card */}
@@ -128,21 +107,21 @@ const TolerancesPage = () => {
               <p className="text-zinc-400 text-sm font-medium mb-3">Odchyłki</p>
               <div className="grid grid-cols-2 gap-3">
                 <div className="text-center">
-                  <span className="text-xs text-zinc-500 uppercase tracking-wider">Górna (ES/es)</span>
+                  <span className="text-xs text-zinc-500 uppercase tracking-wider">Górna</span>
                   <p className="text-2xl font-bold text-emerald-400">
-                    {result.upperDeviation > 0 ? '+' : ''}{result.upperDeviation} <span className="text-sm text-zinc-500">μm</span>
+                    {result.upperDeviation_um > 0 ? '+' : ''}{result.upperDeviation_um} <span className="text-sm text-zinc-500">μm</span>
                   </p>
                   <p className="text-xs text-zinc-600 mt-0.5">
-                    {result.upperDeviation > 0 ? '+' : ''}{(result.upperDeviation / 1000).toFixed(3)} mm
+                    {result.upperDeviation_mm > 0 ? '+' : ''}{result.upperDeviation_mm.toFixed(3)} mm
                   </p>
                 </div>
                 <div className="text-center">
-                  <span className="text-xs text-zinc-500 uppercase tracking-wider">Dolna (EI/ei)</span>
+                  <span className="text-xs text-zinc-500 uppercase tracking-wider">Dolna</span>
                   <p className="text-2xl font-bold text-amber-400">
-                    {result.lowerDeviation > 0 ? '+' : ''}{result.lowerDeviation} <span className="text-sm text-zinc-500">μm</span>
+                    {result.lowerDeviation_um > 0 ? '+' : ''}{result.lowerDeviation_um} <span className="text-sm text-zinc-500">μm</span>
                   </p>
                   <p className="text-xs text-zinc-600 mt-0.5">
-                    {result.lowerDeviation > 0 ? '+' : ''}{(result.lowerDeviation / 1000).toFixed(3)} mm
+                    {result.lowerDeviation_mm > 0 ? '+' : ''}{result.lowerDeviation_mm.toFixed(3)} mm
                   </p>
                 </div>
               </div>
@@ -169,7 +148,7 @@ const TolerancesPage = () => {
 
         {parsedNominal !== null && !result && (
           <p className="text-center text-amber-400/70 py-6 text-sm">
-            Brak danych dla tej kombinacji. Sprawdź wymiar (0–500 mm) i literę.
+            Brak danych dla tej kombinacji. Sprawdź wymiar (0–1000 mm) i tolerancję.
           </p>
         )}
 
