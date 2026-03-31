@@ -7,6 +7,7 @@ import WeightPage from '@/pages/WeightPage';
 import ConePage from '@/pages/ConePage';
 import HardnessPage from '@/pages/HardnessPage';
 import ThreadCalculatorPage from '@/pages/ThreadCalculatorPage';
+import TolerancesPage from '@/pages/TolerancesPage';
 import NotFound from '@/pages/NotFound';
 
 const AnimatedRoutes = () => {
