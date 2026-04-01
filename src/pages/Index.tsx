@@ -6,7 +6,7 @@ const tiles = [
     id: 'threads',
     label: 'Gwinty',
     icon: Wrench,
-    route: '/kalkulator-gwintow',
+    route: '/threads',
     color: 'from-emerald-500 to-green-400',
     shadow: 'shadow-emerald-500/20',
   },
