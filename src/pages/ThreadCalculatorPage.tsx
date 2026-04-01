@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import PageLayout from '@/components/PageLayout';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import BspThreadCalculator from '@/components/BspThreadCalculator';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import { calculateMetricThread } from '@/utils/threadMath';
 import threadsData from '@/data/metric_threads.json';
