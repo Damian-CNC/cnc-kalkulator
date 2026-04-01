@@ -6,7 +6,9 @@ import ParametersPage from '@/pages/ParametersPage';
 import WeightPage from '@/pages/WeightPage';
 import ConePage from '@/pages/ConePage';
 import HardnessPage from '@/pages/HardnessPage';
-import ThreadCalculatorPage from '@/pages/ThreadCalculatorPage';
+import ThreadsMenuPage from '@/pages/ThreadsMenuPage';
+import MetricThreadPage from '@/pages/MetricThreadPage';
+import BspThreadPage from '@/pages/BspThreadPage';
 import TolerancesPage from '@/pages/TolerancesPage';
 import StandardCuttingPage from '@/pages/StandardCuttingPage';
 import NotFound from '@/pages/NotFound';
@@ -20,7 +22,7 @@ const AnimatedRoutes = () => {
   const isPopNavigation = navigationType === 'POP';
 
   useEffect(() => {
-    const isGoingHome = location.pathname === '/';
+    const isGoingHome = location.pathname === '/' || location.pathname === '/threads';
     setDirection(isGoingHome ? -1 : 1);
     prevPath.current = location.pathname;
   }, [location.pathname]);
@@ -68,7 +70,9 @@ const AnimatedRoutes = () => {
             <Route path="/waga" element={<WeightPage />} />
             <Route path="/stozek" element={<ConePage />} />
             <Route path="/twardosc" element={<HardnessPage />} />
-            <Route path="/kalkulator-gwintow" element={<ThreadCalculatorPage />} />
+            <Route path="/threads" element={<ThreadsMenuPage />} />
+            <Route path="/threads/metric" element={<MetricThreadPage />} />
+            <Route path="/threads/bsp" element={<BspThreadPage />} />
             <Route path="/tolerancje" element={<TolerancesPage />} />
             <Route path="/standardowe-parametry" element={<StandardCuttingPage />} />
             <Route path="*" element={<NotFound />} />
