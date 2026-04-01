@@ -242,6 +242,12 @@ const ThreadCalculatorPage = () => {
           <p className="text-center text-zinc-500 py-10">Wpisz średnicę i wybierz skok, aby zobaczyć wymiary gwintu.</p>
         )}
       </div>
+        </TabsContent>
+
+        <TabsContent value="bsp">
+          <BspThreadCalculator />
+        </TabsContent>
+      </Tabs>
     </PageLayout>
   );
 };
