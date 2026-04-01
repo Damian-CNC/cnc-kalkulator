@@ -4,7 +4,7 @@ import { Settings, Scale, Triangle, Gem, Wrench, Ruler, ClipboardList } from 'lu
 const tiles = [
   {
     id: 'threads',
-    label: 'Gwinty Metryczne',
+    label: 'Gwinty',
     icon: Wrench,
     route: '/kalkulator-gwintow',
     color: 'from-emerald-500 to-green-400',
