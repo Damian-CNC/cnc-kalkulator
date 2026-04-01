@@ -91,9 +91,19 @@ const ThreadCalculatorPage = () => {
   }, [parsedD, effectivePitch, selectedThread]);
 
   return (
-    <PageLayout title="Gwinty Metryczne">
+    <PageLayout title="Gwinty">
+      <Tabs defaultValue="metric" className="w-full">
+        <TabsList className="w-full bg-zinc-900 border border-zinc-800 mb-5">
+          <TabsTrigger value="metric" className="flex-1 data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50">
+            🔩 Metryczne
+          </TabsTrigger>
+          <TabsTrigger value="bsp" className="flex-1 data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50">
+            🔧 Rurowe BSP (G)
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="metric">
       <div className="space-y-5">
-        {/* Selectors */}
         <div className="grid grid-cols-2 gap-3">
           <div className="flex flex-col gap-1.5">
             <label className="text-zinc-400 text-sm font-medium">Średnica (d) mm</label>
