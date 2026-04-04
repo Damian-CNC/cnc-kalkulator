@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Wrench, CircleDot } from 'lucide-react';
+import { ArrowLeft, Wrench, CircleDot, Cog, Settings2 } from 'lucide-react';
 
 const tiles = [
   {
@@ -17,6 +17,22 @@ const tiles = [
     route: '/threads/bsp',
     color: 'from-sky-500 to-cyan-400',
     shadow: 'shadow-sky-500/20',
+  },
+  {
+    id: 'bsw',
+    label: 'Gwinty BSW (Whitworth)',
+    icon: Cog,
+    route: '/threads/bsw',
+    color: 'from-violet-500 to-purple-400',
+    shadow: 'shadow-violet-500/20',
+  },
+  {
+    id: 'bsf',
+    label: 'Gwinty BSF (British Fine)',
+    icon: Settings2,
+    route: '/threads/bsf',
+    color: 'from-rose-500 to-pink-400',
+    shadow: 'shadow-rose-500/20',
   },
 ];
 

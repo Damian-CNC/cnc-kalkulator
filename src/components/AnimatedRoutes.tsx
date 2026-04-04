@@ -75,6 +75,8 @@ const AnimatedRoutes = () => {
             <Route path="/threads" element={<ThreadsMenuPage />} />
             <Route path="/threads/metric" element={<MetricThreadPage />} />
             <Route path="/threads/bsp" element={<BspThreadPage />} />
+            <Route path="/threads/bsw" element={<BswThreadPage />} />
+            <Route path="/threads/bsf" element={<BsfThreadPage />} />
             <Route path="/tolerancje" element={<TolerancesPage />} />
             <Route path="/standardowe-parametry" element={<StandardCuttingPage />} />
             <Route path="*" element={<NotFound />} />
