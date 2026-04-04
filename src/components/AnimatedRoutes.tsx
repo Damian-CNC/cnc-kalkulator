@@ -9,6 +9,8 @@ import HardnessPage from '@/pages/HardnessPage';
 import ThreadsMenuPage from '@/pages/ThreadsMenuPage';
 import MetricThreadPage from '@/pages/MetricThreadPage';
 import BspThreadPage from '@/pages/BspThreadPage';
+import BswThreadPage from '@/pages/BswThreadPage';
+import BsfThreadPage from '@/pages/BsfThreadPage';
 import TolerancesPage from '@/pages/TolerancesPage';
 import StandardCuttingPage from '@/pages/StandardCuttingPage';
 import NotFound from '@/pages/NotFound';
@@ -73,6 +75,8 @@ const AnimatedRoutes = () => {
             <Route path="/threads" element={<ThreadsMenuPage />} />
             <Route path="/threads/metric" element={<MetricThreadPage />} />
             <Route path="/threads/bsp" element={<BspThreadPage />} />
+            <Route path="/threads/bsw" element={<BswThreadPage />} />
+            <Route path="/threads/bsf" element={<BsfThreadPage />} />
             <Route path="/tolerancje" element={<TolerancesPage />} />
             <Route path="/standardowe-parametry" element={<StandardCuttingPage />} />
             <Route path="*" element={<NotFound />} />
