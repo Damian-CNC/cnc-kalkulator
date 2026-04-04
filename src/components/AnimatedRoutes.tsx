@@ -9,6 +9,8 @@ import HardnessPage from '@/pages/HardnessPage';
 import ThreadsMenuPage from '@/pages/ThreadsMenuPage';
 import MetricThreadPage from '@/pages/MetricThreadPage';
 import BspThreadPage from '@/pages/BspThreadPage';
+import BswThreadPage from '@/pages/BswThreadPage';
+import BsfThreadPage from '@/pages/BsfThreadPage';
 import TolerancesPage from '@/pages/TolerancesPage';
 import StandardCuttingPage from '@/pages/StandardCuttingPage';
 import NotFound from '@/pages/NotFound';
