@@ -63,6 +63,25 @@ const tiles = [
 const Index = () => {
   const navigate = useNavigate();
 
+  const handleForceUpdate = async () => {
+    try {
+      if ('caches' in window) {
+        const cacheNames = await caches.keys();
+        await Promise.all(cacheNames.map(name => caches.delete(name)));
+      }
+      if ('serviceWorker' in navigator) {
+        const registrations = await navigator.serviceWorker.getRegistrations();
+        for (const registration of registrations) {
+          await registration.unregister();
+        }
+      }
+      window.location.reload();
+    } catch (error) {
+      console.error('Błąd podczas aktualizacji:', error);
+      window.location.reload();
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background flex flex-col items-center px-4 pb-8"
          style={{ paddingTop: 'max(2rem, env(safe-area-inset-top))' }}>
