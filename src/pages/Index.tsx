@@ -90,7 +90,15 @@ const Index = () => {
         })}
       </div>
 
-      <footer className="text-center mt-auto pt-10 text-zinc-600 text-sm">
+      <button
+        onClick={handleForceUpdate}
+        className="mt-8 mb-4 flex items-center gap-2 px-4 py-2.5 rounded-xl border border-zinc-800 bg-zinc-900/50 text-zinc-500 hover:text-zinc-300 hover:border-zinc-600 transition-colors text-sm"
+      >
+        <RefreshCw className="w-4 h-4" />
+        Wymuś aktualizację
+      </button>
+
+      <footer className="text-center mt-auto pt-6 text-zinc-600 text-sm pb-[max(0.5rem,env(safe-area-inset-bottom))]">
         © 2025 Damian Drewniak
       </footer>
     </div>
