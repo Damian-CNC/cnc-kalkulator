@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Settings, Scale, Triangle, Gem, Wrench, Ruler, ClipboardList } from 'lucide-react';
+import { Settings, Scale, Triangle, Gem, Wrench, Ruler, ClipboardList, RefreshCw } from 'lucide-react';
 
 const tiles = [
   {
