@@ -14,45 +14,45 @@ const toDms = (deg: number) => {
   return { d, m, s };
 };
 
-type SolvedField = 'd1' | 'd2' | 'l' | 'alpha' | null;
+type SolvedField = 'd1' | 'd2' | 'l' | 'halfAngle' | null;
 
 const TaperCalculatorPage = () => {
   const navigate = useNavigate();
   const [d1Input, setD1Input] = useState('');
   const [d2Input, setD2Input] = useState('');
   const [lInput, setLInput] = useState('');
-  const [alphaInput, setAlphaInput] = useState(''); // full angle α in degrees
+  const [halfAngleInput, setHalfAngleInput] = useState(''); // α/2 in degrees
 
-  const clearAll = () => { setD1Input(''); setD2Input(''); setLInput(''); setAlphaInput(''); };
+  const clearAll = () => { setD1Input(''); setD2Input(''); setLInput(''); setHalfAngleInput(''); };
 
   const solver = useMemo(() => {
     const D1 = parse(d1Input);
     const D2 = parse(d2Input);
     const L = parse(lInput);
-    const alpha = parse(alphaInput); // full angle α
+    const halfDeg = parse(halfAngleInput); // α/2
 
-    const filled = [D1, D2, L, alpha].filter(v => v !== null).length;
+    const filled = [D1, D2, L, halfDeg].filter(v => v !== null).length;
     if (filled < 3) return null;
 
     let solvedField: SolvedField = null;
-    let rD1 = D1, rD2 = D2, rL = L, rAlpha = alpha;
+    let rD1 = D1, rD2 = D2, rL = L, rHalf = halfDeg;
 
-    if (D1 !== null && D2 !== null && L !== null && alpha === null) {
+    if (D1 !== null && D2 !== null && L !== null && halfDeg === null) {
       const big = Math.max(D1, D2); const small = Math.min(D1, D2);
-      rAlpha = 2 * Math.atan((big - small) / (2 * L)) * (180 / Math.PI);
+      rHalf = Math.atan((big - small) / (2 * L)) * (180 / Math.PI);
       rD1 = big; rD2 = small;
-      solvedField = 'alpha';
-    } else if (D2 !== null && L !== null && alpha !== null && D1 === null) {
-      const halfRad = (alpha / 2) * (Math.PI / 180);
+      solvedField = 'halfAngle';
+    } else if (D2 !== null && L !== null && halfDeg !== null && D1 === null) {
+      const halfRad = halfDeg * (Math.PI / 180);
       rD1 = D2 + 2 * L * Math.tan(halfRad);
       solvedField = 'd1';
-    } else if (D1 !== null && L !== null && alpha !== null && D2 === null) {
-      const halfRad = (alpha / 2) * (Math.PI / 180);
+    } else if (D1 !== null && L !== null && halfDeg !== null && D2 === null) {
+      const halfRad = halfDeg * (Math.PI / 180);
       rD2 = D1 - 2 * L * Math.tan(halfRad);
       if (rD2! < 0) rD2 = 0;
       solvedField = 'd2';
-    } else if (D1 !== null && D2 !== null && alpha !== null && L === null) {
-      const halfRad = (alpha / 2) * (Math.PI / 180);
+    } else if (D1 !== null && D2 !== null && halfDeg !== null && L === null) {
+      const halfRad = halfDeg * (Math.PI / 180);
       const tanA = Math.tan(halfRad);
       if (tanA === 0) return null;
       const big = Math.max(D1, D2); const small = Math.min(D1, D2);
@@ -61,22 +61,22 @@ const TaperCalculatorPage = () => {
       solvedField = 'l';
     } else if (filled === 4) {
       const big = Math.max(D1!, D2!); const small = Math.min(D1!, D2!);
-      rAlpha = 2 * Math.atan((big - small) / (2 * L!)) * (180 / Math.PI);
+      rHalf = Math.atan((big - small) / (2 * L!)) * (180 / Math.PI);
       rD1 = big; rD2 = small; rL = L;
       solvedField = null;
     } else { return null; }
 
-    if (rD1 === null || rD2 === null || rL === null || rAlpha === null || rL === 0) return null;
+    if (rD1 === null || rD2 === null || rL === null || rHalf === null || rL === 0) return null;
 
-    const halfDeg = rAlpha / 2;
+    const alphaDeg = rHalf * 2;
     const C = (rD1 - rD2) / rL;
     const taperRatio = C > 0 ? 1 / C : 0;
 
     return {
-      d1: rD1, d2: rD2, l: rL, alphaDeg: rAlpha, halfDeg, C, taperRatio,
-      dmsAlpha: toDms(rAlpha), dmsHalf: toDms(halfDeg), solvedField,
+      d1: rD1, d2: rD2, l: rL, halfDeg: rHalf, alphaDeg, C, taperRatio,
+      dmsAlpha: toDms(alphaDeg), dmsHalf: toDms(rHalf), solvedField,
     };
-  }, [d1Input, d2Input, lInput, alphaInput]);
+  }, [d1Input, d2Input, lInput, halfAngleInput]);
 
   // Dynamic SVG
   const svg = useMemo(() => {
