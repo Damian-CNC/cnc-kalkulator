@@ -148,8 +148,8 @@ const TaperCalculatorPage = () => {
             solved={solver?.solvedField === 'd2'} solvedValue={solver?.d2} unit="mm" accentClass={accent} />
           <Field label="L — Długość (mm)" value={lInput} onChange={setLInput} color="text-zinc-300"
             solved={solver?.solvedField === 'l'} solvedValue={solver?.l} unit="mm" accentClass={accent} />
-          <Field label="α — Kąt pełny (°)" value={alphaInput} onChange={setAlphaInput} color="text-pink-400"
-            solved={solver?.solvedField === 'alpha'} solvedValue={solver?.alphaDeg} unit="°" accentClass={accent} />
+          <Field label="α/2 — Kąt ustawienia (°)" value={halfAngleInput} onChange={setHalfAngleInput} color="text-pink-400"
+            solved={solver?.solvedField === 'halfAngle'} solvedValue={solver?.halfDeg} unit="°" accentClass={accent} />
         </div>
 
         <button onClick={clearAll} className="flex items-center gap-2 mx-auto px-4 py-2 rounded-xl border border-zinc-800 bg-zinc-900/50 text-zinc-500 hover:text-zinc-300 hover:border-zinc-600 transition-colors text-sm">
