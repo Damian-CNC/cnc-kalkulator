@@ -96,7 +96,7 @@ const Index = () => {
     <div className="min-h-screen bg-background flex flex-col items-center px-4 pb-8"
          style={{ paddingTop: 'max(2rem, env(safe-area-inset-top))' }}>
       <motion.div
-        className="flex items-center gap-3 mb-6 select-none"
+        className="flex items-center justify-center gap-3 mb-6 select-none"
         initial={{ rotate: -360, scale: 0.5, opacity: 0 }}
         animate={{ rotate: 0, scale: [1, 1.05, 1], opacity: 1 }}
         transition={{
