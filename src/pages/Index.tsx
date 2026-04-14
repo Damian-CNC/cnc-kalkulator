@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Settings, Scale, Triangle, Gem, Wrench, Ruler, ClipboardList, RefreshCw, Cone } from 'lucide-react';
 import { motion } from 'framer-motion';
+import logo from '@/assets/logo.png';
 
 const tiles = [
   {
