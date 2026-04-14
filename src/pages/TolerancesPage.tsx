@@ -163,6 +163,24 @@ const TolerancesPage = () => {
                   <span className="text-xs text-zinc-500">mm</span>
                 </div>
               </div>
+              {/* Środek tolerancji */}
+              <div className="border-t border-cyan-800/30 mt-4 pt-3">
+                <p className="text-xs text-zinc-500 text-center mb-1">Środek tolerancji (Idealny)</p>
+                <p className="text-3xl md:text-4xl font-black text-cyan-400 text-center">
+                  {((result.dimMax + result.dimMin) / 2).toFixed(3)} <span className="text-sm font-normal text-zinc-500">mm</span>
+                </p>
+                <div className="relative mt-3 h-2 rounded-full bg-zinc-700/50">
+                  <div className="absolute inset-y-0 left-0 right-0 rounded-full bg-gradient-to-r from-amber-500/40 via-cyan-500/40 to-emerald-500/40" />
+                  <div className="absolute top-1/2 -translate-y-1/2 left-0 w-2.5 h-2.5 rounded-full bg-amber-400 border border-zinc-900" />
+                  <div className="absolute top-1/2 -translate-y-1/2 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 border border-zinc-900" />
+                  <div className="absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-cyan-400 border-2 border-zinc-900 shadow-lg shadow-cyan-500/30" style={{ left: '50%', transform: 'translate(-50%, -50%)' }} />
+                </div>
+                <div className="flex justify-between mt-1">
+                  <span className="text-[10px] text-amber-500/70">MIN</span>
+                  <span className="text-[10px] text-cyan-400 font-bold">↑ Celuj tutaj</span>
+                  <span className="text-[10px] text-emerald-500/70">MAX</span>
+                </div>
+              </div>
             </div>
 
             <p className="text-zinc-600 text-xs text-center">
