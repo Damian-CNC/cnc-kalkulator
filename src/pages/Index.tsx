@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Settings, Scale, Triangle, Gem, Wrench, Ruler, ClipboardList, RefreshCw } from 'lucide-react';
+import { Settings, Scale, Triangle, Gem, Wrench, Ruler, ClipboardList, RefreshCw, Cone } from 'lucide-react';
 
 const tiles = [
   {
@@ -41,6 +41,14 @@ const tiles = [
     route: '/stozek',
     color: 'from-amber-500 to-orange-400',
     shadow: 'shadow-amber-500/20',
+  },
+  {
+    id: 'taper',
+    label: 'Kalkulator Stożków',
+    icon: Cone,
+    route: '/kalkulator-stozkow',
+    color: 'from-pink-500 to-fuchsia-400',
+    shadow: 'shadow-pink-500/20',
   },
   {
     id: 'std-cutting',

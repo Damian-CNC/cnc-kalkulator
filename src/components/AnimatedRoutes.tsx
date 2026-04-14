@@ -13,6 +13,7 @@ import BswThreadPage from '@/pages/BswThreadPage';
 import BsfThreadPage from '@/pages/BsfThreadPage';
 import TolerancesPage from '@/pages/TolerancesPage';
 import StandardCuttingPage from '@/pages/StandardCuttingPage';
+import TaperCalculatorPage from '@/pages/TaperCalculatorPage';
 import NotFound from '@/pages/NotFound';
 
 const AnimatedRoutes = () => {
@@ -79,6 +80,7 @@ const AnimatedRoutes = () => {
             <Route path="/threads/bsf" element={<BsfThreadPage />} />
             <Route path="/tolerancje" element={<TolerancesPage />} />
             <Route path="/standardowe-parametry" element={<StandardCuttingPage />} />
+            <Route path="/kalkulator-stozkow" element={<TaperCalculatorPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </motion.div>
