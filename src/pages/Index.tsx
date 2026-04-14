@@ -3,14 +3,6 @@ import { Settings, Scale, Triangle, Gem, Wrench, Ruler, ClipboardList, RefreshCw
 
 const tiles = [
   {
-    id: 'threads',
-    label: 'Gwinty',
-    icon: Wrench,
-    route: '/threads',
-    color: 'from-emerald-500 to-green-400',
-    shadow: 'shadow-emerald-500/20',
-  },
-  {
     id: 'parameters',
     label: 'Parametry Skrawania',
     icon: Settings,
@@ -19,12 +11,20 @@ const tiles = [
     shadow: 'shadow-cyan-500/20',
   },
   {
-    id: 'std-cutting',
-    label: 'Standardowe Parametry',
-    icon: ClipboardList,
-    route: '/standardowe-parametry',
-    color: 'from-lime-500 to-green-400',
-    shadow: 'shadow-lime-500/20',
+    id: 'tolerances',
+    label: 'Tolerancje ISO 286',
+    icon: Ruler,
+    route: '/tolerancje',
+    color: 'from-sky-500 to-blue-400',
+    shadow: 'shadow-sky-500/20',
+  },
+  {
+    id: 'threads',
+    label: 'Gwinty',
+    icon: Wrench,
+    route: '/threads',
+    color: 'from-emerald-500 to-green-400',
+    shadow: 'shadow-emerald-500/20',
   },
   {
     id: 'weight',
@@ -43,20 +43,20 @@ const tiles = [
     shadow: 'shadow-amber-500/20',
   },
   {
+    id: 'std-cutting',
+    label: 'Standardowe Parametry',
+    icon: ClipboardList,
+    route: '/standardowe-parametry',
+    color: 'from-lime-500 to-green-400',
+    shadow: 'shadow-lime-500/20',
+  },
+  {
     id: 'hardness',
     label: 'Twardość',
     icon: Gem,
     route: '/twardosc',
     color: 'from-rose-500 to-pink-400',
     shadow: 'shadow-rose-500/20',
-  },
-  {
-    id: 'tolerances',
-    label: 'Tolerancje ISO 286',
-    icon: Ruler,
-    route: '/tolerancje',
-    color: 'from-sky-500 to-blue-400',
-    shadow: 'shadow-sky-500/20',
   },
 ];
 
