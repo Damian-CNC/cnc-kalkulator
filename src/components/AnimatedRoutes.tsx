@@ -80,6 +80,7 @@ const AnimatedRoutes = () => {
             <Route path="/threads/bsf" element={<BsfThreadPage />} />
             <Route path="/tolerancje" element={<TolerancesPage />} />
             <Route path="/standardowe-parametry" element={<StandardCuttingPage />} />
+            <Route path="/kalkulator-stozkow" element={<TaperCalculatorPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </motion.div>
