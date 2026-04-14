@@ -82,11 +82,14 @@ const BspThreadCalculator = () => {
 };
 
 function DimensionCard({ label, limits }: { label: string; limits: ThreadLimits }) {
+  const mid = ((limits.max + limits.min) / 2).toFixed(3);
+  const range = limits.max - limits.min;
+  const midPct = range > 0 ? 50 : 50;
   return (
     <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
       <p className="text-zinc-400 text-sm font-medium mb-2">{label}</p>
       <p className="text-zinc-500 text-xs mb-2">Nominalna: {limits.nom} mm</p>
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-3 mb-3">
         <div className="text-center">
           <span className="text-xs text-zinc-500 uppercase tracking-wider">Max</span>
           <p className="text-xl md:text-2xl font-bold text-emerald-400">{limits.max}</p>
@@ -94,6 +97,23 @@ function DimensionCard({ label, limits }: { label: string; limits: ThreadLimits 
         <div className="text-center">
           <span className="text-xs text-zinc-500 uppercase tracking-wider">Min</span>
           <p className="text-xl md:text-2xl font-bold text-amber-400">{limits.min}</p>
+        </div>
+      </div>
+      {/* Środek tolerancji */}
+      <div className="border-t border-zinc-700/50 pt-3">
+        <p className="text-xs text-zinc-500 text-center mb-1">Środek tolerancji (Idealny)</p>
+        <p className="text-2xl md:text-3xl font-black text-cyan-400 text-center">{mid} <span className="text-sm font-normal text-zinc-500">mm</span></p>
+        {/* Wizualny pasek */}
+        <div className="relative mt-3 h-2 rounded-full bg-zinc-700/50">
+          <div className="absolute inset-y-0 left-0 right-0 rounded-full bg-gradient-to-r from-amber-500/40 via-cyan-500/40 to-emerald-500/40" />
+          <div className="absolute top-1/2 -translate-y-1/2 left-0 w-2.5 h-2.5 rounded-full bg-amber-400 border border-zinc-900" />
+          <div className="absolute top-1/2 -translate-y-1/2 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 border border-zinc-900" />
+          <div className="absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-cyan-400 border-2 border-zinc-900 shadow-lg shadow-cyan-500/30" style={{ left: `${midPct}%`, transform: 'translate(-50%, -50%)' }} />
+        </div>
+        <div className="flex justify-between mt-1">
+          <span className="text-[10px] text-amber-500/70">MIN</span>
+          <span className="text-[10px] text-cyan-400 font-bold">↑ Celuj tutaj</span>
+          <span className="text-[10px] text-emerald-500/70">MAX</span>
         </div>
       </div>
     </div>
