@@ -10,8 +10,8 @@ import {
 
 const TolerancesPage = () => {
   const [nominalInput, setNominalInput] = useState('');
-  const [isHole, setIsHole] = useState(true);
-  const [selectedLetter, setSelectedLetter] = useState('H');
+  const [isHole, setIsHole] = useState(false);
+  const [selectedLetter, setSelectedLetter] = useState('h');
   const [selectedIT, setSelectedIT] = useState('7');
 
   const parsedNominal = useMemo(() => {
