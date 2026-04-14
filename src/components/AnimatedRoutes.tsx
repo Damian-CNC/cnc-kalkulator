@@ -23,6 +23,7 @@ const AnimatedRoutes = () => {
   const [direction, setDirection] = useState(1);
 
   const isPopNavigation = navigationType === 'POP';
+  const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
 
   useEffect(() => {
     const isGoingHome = location.pathname === '/' || location.pathname === '/threads';
@@ -30,10 +31,12 @@ const AnimatedRoutes = () => {
     prevPath.current = location.pathname;
   }, [location.pathname]);
 
+  const getDuration = (mobileDur: number) => (!isMobile || isPopNavigation) ? 0 : mobileDur;
+
   const pageVariants = {
     initial: (dir: number) => ({
-      x: isPopNavigation ? 0 : (dir > 0 ? '100vw' : '-100vw'),
-      opacity: isPopNavigation ? 1 : 0,
+      x: (isPopNavigation || !isMobile) ? 0 : (dir > 0 ? '100vw' : '-100vw'),
+      opacity: (isPopNavigation || !isMobile) ? 1 : 0,
     }),
     animate: {
       x: 0,
@@ -41,16 +44,16 @@ const AnimatedRoutes = () => {
       transition: {
         type: 'tween' as const,
         ease: 'easeOut' as const,
-        duration: isPopNavigation ? 0 : 0.25,
+        duration: getDuration(0.25),
       },
     },
     exit: (dir: number) => ({
-      x: isPopNavigation ? 0 : (dir > 0 ? '-100vw' : '100vw'),
-      opacity: isPopNavigation ? 1 : 0,
+      x: (isPopNavigation || !isMobile) ? 0 : (dir > 0 ? '-100vw' : '100vw'),
+      opacity: (isPopNavigation || !isMobile) ? 1 : 0,
       transition: {
         type: 'tween' as const,
         ease: 'easeIn' as const,
-        duration: isPopNavigation ? 0 : 0.2,
+        duration: getDuration(0.2),
       },
     }),
   };

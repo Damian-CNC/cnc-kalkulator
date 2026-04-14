@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Settings, Scale, Triangle, Gem, Wrench, Ruler, ClipboardList, RefreshCw, Cone } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const tiles = [
   {
@@ -93,9 +94,21 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col items-center px-4 pb-8"
          style={{ paddingTop: 'max(2rem, env(safe-area-inset-top))' }}>
-      <h1 className="text-2xl md:text-4xl font-black tracking-wide mb-6 text-zinc-100 select-none text-center">
+      <motion.h1
+        className="text-2xl md:text-4xl font-black tracking-wide mb-6 text-zinc-100 select-none text-center"
+        initial={{ rotate: -360, scale: 0.5, opacity: 0 }}
+        animate={{ rotate: 0, scale: [1, 1.05, 1], opacity: 1 }}
+        transition={{
+          rotate: { duration: 0.8, ease: 'easeOut' },
+          scale: { duration: 2, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut', delay: 0.8 },
+          opacity: { duration: 0.4 },
+        }}
+        style={{
+          textShadow: '0 0 20px rgba(6,182,212,0.4), 0 0 40px rgba(6,182,212,0.2)',
+        }}
+      >
         ⚙️ Kalkulator CNC
-      </h1>
+      </motion.h1>
 
       <div className="w-full max-w-md flex flex-col gap-3 px-2">
         {tiles.map((tile) => {
