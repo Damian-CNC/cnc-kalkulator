@@ -49,6 +49,7 @@ const tiles = [
     route: '/kalkulator-stozkow',
     color: 'from-pink-500 to-fuchsia-400',
     shadow: 'shadow-pink-500/20',
+  },
   {
     id: 'std-cutting',
     label: 'Standardowe Parametry',
