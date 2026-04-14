@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Settings, Scale, Triangle, Gem, Wrench, Ruler, ClipboardList, RefreshCw, Cone } from 'lucide-react';
 import { motion } from 'framer-motion';
+import logo from '@/assets/logo.png';
 
 const tiles = [
   {
@@ -94,8 +95,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col items-center px-4 pb-8"
          style={{ paddingTop: 'max(2rem, env(safe-area-inset-top))' }}>
-      <motion.h1
-        className="text-2xl md:text-4xl font-black tracking-wide mb-6 text-zinc-100 select-none text-center"
+      <motion.div
+        className="flex items-center gap-3 mb-6 select-none"
         initial={{ rotate: -360, scale: 0.5, opacity: 0 }}
         animate={{ rotate: 0, scale: [1, 1.05, 1], opacity: 1 }}
         transition={{
@@ -103,12 +104,15 @@ const Index = () => {
           scale: { duration: 2, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut', delay: 0.8 },
           opacity: { duration: 0.4 },
         }}
-        style={{
-          textShadow: '0 0 20px rgba(6,182,212,0.4), 0 0 40px rgba(6,182,212,0.2)',
-        }}
       >
-        ⚙️ Kalkulator CNC
-      </motion.h1>
+        <img src={logo} alt="Kalkulator CNC" className="h-12 w-12 rounded-xl drop-shadow-[0_0_12px_rgba(6,182,212,0.5)]" />
+        <h1
+          className="text-2xl md:text-4xl font-black tracking-wide text-zinc-100"
+          style={{ textShadow: '0 0 20px rgba(6,182,212,0.4), 0 0 40px rgba(6,182,212,0.2)' }}
+        >
+          Kalkulator CNC
+        </h1>
+      </motion.div>
 
       <div className="w-full max-w-md flex flex-col gap-3 px-2">
         {tiles.map((tile) => {
