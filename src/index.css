@@ -123,6 +123,13 @@ html, body {
     @apply text-muted-foreground;
   }
 
+  .input-field.computed {
+    border-color: hsl(var(--primary));
+    color: hsl(var(--primary));
+    background: rgba(0, 244, 226, 0.06);
+    box-shadow: 0 0 0 2px rgba(0, 244, 226, 0.12);
+  }
+
   .nav-tab {
     @apply flex-1 py-3 px-4 rounded-2xl font-semibold text-sm md:text-base transition-all duration-300 cursor-pointer border-none;
     background: transparent;
