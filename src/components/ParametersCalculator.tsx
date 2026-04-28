@@ -270,31 +270,13 @@ const ParametersCalculator = () => {
       {/* Pionowy pasek WYCZYŚĆ – przyklejony do prawej krawędzi ekranu */}
       <button
         onClick={handleClear}
-        className="clear-vertical clear-vertical-fixed group"
+        className="fixed right-0 top-0 h-[100dvh] w-12 sm:w-16 bg-red-950/80 hover:bg-red-900 border-l border-red-900/50 flex items-center justify-center z-50 cursor-pointer transition-colors pb-safe"
         aria-label="Wyczyść wszystkie pola"
         title="Wyczyść wszystkie pola"
-        style={{
-          paddingTop: 'max(1.5rem, env(safe-area-inset-top))',
-          paddingBottom: 'max(1.5rem, env(safe-area-inset-bottom))',
-        }}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="w-6 h-6 mb-3 transition-transform group-hover:scale-110"
-        >
-          <path d="M3 6h18" />
-          <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-          <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
-          <path d="M10 11v6" />
-          <path d="M14 11v6" />
-        </svg>
-        <span className="clear-vertical-text">WYCZYŚĆ</span>
+        <span className="transform -rotate-90 whitespace-nowrap tracking-[0.3em] font-bold text-red-200 text-sm sm:text-base uppercase">
+          WYCZYŚĆ
+        </span>
       </button>
     </div>
   );
