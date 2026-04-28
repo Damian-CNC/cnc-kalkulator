@@ -178,6 +178,16 @@ html, body {
     transform: scale(0.98);
   }
 
+  .clear-vertical-fixed {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100dvh;
+    z-index: 50;
+    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.5);
+    border-left: 2px solid rgba(0, 244, 226, 0.35);
+  }
+
   .clear-vertical-text {
     writing-mode: vertical-rl;
     transform: rotate(180deg);

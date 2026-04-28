@@ -140,7 +140,7 @@ const ParametersCalculator = () => {
 
   return (
     <div className="glass-container p-0 overflow-hidden">
-      <div className="flex items-stretch">
+      <div className="flex items-stretch pr-14 md:pr-16">
         {/* Sekcja pól */}
         <div className="flex-1 flex flex-col gap-6 p-6 md:p-8 min-w-0">
           {/* Module 1: Obroty (Vc, D, n) */}
@@ -265,32 +265,37 @@ const ParametersCalculator = () => {
           </details>
         </div>
 
-        {/* Pionowy pasek WYCZYŚĆ */}
-        <button
-          onClick={handleClear}
-          className="clear-vertical group"
-          aria-label="Wyczyść wszystkie pola"
-          title="Wyczyść wszystkie pola"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="w-6 h-6 mb-3 transition-transform group-hover:scale-110"
-          >
-            <path d="M3 6h18" />
-            <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
-            <path d="M10 11v6" />
-            <path d="M14 11v6" />
-          </svg>
-          <span className="clear-vertical-text">WYCZYŚĆ</span>
-        </button>
       </div>
+
+      {/* Pionowy pasek WYCZYŚĆ – przyklejony do prawej krawędzi ekranu */}
+      <button
+        onClick={handleClear}
+        className="clear-vertical clear-vertical-fixed group"
+        aria-label="Wyczyść wszystkie pola"
+        title="Wyczyść wszystkie pola"
+        style={{
+          paddingTop: 'max(1.5rem, env(safe-area-inset-top))',
+          paddingBottom: 'max(1.5rem, env(safe-area-inset-bottom))',
+        }}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="w-6 h-6 mb-3 transition-transform group-hover:scale-110"
+        >
+          <path d="M3 6h18" />
+          <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+          <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+          <path d="M10 11v6" />
+          <path d="M14 11v6" />
+        </svg>
+        <span className="clear-vertical-text">WYCZYŚĆ</span>
+      </button>
     </div>
   );
 };
