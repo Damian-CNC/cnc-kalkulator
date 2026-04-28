@@ -6,9 +6,9 @@ const ParametersPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="relative w-full h-[100dvh] overflow-hidden bg-background">
-      {/* Lewa strona – scrollowana zawartość */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-y-auto pr-14 pb-[max(1rem,env(safe-area-inset-bottom))]">
+    <div className="flex w-full h-[100dvh] overflow-hidden bg-background">
+      {/* LEWA STRONA – OBSZAR PRZEWIJANY */}
+      <div className="flex-1 h-full overflow-y-auto pb-[max(2rem,env(safe-area-inset-bottom))]">
         <div className="flex flex-col items-center px-4 py-6 pt-[max(1rem,env(safe-area-inset-top))]">
           <header className="w-full max-w-2xl flex items-center gap-3 mb-6">
             <button
@@ -29,19 +29,21 @@ const ParametersPage = () => {
         </div>
       </div>
 
-      {/* Prawa strona – sztywny pionowy przycisk WYCZYŚĆ */}
-      <button
+      {/* PRAWA STRONA – SZTYWNY PRZYCISK WYCZYŚĆ */}
+      <div
         onClick={() => {
           window.dispatchEvent(new CustomEvent('parameters-calculator-clear'));
         }}
-        className="absolute top-0 right-0 w-14 h-full bg-zinc-900 border-l border-zinc-800 flex items-center justify-center z-50 cursor-pointer hover:bg-zinc-800 transition-colors pb-[max(0px,env(safe-area-inset-bottom))]"
+        role="button"
+        tabIndex={0}
         aria-label="Wyczyść wszystkie pola"
         title="Wyczyść wszystkie pola"
+        className="w-14 sm:w-16 shrink-0 h-full bg-zinc-900 border-l border-zinc-800 flex items-center justify-center cursor-pointer hover:bg-zinc-800 transition-colors select-none"
       >
         <span className="-rotate-90 whitespace-nowrap tracking-[0.3em] font-bold text-red-500 text-sm uppercase">
           Wyczyść
         </span>
-      </button>
+      </div>
     </div>
   );
 };
