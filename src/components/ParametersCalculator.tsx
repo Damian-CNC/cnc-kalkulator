@@ -296,7 +296,6 @@ const ParametersCalculator = () => {
         </svg>
         <span className="clear-vertical-text">WYCZYŚĆ</span>
       </button>
-      </div>
     </div>
   );
 };
