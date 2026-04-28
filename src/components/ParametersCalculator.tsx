@@ -139,141 +139,156 @@ const ParametersCalculator = () => {
   const isComputed = (f: Field) => computed.has(f);
 
   return (
-    <div className="glass-container">
-      <div className="flex flex-col gap-6">
-        {/* Module 1: Obroty (Vc, D, n) */}
-        <div className="glass-module">
-          <h2 className="text-primary font-semibold text-lg mb-4 flex items-center gap-2">
-            🌀 Obroty &amp; prędkość skrawania
-          </h2>
-          <div className="flex flex-col gap-4">
-            <InputField
-              label="Prędkość skrawania Vc [m/min]"
-              type="number"
-              step="0.1"
-              inputMode="decimal"
-              value={values.vc}
-              onChange={handleChange('vc')}
-              computed={isComputed('vc')}
-              placeholder="np. 180"
-            />
-            <InputField
-              label="Średnica narzędzia D [mm]"
-              type="number"
-              step="0.1"
-              inputMode="decimal"
-              value={values.D}
-              onChange={handleChange('D')}
-              computed={isComputed('D')}
-              placeholder="np. 10"
-            />
-            <InputField
-              label="Obroty n [obr/min]"
-              type="number"
-              step="1"
-              inputMode="decimal"
-              value={values.n}
-              onChange={handleChange('n')}
-              computed={isComputed('n')}
-              placeholder="np. 5730"
-            />
+    <div className="glass-container p-0 overflow-hidden">
+      <div className="flex items-stretch">
+        {/* Sekcja pól */}
+        <div className="flex-1 flex flex-col gap-6 p-6 md:p-8 min-w-0">
+          {/* Module 1: Obroty (Vc, D, n) */}
+          <div className="glass-module">
+            <h2 className="text-primary font-semibold text-lg mb-4 flex items-center gap-2">
+              🌀 Obroty &amp; prędkość skrawania
+            </h2>
+            <div className="flex flex-col gap-4">
+              <InputField
+                label="Prędkość skrawania Vc [m/min]"
+                type="number"
+                step="0.1"
+                inputMode="decimal"
+                value={values.vc}
+                onChange={handleChange('vc')}
+                computed={isComputed('vc')}
+              />
+              <InputField
+                label="Średnica narzędzia D [mm]"
+                type="number"
+                step="0.1"
+                inputMode="decimal"
+                value={values.D}
+                onChange={handleChange('D')}
+                computed={isComputed('D')}
+              />
+              <InputField
+                label="Obroty n [obr/min]"
+                type="number"
+                step="1"
+                inputMode="decimal"
+                value={values.n}
+                onChange={handleChange('n')}
+                computed={isComputed('n')}
+              />
+            </div>
           </div>
+
+          {/* Module 2: Posuw (fz, Z, n, Vf) */}
+          <div className="glass-module">
+            <h2 className="text-primary font-semibold text-lg mb-4 flex items-center gap-2">
+              🚀 Posuw minutowy
+            </h2>
+            <div className="flex flex-col gap-4">
+              <InputField
+                label="Posuw na ząb fz [mm/ząb]"
+                type="number"
+                step="0.001"
+                inputMode="decimal"
+                value={values.fz}
+                onChange={handleChange('fz')}
+                computed={isComputed('fz')}
+              />
+              <InputField
+                label="Liczba zębów Z"
+                type="number"
+                step="1"
+                inputMode="numeric"
+                value={values.Z}
+                onChange={handleChange('Z')}
+                computed={isComputed('Z')}
+              />
+              <InputField
+                label="Posuw minutowy Vf [mm/min]"
+                type="number"
+                step="0.1"
+                inputMode="decimal"
+                value={values.vf}
+                onChange={handleChange('vf')}
+                computed={isComputed('vf')}
+              />
+            </div>
+          </div>
+
+          {/* Module 3: Interpolacja kołowa (D, D2, Vf, Fc) */}
+          <details className="glass-module group" open>
+            <summary className="text-primary font-semibold text-lg mb-4 flex items-center gap-2 cursor-pointer list-none">
+              <span className="transition-transform group-open:rotate-90">▸</span>
+              🎯 Interpolacja kołowa (posuw centralny)
+            </summary>
+            <div className="flex flex-col gap-4 mt-2">
+              <p className="text-muted-foreground text-xs">
+                Wymaga D₂ &gt; D (średnica narzędzia). Vf to posuw na obwodzie, Fc to posuw w osi środka narzędzia.
+              </p>
+              <InputField
+                label="Średnica narzędzia D₁ = D [mm]"
+                type="number"
+                step="0.1"
+                inputMode="decimal"
+                value={values.D}
+                onChange={handleChange('D')}
+                computed={isComputed('D')}
+              />
+              <InputField
+                label="Średnica obrabiana D₂ [mm]"
+                type="number"
+                step="0.1"
+                inputMode="decimal"
+                value={values.d2}
+                onChange={handleChange('d2')}
+                computed={isComputed('d2')}
+              />
+              <InputField
+                label="Posuw obwodowy Vf [mm/min]"
+                type="number"
+                step="0.1"
+                inputMode="decimal"
+                value={values.vf}
+                onChange={handleChange('vf')}
+                computed={isComputed('vf')}
+              />
+              <InputField
+                label="Posuw centralny Fc [mm/min]"
+                type="number"
+                step="0.1"
+                inputMode="decimal"
+                value={values.fc}
+                onChange={handleChange('fc')}
+                computed={isComputed('fc')}
+              />
+            </div>
+          </details>
         </div>
 
-        {/* Module 2: Posuw (fz, Z, n, Vf) */}
-        <div className="glass-module">
-          <h2 className="text-primary font-semibold text-lg mb-4 flex items-center gap-2">
-            🚀 Posuw minutowy
-          </h2>
-          <div className="flex flex-col gap-4">
-            <InputField
-              label="Posuw na ząb fz [mm/ząb]"
-              type="number"
-              step="0.001"
-              inputMode="decimal"
-              value={values.fz}
-              onChange={handleChange('fz')}
-              computed={isComputed('fz')}
-              placeholder="np. 0.05"
-            />
-            <InputField
-              label="Liczba zębów Z"
-              type="number"
-              step="1"
-              inputMode="numeric"
-              value={values.Z}
-              onChange={handleChange('Z')}
-              computed={isComputed('Z')}
-              placeholder="np. 4"
-            />
-            <InputField
-              label="Posuw minutowy Vf [mm/min]"
-              type="number"
-              step="0.1"
-              inputMode="decimal"
-              value={values.vf}
-              onChange={handleChange('vf')}
-              computed={isComputed('vf')}
-              placeholder="np. 1146"
-            />
-          </div>
-        </div>
-
-        {/* Module 3: Interpolacja kołowa (D, D2, Vf, Fc) */}
-        <details className="glass-module group" open>
-          <summary className="text-primary font-semibold text-lg mb-4 flex items-center gap-2 cursor-pointer list-none">
-            <span className="transition-transform group-open:rotate-90">▸</span>
-            🎯 Interpolacja kołowa (posuw centralny)
-          </summary>
-          <div className="flex flex-col gap-4 mt-2">
-            <p className="text-muted-foreground text-xs">
-              Wymaga D₂ &gt; D (średnica narzędzia). Vf to posuw na obwodzie, Fc to posuw w osi środka narzędzia.
-            </p>
-            <InputField
-              label="Średnica narzędzia D₁ = D [mm]"
-              type="number"
-              step="0.1"
-              inputMode="decimal"
-              value={values.D}
-              onChange={handleChange('D')}
-              computed={isComputed('D')}
-              placeholder="np. 10"
-            />
-            <InputField
-              label="Średnica obrabiana D₂ [mm]"
-              type="number"
-              step="0.1"
-              inputMode="decimal"
-              value={values.d2}
-              onChange={handleChange('d2')}
-              computed={isComputed('d2')}
-              placeholder="np. 20"
-            />
-            <InputField
-              label="Posuw obwodowy Vf [mm/min]"
-              type="number"
-              step="0.1"
-              inputMode="decimal"
-              value={values.vf}
-              onChange={handleChange('vf')}
-              computed={isComputed('vf')}
-              placeholder="np. 1146"
-            />
-            <InputField
-              label="Posuw centralny Fc [mm/min]"
-              type="number"
-              step="0.1"
-              inputMode="decimal"
-              value={values.fc}
-              onChange={handleChange('fc')}
-              computed={isComputed('fc')}
-              placeholder="np. 573"
-            />
-          </div>
-        </details>
-
-        <button onClick={handleClear} className="clear-btn mt-2">
-          Wyczyść / Reset
+        {/* Pionowy pasek WYCZYŚĆ */}
+        <button
+          onClick={handleClear}
+          className="clear-vertical group"
+          aria-label="Wyczyść wszystkie pola"
+          title="Wyczyść wszystkie pola"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="w-6 h-6 mb-3 transition-transform group-hover:scale-110"
+          >
+            <path d="M3 6h18" />
+            <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+            <path d="M10 11v6" />
+            <path d="M14 11v6" />
+          </svg>
+          <span className="clear-vertical-text">WYCZYŚĆ</span>
         </button>
       </div>
     </div>
