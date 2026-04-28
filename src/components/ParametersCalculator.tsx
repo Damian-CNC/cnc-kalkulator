@@ -272,18 +272,6 @@ const ParametersCalculator = () => {
         </div>
 
       </div>
-
-      {/* Pionowy pasek WYCZYŚĆ – przyklejony do prawej krawędzi ekranu */}
-      <button
-        onClick={handleClear}
-        className="fixed right-0 top-0 h-[100dvh] w-12 sm:w-16 bg-red-950/80 hover:bg-red-900 border-l border-red-900/50 flex items-center justify-center z-50 cursor-pointer transition-colors pb-safe"
-        aria-label="Wyczyść wszystkie pola"
-        title="Wyczyść wszystkie pola"
-      >
-        <span className="transform -rotate-90 whitespace-nowrap tracking-[0.3em] font-bold text-red-200 text-sm sm:text-base uppercase">
-          WYCZYŚĆ
-        </span>
-      </button>
     </div>
   );
 };
