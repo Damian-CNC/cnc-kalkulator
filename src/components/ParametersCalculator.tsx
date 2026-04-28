@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 import InputField from './InputField';
 
 type Field = 'D' | 'Z' | 'vc' | 'n' | 'fz' | 'vf' | 'd2' | 'fc';
@@ -136,11 +136,17 @@ const ParametersCalculator = () => {
     setComputed(new Set());
   };
 
+  useEffect(() => {
+    const handler = () => handleClear();
+    window.addEventListener('parameters-calculator-clear', handler);
+    return () => window.removeEventListener('parameters-calculator-clear', handler);
+  }, []);
+
   const isComputed = (f: Field) => computed.has(f);
 
   return (
     <div className="glass-container p-0 overflow-hidden">
-      <div className="flex items-stretch pr-12 sm:pr-16">
+      <div className="flex items-stretch">
         {/* Sekcja pól */}
         <div className="flex-1 flex flex-col gap-6 p-6 md:p-8 min-w-0">
           {/* Module 1: Obroty (Vc, D, n) */}
@@ -266,18 +272,6 @@ const ParametersCalculator = () => {
         </div>
 
       </div>
-
-      {/* Pionowy pasek WYCZYŚĆ – przyklejony do prawej krawędzi ekranu */}
-      <button
-        onClick={handleClear}
-        className="fixed right-0 top-0 h-[100dvh] w-12 sm:w-16 bg-red-950/80 hover:bg-red-900 border-l border-red-900/50 flex items-center justify-center z-50 cursor-pointer transition-colors pb-safe"
-        aria-label="Wyczyść wszystkie pola"
-        title="Wyczyść wszystkie pola"
-      >
-        <span className="transform -rotate-90 whitespace-nowrap tracking-[0.3em] font-bold text-red-200 text-sm sm:text-base uppercase">
-          WYCZYŚĆ
-        </span>
-      </button>
     </div>
   );
 };
