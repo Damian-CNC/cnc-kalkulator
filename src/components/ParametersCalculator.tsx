@@ -140,7 +140,7 @@ const ParametersCalculator = () => {
 
   return (
     <div className="glass-container p-0 overflow-hidden">
-      <div className="flex items-stretch">
+      <div className="flex items-stretch pr-14 md:pr-16">
         {/* Sekcja pól */}
         <div className="flex-1 flex flex-col gap-6 p-6 md:p-8 min-w-0">
           {/* Module 1: Obroty (Vc, D, n) */}
