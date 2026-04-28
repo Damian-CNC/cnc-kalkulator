@@ -136,6 +136,12 @@ const ParametersCalculator = () => {
     setComputed(new Set());
   };
 
+  useEffect(() => {
+    const handler = () => handleClear();
+    window.addEventListener('parameters-calculator-clear', handler);
+    return () => window.removeEventListener('parameters-calculator-clear', handler);
+  }, []);
+
   const isComputed = (f: Field) => computed.has(f);
 
   return (
