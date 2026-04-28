@@ -9,9 +9,9 @@ const ParametersPage = () => {
   };
 
   return (
-    <div className="flex w-full min-h-screen relative bg-zinc-950 overflow-x-hidden">
-      {/* LEWA STRONA (Kalkulator): Wypełnia przestrzeń. Brak własnego suwaka. */}
-      <div className="flex-1 p-4 sm:p-6 pb-safe">
+    <div className="grid grid-cols-[1fr_3.5rem] sm:grid-cols-[1fr_4rem] w-full h-[100dvh] overflow-hidden bg-zinc-950">
+      {/* LEWA KOLUMNA: kalkulator z własnym scrollem pionowym */}
+      <div className="h-full overflow-y-auto overflow-x-hidden p-4 sm:p-6 pb-safe">
         <div className="flex flex-col items-center pt-[max(1rem,env(safe-area-inset-top))]">
           <header className="w-full max-w-2xl flex items-center gap-3 mb-6">
             <button
@@ -32,18 +32,15 @@ const ParametersPage = () => {
         </div>
       </div>
 
-      {/* PRAWA STRONA (Tor dla przycisku): Pusta kolumna o szerokości przycisku */}
-      <div className="w-14 sm:w-16 shrink-0 relative">
-        {/* SAM PRZYCISK: 'sticky top-0' sprawia, że sunie razem z ekranem. */}
-        <div
-          onClick={handleReset}
-          className="sticky top-0 h-[100dvh] w-full bg-zinc-900 border-l border-zinc-800 flex items-center justify-center cursor-pointer hover:bg-zinc-800 transition-colors z-40 select-none pb-safe"
-        >
-          <span className="-rotate-90 whitespace-nowrap tracking-[0.3em] font-bold text-red-500 text-sm uppercase">
-            Wyczyść
-          </span>
-        </div>
-      </div>
+      {/* PRAWA KOLUMNA: przycisk WYCZYŚĆ */}
+      <button
+        onClick={handleReset}
+        className="h-full bg-red-950/20 hover:bg-red-900/40 border-l border-zinc-800 flex items-center justify-center transition-all cursor-pointer group"
+      >
+        <span className="-rotate-90 whitespace-nowrap tracking-[0.3em] font-bold text-red-500 text-xs sm:text-sm uppercase group-hover:scale-110 transition-transform">
+          Wyczyść
+        </span>
+      </button>
     </div>
   );
 };
