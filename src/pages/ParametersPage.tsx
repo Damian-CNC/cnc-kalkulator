@@ -9,7 +9,7 @@ const ParametersPage = () => {
   };
 
   return (
-    <div className="flex w-full min-h-screen relative bg-zinc-950">
+    <div className="flex w-full min-h-screen relative bg-zinc-950 overflow-x-hidden">
       {/* LEWA STRONA (Kalkulator): Wypełnia przestrzeń. Brak własnego suwaka. */}
       <div className="flex-1 p-4 sm:p-6 pb-safe">
         <div className="flex flex-col items-center pt-[max(1rem,env(safe-area-inset-top))]">
