@@ -9,10 +9,10 @@ const ParametersPage = () => {
   };
 
   return (
-    <div className="grid grid-cols-[1fr_3.5rem] sm:grid-cols-[1fr_4rem] w-full h-[100dvh] overflow-hidden bg-zinc-950">
-      {/* LEWA KOLUMNA: kalkulator z własnym scrollem pionowym */}
-      <div className="h-full overflow-y-auto overflow-x-hidden p-4 sm:p-6 pb-safe">
-        <div className="flex flex-col items-center pt-[max(1rem,env(safe-area-inset-top))]">
+    <div className="relative h-[100dvh] w-full bg-zinc-950 overflow-hidden">
+      {/* SEKCJA PRZEWIJANA */}
+      <div className="h-full w-full overflow-y-auto overflow-x-hidden pr-14 sm:pr-16 pb-20">
+        <div className="flex flex-col items-center p-4 sm:p-6 pt-[max(1rem,env(safe-area-inset-top))]">
           <header className="w-full max-w-2xl flex items-center gap-3 mb-6">
             <button
               onClick={() => navigate('/')}
@@ -32,12 +32,12 @@ const ParametersPage = () => {
         </div>
       </div>
 
-      {/* PRAWA KOLUMNA: przycisk WYCZYŚĆ */}
+      {/* PRZYCISK WYCZYŚĆ — stała warstwa po prawej */}
       <button
         onClick={handleReset}
-        className="h-full bg-red-950/20 hover:bg-red-900/40 border-l border-zinc-800 flex items-center justify-center transition-all cursor-pointer group"
+        className="absolute top-0 right-0 h-full w-14 sm:w-16 bg-zinc-900/90 border-l border-zinc-800 flex items-center justify-center z-[100] cursor-pointer hover:bg-zinc-800 transition-all active:scale-95"
       >
-        <span className="-rotate-90 whitespace-nowrap tracking-[0.3em] font-bold text-red-500 text-xs sm:text-sm uppercase group-hover:scale-110 transition-transform">
+        <span className="-rotate-90 whitespace-nowrap tracking-widest font-bold text-red-500 text-xs sm:text-sm uppercase">
           Wyczyść
         </span>
       </button>
