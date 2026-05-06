@@ -36,8 +36,8 @@ const TolerancesPage = () => {
     <PageLayout title="Tolerancje ISO 286">
       <div className="space-y-5">
         {/* Nominal dimension input */}
-        <div className="flex flex-col gap-1.5">
-          <label className="text-zinc-400 text-sm font-medium">Wymiar nominalny (mm)</label>
+        <div className="flex flex-col">
+          <label className="block text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider">Wymiar nominalny (mm)</label>
           <input
             type="text"
             inputMode="decimal"
@@ -45,7 +45,7 @@ const TolerancesPage = () => {
             placeholder="np. 25"
             value={nominalInput}
             onChange={(e) => setNominalInput(e.target.value)}
-            className="flex h-12 w-full rounded-xl border border-zinc-700 bg-zinc-900 px-4 py-3 text-lg text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 text-center font-bold"
+            className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500/50 transition-all text-lg text-center font-bold"
           />
         </div>
 

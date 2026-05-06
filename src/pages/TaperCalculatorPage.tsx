@@ -208,14 +208,14 @@ function Field({ label, value, onChange, color, solved, solvedValue, unit, accen
   solved: boolean; solvedValue?: number; unit: string; accentClass: string;
 }) {
   return (
-    <div className="flex flex-col gap-1.5">
-      <label className={`text-xs font-medium ${color}`}>{label}</label>
+    <div className="flex flex-col">
+      <label className={`block text-xs font-semibold mb-2 uppercase tracking-wider ${color}`}>{label}</label>
       <input type="text" inputMode="decimal" placeholder={solved && solvedValue !== undefined ? solvedValue.toFixed(3) : '—'}
         value={value} onChange={(e) => onChange(e.target.value)}
-        className={`flex h-12 w-full rounded-xl border bg-zinc-900 px-3 py-3 text-lg text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 text-center font-bold transition-all ${solved ? accentClass : 'border-zinc-700'}`}
+        className={`w-full bg-zinc-900/50 border rounded-xl px-4 py-4 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500/50 transition-all text-lg text-center font-bold ${solved ? accentClass : 'border-zinc-800'}`}
       />
       {solved && solvedValue !== undefined && (
-        <span className="text-cyan-400 text-xs text-center font-bold">= {solvedValue.toFixed(3)} {unit}</span>
+        <span className="text-cyan-400 text-xs text-center font-bold mt-1">= {solvedValue.toFixed(3)} {unit}</span>
       )}
     </div>
   );
