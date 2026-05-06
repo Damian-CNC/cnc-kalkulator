@@ -6,7 +6,7 @@
     <title>Kalkulator CNC - Parametry skrawania i waga</title>
     <meta name="description" content="Profesjonalny kalkulator CNC do obliczania parametrów skrawania (obroty, posuw, posuw centralny) oraz wagi przygotówek z różnych materiałów." />
     <meta name="author" content="Damian Drewniak" />
-    <meta name="theme-color" content="#00f4e2" />
+    <meta name="theme-color" content="#09090b" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     
     <!-- PWA -->
@@ -27,8 +27,20 @@
     <meta name="twitter:description" content="Profesjonalny kalkulator CNC do obliczania parametrów skrawania i wagi przygotówek." />
   </head>
 
-  <body>
-    <div id="root"></div>
+  <body style="margin:0;background-color:#09090b;">
+    <div id="root">
+      <style>
+        .app-preloader{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#09090b;color:#00f4e2;font-family:system-ui,-apple-system,sans-serif;gap:24px;z-index:9999;}
+        .app-preloader__ring{width:56px;height:56px;border-radius:50%;border:3px solid rgba(0,244,226,0.15);border-top-color:#00f4e2;animation:app-preloader-spin 0.9s linear infinite;}
+        .app-preloader__label{font-size:13px;letter-spacing:0.4em;text-transform:uppercase;opacity:0.7;animation:app-preloader-pulse 1.6s ease-in-out infinite;}
+        @keyframes app-preloader-spin{to{transform:rotate(360deg);}}
+        @keyframes app-preloader-pulse{0%,100%{opacity:0.4;}50%{opacity:0.9;}}
+      </style>
+      <div class="app-preloader" aria-label="Ładowanie aplikacji">
+        <div class="app-preloader__ring"></div>
+        <div class="app-preloader__label">CNC</div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
