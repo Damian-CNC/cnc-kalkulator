@@ -79,21 +79,24 @@ const MetricThreadPage = () => {
   }, [parsedD, effectivePitch, selectedThread]);
 
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center px-4 py-6 pt-[max(1rem,env(safe-area-inset-top))]">
-      <header className="w-full max-w-2xl flex items-center gap-3 mb-6">
+    <div
+      className="min-h-screen bg-zinc-950 text-zinc-100 overflow-x-hidden pb-safe"
+      style={{ paddingTop: 'max(0.5rem, env(safe-area-inset-top))' }}
+    >
+      <header className="flex items-center gap-4 mb-6 sm:mb-8 mt-2 p-4 sm:p-6 pb-0 max-w-2xl mx-auto w-full">
         <button
           onClick={() => navigate('/gwinty')}
-          className="flex items-center gap-2 px-3 py-2 rounded-xl text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/60 transition-colors text-sm font-medium"
+          className="p-2 -ml-2 rounded-xl text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800 transition-colors"
+          aria-label="Wstecz"
         >
-          <ArrowLeft className="w-4 h-4" />
-          <span className="hidden sm:inline">Gwinty</span>
+          <ArrowLeft className="w-5 h-5" />
         </button>
-        <h1 className="text-xl md:text-2xl font-bold text-zinc-100 tracking-wide">
+        <h1 className="text-lg sm:text-xl font-bold tracking-wide">
           Gwinty Metryczne
         </h1>
       </header>
 
-      <main className="w-full max-w-2xl mx-auto">
+      <main className="w-full max-w-2xl mx-auto px-4 sm:px-6">
         <div className="space-y-5">
           <div className="grid grid-cols-2 gap-3">
             <div className="flex flex-col gap-1.5">
