@@ -8,11 +8,11 @@ interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
 const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
   ({ label, className = '', computed = false, ...props }, ref) => {
     return (
-      <div className="flex flex-col gap-2">
-        <label className="text-muted-foreground font-medium text-sm flex items-center gap-2">
+      <div className="flex flex-col">
+        <label className="block text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider flex items-center gap-2">
           {label}
           {computed && (
-            <span className="text-[10px] uppercase tracking-wider text-primary font-bold">
+            <span className="text-[10px] uppercase tracking-wider text-cyan-400 font-bold normal-case">
               auto
             </span>
           )}

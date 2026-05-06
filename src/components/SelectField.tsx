@@ -7,8 +7,8 @@ interface SelectFieldProps extends SelectHTMLAttributes<HTMLSelectElement> {
 
 const SelectField = ({ label, options, className = '', ...props }: SelectFieldProps) => {
   return (
-    <div className="flex flex-col gap-2">
-      <label className="text-muted-foreground font-medium text-sm">
+    <div className="flex flex-col">
+      <label className="block text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider">
         {label}
       </label>
       <select

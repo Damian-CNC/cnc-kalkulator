@@ -28,10 +28,10 @@ const WhitworthThreadCalculator = ({ threads, sizes, standardLabel, emptyMessage
 
   return (
     <div className="space-y-5">
-      <div className="flex flex-col gap-1.5">
-        <label className="text-zinc-400 text-sm font-medium">Rozmiar gwintu</label>
+      <div className="flex flex-col">
+        <label className="block text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider">Rozmiar gwintu</label>
         <Select value={selectedSize} onValueChange={setSelectedSize}>
-          <SelectTrigger className="bg-zinc-900 border-zinc-700 text-zinc-100">
+          <SelectTrigger className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-100 text-lg h-auto">
             <SelectValue placeholder="Wybierz rozmiar" />
           </SelectTrigger>
           <SelectContent className="bg-zinc-900 border-zinc-700 max-h-60">

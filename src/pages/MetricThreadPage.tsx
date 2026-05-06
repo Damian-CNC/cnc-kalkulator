@@ -99,8 +99,8 @@ const MetricThreadPage = () => {
       <main className="w-full max-w-2xl mx-auto px-4 sm:px-6">
         <div className="space-y-5">
           <div className="grid grid-cols-2 gap-3">
-            <div className="flex flex-col gap-1.5">
-              <label className="text-zinc-400 text-sm font-medium">Średnica (d) mm</label>
+            <div className="flex flex-col">
+              <label className="block text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider">Średnica (d) mm</label>
               <input
                 type="text"
                 inputMode="decimal"
@@ -108,17 +108,17 @@ const MetricThreadPage = () => {
                 placeholder="np. 10"
                 value={diameterInput}
                 onChange={(e) => setDiameterInput(e.target.value)}
-                className="flex h-10 w-full rounded-md border border-zinc-700 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50"
+                className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500/50 transition-all text-lg"
               />
             </div>
 
-            <div className="flex flex-col gap-1.5">
-              <label className="text-zinc-400 text-sm font-medium">
-                Skok (P) {!isStandardDiameter && parsedD !== null && <span className="text-amber-400 text-xs">— specjalny</span>}
+            <div className="flex flex-col">
+              <label className="block text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider">
+                Skok (P) {!isStandardDiameter && parsedD !== null && <span className="text-amber-400 text-[10px] normal-case">— specjalny</span>}
               </label>
               {isStandardDiameter ? (
                 <Select value={selectedP} onValueChange={setSelectedP}>
-                  <SelectTrigger className="bg-zinc-900 border-zinc-700 text-zinc-100">
+                  <SelectTrigger className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-100 text-lg h-auto">
                     <SelectValue placeholder="Wybierz P" />
                   </SelectTrigger>
                   <SelectContent className="bg-zinc-900 border-zinc-700 max-h-60">
@@ -138,7 +138,7 @@ const MetricThreadPage = () => {
                   value={manualPitch}
                   onChange={(e) => setManualPitch(e.target.value)}
                   disabled={parsedD === null}
-                  className="flex h-10 w-full rounded-md border border-zinc-700 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500/50 transition-all text-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 />
               )}
             </div>
