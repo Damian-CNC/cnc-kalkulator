@@ -92,15 +92,22 @@ const TaperCalculatorPage = () => {
   const accent = 'border-cyan-500 ring-2 ring-cyan-500/30';
 
   return (
-    <div className="min-h-screen bg-zinc-950 flex flex-col items-center px-4 py-6" style={{ paddingTop: 'max(1rem, env(safe-area-inset-top))' }}>
-      <header className="w-full max-w-2xl flex items-center gap-3 mb-6">
-        <button onClick={() => navigate('/')} className="flex items-center gap-2 px-3 py-2 rounded-xl text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/60 transition-colors text-sm font-medium">
-          <ArrowLeft className="w-4 h-4" /><span className="hidden sm:inline">Menu</span>
+    <div
+      className="min-h-screen bg-zinc-950 text-zinc-100 overflow-x-hidden pb-safe"
+      style={{ paddingTop: 'max(0.5rem, env(safe-area-inset-top))' }}
+    >
+      <header className="flex items-center gap-4 mb-6 sm:mb-8 mt-2 p-4 sm:p-6 pb-0 max-w-2xl mx-auto w-full">
+        <button
+          onClick={() => navigate('/')}
+          className="p-2 -ml-2 rounded-xl text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800 transition-colors"
+          aria-label="Wstecz"
+        >
+          <ArrowLeft className="w-5 h-5" />
         </button>
-        <h1 className="text-xl md:text-2xl font-bold text-zinc-100 tracking-wide">Kalkulator Stożków</h1>
+        <h1 className="text-lg sm:text-xl font-bold tracking-wide">Kalkulator Stożków</h1>
       </header>
 
-      <main className="w-full max-w-2xl mx-auto space-y-5">
+      <main className="w-full max-w-2xl mx-auto px-4 sm:px-6 space-y-5">
         {/* SVG Diagram — symmetric taper cross-section */}
         <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4 flex justify-center">
           <svg viewBox="0 0 340 180" className="w-full max-w-md" fill="none">
