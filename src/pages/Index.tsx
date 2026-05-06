@@ -1,79 +1,45 @@
 import { useNavigate } from 'react-router-dom';
-import { Settings, Scale, Triangle, Gem, Wrench, Ruler, ClipboardList, RefreshCw, Cone, Hexagon } from 'lucide-react';
+import { Settings, Scale, Triangle, Gem, Wrench, Ruler, ClipboardList, RefreshCw, Cone, Hexagon, CircleDot } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-const tiles = [
+type Tile = {
+  id: string;
+  label: string;
+  icon: typeof Settings;
+  route: string;
+};
+
+const sections: { title: string; tiles: Tile[] }[] = [
   {
-    id: 'parameters',
-    label: 'Parametry Skrawania',
-    icon: Settings,
-    route: '/parametry',
-    color: 'from-cyan-500 to-teal-400',
-    shadow: 'shadow-cyan-500/20',
+    title: 'Obróbka',
+    tiles: [
+      { id: 'parameters', label: 'Parametry', icon: Settings, route: '/parametry' },
+      { id: 'std-cutting', label: 'Standardowe Parametry', icon: ClipboardList, route: '/standardowe-parametry' },
+    ],
   },
   {
-    id: 'tolerances',
-    label: 'Tolerancje ISO 286',
-    icon: Ruler,
-    route: '/tolerancje',
-    color: 'from-sky-500 to-blue-400',
-    shadow: 'shadow-sky-500/20',
+    title: 'Gwinty i Pasowania',
+    tiles: [
+      { id: 'tolerances', label: 'Tolerancje ISO', icon: Ruler, route: '/tolerancje' },
+      { id: 'thread-metric', label: 'Gwinty Metryczne', icon: Wrench, route: '/threads/metric' },
+      { id: 'thread-bsp', label: 'Gwinty BSP (G)', icon: CircleDot, route: '/threads/bsp' },
+      { id: 'threads-imperial', label: 'Gwinty Calowe', icon: Wrench, route: '/threads' },
+    ],
   },
   {
-    id: 'threads',
-    label: 'Gwinty',
-    icon: Wrench,
-    route: '/threads',
-    color: 'from-emerald-500 to-green-400',
-    shadow: 'shadow-emerald-500/20',
+    title: 'Geometria',
+    tiles: [
+      { id: 'taper', label: 'Stożki', icon: Cone, route: '/kalkulator-stozkow' },
+      { id: 'cone', label: 'Stożek Wiertła', icon: Triangle, route: '/stozek' },
+      { id: 'polygon', label: 'Przekątne', icon: Hexagon, route: '/przekatne' },
+    ],
   },
   {
-    id: 'weight',
-    label: 'Kalkulator Wagi',
-    icon: Scale,
-    route: '/waga',
-    color: 'from-violet-500 to-purple-400',
-    shadow: 'shadow-violet-500/20',
-  },
-  {
-    id: 'cone',
-    label: 'Stożek Wiertła',
-    icon: Triangle,
-    route: '/stozek',
-    color: 'from-amber-500 to-orange-400',
-    shadow: 'shadow-amber-500/20',
-  },
-  {
-    id: 'taper',
-    label: 'Kalkulator Stożków',
-    icon: Cone,
-    route: '/kalkulator-stozkow',
-    color: 'from-pink-500 to-fuchsia-400',
-    shadow: 'shadow-pink-500/20',
-  },
-  {
-    id: 'std-cutting',
-    label: 'Standardowe Parametry',
-    icon: ClipboardList,
-    route: '/standardowe-parametry',
-    color: 'from-lime-500 to-green-400',
-    shadow: 'shadow-lime-500/20',
-  },
-  {
-    id: 'polygon',
-    label: 'Przekątne (Sześciokąt/Kwadrat)',
-    icon: Hexagon,
-    route: '/przekatne',
-    color: 'from-indigo-500 to-blue-400',
-    shadow: 'shadow-indigo-500/20',
-  },
-  {
-    id: 'hardness',
-    label: 'Twardość',
-    icon: Gem,
-    route: '/twardosc',
-    color: 'from-rose-500 to-pink-400',
-    shadow: 'shadow-rose-500/20',
+    title: 'Materiały',
+    tiles: [
+      { id: 'weight', label: 'Waga', icon: Scale, route: '/waga' },
+      { id: 'hardness', label: 'Twardość', icon: Gem, route: '/twardosc' },
+    ],
   },
 ];
 
@@ -100,10 +66,12 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center px-4 pb-8"
-         style={{ paddingTop: 'max(2rem, env(safe-area-inset-top))' }}>
+    <div
+      className="min-h-screen bg-zinc-950 p-4 pb-safe overflow-x-hidden flex flex-col items-center"
+      style={{ paddingTop: 'max(2rem, env(safe-area-inset-top))' }}
+    >
       <motion.h1
-        className="text-2xl md:text-4xl font-black tracking-wide mb-6 text-zinc-100 select-none text-center"
+        className="text-2xl md:text-4xl font-black tracking-wide mb-8 text-zinc-100 select-none text-center"
         initial={{ rotate: -360, scale: 0.5, opacity: 0 }}
         animate={{ rotate: 0, scale: [1, 1.05, 1], opacity: 1 }}
         transition={{
@@ -118,29 +86,36 @@ const Index = () => {
         ⚙️ Kalkulator CNC
       </motion.h1>
 
-      <div className="w-full max-w-md flex flex-col gap-3 px-2">
-        {tiles.map((tile) => {
-          const Icon = tile.icon;
-          return (
-            <button
-              key={tile.id}
-              onClick={() => navigate(tile.route)}
-              className={`group flex items-center gap-4 px-5 py-4 rounded-2xl border border-zinc-800 bg-zinc-900/80 backdrop-blur-sm hover:border-zinc-600 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg ${tile.shadow} w-full text-left`}
-            >
-              <div className={`p-3 rounded-xl bg-gradient-to-br ${tile.color} shadow-lg shrink-0`}>
-                <Icon className="w-6 h-6 text-white" strokeWidth={2} />
-              </div>
-              <span className="text-base font-semibold text-zinc-200 leading-tight">
-                {tile.label}
-              </span>
-            </button>
-          );
-        })}
+      <div className="w-full max-w-4xl flex flex-col gap-8">
+        {sections.map((section) => (
+          <section key={section.title}>
+            <h2 className="text-zinc-400 text-sm uppercase tracking-widest mb-4 px-1">
+              {section.title}
+            </h2>
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+              {section.tiles.map((tile) => {
+                const Icon = tile.icon;
+                return (
+                  <button
+                    key={tile.id}
+                    onClick={() => navigate(tile.route)}
+                    className="aspect-square bg-zinc-900 border border-zinc-800 rounded-2xl flex flex-col items-center justify-center gap-3 p-4 text-center cursor-pointer transition-all hover:bg-zinc-800/80 hover:border-cyan-500/50 hover:shadow-[0_0_15px_rgba(6,182,212,0.15)] active:scale-95"
+                  >
+                    <Icon className="w-8 h-8 text-cyan-400" strokeWidth={2} />
+                    <span className="text-sm sm:text-base font-semibold text-zinc-200 leading-tight">
+                      {tile.label}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </section>
+        ))}
       </div>
 
       <button
         onClick={handleForceUpdate}
-        className="mt-8 mb-4 flex items-center gap-2 px-4 py-2.5 rounded-xl border border-zinc-800 bg-zinc-900/50 text-zinc-500 hover:text-zinc-300 hover:border-zinc-600 transition-colors text-sm"
+        className="mt-10 mb-4 flex items-center gap-2 px-4 py-2.5 rounded-xl border border-zinc-800 bg-zinc-900/50 text-zinc-500 hover:text-zinc-300 hover:border-zinc-600 transition-colors text-sm"
       >
         <RefreshCw className="w-4 h-4" />
         Wymuś aktualizację
