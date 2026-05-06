@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Settings, Scale, Triangle, Gem, Wrench, Ruler, ClipboardList, RefreshCw, Cone, Hexagon, CircleDot } from 'lucide-react';
+import { Settings, Scale, Triangle, Gem, Ruler, ClipboardList, RefreshCw, Cone, Hexagon, Bolt } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 type Tile = {
@@ -21,9 +21,7 @@ const sections: { title: string; tiles: Tile[] }[] = [
     title: 'Gwinty i Pasowania',
     tiles: [
       { id: 'tolerances', label: 'Tolerancje ISO', icon: Ruler, route: '/tolerancje' },
-      { id: 'thread-metric', label: 'Gwinty Metryczne', icon: Wrench, route: '/threads/metric' },
-      { id: 'thread-bsp', label: 'Gwinty BSP (G)', icon: CircleDot, route: '/threads/bsp' },
-      { id: 'threads-imperial', label: 'Gwinty Calowe', icon: Wrench, route: '/threads' },
+      { id: 'threads', label: 'Gwinty', icon: Bolt, route: '/gwinty' },
     ],
   },
   {
