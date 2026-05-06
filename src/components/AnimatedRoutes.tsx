@@ -16,6 +16,7 @@ const TolerancesPage = lazy(() => import('@/pages/TolerancesPage'));
 const StandardCuttingPage = lazy(() => import('@/pages/StandardCuttingPage'));
 const TaperCalculatorPage = lazy(() => import('@/pages/TaperCalculatorPage'));
 const PolygonShaftPage = lazy(() => import('@/pages/PolygonShaftPage'));
+const ThreadsSubmenuPage = lazy(() => import('@/pages/ThreadsSubmenuPage'));
 const NotFound = lazy(() => import('@/pages/NotFound'));
 
 const RouteFallback = () => (
@@ -97,6 +98,7 @@ const AnimatedRoutes = () => {
               <Route path="/standardowe-parametry" element={<StandardCuttingPage />} />
               <Route path="/kalkulator-stozkow" element={<TaperCalculatorPage />} />
               <Route path="/przekatne" element={<PolygonShaftPage />} />
+              <Route path="/gwinty" element={<ThreadsSubmenuPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
