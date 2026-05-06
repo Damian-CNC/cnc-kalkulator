@@ -1,21 +1,31 @@
 import { Routes, Route, useLocation, useNavigationType } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useRef, useEffect, useState } from 'react';
-import Index from '@/pages/Index';
-import ParametersPage from '@/pages/ParametersPage';
-import WeightPage from '@/pages/WeightPage';
-import ConePage from '@/pages/ConePage';
-import HardnessPage from '@/pages/HardnessPage';
-import ThreadsMenuPage from '@/pages/ThreadsMenuPage';
-import MetricThreadPage from '@/pages/MetricThreadPage';
-import BspThreadPage from '@/pages/BspThreadPage';
-import BswThreadPage from '@/pages/BswThreadPage';
-import BsfThreadPage from '@/pages/BsfThreadPage';
-import TolerancesPage from '@/pages/TolerancesPage';
-import StandardCuttingPage from '@/pages/StandardCuttingPage';
-import TaperCalculatorPage from '@/pages/TaperCalculatorPage';
-import PolygonShaftPage from '@/pages/PolygonShaftPage';
-import NotFound from '@/pages/NotFound';
+import { useRef, useEffect, useState, lazy, Suspense } from 'react';
+
+const Index = lazy(() => import('@/pages/Index'));
+const ParametersPage = lazy(() => import('@/pages/ParametersPage'));
+const WeightPage = lazy(() => import('@/pages/WeightPage'));
+const ConePage = lazy(() => import('@/pages/ConePage'));
+const HardnessPage = lazy(() => import('@/pages/HardnessPage'));
+const ThreadsMenuPage = lazy(() => import('@/pages/ThreadsMenuPage'));
+const MetricThreadPage = lazy(() => import('@/pages/MetricThreadPage'));
+const BspThreadPage = lazy(() => import('@/pages/BspThreadPage'));
+const BswThreadPage = lazy(() => import('@/pages/BswThreadPage'));
+const BsfThreadPage = lazy(() => import('@/pages/BsfThreadPage'));
+const TolerancesPage = lazy(() => import('@/pages/TolerancesPage'));
+const StandardCuttingPage = lazy(() => import('@/pages/StandardCuttingPage'));
+const TaperCalculatorPage = lazy(() => import('@/pages/TaperCalculatorPage'));
+const PolygonShaftPage = lazy(() => import('@/pages/PolygonShaftPage'));
+const NotFound = lazy(() => import('@/pages/NotFound'));
+
+const RouteFallback = () => (
+  <div className="flex h-[100dvh] w-full items-center justify-center bg-zinc-950">
+    <div
+      className="h-12 w-12 rounded-full border-[3px] border-cyan-400/20 border-t-cyan-400 animate-spin"
+      aria-label="Ładowanie"
+    />
+  </div>
+);
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -71,23 +81,25 @@ const AnimatedRoutes = () => {
           exit="exit"
           className="absolute top-0 left-0 w-full h-[100dvh] overflow-y-auto bg-zinc-950 pb-20"
         >
-          <Routes location={location}>
-            <Route path="/" element={<Index />} />
-            <Route path="/parametry" element={<ParametersPage />} />
-            <Route path="/waga" element={<WeightPage />} />
-            <Route path="/stozek" element={<ConePage />} />
-            <Route path="/twardosc" element={<HardnessPage />} />
-            <Route path="/threads" element={<ThreadsMenuPage />} />
-            <Route path="/threads/metric" element={<MetricThreadPage />} />
-            <Route path="/threads/bsp" element={<BspThreadPage />} />
-            <Route path="/threads/bsw" element={<BswThreadPage />} />
-            <Route path="/threads/bsf" element={<BsfThreadPage />} />
-            <Route path="/tolerancje" element={<TolerancesPage />} />
-            <Route path="/standardowe-parametry" element={<StandardCuttingPage />} />
-            <Route path="/kalkulator-stozkow" element={<TaperCalculatorPage />} />
-            <Route path="/przekatne" element={<PolygonShaftPage />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <Suspense fallback={<RouteFallback />}>
+            <Routes location={location}>
+              <Route path="/" element={<Index />} />
+              <Route path="/parametry" element={<ParametersPage />} />
+              <Route path="/waga" element={<WeightPage />} />
+              <Route path="/stozek" element={<ConePage />} />
+              <Route path="/twardosc" element={<HardnessPage />} />
+              <Route path="/threads" element={<ThreadsMenuPage />} />
+              <Route path="/threads/metric" element={<MetricThreadPage />} />
+              <Route path="/threads/bsp" element={<BspThreadPage />} />
+              <Route path="/threads/bsw" element={<BswThreadPage />} />
+              <Route path="/threads/bsf" element={<BsfThreadPage />} />
+              <Route path="/tolerancje" element={<TolerancesPage />} />
+              <Route path="/standardowe-parametry" element={<StandardCuttingPage />} />
+              <Route path="/kalkulator-stozkow" element={<TaperCalculatorPage />} />
+              <Route path="/przekatne" element={<PolygonShaftPage />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
         </motion.div>
       </AnimatePresence>
     </div>
