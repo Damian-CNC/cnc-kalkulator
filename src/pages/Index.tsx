@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Settings, Scale, Triangle, Gem, Wrench, Ruler, ClipboardList, RefreshCw, Cone } from 'lucide-react';
+import { Settings, Scale, Triangle, Gem, Wrench, Ruler, ClipboardList, RefreshCw, Cone, Hexagon } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const tiles = [
@@ -58,6 +58,14 @@ const tiles = [
     route: '/standardowe-parametry',
     color: 'from-lime-500 to-green-400',
     shadow: 'shadow-lime-500/20',
+  },
+  {
+    id: 'polygon',
+    label: 'Przekątne (Sześciokąt/Kwadrat)',
+    icon: Hexagon,
+    route: '/przekatne',
+    color: 'from-indigo-500 to-blue-400',
+    shadow: 'shadow-indigo-500/20',
   },
   {
     id: 'hardness',
