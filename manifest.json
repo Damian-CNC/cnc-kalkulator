@@ -4,8 +4,8 @@
   "description": "Profesjonalny kalkulator CNC do obliczania parametrów skrawania i wagi przygotówek",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#0a192f",
-  "theme_color": "#00f4e2",
+  "background_color": "#09090b",
+  "theme_color": "#09090b",
   "orientation": "portrait-primary",
   "icons": [
     {
