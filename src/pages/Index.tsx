@@ -27,7 +27,7 @@ const sections: { title: string; tiles: Tile[] }[] = [
   {
     title: 'Geometria',
     tiles: [
-      { id: 'taper', label: 'Stożki', icon: Cone, route: '/kalkulator-stozkow' },
+      { id: 'taper', label: 'Fazy', icon: Cone, route: '/kalkulator-stozkow' },
       { id: 'cone', label: 'Stożek Wiertła', icon: Triangle, route: '/stozek' },
       { id: 'polygon', label: 'Przekątne', icon: Hexagon, route: '/przekatne' },
     ],
