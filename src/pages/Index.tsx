@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Settings, Scale, Triangle, Gem, Ruler, ClipboardList, RefreshCw, Cone, Hexagon, Bolt } from 'lucide-react';
+import { Settings, Scale, Triangle, Gem, Ruler, ClipboardList, RefreshCw, Cone, Hexagon, Bolt, Scissors } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 type Tile = {
@@ -30,6 +30,7 @@ const sections: { title: string; tiles: Tile[] }[] = [
       { id: 'taper', label: 'Fazy', icon: Cone, route: '/kalkulator-stozkow' },
       { id: 'cone', label: 'Stożek Wiertła', icon: Triangle, route: '/stozek' },
       { id: 'polygon', label: 'Przekątne', icon: Hexagon, route: '/przekatne' },
+      { id: 'din509', label: 'Podcięcia DIN 509', icon: Scissors, route: '/podciecia-din509' },
     ],
   },
   {
