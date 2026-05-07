@@ -93,46 +93,54 @@ const TaperCalculatorPage = () => {
         >
           <ArrowLeft className="w-5 h-5" />
         </button>
-        <h1 className="text-lg sm:text-xl font-bold tracking-wide">Kalkulator Stożków</h1>
+        <h1 className="text-lg sm:text-xl font-bold tracking-wide">Kalkulator Faz</h1>
       </header>
 
       <main className="w-full max-w-2xl mx-auto px-4 sm:px-6 space-y-5">
-        {/* SVG Diagram — symmetric taper cross-section */}
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4 flex justify-center">
-          <svg viewBox="0 0 340 180" className="w-full max-w-md" fill="none">
-            {/* Taper body — symmetric */}
-            <polygon points={`70,${svg.t1} 270,${svg.t2} 270,${svg.b2} 70,${svg.b1}`} fill="rgba(6,182,212,0.08)" stroke="rgb(6,182,212)" strokeWidth="1.5" />
-            {/* Center axis */}
-            <line x1="50" y1="80" x2="290" y2="80" stroke="rgb(63,63,70)" strokeWidth="0.8" strokeDasharray="6 3" />
-            <text x="295" y="83" fill="rgb(82,82,91)" fontSize="9">oś</text>
+        <span className="text-xs font-semibold text-zinc-500 uppercase tracking-widest block mb-2">Narzędzie dla tokarzy</span>
+        {/* SVG — half-view of shaft chamfer (lathe view) */}
+        <div className="rounded-xl border border-zinc-800 bg-zinc-900/30 p-4 flex justify-center">
+          <svg viewBox="0 0 400 200" className="w-full max-w-md" fill="none">
+            {/* Spindle axis (bottom) */}
+            <line x1="20" y1="170" x2="380" y2="170" stroke="rgb(82,82,91)" strokeWidth="1" strokeDasharray="8 4" />
+            <text x="385" y="173" fill="rgb(82,82,91)" fontSize="9">oś</text>
 
-            {/* D1 dimension */}
-            <line x1="50" y1={svg.t1} x2="50" y2={svg.b1} stroke="rgb(52,211,153)" strokeWidth="1.5" strokeDasharray="4 2" />
-            <line x1="50" y1={svg.t1} x2="55" y2={svg.t1} stroke="rgb(52,211,153)" strokeWidth="1" />
-            <line x1="50" y1={svg.b1} x2="55" y2={svg.b1} stroke="rgb(52,211,153)" strokeWidth="1" />
-            <text x="32" y="84" fill="rgb(52,211,153)" fontSize="12" fontWeight="bold" textAnchor="middle">D1</text>
+            {/* Part contour: top OD line → chamfer → face down to axis */}
+            {/* Top OD horizontal (left) at y=50, from x=40 to x=240 */}
+            {/* Chamfer from (240,50) to (310,110) */}
+            {/* Face vertical from (310,110) to (310,170) */}
+            <polyline
+              points="40,50 240,50 310,110 310,170"
+              stroke="rgb(6,182,212)"
+              strokeWidth="2"
+              fill="none"
+              strokeLinejoin="round"
+            />
+            {/* Subtle fill of the body */}
+            <polygon points="40,50 240,50 310,110 310,170 40,170" fill="rgba(6,182,212,0.05)" stroke="none" />
 
-            {/* D2 dimension */}
-            <line x1="290" y1={svg.t2} x2="290" y2={svg.b2} stroke="rgb(251,191,36)" strokeWidth="1.5" strokeDasharray="4 2" />
-            <line x1="285" y1={svg.t2} x2="290" y2={svg.t2} stroke="rgb(251,191,36)" strokeWidth="1" />
-            <line x1="285" y1={svg.b2} x2="290" y2={svg.b2} stroke="rgb(251,191,36)" strokeWidth="1" />
-            <text x="308" y="84" fill="rgb(251,191,36)" fontSize="12" fontWeight="bold" textAnchor="middle">D2</text>
+            {/* D1 dimension — large diameter (left side) */}
+            <line x1="25" y1="50" x2="25" y2="170" stroke="rgb(52,211,153)" strokeWidth="1" strokeDasharray="4 2" />
+            <line x1="20" y1="50" x2="45" y2="50" stroke="rgb(52,211,153)" strokeWidth="1" />
+            <line x1="20" y1="170" x2="45" y2="170" stroke="rgb(52,211,153)" strokeWidth="1" />
+            <text x="14" y="113" fill="rgb(52,211,153)" fontSize="12" fontWeight="bold" textAnchor="middle">D1</text>
 
-            {/* L dimension */}
-            <line x1="70" y1="165" x2="270" y2="165" stroke="rgb(148,163,184)" strokeWidth="1" />
-            <line x1="70" y1="160" x2="70" y2="170" stroke="rgb(148,163,184)" strokeWidth="1" />
-            <line x1="270" y1="160" x2="270" y2="170" stroke="rgb(148,163,184)" strokeWidth="1" />
-            <text x="170" y="175" fill="rgb(148,163,184)" fontSize="11" textAnchor="middle">L</text>
+            {/* D2 dimension — small diameter (right side, at face) */}
+            <line x1="330" y1="110" x2="330" y2="170" stroke="rgb(251,191,36)" strokeWidth="1" strokeDasharray="4 2" />
+            <line x1="310" y1="110" x2="335" y2="110" stroke="rgb(251,191,36)" strokeWidth="1" />
+            <line x1="310" y1="170" x2="335" y2="170" stroke="rgb(251,191,36)" strokeWidth="1" />
+            <text x="345" y="143" fill="rgb(251,191,36)" fontSize="12" fontWeight="bold" textAnchor="middle">D2</text>
 
-            {/* α — full angle between upper and lower generatrix at right side */}
-            <line x1="270" y1={svg.t2} x2="240" y2={svg.t2 - 8} stroke="rgb(244,114,182)" strokeWidth="0.8" strokeDasharray="3 2" />
-            <line x1="270" y1={svg.b2} x2="240" y2={svg.b2 + 8} stroke="rgb(244,114,182)" strokeWidth="0.8" strokeDasharray="3 2" />
-            <path d={`M 255,${svg.t2 + 4} A 15 15 0 0 1 255,${svg.b2 - 4}`} stroke="rgb(244,114,182)" strokeWidth="1.5" fill="none" />
-            <text x="242" y={80 + 4} fill="rgb(244,114,182)" fontSize="10" fontWeight="bold" textAnchor="end">α</text>
+            {/* L dimension — chamfer length along Z (top) */}
+            <line x1="240" y1="30" x2="310" y2="30" stroke="rgb(148,163,184)" strokeWidth="1" />
+            <line x1="240" y1="25" x2="240" y2="55" stroke="rgb(148,163,184)" strokeWidth="0.8" strokeDasharray="3 2" />
+            <line x1="310" y1="25" x2="310" y2="115" stroke="rgb(148,163,184)" strokeWidth="0.8" strokeDasharray="3 2" />
+            <text x="275" y="22" fill="rgb(148,163,184)" fontSize="11" fontWeight="bold" textAnchor="middle">L</text>
 
-            {/* α/2 — half angle between axis and upper generatrix */}
-            <path d={`M 120,80 A 50 50 0 0 0 ${115},${svg.t1 + (80 - svg.t1) * 0.35}`} stroke="rgb(6,182,212)" strokeWidth="1.2" fill="none" />
-            <text x="105" y={svg.t1 + (80 - svg.t1) * 0.55} fill="rgb(6,182,212)" fontSize="9" fontWeight="bold" textAnchor="end">α/2</text>
+            {/* Angle α/2 — between chamfer line and horizontal (extension of OD) */}
+            <line x1="240" y1="50" x2="320" y2="50" stroke="rgb(244,114,182)" strokeWidth="0.8" strokeDasharray="3 2" />
+            <path d="M 280,50 A 40 40 0 0 1 268.5,77" stroke="rgb(244,114,182)" strokeWidth="1.5" fill="none" />
+            <text x="288" y="72" fill="rgb(244,114,182)" fontSize="10" fontWeight="bold">Kąt α/2</text>
           </svg>
         </div>
 
