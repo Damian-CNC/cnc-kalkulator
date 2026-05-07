@@ -78,17 +78,6 @@ const TaperCalculatorPage = () => {
     };
   }, [d1Input, d2Input, lInput, halfAngleInput]);
 
-  // Dynamic SVG
-  const svg = useMemo(() => {
-    const d1 = solver?.d1 ?? 60;
-    const d2 = solver?.d2 ?? 40;
-    const maxD = Math.max(d1, 1);
-    const h1 = 45; // max half-height for D1
-    const h2 = h1 * (d2 / maxD);
-    const cy = 80;
-    return { t1: cy - h1, b1: cy + h1, t2: cy - h2, b2: cy + h2 };
-  }, [solver]);
-
   const accent = 'border-cyan-500 ring-2 ring-cyan-500/30';
 
   return (
