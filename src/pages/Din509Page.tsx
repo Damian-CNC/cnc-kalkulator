@@ -25,6 +25,8 @@ const Din509Svg = ({ type }: { type: Din509Type }) => {
   };
 
   const t2LeftX: Record<'F' | 'G' | 'H', number> = { F: 96, G: 85, H: 82 };
+  // X coordinate where the entry chamfer ends and radius r starts (bottom of undercut)
+  const gEndX: Record<'F' | 'G' | 'H', number> = { F: 104, G: 93, H: 87 };
 
   const entryAngleLabels: Partial<Record<Din509Type, { x: number; y: number; text: string }>> = {
     F: { x: 72, y: 77, text: '8°' },
@@ -76,6 +78,20 @@ const Din509Svg = ({ type }: { type: Din509Type }) => {
       <line x1="115" y1="98" x2="115" y2="106" stroke={dimStroke} strokeWidth="0.8" />
       <line x1="150" y1="98" x2="150" y2="106" stroke={dimStroke} strokeWidth="0.8" />
       <text x="130" y="116" fill={labelFill} fontSize="9" fontWeight="bold">f</text>
+
+      {/* g — horizontal distance from shoulder face (x=100) to end of entry chamfer */}
+      {type !== 'E' && (() => {
+        const xEnd = gEndX[type as 'F' | 'G' | 'H'];
+        return (
+          <>
+            <line x1={xEnd} y1="86" x2={xEnd} y2="96" stroke={dimStroke} strokeWidth="0.8" strokeDasharray="2 2" />
+            <line x1="100" y1="96" x2={xEnd} y2="96" stroke={dimStroke} strokeWidth="0.8" />
+            <line x1="100" y1="93" x2="100" y2="99" stroke={dimStroke} strokeWidth="0.8" />
+            <line x1={xEnd} y1="93" x2={xEnd} y2="99" stroke={dimStroke} strokeWidth="0.8" />
+            <text x={(100 + xEnd) / 2 - 2} y="94" fill={labelFill} fontSize="8" fontWeight="bold">g</text>
+          </>
+        );
+      })()}
 
       {/* r pointer */}
       <line x1="112" y1="88" x2="128" y2="78" stroke={dimStroke} strokeWidth="0.8" />
@@ -192,10 +208,10 @@ const Din509Page = () => {
         {result ? (
           <div className="space-y-3">
             <p className="text-xs uppercase tracking-widest text-zinc-500">Wymiary z normy DIN 509</p>
-            <div className="grid grid-cols-3 gap-3">
+            <div className={`grid gap-3 ${type === 'E' ? 'grid-cols-1' : 'grid-cols-3'}`}>
               <ResultCard label="Szerokość f" value={`${result.f} mm`} />
-              <ResultCard label="Przesunięcie g" value={`${result.g} mm`} />
-              <ResultCard label="Głębokość t₂" value={`${result.t2} mm`} />
+              {type !== 'E' && <ResultCard label="Przesunięcie g" value={`${result.g} mm`} />}
+              {type !== 'E' && <ResultCard label="Głębokość t₂" value={`${result.t2} mm`} />}
             </div>
             <div className="bg-zinc-900 border border-zinc-800/80 rounded-2xl p-4">
               <p className="text-xs uppercase tracking-widest text-zinc-500 mb-2">Oznaczenie na rysunku</p>
