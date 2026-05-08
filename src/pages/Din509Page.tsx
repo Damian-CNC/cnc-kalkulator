@@ -45,36 +45,35 @@ const Din509Svg = ({ type }: { type: Din509Type }) => {
       {/* Main profile contour */}
       <path d={mainPaths[type]} stroke={profileStroke} strokeWidth={2} fill="none" strokeLinejoin="round" strokeLinecap="round" />
 
-      {/* t1 (depth from smaller Ø to undercut bottom) on far left */}
-      <line x1="28" y1={yOD} x2="28" y2={yBottom} stroke={dimStroke} strokeWidth="0.8" />
-      <line x1="22" y1={yOD} x2="34" y2={yOD} stroke={dimStroke} strokeWidth="0.8" />
-      <line x1="22" y1={yBottom} x2="34" y2={yBottom} stroke={dimStroke} strokeWidth="0.8" />
-      <text x="10" y={(yOD + yBottom) / 2 + 4} fill={labelFill} fontSize="11" fontWeight="bold">t₁</text>
+      {/* t1 and t2 labels on the left side of the shoulder */}
+      <line x1="88" y1="80" x2="88" y2="100" stroke={dimStroke} strokeWidth="0.8" />
+      <line x1="84" y1="80" x2="92" y2="80" stroke={dimStroke} strokeWidth="0.8" />
+      <line x1="84" y1="100" x2="92" y2="100" stroke={dimStroke} strokeWidth="0.8" />
+      <text x="76" y="93" fill={labelFill} fontSize="9" fontWeight="bold">t₁</text>
 
-      {/* f (flat bottom width) */}
-      <line x1={xRadiusEnd} y1={yBottom + 14} x2={xExitStart} y2={yBottom + 14} stroke={dimStroke} strokeWidth="0.8" />
-      <line x1={xRadiusEnd} y1={yBottom + 10} x2={xRadiusEnd} y2={yBottom + 18} stroke={dimStroke} strokeWidth="0.8" />
-      <line x1={xExitStart} y1={yBottom + 10} x2={xExitStart} y2={yBottom + 18} stroke={dimStroke} strokeWidth="0.8" />
-      <text x={(xRadiusEnd + xExitStart) / 2 - 4} y={yBottom + 28} fill={labelFill} fontSize="11" fontWeight="bold">f</text>
+      <line x1="74" y1="30" x2="74" y2="80" stroke={dimStroke} strokeWidth="0.8" />
+      <line x1="70" y1="30" x2="78" y2="30" stroke={dimStroke} strokeWidth="0.8" />
+      <line x1="70" y1="80" x2="78" y2="80" stroke={dimStroke} strokeWidth="0.8" />
+      <text x="62" y="58" fill={labelFill} fontSize="9" fontWeight="bold">t₂</text>
 
-      {/* r (radius pointer) */}
-      <line x1={xRadiusEnd - 4} y1={yBottom - 4} x2={xRadiusEnd + 14} y2={yBottom - 22} stroke={dimStroke} strokeWidth="0.8" />
-      <text x={xRadiusEnd + 16} y={yBottom - 22} fill={labelFill} fontSize="11" fontWeight="bold">r</text>
+      {/* f below the undercut bottom */}
+      <line x1="115" y1="112" x2="150" y2="112" stroke={dimStroke} strokeWidth="0.8" />
+      <line x1="115" y1="108" x2="115" y2="116" stroke={dimStroke} strokeWidth="0.8" />
+      <line x1="150" y1="108" x2="150" y2="116" stroke={dimStroke} strokeWidth="0.8" />
+      <text x="130" y="126" fill={labelFill} fontSize="9" fontWeight="bold">f</text>
 
-      {/* 15° exit angle label */}
-      <text x={xExitStart + exitDx / 2 - 4} y={yOD + 24} fill={labelFill} fontSize="11" fontWeight="bold">15°</text>
+      {/* r pointer */}
+      <line x1="112" y1="98" x2="128" y2="86" stroke={dimStroke} strokeWidth="0.8" />
+      <text x="131" y="86" fill={labelFill} fontSize="9" fontWeight="bold">r</text>
 
-      {/* d1 (smaller Ø) — vertical dim on far right */}
-      <line x1="370" y1={yOD} x2="370" y2={yAxis} stroke={dimStroke} strokeWidth="0.8" />
-      <line x1="364" y1={yOD} x2="376" y2={yOD} stroke={dimStroke} strokeWidth="0.8" />
-      <line x1="364" y1={yAxis} x2="376" y2={yAxis} stroke={dimStroke} strokeWidth="0.8" />
-      <text x="356" y={(yOD + yAxis) / 2 + 4} fill={labelFill} fontSize="11" fontWeight="bold">d₁</text>
+      {/* Angle labels */}
+      <text x="198" y="70" fill={labelFill} fontSize="9" fontWeight="bold">15°</text>
 
-      {/* t2 — height of vertical shoulder face (yTop → yOD), shown on left of wall */}
-      <line x1={xWall - 40} y1={yTop} x2={xWall - 40} y2={yOD} stroke={dimStroke} strokeWidth="0.8" />
-      <line x1={xWall - 44} y1={yTop} x2={xWall - 36} y2={yTop} stroke={dimStroke} strokeWidth="0.8" />
-      <line x1={xWall - 44} y1={yOD} x2={xWall - 36} y2={yOD} stroke={dimStroke} strokeWidth="0.8" />
-      <text x={xWall - 58} y={(yTop + yOD) / 2 + 4} fill={labelFill} fontSize="11" fontWeight="bold">t₂</text>
+      {/* d1 (smaller Ø) */}
+      <line x1="270" y1="80" x2="270" y2="140" stroke={dimStroke} strokeWidth="0.8" />
+      <line x1="266" y1="80" x2="274" y2="80" stroke={dimStroke} strokeWidth="0.8" />
+      <line x1="266" y1="140" x2="274" y2="140" stroke={dimStroke} strokeWidth="0.8" />
+      <text x="258" y="113" fill={labelFill} fontSize="9" fontWeight="bold">d₁</text>
 
       {/* Entry angle label (8° / 55° / 60°) */}
       {entryLabel && (
