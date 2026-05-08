@@ -79,6 +79,20 @@ const Din509Svg = ({ type }: { type: Din509Type }) => {
       <line x1="150" y1="98" x2="150" y2="106" stroke={dimStroke} strokeWidth="0.8" />
       <text x="130" y="116" fill={labelFill} fontSize="9" fontWeight="bold">f</text>
 
+      {/* g — horizontal distance from shoulder face (x=100) to end of entry chamfer */}
+      {type !== 'E' && (() => {
+        const xEnd = gEndX[type as 'F' | 'G' | 'H'];
+        return (
+          <>
+            <line x1={xEnd} y1="86" x2={xEnd} y2="96" stroke={dimStroke} strokeWidth="0.8" strokeDasharray="2 2" />
+            <line x1="100" y1="96" x2={xEnd} y2="96" stroke={dimStroke} strokeWidth="0.8" />
+            <line x1="100" y1="93" x2="100" y2="99" stroke={dimStroke} strokeWidth="0.8" />
+            <line x1={xEnd} y1="93" x2={xEnd} y2="99" stroke={dimStroke} strokeWidth="0.8" />
+            <text x={(100 + xEnd) / 2 - 2} y="94" fill={labelFill} fontSize="8" fontWeight="bold">g</text>
+          </>
+        );
+      })()}
+
       {/* r pointer */}
       <line x1="112" y1="88" x2="128" y2="78" stroke={dimStroke} strokeWidth="0.8" />
       <text x="131" y="78" fill={labelFill} fontSize="9" fontWeight="bold">r</text>
