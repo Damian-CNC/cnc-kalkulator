@@ -13,76 +13,70 @@ const TYPES: Din509Type[] = ['E', 'F', 'G', 'H'];
 
 const Din509Svg = ({ type }: { type: Din509Type }) => {
   // Geometry layout (viewBox 0 0 400 240):
-  //   - Axis (spindle centerline) at y = 215, dashed.
-  //   - OD (cylindrical surface d1) reference line at y = 70.
-  //   - Vertical shoulder face at x = 130 going down from y = 70 into the undercut.
-  //   - Undercut bottom at y = 130 (depth t1 below OD).
-  //   - Flat bottom of undercut between x ≈ 175..245 (width f).
-  //   - 15° exit ramp from end of flat bottom up to OD line on the right.
-  //   - Material (hatched in real drawing) is ABOVE the contour. We don't draw hatching
-  //     to keep it clean against bg-zinc-900.
-  const profileStroke = 'rgb(6,182,212)'; // cyan-500
-  const dimStroke = 'rgb(113,113,122)';   // zinc-500
-  const labelFill = 'rgb(161,161,170)';   // zinc-400
-  const axisStroke = 'rgb(82,82,91)';     // zinc-600
+  //   - Spindle axis at y = 215 (dashed).
+  //   - Larger Ø (shoulder) top reference at y = 50.
+  //   - Smaller Ø (cylindrical surface d1) reference at y = 95.
+  //   - Vertical shoulder face at x = 130 going from y=50 down to y=95.
+  //   - Undercut bottom at y = 150 (depth t1 below smaller Ø).
+  //   - Flat bottom roughly between x = 175..245 (width f).
+  //   - 15° exit ramp up to smaller Ø line on the right.
+  const profileStroke = 'rgb(6,182,212)';
+  const dimStroke = 'rgb(113,113,122)';
+  const labelFill = 'rgb(161,161,170)';
+  const axisStroke = 'rgb(82,82,91)';
 
-  const yOD = 70;
-  const yBottom = 130;
+  const yTop = 50;       // larger diameter (shoulder) top edge
+  const yOD = 95;        // smaller diameter (cylindrical d1) reference
+  const yBottom = 150;   // undercut bottom
   const yAxis = 215;
-  const xWall = 130;          // x of vertical shoulder face
-  const xExitStart = 245;     // x where 15° exit ramp begins (end of flat bottom)
-  const exitDx = (yBottom - yOD) / Math.tan((15 * Math.PI) / 180); // dx for 15° rise
+  const xWall = 130;     // x of vertical shoulder face
+  const xExitStart = 250;
+  const exitDx = (yBottom - yOD) / Math.tan((15 * Math.PI) / 180);
   const xExitEnd = xExitStart + exitDx;
-  const r = 14;               // visual radius of the undercut fillet
-  const xRadiusEnd = xWall + r; // x where the radius transitions to flat bottom
+  const r = 14;
 
-  // Type-specific entry geometry
-  // The profile is built as: top OD (left of wall stub) → vertical / angled face down →
-  //   radius arc into flat bottom → flat bottom → 15° exit ramp → OD continues right.
-  let entryPath = '';
+  // Build entry geometry from BOTTOM of the vertical face (xWall, yOD) into the
+  // undercut bottom. The vertical face itself is identical for all types.
+  let entrySegments = '';
   let entryLabel: { x: number; y: number; text: string } | null = null;
+  let xRadiusEnd = xWall + r;
 
   if (type === 'E') {
-    // Pure vertical wall to top of radius, then arc into bottom
-    entryPath =
-      `M 40,${yOD} L ${xWall},${yOD} ` +
-      `L ${xWall},${yBottom - r} ` +
-      `A ${r} ${r} 0 0 0 ${xRadiusEnd},${yBottom} `;
-  } else if (type === 'F') {
-    // 8° inclined wall: small inward lean before the radius
-    const angle = 8;
-    const dy = yBottom - r - yOD;
-    const dx = dy * Math.tan((angle * Math.PI) / 180);
-    entryPath =
-      `M 40,${yOD} L ${xWall + dx},${yOD} ` +
-      `L ${xWall},${yBottom - r} ` +
-      `A ${r} ${r} 0 0 0 ${xRadiusEnd},${yBottom} `;
-    entryLabel = { x: xWall - 18, y: yBottom - 6, text: '8°' };
-  } else if (type === 'G') {
-    // 55° angled approach (large undercut of vertical wall)
-    const angle = 55;
-    const dy = yBottom - r - yOD;
-    const dx = dy * Math.tan((angle * Math.PI) / 180);
-    entryPath =
-      `M 40,${yOD} L ${xWall + dx},${yOD} ` +
-      `L ${xWall},${yBottom - r} ` +
-      `A ${r} ${r} 0 0 0 ${xRadiusEnd},${yBottom} `;
-    entryLabel = { x: xWall + 14, y: yOD + 26, text: '55°' };
+    // Smooth radius from end of vertical face into flat bottom
+    entrySegments = `A ${r} ${r} 0 0 0 ${xRadiusEnd},${yBottom} `;
   } else {
-    // H: 60° angled approach (largest undercut of vertical wall)
-    const angle = 60;
-    const dy = yBottom - r - yOD;
+    const angleByType: Record<string, number> = { F: 8, G: 55, H: 60 };
+    const angle = angleByType[type];
+    // Short inclined run from (xWall, yOD) heading down-right at `angle` from vertical.
+    // Length chosen so we have a smooth transition into the radius before the flat bottom.
+    const dy = (yBottom - yOD) - r;            // vertical travel before radius
     const dx = dy * Math.tan((angle * Math.PI) / 180);
-    entryPath =
-      `M 40,${yOD} L ${xWall + dx},${yOD} ` +
-      `L ${xWall},${yBottom - r} ` +
+    const xAfterAngle = xWall + dx;
+    const yAfterAngle = yOD + dy;
+    xRadiusEnd = xAfterAngle + r;
+    entrySegments =
+      `L ${xAfterAngle},${yAfterAngle} ` +
       `A ${r} ${r} 0 0 0 ${xRadiusEnd},${yBottom} `;
-    entryLabel = { x: xWall + 18, y: yOD + 26, text: '60°' };
+    entryLabel = {
+      x: xWall + 6,
+      y: yOD + 18,
+      text: `${angle}°`,
+    };
   }
 
-  // Continue: flat bottom → 15° exit → OD line to right edge
+  // Full contour:
+  //   1) start at top-left larger Ø
+  //   2) short horizontal to top of vertical face
+  //   3) VERTICAL FACE down to yOD (shoulder face / czoło stopnia)
+  //   4) entry geometry (type-specific) into undercut bottom
+  //   5) flat bottom
+  //   6) 15° exit up to smaller Ø
+  //   7) horizontal smaller Ø to right edge
   const fullPath =
-    entryPath +
+    `M 40,${yTop} ` +
+    `L ${xWall},${yTop} ` +
+    `L ${xWall},${yOD} ` +
+    entrySegments +
     `L ${xExitStart},${yBottom} ` +
     `L ${xExitEnd},${yOD} ` +
     `L 380,${yOD}`;
@@ -90,68 +84,57 @@ const Din509Svg = ({ type }: { type: Din509Type }) => {
   return (
     <svg viewBox="0 0 400 240" className="w-full max-w-md" fill="none">
       {/* Spindle axis */}
-      <line
-        x1="20" y1={yAxis} x2="380" y2={yAxis}
-        stroke={axisStroke} strokeWidth="1" strokeDasharray="8 4"
-      />
+      <line x1="20" y1={yAxis} x2="380" y2={yAxis}
+        stroke={axisStroke} strokeWidth="1" strokeDasharray="8 4" />
       <text x="384" y={yAxis + 3} fill={axisStroke} fontSize="9">oś</text>
 
-      {/* OD reference (dashed continuation across the undercut) */}
-      <line
-        x1="40" y1={yOD} x2="380" y2={yOD}
-        stroke={axisStroke} strokeWidth="0.5" strokeDasharray="3 3"
-      />
+      {/* Larger Ø reference (left of shoulder, dashed continuation) */}
+      <line x1="40" y1={yTop} x2={xWall} y2={yTop}
+        stroke={axisStroke} strokeWidth="0.5" strokeDasharray="3 3" />
+      {/* Smaller Ø reference (dashed continuation across the undercut) */}
+      <line x1={xWall} y1={yOD} x2="380" y2={yOD}
+        stroke={axisStroke} strokeWidth="0.5" strokeDasharray="3 3" />
 
       {/* Main profile contour */}
-      <path d={fullPath} stroke={profileStroke} strokeWidth={2} strokeLinejoin="round" strokeLinecap="round" />
+      <path d={fullPath} stroke={profileStroke} strokeWidth={2}
+        strokeLinejoin="round" strokeLinecap="round" />
 
-      {/* --- Dimension lines (thin, zinc-500) --- */}
-      {/* t1 (depth from OD to undercut bottom) on far left */}
+      {/* t1 (depth from smaller Ø to undercut bottom) on far left */}
       <line x1="28" y1={yOD} x2="28" y2={yBottom} stroke={dimStroke} strokeWidth="0.8" />
       <line x1="22" y1={yOD} x2="34" y2={yOD} stroke={dimStroke} strokeWidth="0.8" />
       <line x1="22" y1={yBottom} x2="34" y2={yBottom} stroke={dimStroke} strokeWidth="0.8" />
       <text x="10" y={(yOD + yBottom) / 2 + 4} fill={labelFill} fontSize="11" fontWeight="bold">t₁</text>
 
-      {/* f (flat bottom width) below the undercut */}
+      {/* f (flat bottom width) */}
       <line x1={xRadiusEnd} y1={yBottom + 14} x2={xExitStart} y2={yBottom + 14} stroke={dimStroke} strokeWidth="0.8" />
       <line x1={xRadiusEnd} y1={yBottom + 10} x2={xRadiusEnd} y2={yBottom + 18} stroke={dimStroke} strokeWidth="0.8" />
       <line x1={xExitStart} y1={yBottom + 10} x2={xExitStart} y2={yBottom + 18} stroke={dimStroke} strokeWidth="0.8" />
       <text x={(xRadiusEnd + xExitStart) / 2 - 4} y={yBottom + 28} fill={labelFill} fontSize="11" fontWeight="bold">f</text>
 
       {/* r (radius pointer) */}
-      <line x1={xWall + 4} y1={yBottom - 4} x2={xWall + 22} y2={yBottom - 22} stroke={dimStroke} strokeWidth="0.8" />
-      <text x={xWall + 24} y={yBottom - 22} fill={labelFill} fontSize="11" fontWeight="bold">r</text>
+      <line x1={xRadiusEnd - 4} y1={yBottom - 4} x2={xRadiusEnd + 14} y2={yBottom - 22} stroke={dimStroke} strokeWidth="0.8" />
+      <text x={xRadiusEnd + 16} y={yBottom - 22} fill={labelFill} fontSize="11" fontWeight="bold">r</text>
 
       {/* 15° exit angle label */}
       <text x={xExitStart + exitDx / 2 - 4} y={yOD + 24} fill={labelFill} fontSize="11" fontWeight="bold">15°</text>
 
-      {/* d1 (cylindrical OD) — vertical dim on far right between OD and axis */}
+      {/* d1 (smaller Ø) — vertical dim on far right */}
       <line x1="370" y1={yOD} x2="370" y2={yAxis} stroke={dimStroke} strokeWidth="0.8" />
       <line x1="364" y1={yOD} x2="376" y2={yOD} stroke={dimStroke} strokeWidth="0.8" />
       <line x1="364" y1={yAxis} x2="376" y2={yAxis} stroke={dimStroke} strokeWidth="0.8" />
       <text x="356" y={(yOD + yAxis) / 2 + 4} fill={labelFill} fontSize="11" fontWeight="bold">d₁</text>
 
-      {/* Entry angle label (8°, 55°, 60°) — only F/G/H */}
+      {/* t2 — height of vertical shoulder face (yTop → yOD), shown on left of wall */}
+      <line x1={xWall - 40} y1={yTop} x2={xWall - 40} y2={yOD} stroke={dimStroke} strokeWidth="0.8" />
+      <line x1={xWall - 44} y1={yTop} x2={xWall - 36} y2={yTop} stroke={dimStroke} strokeWidth="0.8" />
+      <line x1={xWall - 44} y1={yOD} x2={xWall - 36} y2={yOD} stroke={dimStroke} strokeWidth="0.8" />
+      <text x={xWall - 58} y={(yTop + yOD) / 2 + 4} fill={labelFill} fontSize="11" fontWeight="bold">t₂</text>
+
+      {/* Entry angle label (8° / 55° / 60°) */}
       {entryLabel && (
         <text x={entryLabel.x} y={entryLabel.y} fill={labelFill} fontSize="11" fontWeight="bold">
           {entryLabel.text}
         </text>
-      )}
-
-      {/* For F/G/H: t2 (depth on the vertical face from OD) and g (offset) */}
-      {type !== 'E' && (
-        <>
-          <line x1={xWall - 40} y1={yOD} x2={xWall - 40} y2={yOD + 14} stroke={dimStroke} strokeWidth="0.8" />
-          <line x1={xWall - 44} y1={yOD} x2={xWall - 36} y2={yOD} stroke={dimStroke} strokeWidth="0.8" />
-          <line x1={xWall - 44} y1={yOD + 14} x2={xWall - 36} y2={yOD + 14} stroke={dimStroke} strokeWidth="0.8" />
-          <text x={xWall - 60} y={yOD + 12} fill={labelFill} fontSize="11" fontWeight="bold">t₂</text>
-
-          {/* g: vertical offset along the wall, drawn inside the undercut */}
-          <line x1={xWall - 14} y1={yOD} x2={xWall - 14} y2={yBottom - r} stroke={dimStroke} strokeWidth="0.8" />
-          <line x1={xWall - 18} y1={yOD} x2={xWall - 10} y2={yOD} stroke={dimStroke} strokeWidth="0.8" />
-          <line x1={xWall - 18} y1={yBottom - r} x2={xWall - 10} y2={yBottom - r} stroke={dimStroke} strokeWidth="0.8" />
-          <text x={xWall - 26} y={(yOD + yBottom - r) / 2 + 4} fill={labelFill} fontSize="11" fontWeight="bold">g</text>
-        </>
       )}
     </svg>
   );
