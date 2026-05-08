@@ -51,10 +51,16 @@ const Din509Svg = ({ type }: { type: Din509Type }) => {
       <line x1="84" y1="100" x2="92" y2="100" stroke={dimStroke} strokeWidth="0.8" />
       <text x="76" y="93" fill={labelFill} fontSize="9" fontWeight="bold">t₁</text>
 
-      <line x1="74" y1="30" x2="74" y2="80" stroke={dimStroke} strokeWidth="0.8" />
-      <line x1="70" y1="30" x2="78" y2="30" stroke={dimStroke} strokeWidth="0.8" />
-      <line x1="70" y1="80" x2="78" y2="80" stroke={dimStroke} strokeWidth="0.8" />
-      <text x="62" y="58" fill={labelFill} fontSize="9" fontWeight="bold">t₂</text>
+      {type !== 'E' && (
+        <>
+          {/* t2 — horizontal face allowance to the left of the shoulder */}
+          <line x1="90" y1="20" x2="90" y2="40" stroke={dimStroke} strokeWidth="0.8" strokeDasharray="2 2" />
+          <line x1="90" y1="34" x2="100" y2="34" stroke={dimStroke} strokeWidth="0.8" />
+          <line x1="90" y1="30" x2="90" y2="38" stroke={dimStroke} strokeWidth="0.8" />
+          <line x1="100" y1="30" x2="100" y2="38" stroke={dimStroke} strokeWidth="0.8" />
+          <text x="88" y="18" fill={labelFill} fontSize="9" fontWeight="bold">t₂</text>
+        </>
+      )}
 
       {/* f below the undercut bottom */}
       <line x1="115" y1="112" x2="150" y2="112" stroke={dimStroke} strokeWidth="0.8" />
