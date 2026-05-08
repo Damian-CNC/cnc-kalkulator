@@ -25,6 +25,8 @@ const Din509Svg = ({ type }: { type: Din509Type }) => {
   };
 
   const t2LeftX: Record<'F' | 'G' | 'H', number> = { F: 96, G: 85, H: 82 };
+  // X coordinate where the entry chamfer ends and radius r starts (bottom of undercut)
+  const gEndX: Record<'F' | 'G' | 'H', number> = { F: 104, G: 93, H: 87 };
 
   const entryAngleLabels: Partial<Record<Din509Type, { x: number; y: number; text: string }>> = {
     F: { x: 72, y: 77, text: '8°' },
