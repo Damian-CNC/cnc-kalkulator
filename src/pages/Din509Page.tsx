@@ -12,91 +12,147 @@ import {
 const TYPES: Din509Type[] = ['E', 'F', 'G', 'H'];
 
 const Din509Svg = ({ type }: { type: Din509Type }) => {
-  // Common: axis at y=170, top OD line at y=50, undercut between x=200..280
-  // Right of x=280: face going up (form F/E) or shoulder
-  const stroke = 'rgb(6,182,212)';
-  const dim = 'rgb(148,163,184)';
+  // Geometry layout (viewBox 0 0 400 240):
+  //   - Axis (spindle centerline) at y = 215, dashed.
+  //   - OD (cylindrical surface d1) reference line at y = 70.
+  //   - Vertical shoulder face at x = 130 going down from y = 70 into the undercut.
+  //   - Undercut bottom at y = 130 (depth t1 below OD).
+  //   - Flat bottom of undercut between x ≈ 175..245 (width f).
+  //   - 15° exit ramp from end of flat bottom up to OD line on the right.
+  //   - Material (hatched in real drawing) is ABOVE the contour. We don't draw hatching
+  //     to keep it clean against bg-zinc-900.
+  const profileStroke = 'rgb(6,182,212)'; // cyan-500
+  const dimStroke = 'rgb(113,113,122)';   // zinc-500
+  const labelFill = 'rgb(161,161,170)';   // zinc-400
+  const axisStroke = 'rgb(82,82,91)';     // zinc-600
 
-  // Profile points depend on type
-  // We draw: top OD line (left) → into undercut → bottom of undercut → face going up (right) → top OD line (right) for shoulder
-  // For Form E: no face — exits to right OD (no shoulder)
-  // For Form F: face goes up (perpendicular shoulder with small chamfer 8°)
-  // For Form G: angled approach 55° (no radius), exits 15°
-  // For Form H: angled approach 60°
+  const yOD = 70;
+  const yBottom = 130;
+  const yAxis = 215;
+  const xWall = 130;          // x of vertical shoulder face
+  const xExitStart = 245;     // x where 15° exit ramp begins (end of flat bottom)
+  const exitDx = (yBottom - yOD) / Math.tan((15 * Math.PI) / 180); // dx for 15° rise
+  const xExitEnd = xExitStart + exitDx;
+  const r = 14;               // visual radius of the undercut fillet
+  const xRadiusEnd = xWall + r; // x where the radius transitions to flat bottom
 
-  let pathPoints = '';
-  let labels: { x: number; y: number; text: string; color?: string }[] = [];
-  const exitAngleDeg = 15;
-  const exitDx = 30; // horizontal length for 15° exit
-  const exitDy = exitDx * Math.tan((exitAngleDeg * Math.PI) / 180);
+  // Type-specific entry geometry
+  // The profile is built as: top OD (left of wall stub) → vertical / angled face down →
+  //   radius arc into flat bottom → flat bottom → 15° exit ramp → OD continues right.
+  let entryPath = '';
+  let entryLabel: { x: number; y: number; text: string } | null = null;
 
   if (type === 'E') {
-    // Top OD left → small radius down → flat bottom → 15° exit up to right OD
-    // Points: (40,50) → (200,50) → curve to (210,80) → (260,80) → (260+exitDx,80-exitDy) → (380,80-exitDy)
-    pathPoints = `M 40,50 L 200,50 Q 215,50 215,75 L 260,75 L ${260 + exitDx},${75 - exitDy} L 380,${75 - exitDy}`;
-    labels = [
-      { x: 207, y: 65, text: 'r', color: 'rgb(251,191,36)' },
-      { x: 235, y: 90, text: 'f', color: 'rgb(244,114,182)' },
-      { x: 305, y: 60, text: '15°', color: 'rgb(167,139,250)' },
-      { x: 25, y: 65, text: 't₁', color: 'rgb(52,211,153)' },
-    ];
+    // Pure vertical wall to top of radius, then arc into bottom
+    entryPath =
+      `M 40,${yOD} L ${xWall},${yOD} ` +
+      `L ${xWall},${yBottom - r} ` +
+      `A ${r} ${r} 0 0 0 ${xRadiusEnd},${yBottom} `;
   } else if (type === 'F') {
-    // Form F: enters with 8° chamfer at top-left into undercut, has radius, flat bottom, 15° exit, then face goes up
-    // Top OD (40,50) → (190,50) → 8° down to (200,55) → curve into → (215,75) → flat (260,75) → 15° exit (290,67) → vertical face up to (290,40)? Actually face is the perpendicular shoulder
-    pathPoints = `M 40,50 L 190,50 L 205,52 Q 215,55 215,75 L 260,75 L ${260 + exitDx},${75 - exitDy} L 305,30`;
-    labels = [
-      { x: 195, y: 45, text: '8°', color: 'rgb(167,139,250)' },
-      { x: 207, y: 65, text: 'r', color: 'rgb(251,191,36)' },
-      { x: 235, y: 90, text: 'f', color: 'rgb(244,114,182)' },
-      { x: 305, y: 60, text: '15°', color: 'rgb(167,139,250)' },
-      { x: 320, y: 35, text: 't₂', color: 'rgb(52,211,153)' },
-      { x: 25, y: 65, text: 't₁', color: 'rgb(52,211,153)' },
-      { x: 240, y: 45, text: 'g', color: 'rgb(34,197,94)' },
-    ];
+    // 8° inclined wall: small inward lean before the radius
+    const angle = 8;
+    const dy = yBottom - r - yOD;
+    const dx = dy * Math.tan((angle * Math.PI) / 180);
+    entryPath =
+      `M 40,${yOD} L ${xWall + dx},${yOD} ` +
+      `L ${xWall},${yBottom - r} ` +
+      `A ${r} ${r} 0 0 0 ${xRadiusEnd},${yBottom} `;
+    entryLabel = { x: xWall - 18, y: yBottom - 6, text: '8°' };
   } else if (type === 'G') {
-    // 55° angled approach (no radius) → flat bottom → 15° exit → vertical face
-    // Approach: from (200,50) going down-right at 55° to (215,75)  (Δx = 25/tan55 ≈ 17.5)
-    pathPoints = `M 40,50 L 200,50 L 217.5,75 L 260,75 L ${260 + exitDx},${75 - exitDy} L 305,30`;
-    labels = [
-      { x: 192, y: 70, text: '55°', color: 'rgb(167,139,250)' },
-      { x: 235, y: 90, text: 'f', color: 'rgb(244,114,182)' },
-      { x: 305, y: 60, text: '15°', color: 'rgb(167,139,250)' },
-      { x: 320, y: 35, text: 't₂', color: 'rgb(52,211,153)' },
-      { x: 25, y: 65, text: 't₁', color: 'rgb(52,211,153)' },
-    ];
+    // 55° angled approach (large undercut of vertical wall)
+    const angle = 55;
+    const dy = yBottom - r - yOD;
+    const dx = dy * Math.tan((angle * Math.PI) / 180);
+    entryPath =
+      `M 40,${yOD} L ${xWall + dx},${yOD} ` +
+      `L ${xWall},${yBottom - r} ` +
+      `A ${r} ${r} 0 0 0 ${xRadiusEnd},${yBottom} `;
+    entryLabel = { x: xWall + 14, y: yOD + 26, text: '55°' };
   } else {
-    // H: 60° angled approach
-    pathPoints = `M 40,50 L 200,50 L 214.4,75 L 260,75 L ${260 + exitDx},${75 - exitDy} L 305,30`;
-    labels = [
-      { x: 192, y: 70, text: '60°', color: 'rgb(167,139,250)' },
-      { x: 235, y: 90, text: 'f', color: 'rgb(244,114,182)' },
-      { x: 305, y: 60, text: '15°', color: 'rgb(167,139,250)' },
-      { x: 320, y: 35, text: 't₂', color: 'rgb(52,211,153)' },
-      { x: 25, y: 65, text: 't₁', color: 'rgb(52,211,153)' },
-    ];
+    // H: 60° angled approach (largest undercut of vertical wall)
+    const angle = 60;
+    const dy = yBottom - r - yOD;
+    const dx = dy * Math.tan((angle * Math.PI) / 180);
+    entryPath =
+      `M 40,${yOD} L ${xWall + dx},${yOD} ` +
+      `L ${xWall},${yBottom - r} ` +
+      `A ${r} ${r} 0 0 0 ${xRadiusEnd},${yBottom} `;
+    entryLabel = { x: xWall + 18, y: yOD + 26, text: '60°' };
   }
 
+  // Continue: flat bottom → 15° exit → OD line to right edge
+  const fullPath =
+    entryPath +
+    `L ${xExitStart},${yBottom} ` +
+    `L ${xExitEnd},${yOD} ` +
+    `L 380,${yOD}`;
+
   return (
-    <svg viewBox="0 0 400 200" className="w-full max-w-md" fill="none">
-      {/* Axis */}
-      <line x1="20" y1="170" x2="380" y2="170" stroke="rgb(82,82,91)" strokeWidth="1" strokeDasharray="8 4" />
-      <text x="385" y="173" fill="rgb(82,82,91)" fontSize="9">oś</text>
-      {/* Top OD reference dashed */}
-      <line x1="40" y1="50" x2="380" y2="50" stroke="rgb(82,82,91)" strokeWidth="0.5" strokeDasharray="3 3" />
-      {/* Profile */}
-      <path d={pathPoints} stroke={stroke} strokeWidth="2" fill="none" strokeLinejoin="round" />
-      {/* Body fill (subtle) */}
-      <path d={`${pathPoints} L 380,170 L 40,170 Z`} fill="rgba(6,182,212,0.05)" stroke="none" />
-      {/* t1 dimension on left */}
-      <line x1="25" y1="50" x2="25" y2="75" stroke={dim} strokeWidth="0.8" />
-      <line x1="20" y1="50" x2="35" y2="50" stroke={dim} strokeWidth="0.8" />
-      <line x1="20" y1="75" x2="35" y2="75" stroke={dim} strokeWidth="0.8" />
-      {/* labels */}
-      {labels.map((l, i) => (
-        <text key={i} x={l.x} y={l.y} fill={l.color || dim} fontSize="11" fontWeight="bold">
-          {l.text}
+    <svg viewBox="0 0 400 240" className="w-full max-w-md" fill="none">
+      {/* Spindle axis */}
+      <line
+        x1="20" y1={yAxis} x2="380" y2={yAxis}
+        stroke={axisStroke} strokeWidth="1" strokeDasharray="8 4"
+      />
+      <text x="384" y={yAxis + 3} fill={axisStroke} fontSize="9">oś</text>
+
+      {/* OD reference (dashed continuation across the undercut) */}
+      <line
+        x1="40" y1={yOD} x2="380" y2={yOD}
+        stroke={axisStroke} strokeWidth="0.5" strokeDasharray="3 3"
+      />
+
+      {/* Main profile contour */}
+      <path d={fullPath} stroke={profileStroke} strokeWidth={2} strokeLinejoin="round" strokeLinecap="round" />
+
+      {/* --- Dimension lines (thin, zinc-500) --- */}
+      {/* t1 (depth from OD to undercut bottom) on far left */}
+      <line x1="28" y1={yOD} x2="28" y2={yBottom} stroke={dimStroke} strokeWidth="0.8" />
+      <line x1="22" y1={yOD} x2="34" y2={yOD} stroke={dimStroke} strokeWidth="0.8" />
+      <line x1="22" y1={yBottom} x2="34" y2={yBottom} stroke={dimStroke} strokeWidth="0.8" />
+      <text x="10" y={(yOD + yBottom) / 2 + 4} fill={labelFill} fontSize="11" fontWeight="bold">t₁</text>
+
+      {/* f (flat bottom width) below the undercut */}
+      <line x1={xRadiusEnd} y1={yBottom + 14} x2={xExitStart} y2={yBottom + 14} stroke={dimStroke} strokeWidth="0.8" />
+      <line x1={xRadiusEnd} y1={yBottom + 10} x2={xRadiusEnd} y2={yBottom + 18} stroke={dimStroke} strokeWidth="0.8" />
+      <line x1={xExitStart} y1={yBottom + 10} x2={xExitStart} y2={yBottom + 18} stroke={dimStroke} strokeWidth="0.8" />
+      <text x={(xRadiusEnd + xExitStart) / 2 - 4} y={yBottom + 28} fill={labelFill} fontSize="11" fontWeight="bold">f</text>
+
+      {/* r (radius pointer) */}
+      <line x1={xWall + 4} y1={yBottom - 4} x2={xWall + 22} y2={yBottom - 22} stroke={dimStroke} strokeWidth="0.8" />
+      <text x={xWall + 24} y={yBottom - 22} fill={labelFill} fontSize="11" fontWeight="bold">r</text>
+
+      {/* 15° exit angle label */}
+      <text x={xExitStart + exitDx / 2 - 4} y={yOD + 24} fill={labelFill} fontSize="11" fontWeight="bold">15°</text>
+
+      {/* d1 (cylindrical OD) — vertical dim on far right between OD and axis */}
+      <line x1="370" y1={yOD} x2="370" y2={yAxis} stroke={dimStroke} strokeWidth="0.8" />
+      <line x1="364" y1={yOD} x2="376" y2={yOD} stroke={dimStroke} strokeWidth="0.8" />
+      <line x1="364" y1={yAxis} x2="376" y2={yAxis} stroke={dimStroke} strokeWidth="0.8" />
+      <text x="356" y={(yOD + yAxis) / 2 + 4} fill={labelFill} fontSize="11" fontWeight="bold">d₁</text>
+
+      {/* Entry angle label (8°, 55°, 60°) — only F/G/H */}
+      {entryLabel && (
+        <text x={entryLabel.x} y={entryLabel.y} fill={labelFill} fontSize="11" fontWeight="bold">
+          {entryLabel.text}
         </text>
-      ))}
+      )}
+
+      {/* For F/G/H: t2 (depth on the vertical face from OD) and g (offset) */}
+      {type !== 'E' && (
+        <>
+          <line x1={xWall - 40} y1={yOD} x2={xWall - 40} y2={yOD + 14} stroke={dimStroke} strokeWidth="0.8" />
+          <line x1={xWall - 44} y1={yOD} x2={xWall - 36} y2={yOD} stroke={dimStroke} strokeWidth="0.8" />
+          <line x1={xWall - 44} y1={yOD + 14} x2={xWall - 36} y2={yOD + 14} stroke={dimStroke} strokeWidth="0.8" />
+          <text x={xWall - 60} y={yOD + 12} fill={labelFill} fontSize="11" fontWeight="bold">t₂</text>
+
+          {/* g: vertical offset along the wall, drawn inside the undercut */}
+          <line x1={xWall - 14} y1={yOD} x2={xWall - 14} y2={yBottom - r} stroke={dimStroke} strokeWidth="0.8" />
+          <line x1={xWall - 18} y1={yOD} x2={xWall - 10} y2={yOD} stroke={dimStroke} strokeWidth="0.8" />
+          <line x1={xWall - 18} y1={yBottom - r} x2={xWall - 10} y2={yBottom - r} stroke={dimStroke} strokeWidth="0.8" />
+          <text x={xWall - 26} y={(yOD + yBottom - r) / 2 + 4} fill={labelFill} fontSize="11" fontWeight="bold">g</text>
+        </>
+      )}
     </svg>
   );
 };
