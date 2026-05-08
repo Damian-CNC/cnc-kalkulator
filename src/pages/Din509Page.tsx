@@ -18,11 +18,13 @@ const Din509Svg = ({ type }: { type: Din509Type }) => {
   const axisStroke = 'rgb(82,82,91)';
 
   const mainPaths: Record<Din509Type, string> = {
-    E: 'M 20,30 L 100,30 L 100,85 A 15,15 0 0,0 115,100 L 150,100 L 210,80 L 280,80',
-    F: 'M 20,30 L 100,30 L 100,65 L 90,88 A 12,12 0 0,0 102,100 L 150,100 L 210,80 L 280,80',
-    G: 'M 20,30 L 100,30 L 100,55 L 60,90 A 10,10 0 0,0 70,100 L 150,100 L 210,80 L 280,80',
-    H: 'M 20,30 L 100,30 L 100,50 L 65,95 A 5,5 0 0,0 70,100 L 150,100 L 210,80 L 280,80',
+    E: 'M 20,30 L 100,30 L 100,80 A 10,10 0 0,0 110,90 L 150,90 L 187,80 L 280,80',
+    F: 'M 20,30 L 100,30 L 100,70 L 96,82 A 8,8 0 0,0 104,90 L 150,90 L 187,80 L 280,80',
+    G: 'M 20,30 L 100,30 L 100,65 L 85,82 A 8,8 0 0,0 93,90 L 150,90 L 187,80 L 280,80',
+    H: 'M 20,30 L 100,30 L 100,60 L 82,85 A 5,5 0 0,0 87,90 L 150,90 L 187,80 L 280,80',
   };
+
+  const t2LeftX: Record<'F' | 'G' | 'H', number> = { F: 96, G: 85, H: 82 };
 
   const entryAngleLabels: Partial<Record<Din509Type, { x: number; y: number; text: string }>> = {
     F: { x: 72, y: 77, text: '8°' },
@@ -45,35 +47,42 @@ const Din509Svg = ({ type }: { type: Din509Type }) => {
       {/* Main profile contour */}
       <path d={mainPaths[type]} stroke={profileStroke} strokeWidth={2} fill="none" strokeLinejoin="round" strokeLinecap="round" />
 
-      {/* t1 and t2 labels on the left side of the shoulder */}
-      <line x1="88" y1="80" x2="88" y2="100" stroke={dimStroke} strokeWidth="0.8" />
+      {/* t1 — vertical depth from smaller Ø down to undercut bottom */}
+      <line x1="88" y1="80" x2="88" y2="90" stroke={dimStroke} strokeWidth="0.8" />
       <line x1="84" y1="80" x2="92" y2="80" stroke={dimStroke} strokeWidth="0.8" />
-      <line x1="84" y1="100" x2="92" y2="100" stroke={dimStroke} strokeWidth="0.8" />
-      <text x="76" y="93" fill={labelFill} fontSize="9" fontWeight="bold">t₁</text>
+      <line x1="84" y1="90" x2="92" y2="90" stroke={dimStroke} strokeWidth="0.8" />
+      <text x="76" y="88" fill={labelFill} fontSize="9" fontWeight="bold">t₁</text>
 
       {type !== 'E' && (
         <>
           {/* t2 — horizontal face allowance to the left of the shoulder */}
-          <line x1="90" y1="20" x2="90" y2="40" stroke={dimStroke} strokeWidth="0.8" strokeDasharray="2 2" />
-          <line x1="90" y1="34" x2="100" y2="34" stroke={dimStroke} strokeWidth="0.8" />
-          <line x1="90" y1="30" x2="90" y2="38" stroke={dimStroke} strokeWidth="0.8" />
-          <line x1="100" y1="30" x2="100" y2="38" stroke={dimStroke} strokeWidth="0.8" />
-          <text x="88" y="18" fill={labelFill} fontSize="9" fontWeight="bold">t₂</text>
+          {(() => {
+            const xLeft = t2LeftX[type as 'F' | 'G' | 'H'];
+            return (
+              <>
+                <line x1={xLeft} y1="20" x2={xLeft} y2="40" stroke={dimStroke} strokeWidth="0.8" strokeDasharray="2 2" />
+                <line x1={xLeft} y1="24" x2="100" y2="24" stroke={dimStroke} strokeWidth="0.8" />
+                <line x1={xLeft} y1="20" x2={xLeft} y2="28" stroke={dimStroke} strokeWidth="0.8" />
+                <line x1="100" y1="20" x2="100" y2="28" stroke={dimStroke} strokeWidth="0.8" />
+                <text x={(xLeft + 100) / 2 - 4} y="18" fill={labelFill} fontSize="9" fontWeight="bold">t₂</text>
+              </>
+            );
+          })()}
         </>
       )}
 
       {/* f below the undercut bottom */}
-      <line x1="115" y1="112" x2="150" y2="112" stroke={dimStroke} strokeWidth="0.8" />
-      <line x1="115" y1="108" x2="115" y2="116" stroke={dimStroke} strokeWidth="0.8" />
-      <line x1="150" y1="108" x2="150" y2="116" stroke={dimStroke} strokeWidth="0.8" />
-      <text x="130" y="126" fill={labelFill} fontSize="9" fontWeight="bold">f</text>
+      <line x1="115" y1="102" x2="150" y2="102" stroke={dimStroke} strokeWidth="0.8" />
+      <line x1="115" y1="98" x2="115" y2="106" stroke={dimStroke} strokeWidth="0.8" />
+      <line x1="150" y1="98" x2="150" y2="106" stroke={dimStroke} strokeWidth="0.8" />
+      <text x="130" y="116" fill={labelFill} fontSize="9" fontWeight="bold">f</text>
 
       {/* r pointer */}
-      <line x1="112" y1="98" x2="128" y2="86" stroke={dimStroke} strokeWidth="0.8" />
-      <text x="131" y="86" fill={labelFill} fontSize="9" fontWeight="bold">r</text>
+      <line x1="112" y1="88" x2="128" y2="78" stroke={dimStroke} strokeWidth="0.8" />
+      <text x="131" y="78" fill={labelFill} fontSize="9" fontWeight="bold">r</text>
 
-      {/* Angle labels */}
-      <text x="198" y="70" fill={labelFill} fontSize="9" fontWeight="bold">15°</text>
+      {/* Angle label 15° on the exit ramp (150,90 → 187,80) */}
+      <text x="170" y="78" fill={labelFill} fontSize="9" fontWeight="bold">15°</text>
 
       {/* d1 (smaller Ø) */}
       <line x1="270" y1="80" x2="270" y2="140" stroke={dimStroke} strokeWidth="0.8" />
