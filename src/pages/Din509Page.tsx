@@ -208,10 +208,10 @@ const Din509Page = () => {
         {result ? (
           <div className="space-y-3">
             <p className="text-xs uppercase tracking-widest text-zinc-500">Wymiary z normy DIN 509</p>
-            <div className="grid grid-cols-3 gap-3">
+            <div className={`grid gap-3 ${type === 'E' ? 'grid-cols-1' : 'grid-cols-3'}`}>
               <ResultCard label="Szerokość f" value={`${result.f} mm`} />
-              <ResultCard label="Przesunięcie g" value={`${result.g} mm`} />
-              <ResultCard label="Głębokość t₂" value={`${result.t2} mm`} />
+              {type !== 'E' && <ResultCard label="Przesunięcie g" value={`${result.g} mm`} />}
+              {type !== 'E' && <ResultCard label="Głębokość t₂" value={`${result.t2} mm`} />}
             </div>
             <div className="bg-zinc-900 border border-zinc-800/80 rounded-2xl p-4">
               <p className="text-xs uppercase tracking-widest text-zinc-500 mb-2">Oznaczenie na rysunku</p>
