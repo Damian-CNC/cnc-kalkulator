@@ -12,6 +12,7 @@ const MetricThreadPage = lazy(() => import('@/pages/MetricThreadPage'));
 const BspThreadPage = lazy(() => import('@/pages/BspThreadPage'));
 const BswThreadPage = lazy(() => import('@/pages/BswThreadPage'));
 const BsfThreadPage = lazy(() => import('@/pages/BsfThreadPage'));
+const TrapezoidalThreadPage = lazy(() => import('@/pages/TrapezoidalThreadPage'));
 const TolerancesPage = lazy(() => import('@/pages/TolerancesPage'));
 const StandardCuttingPage = lazy(() => import('@/pages/StandardCuttingPage'));
 const TaperCalculatorPage = lazy(() => import('@/pages/TaperCalculatorPage'));
