@@ -91,14 +91,14 @@ const Index = () => {
             <h2 className="text-zinc-400 text-sm uppercase tracking-widest mb-4 px-1">
               {section.title}
             </h2>
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:flex md:flex-wrap md:justify-center">
               {section.tiles.map((tile) => {
                 const Icon = tile.icon;
                 return (
                   <button
                     key={tile.id}
                     onClick={() => navigate(tile.route)}
-                    className="aspect-square bg-zinc-900 border border-zinc-800 rounded-2xl flex flex-col items-center justify-center gap-3 p-4 text-center cursor-pointer transition-all hover:bg-zinc-800/80 hover:border-cyan-500/50 hover:shadow-[0_0_15px_rgba(6,182,212,0.15)] active:scale-95"
+                    className="aspect-square bg-zinc-900 border border-zinc-800 rounded-2xl flex flex-col items-center justify-center gap-3 p-4 text-center cursor-pointer transition-all hover:bg-zinc-800/80 hover:border-cyan-500/50 hover:shadow-[0_0_15px_rgba(6,182,212,0.15)] active:scale-95 md:w-[calc((100%-3rem)/4)]"
                   >
                     <Icon className="w-8 h-8 text-cyan-400" strokeWidth={2} />
                     <span className="text-sm sm:text-base font-semibold text-zinc-200 leading-tight">
