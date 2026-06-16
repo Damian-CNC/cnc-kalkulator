@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Wrench, CircleDot, Cog, Hexagon } from 'lucide-react';
+import { Wrench, CircleDot, Cog, Hexagon, ChevronsUpDown } from 'lucide-react';
 import PageLayout from '@/components/PageLayout';
 
 type Tile = {
@@ -12,6 +12,7 @@ type Tile = {
 
 const tiles: Tile[] = [
   { id: 'metric', label: 'Gwinty Metryczne', icon: Wrench, route: '/threads/metric', color: 'text-cyan-400' },
+  { id: 'trapezoidal', label: 'Gwinty Trapezowe (Tr)', icon: ChevronsUpDown, route: '/threads/trapezoidal', color: 'text-sky-400' },
   { id: 'bsp', label: 'Gwinty Rurowe BSP (G)', icon: CircleDot, route: '/threads/bsp', color: 'text-emerald-400' },
   { id: 'bsw', label: 'Gwinty BSW (Whitworth)', icon: Hexagon, route: '/threads/bsw', color: 'text-amber-400' },
   { id: 'bsf', label: 'Gwinty BSF (British Fine)', icon: Cog, route: '/threads/bsf', color: 'text-violet-400' },

@@ -12,6 +12,7 @@ const MetricThreadPage = lazy(() => import('@/pages/MetricThreadPage'));
 const BspThreadPage = lazy(() => import('@/pages/BspThreadPage'));
 const BswThreadPage = lazy(() => import('@/pages/BswThreadPage'));
 const BsfThreadPage = lazy(() => import('@/pages/BsfThreadPage'));
+const TrapezoidalThreadPage = lazy(() => import('@/pages/TrapezoidalThreadPage'));
 const TolerancesPage = lazy(() => import('@/pages/TolerancesPage'));
 const StandardCuttingPage = lazy(() => import('@/pages/StandardCuttingPage'));
 const TaperCalculatorPage = lazy(() => import('@/pages/TaperCalculatorPage'));
@@ -95,6 +96,7 @@ const AnimatedRoutes = () => {
               <Route path="/threads/bsp" element={<BspThreadPage />} />
               <Route path="/threads/bsw" element={<BswThreadPage />} />
               <Route path="/threads/bsf" element={<BsfThreadPage />} />
+              <Route path="/threads/trapezoidal" element={<TrapezoidalThreadPage />} />
               <Route path="/tolerancje" element={<TolerancesPage />} />
               <Route path="/standardowe-parametry" element={<StandardCuttingPage />} />
               <Route path="/kalkulator-stozkow" element={<TaperCalculatorPage />} />
