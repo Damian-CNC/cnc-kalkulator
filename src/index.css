@@ -196,10 +196,8 @@ html, body {
 }
 
 @layer utilities {
-  /* Pomija renderowanie kart poza ekranem na długich listach */
-  .cv-auto {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 320px;
+  .app-scroll-container {
+    -webkit-overflow-scrolling: touch;
   }
 
 

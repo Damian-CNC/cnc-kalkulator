@@ -1,6 +1,6 @@
 import { Routes, Route, useLocation, useNavigationType } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useRef, useEffect, useState, lazy, Suspense } from 'react';
+import { useRef, useEffect, useState, lazy } from 'react';
 
 const Index = lazy(() => import('@/pages/Index'));
 const ParametersPage = lazy(() => import('@/pages/ParametersPage'));
@@ -25,15 +25,6 @@ const SegerGroovesPage = lazy(() => import('@/pages/SegerGroovesPage'));
 const KeywaysPage = lazy(() => import('@/pages/KeywaysPage'));
 const ORingGroovesPage = lazy(() => import('@/pages/ORingGroovesPage'));
 const NotFound = lazy(() => import('@/pages/NotFound'));
-
-const RouteFallback = () => (
-  <div className="flex h-[100dvh] w-full items-center justify-center bg-zinc-950">
-    <div
-      className="h-12 w-12 rounded-full border-[3px] border-cyan-400/20 border-t-cyan-400 animate-spin"
-      aria-label="Ładowanie"
-    />
-  </div>
-);
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -87,10 +78,9 @@ const AnimatedRoutes = () => {
           initial="initial"
           animate="animate"
           exit="exit"
-          className="absolute top-0 left-0 w-full h-[100dvh] overflow-y-auto bg-zinc-950 pb-20"
+          className="app-scroll-container absolute top-0 left-0 w-full h-[100dvh] overflow-y-auto bg-zinc-950 pb-20"
         >
-          <Suspense fallback={<RouteFallback />}>
-            <Routes location={location}>
+          <Routes location={location}>
               <Route path="/" element={<Index />} />
               <Route path="/parametry" element={<ParametersPage />} />
               <Route path="/waga" element={<WeightPage />} />
@@ -118,8 +108,7 @@ const AnimatedRoutes = () => {
               <Route path="/feather-keys" element={<KeywaysPage />} />
               <Route path="/oring" element={<ORingGroovesPage />} />
               <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
+          </Routes>
         </motion.div>
       </AnimatePresence>
     </div>
