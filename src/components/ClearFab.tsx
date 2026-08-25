@@ -23,4 +23,4 @@ const ClearFab = ({ onClear, label = 'Wyczyść' }: ClearFabProps) => (
   </button>
 );
 
-export default ClearFab;
+export default memo(ClearFab);
