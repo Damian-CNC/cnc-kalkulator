@@ -127,7 +127,7 @@ const KeywaysPage = () => {
 
       <div className="glass-module mt-4">
         <h2 className="text-sm uppercase tracking-wider text-zinc-400 mb-4">Tabela DIN 6885</h2>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto cv-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="text-zinc-500 text-xs uppercase">
