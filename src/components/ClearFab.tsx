@@ -1,4 +1,6 @@
+import { memo } from 'react';
 import { RotateCcw } from 'lucide-react';
+
 
 interface ClearFabProps {
   onClear: () => void;

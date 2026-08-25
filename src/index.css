@@ -196,6 +196,13 @@ html, body {
 }
 
 @layer utilities {
+  /* Pomija renderowanie kart poza ekranem na długich listach */
+  .cv-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 320px;
+  }
+
+
   @keyframes gradientAnimation {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
