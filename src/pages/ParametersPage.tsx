@@ -33,20 +33,7 @@ const ParametersPage = () => {
         </div>
       </div>
 
-      {/* FAB — pływający przycisk "Wyczyść wszystko" */}
-      <button
-        onClick={handleReset}
-        className="fixed bottom-6 right-6 z-[100] flex items-center gap-2 px-5 py-3 rounded-full border border-zinc-700/60 text-zinc-300 text-sm font-semibold tracking-wide shadow-lg backdrop-blur-md transition-all active:scale-95 hover:text-zinc-100 hover:border-zinc-600"
-        style={{
-          backgroundColor: 'rgba(24, 24, 27, 0.65)',
-          boxShadow: '0 8px 30px rgba(0, 0, 0, 0.45)',
-          paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))',
-        }}
-        aria-label="Wyczyść wszystko"
-      >
-        <RotateCcw className="w-4 h-4 text-cyan-400" />
-        <span>Wyczyść wszystko</span>
-      </button>
+      <ClearFab onClear={handleReset} label="Wyczyść wszystko" />
     </div>
   );
 };
