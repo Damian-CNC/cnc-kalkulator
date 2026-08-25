@@ -109,13 +109,19 @@ const Index = () => {
                   <button
                     key={tile.id}
                     onClick={() => navigate(tile.route)}
-                    className="aspect-square bg-zinc-900 border border-zinc-800 rounded-2xl flex flex-col items-center justify-center gap-3 p-4 text-center cursor-pointer transition-all hover:bg-zinc-800/80 hover:border-cyan-500/50 hover:shadow-[0_0_15px_rgba(6,182,212,0.15)] active:scale-95 md:w-[calc((100%-3rem)/4)]"
+                    className="relative aspect-square bg-zinc-900 border border-zinc-800 rounded-2xl flex flex-col items-center justify-center gap-3 p-4 text-center cursor-pointer transition-all hover:bg-zinc-800/80 hover:border-cyan-500/50 hover:shadow-[0_0_15px_rgba(6,182,212,0.15)] active:scale-95 md:w-[calc((100%-3rem)/4)]"
                   >
+                    {tile.isNew && (
+                      <span className="absolute top-2 right-2 text-[10px] font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-1.5 py-0.5 rounded uppercase tracking-wider">
+                        New
+                      </span>
+                    )}
                     <Icon className="w-8 h-8 text-cyan-400" strokeWidth={2} />
                     <span className="text-sm sm:text-base font-semibold text-zinc-200 leading-tight">
                       {tile.label}
                     </span>
                   </button>
+
                 );
               })}
             </div>
