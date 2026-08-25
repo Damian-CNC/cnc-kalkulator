@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, RotateCcw } from 'lucide-react';
 import ParametersCalculator from '@/components/ParametersCalculator';
 
 const ParametersPage = () => {
@@ -11,7 +11,7 @@ const ParametersPage = () => {
   return (
     <div className="relative h-[100dvh] w-full bg-zinc-950 overflow-hidden">
       {/* SEKCJA PRZEWIJANA */}
-      <div className="h-full w-full overflow-y-auto overflow-x-hidden pr-14 sm:pr-16 pb-20">
+      <div className="h-full w-full overflow-y-auto overflow-x-hidden pb-28">
         <div className="flex flex-col items-center p-4 sm:p-6 pt-[max(1rem,env(safe-area-inset-top))]">
           <header className="w-full max-w-2xl flex items-center gap-3 mb-6">
             <button
@@ -32,14 +32,19 @@ const ParametersPage = () => {
         </div>
       </div>
 
-      {/* PRZYCISK WYCZYŚĆ — stała warstwa po prawej */}
+      {/* FAB — pływający przycisk "Wyczyść wszystko" */}
       <button
         onClick={handleReset}
-        className="absolute top-0 right-0 h-full w-14 sm:w-16 bg-zinc-900/90 border-l border-zinc-800 flex items-center justify-center z-[100] cursor-pointer hover:bg-zinc-800 transition-all active:scale-95"
+        className="fixed bottom-6 right-6 z-[100] flex items-center gap-2 px-5 py-3 rounded-full border border-zinc-700/60 text-zinc-300 text-sm font-semibold tracking-wide shadow-lg backdrop-blur-md transition-all active:scale-95 hover:text-zinc-100 hover:border-zinc-600"
+        style={{
+          backgroundColor: 'rgba(24, 24, 27, 0.65)',
+          boxShadow: '0 8px 30px rgba(0, 0, 0, 0.45)',
+          paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))',
+        }}
+        aria-label="Wyczyść wszystko"
       >
-        <span className="-rotate-90 whitespace-nowrap tracking-widest font-bold text-red-500 text-xs sm:text-sm uppercase">
-          Wyczyść
-        </span>
+        <RotateCcw className="w-4 h-4 text-cyan-400" />
+        <span>Wyczyść wszystko</span>
       </button>
     </div>
   );
