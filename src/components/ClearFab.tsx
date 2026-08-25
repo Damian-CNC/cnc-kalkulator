@@ -11,15 +11,10 @@ const ClearFab = ({ onClear, label = 'Wyczyść' }: ClearFabProps) => (
   <button
     onClick={onClear}
     aria-label={label}
-    className="fixed bottom-6 right-6 z-[100] flex items-center gap-2 px-5 py-3 rounded-full border border-zinc-700/60 text-zinc-300 text-sm font-semibold tracking-wide shadow-lg backdrop-blur-md transition-all active:scale-95 hover:text-zinc-100 hover:border-zinc-600"
-    style={{
-      backgroundColor: 'rgba(24, 24, 27, 0.65)',
-      boxShadow: '0 8px 30px rgba(0, 0, 0, 0.45)',
-      marginBottom: 'env(safe-area-inset-bottom)',
-    }}
+    className="fixed right-4 sm:right-8 z-50 flex items-center justify-center gap-2 w-12 h-12 p-0 sm:w-auto sm:px-4 sm:py-2.5 rounded-full border border-zinc-700/60 bg-zinc-900/85 text-zinc-300 text-sm font-semibold tracking-wide shadow-xl backdrop-blur-md transition-all duration-200 active:scale-95 hover:text-red-400 bottom-[calc(1.5rem+env(safe-area-inset-bottom))] sm:bottom-[calc(2rem+env(safe-area-inset-bottom))]"
   >
-    <RotateCcw className="w-4 h-4 text-cyan-400" />
-    <span>{label}</span>
+    <RotateCcw className="w-5 h-5 sm:w-4 sm:h-4 text-cyan-400" />
+    <span className="hidden sm:inline">{label}</span>
   </button>
 );
 
