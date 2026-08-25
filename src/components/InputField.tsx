@@ -1,4 +1,4 @@
-import { forwardRef, InputHTMLAttributes } from 'react';
+import { forwardRef, InputHTMLAttributes, memo } from 'react';
 
 interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
@@ -29,4 +29,5 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 
 InputField.displayName = 'InputField';
 
-export default InputField;
+export default memo(InputField);
+
