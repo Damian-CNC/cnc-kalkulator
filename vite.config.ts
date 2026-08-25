@@ -25,9 +25,9 @@ export default defineConfig(({ mode }) => ({
     modulePreload: { polyfill: false },
     rollupOptions: {
       treeshake: {
-        moduleSideEffects: false,
-        propertyReadSideEffects: false,
+        preset: "recommended",
       },
+
       output: {
         manualChunks(id: string) {
           if (!id.includes("node_modules")) return;
