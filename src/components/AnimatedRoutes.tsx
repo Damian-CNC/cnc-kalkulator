@@ -113,6 +113,10 @@ const AnimatedRoutes = () => {
               <Route path="/rowki-segera" element={<SegerGroovesPage />} />
               <Route path="/wpusty" element={<KeywaysPage />} />
               <Route path="/rowki-oring" element={<ORingGroovesPage />} />
+              <Route path="/surface-roughness" element={<RoughnessPage />} />
+              <Route path="/seger" element={<SegerGroovesPage />} />
+              <Route path="/feather-keys" element={<KeywaysPage />} />
+              <Route path="/oring" element={<ORingGroovesPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
