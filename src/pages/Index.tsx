@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Settings, Scale, Triangle, Gem, Ruler, ClipboardList, RefreshCw, Cone, Hexagon, Bolt, Scissors } from 'lucide-react';
+import { Settings, Scale, Triangle, Gem, Ruler, ClipboardList, RefreshCw, Cone, Hexagon, Bolt, Scissors, Waves, Disc, RectangleHorizontal, LifeBuoy } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 type Tile = {
@@ -7,14 +7,16 @@ type Tile = {
   label: string;
   icon: typeof Settings;
   route: string;
+  isNew?: boolean;
 };
 
 const sections: { title: string; tiles: Tile[] }[] = [
   {
-    title: 'Obróbka',
+    title: 'Obróbka i Wykończenie',
     tiles: [
       { id: 'parameters', label: 'Parametry', icon: Settings, route: '/parametry' },
       { id: 'std-cutting', label: 'Standardowe Parametry', icon: ClipboardList, route: '/standardowe-parametry' },
+      { id: 'roughness', label: 'Chropowatość Ra/Rz', icon: Waves, route: '/chropowatosc', isNew: true },
     ],
   },
   {
@@ -34,6 +36,14 @@ const sections: { title: string; tiles: Tile[] }[] = [
     ],
   },
   {
+    title: 'Elementy Znormalizowane',
+    tiles: [
+      { id: 'seger', label: 'Rowki Segera', icon: Disc, route: '/rowki-segera', isNew: true },
+      { id: 'keyways', label: 'Wpusty pryzmowe', icon: RectangleHorizontal, route: '/wpusty', isNew: true },
+      { id: 'oring', label: 'Rowki O-ring', icon: LifeBuoy, route: '/rowki-oring', isNew: true },
+    ],
+  },
+  {
     title: 'Materiały',
     tiles: [
       { id: 'weight', label: 'Waga', icon: Scale, route: '/waga' },
@@ -41,6 +51,7 @@ const sections: { title: string; tiles: Tile[] }[] = [
     ],
   },
 ];
+
 
 const Index = () => {
   const navigate = useNavigate();
@@ -98,13 +109,19 @@ const Index = () => {
                   <button
                     key={tile.id}
                     onClick={() => navigate(tile.route)}
-                    className="aspect-square bg-zinc-900 border border-zinc-800 rounded-2xl flex flex-col items-center justify-center gap-3 p-4 text-center cursor-pointer transition-all hover:bg-zinc-800/80 hover:border-cyan-500/50 hover:shadow-[0_0_15px_rgba(6,182,212,0.15)] active:scale-95 md:w-[calc((100%-3rem)/4)]"
+                    className="relative aspect-square bg-zinc-900 border border-zinc-800 rounded-2xl flex flex-col items-center justify-center gap-3 p-4 text-center cursor-pointer transition-all hover:bg-zinc-800/80 hover:border-cyan-500/50 hover:shadow-[0_0_15px_rgba(6,182,212,0.15)] active:scale-95 md:w-[calc((100%-3rem)/4)]"
                   >
+                    {tile.isNew && (
+                      <span className="absolute top-2 right-2 text-[10px] font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-1.5 py-0.5 rounded uppercase tracking-wider">
+                        New
+                      </span>
+                    )}
                     <Icon className="w-8 h-8 text-cyan-400" strokeWidth={2} />
                     <span className="text-sm sm:text-base font-semibold text-zinc-200 leading-tight">
                       {tile.label}
                     </span>
                   </button>
+
                 );
               })}
             </div>

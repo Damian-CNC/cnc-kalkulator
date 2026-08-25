@@ -13,18 +13,14 @@ type Tile = {
 
 const tiles: Tile[] = [
   { id: 'metric', label: 'Gwinty Metryczne', icon: Wrench, route: '/threads/metric', color: 'text-cyan-400' },
-  { id: 'trapezoidal', label: 'Gwinty Trapezowe (Tr)', icon: ChevronsUpDown, route: '/threads/trapezoidal', color: 'text-sky-400', isNew: true },
+  { id: 'trapezoidal', label: 'Gwinty Trapezowe (Tr)', icon: ChevronsUpDown, route: '/threads/trapezoidal', color: 'text-sky-400' },
   { id: 'bsp', label: 'Gwinty Rurowe BSP (G)', icon: CircleDot, route: '/threads/bsp', color: 'text-emerald-400' },
-  { id: 'npt', label: 'Gwinty NPT (ANSI)', icon: Pipette, route: '/threads/npt', color: 'text-rose-400', isNew: true },
+  { id: 'npt', label: 'Gwinty NPT (ANSI)', icon: Pipette, route: '/threads/npt', color: 'text-rose-400' },
   { id: 'bsw', label: 'Gwinty BSW (Whitworth)', icon: Hexagon, route: '/threads/bsw', color: 'text-amber-400' },
   { id: 'bsf', label: 'Gwinty BSF (British Fine)', icon: Cog, route: '/threads/bsf', color: 'text-violet-400' },
 ];
 
-const NewBadge = () => (
-  <span className="text-[10px] font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-1.5 py-0.5 rounded uppercase tracking-wider ml-2">
-    New
-  </span>
-);
+
 
 const ThreadsSubmenuPage = () => {
   const navigate = useNavigate();
