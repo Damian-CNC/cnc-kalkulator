@@ -1,4 +1,5 @@
-const CACHE_NAME = 'cnc-calculator-v4';
+const CACHE_PREFIX = 'cnc-calculator-';
+const CACHE_NAME = `${CACHE_PREFIX}v5`;
 const PRECACHE_URLS = ['./', './index.html', './manifest.json'];
 
 self.addEventListener('install', (event) => {
@@ -10,11 +11,21 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((names) =>
-      Promise.all(names.filter((n) => n !== CACHE_NAME).map((n) => caches.delete(n)))
-    )
+    Promise.all([
+      caches.keys().then((names) =>
+        Promise.all(
+          names
+            .filter((name) => name.startsWith(CACHE_PREFIX) && name !== CACHE_NAME)
+            .map((name) => caches.delete(name)),
+        ),
+      ),
+      self.clients.claim(),
+    ])
   );
-  self.clients.claim();
+});
+
+self.addEventListener('message', (event) => {
+  if (event.data?.type === 'SKIP_WAITING') self.skipWaiting();
 });
 
 self.addEventListener('fetch', (event) => {
@@ -47,7 +58,7 @@ self.addEventListener('fetch', (event) => {
 
   // HTML & everything else — network-first with cache fallback (offline).
   event.respondWith(
-    fetch(req)
+    fetch(req, isHTML ? { cache: 'no-store' } : undefined)
       .then((response) => {
         if (response && response.status === 200) {
           const clone = response.clone();

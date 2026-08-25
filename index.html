@@ -7,22 +7,21 @@
     <meta name="description" content="Profesjonalny kalkulator CNC do obliczania parametrów skrawania (obroty, posuw, posuw centralny) oraz wagi przygotówek z różnych materiałów." />
     <meta name="author" content="Damian Drewniak" />
     <meta name="theme-color" content="#09090b" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" type="image/png" href="./favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     
     <!-- PWA -->
-    <link rel="manifest" href="manifest.json" />
+    <link rel="manifest" href="./manifest.json" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Kalkulator CNC" />
-    <link rel="apple-touch-icon" href="icon-192.png" />
+    <link rel="apple-touch-icon" href="./icon-192.png" />
     
     <!-- Open Graph -->
     <meta property="og:title" content="Kalkulator CNC" />
     <meta property="og:description" content="Profesjonalny kalkulator CNC do obliczania parametrów skrawania i wagi przygotówek." />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="icon-512.png" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Kalkulator CNC" />
@@ -43,6 +42,19 @@
         <div class="app-preloader__label">CNC</div>
       </div>
     </div>
+    <script>
+      (function () {
+        var removePreloader = function () {
+          var preloader = document.querySelector('.app-preloader');
+          if (preloader) preloader.remove();
+        };
+        window.__removeCncPreloader = removePreloader;
+        document.addEventListener('DOMContentLoaded', function () {
+          window.setTimeout(removePreloader, 3000);
+        }, { once: true });
+        window.setTimeout(removePreloader, 3000);
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
