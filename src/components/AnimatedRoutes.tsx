@@ -20,6 +20,10 @@ const TaperCalculatorPage = lazy(() => import('@/pages/TaperCalculatorPage'));
 const PolygonShaftPage = lazy(() => import('@/pages/PolygonShaftPage'));
 const ThreadsSubmenuPage = lazy(() => import('@/pages/ThreadsSubmenuPage'));
 const Din509Page = lazy(() => import('@/pages/Din509Page'));
+const RoughnessPage = lazy(() => import('@/pages/RoughnessPage'));
+const SegerGroovesPage = lazy(() => import('@/pages/SegerGroovesPage'));
+const KeywaysPage = lazy(() => import('@/pages/KeywaysPage'));
+const ORingGroovesPage = lazy(() => import('@/pages/ORingGroovesPage'));
 const NotFound = lazy(() => import('@/pages/NotFound'));
 
 const RouteFallback = () => (
@@ -105,6 +109,10 @@ const AnimatedRoutes = () => {
               <Route path="/przekatne" element={<PolygonShaftPage />} />
               <Route path="/gwinty" element={<ThreadsSubmenuPage />} />
               <Route path="/podciecia-din509" element={<Din509Page />} />
+              <Route path="/chropowatosc" element={<RoughnessPage />} />
+              <Route path="/rowki-segera" element={<SegerGroovesPage />} />
+              <Route path="/wpusty" element={<KeywaysPage />} />
+              <Route path="/rowki-oring" element={<ORingGroovesPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
