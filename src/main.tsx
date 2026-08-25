@@ -2,6 +2,12 @@ import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 
+declare global {
+  interface Window {
+    __removeCncPreloader?: () => void;
+  }
+}
+
 const isInIframe = (() => {
   try { return window.self !== window.top; } catch { return true; }
 })();
@@ -15,6 +21,7 @@ if ('serviceWorker' in navigator && !isInIframe && !isPreviewHost) {
     const swPath = import.meta.env.BASE_URL + 'sw.js';
     navigator.serviceWorker.register(swPath).then((reg) => {
       console.log('SW registered');
+      reg.waiting?.postMessage({ type: 'SKIP_WAITING' });
       // Check for updates every 60 seconds
       setInterval(() => reg.update(), 60 * 1000);
 
@@ -22,9 +29,8 @@ if ('serviceWorker' in navigator && !isInIframe && !isPreviewHost) {
         const newWorker = reg.installing;
         if (!newWorker) return;
         newWorker.addEventListener('statechange', () => {
-          if (newWorker.state === 'activated' && navigator.serviceWorker.controller) {
-            console.log('New version available, reloading...');
-            window.location.reload();
+          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            newWorker.postMessage({ type: 'SKIP_WAITING' });
           }
         });
       });
@@ -36,4 +42,11 @@ if ('serviceWorker' in navigator && !isInIframe && !isPreviewHost) {
   );
 }
 
-createRoot(document.getElementById("root")!).render(<App />);
+const rootElement = document.getElementById("root");
+
+if (!rootElement) {
+  throw new Error("Root element is missing");
+}
+
+createRoot(rootElement).render(<App />);
+window.__removeCncPreloader?.();
