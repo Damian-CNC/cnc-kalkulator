@@ -12,7 +12,7 @@ const ParametersPage = () => {
   return (
     <div className="relative h-[100dvh] w-full bg-zinc-950 overflow-hidden">
       {/* SEKCJA PRZEWIJANA */}
-      <div className="h-full w-full overflow-y-auto overflow-x-hidden pb-28">
+      <div className="h-full w-full overflow-y-auto overflow-x-hidden pb-28 sm:pb-32">
         <div className="flex flex-col items-center p-4 sm:p-6 pt-[max(1rem,env(safe-area-inset-top))]">
           <header className="w-full max-w-2xl flex items-center gap-3 mb-6">
             <button
