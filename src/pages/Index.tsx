@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Settings, Scale, Triangle, Gem, Ruler, ClipboardList, RefreshCw, Cone, Hexagon, Bolt, Scissors } from 'lucide-react';
+import { Settings, Scale, Triangle, Gem, Ruler, ClipboardList, RefreshCw, Cone, Hexagon, Bolt, Scissors, Waves, Disc, RectangleHorizontal, LifeBuoy } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 type Tile = {
@@ -7,14 +7,16 @@ type Tile = {
   label: string;
   icon: typeof Settings;
   route: string;
+  isNew?: boolean;
 };
 
 const sections: { title: string; tiles: Tile[] }[] = [
   {
-    title: 'Obróbka',
+    title: 'Obróbka i Wykończenie',
     tiles: [
       { id: 'parameters', label: 'Parametry', icon: Settings, route: '/parametry' },
       { id: 'std-cutting', label: 'Standardowe Parametry', icon: ClipboardList, route: '/standardowe-parametry' },
+      { id: 'roughness', label: 'Chropowatość Ra/Rz', icon: Waves, route: '/chropowatosc', isNew: true },
     ],
   },
   {
@@ -34,6 +36,14 @@ const sections: { title: string; tiles: Tile[] }[] = [
     ],
   },
   {
+    title: 'Elementy Znormalizowane',
+    tiles: [
+      { id: 'seger', label: 'Rowki Segera', icon: Disc, route: '/rowki-segera', isNew: true },
+      { id: 'keyways', label: 'Wpusty pryzmowe', icon: RectangleHorizontal, route: '/wpusty', isNew: true },
+      { id: 'oring', label: 'Rowki O-ring', icon: LifeBuoy, route: '/rowki-oring', isNew: true },
+    ],
+  },
+  {
     title: 'Materiały',
     tiles: [
       { id: 'weight', label: 'Waga', icon: Scale, route: '/waga' },
@@ -41,6 +51,7 @@ const sections: { title: string; tiles: Tile[] }[] = [
     ],
   },
 ];
+
 
 const Index = () => {
   const navigate = useNavigate();
