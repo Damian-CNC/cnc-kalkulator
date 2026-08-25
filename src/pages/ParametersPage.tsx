@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, RotateCcw } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import ParametersCalculator from '@/components/ParametersCalculator';
+import ClearFab from '@/components/ClearFab';
 
 const ParametersPage = () => {
   const navigate = useNavigate();
