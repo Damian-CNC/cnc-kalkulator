@@ -1,4 +1,6 @@
+import { memo } from 'react';
 import { RotateCcw } from 'lucide-react';
+
 
 interface ClearFabProps {
   onClear: () => void;
@@ -21,4 +23,4 @@ const ClearFab = ({ onClear, label = 'Wyczyść' }: ClearFabProps) => (
   </button>
 );
 
-export default ClearFab;
+export default memo(ClearFab);

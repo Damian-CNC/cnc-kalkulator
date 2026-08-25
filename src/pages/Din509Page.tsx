@@ -232,7 +232,7 @@ const Din509Page = () => {
           <summary className="cursor-pointer text-sm font-semibold text-zinc-300 uppercase tracking-wider">
             Pełna tabela DIN 509
           </summary>
-          <div className="mt-3 overflow-x-auto">
+          <div className="mt-3 overflow-x-auto cv-auto">
             <table className="w-full text-sm">
               <thead>
                 <tr className="text-zinc-500 text-xs uppercase tracking-wider">
