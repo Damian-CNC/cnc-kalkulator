@@ -67,8 +67,23 @@ html, body {
   body {
     @apply bg-background text-foreground;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    text-rendering: optimizeSpeed;
+  }
+
+  /* Eliminuje 300 ms opóźnienia tapnięcia na mobile (WebKit/Blink) */
+  button,
+  a,
+  label,
+  input,
+  select,
+  textarea,
+  summary,
+  [role='button'],
+  [role='tab'] {
+    touch-action: manipulation;
   }
 }
+
 
 @layer components {
   .glass-container {
