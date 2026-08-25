@@ -26,7 +26,7 @@ const PageLayout = ({ title, children, backRoute = '/' }: PageLayoutProps) => {
         <h1 className="text-lg sm:text-xl font-bold tracking-wide">{title}</h1>
       </header>
 
-      <main className="w-full max-w-2xl mx-auto px-4 sm:px-6">
+      <main className="w-full max-w-2xl mx-auto px-4 sm:px-6 pb-28 sm:pb-32">
         {children}
       </main>
     </div>
