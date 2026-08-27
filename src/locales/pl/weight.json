@@ -1,0 +1,39 @@
+{
+  "title": "Kalkulator wagi przygotówki",
+  "materials": {
+    "S235/S355": "Stal konstrukcyjna",
+    "40H/40HM": "Stal konstrukcyjna węglowa",
+    "C45": "Stal węglowa",
+    "NC11LV": "Stal nierdzewna martenzytyczna",
+    "AISI 304": "Stal nierdzewna austenityczna",
+    "AISI 316": "Stal nierdzewna austenityczna",
+    "4H13": "Stal nierdzewna martenzytyczna",
+    "Aluminium PA4": "Stop aluminium",
+    "Aluminium PA13": "Stop aluminium",
+    "POM-C": "Polioxymetan kopolimer"
+  },
+  "shapes": {
+    "rod": "Wałek",
+    "tube": "Rura",
+    "flat": "Płaskownik"
+  },
+  "fields": {
+    "shape": "Kształt półfabrykatu",
+    "outerDiameter": "Średnica zewnętrzna [mm]",
+    "innerDiameter": "Średnica wewnętrzna [mm]",
+    "length": "Długość [mm]",
+    "dimensionA": "Wymiar A [mm]",
+    "dimensionB": "Wymiar B [mm]",
+    "material": "Materiał",
+    "materialSelect": "Wybierz materiał",
+    "quantity": "Ilość sztuk"
+  },
+  "result": {
+    "totalWeight": "Masa całkowita",
+    "pieces": "szt.",
+    "volume": "Objętość",
+    "density": "Gęstość",
+    "invalid": "Wprowadź prawidłowe wartości"
+  },
+  "clear": "Wyczyść"
+}

@@ -1,0 +1,39 @@
+{
+  "title": "Calcolatore peso grezzo",
+  "materials": {
+    "S235/S355": "Acciaio da costruzione",
+    "40H/40HM": "Acciaio da costruzione al carbonio",
+    "C45": "Acciaio al carbonio",
+    "NC11LV": "Acciaio inossidabile martensitico",
+    "AISI 304": "Acciaio inossidabile austenitico",
+    "AISI 316": "Acciaio inossidabile austenitico",
+    "4H13": "Acciaio inossidabile martensitico",
+    "Aluminium PA4": "Lega di alluminio",
+    "Aluminium PA13": "Lega di alluminio",
+    "POM-C": "Copolimero di poliossimetilene"
+  },
+  "shapes": {
+    "rod": "Tondo",
+    "tube": "Tubo",
+    "flat": "Piatto"
+  },
+  "fields": {
+    "shape": "Forma del grezzo",
+    "outerDiameter": "Diametro esterno [mm]",
+    "innerDiameter": "Diametro interno [mm]",
+    "length": "Lunghezza [mm]",
+    "dimensionA": "Dimensione A [mm]",
+    "dimensionB": "Dimensione B [mm]",
+    "material": "Materiale",
+    "materialSelect": "Seleziona materiale",
+    "quantity": "Quantità pezzi"
+  },
+  "result": {
+    "totalWeight": "Peso totale",
+    "pieces": "pz",
+    "volume": "Volume",
+    "density": "Densità",
+    "invalid": "Inserire valori validi"
+  },
+  "clear": "Cancella"
+}

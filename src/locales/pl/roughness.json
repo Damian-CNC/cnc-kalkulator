@@ -10,5 +10,6 @@
   "standard": "Standardowa",
   "rough": "Zgrubna",
   "isoClasses": "Klasy ISO N1–N12",
-  "theoreticalFormulas": "Wzory teoretyczne: Rz ≈ f² / (8·rε) · 1000 · Ra ≈ f² / (32·rε) · 1000"
+  "theoreticalFormulas": "Wzory teoretyczne: Rz ≈ f² / (8·rε) · 1000 · Ra ≈ f² / (32·rε) · 1000",
+  "perRev": "obr"
 }

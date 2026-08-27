@@ -10,5 +10,6 @@
   "standard": "Standard",
   "rough": "Sgrossatura",
   "isoClasses": "Classi ISO N1–N12",
-  "theoreticalFormulas": "Formule teoriche: Rz ≈ f² / (8·rε) · 1000 · Ra ≈ f² / (32·rε) · 1000"
+  "theoreticalFormulas": "Formule teoriche: Rz ≈ f² / (8·rε) · 1000 · Ra ≈ f² / (32·rε) · 1000",
+  "perRev": "giro"
 }

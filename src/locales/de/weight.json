@@ -1,0 +1,39 @@
+{
+  "title": "Rohteil-Gewichtsrechner",
+  "materials": {
+    "S235/S355": "Baustahl",
+    "40H/40HM": "Kohlenstoff-Baustahl",
+    "C45": "Kohlenstoffstahl",
+    "NC11LV": "Martensitischer rostfreier Stahl",
+    "AISI 304": "Austenitischer rostfreier Stahl",
+    "AISI 316": "Austenitischer rostfreier Stahl",
+    "4H13": "Martensitischer rostfreier Stahl",
+    "Aluminium PA4": "Aluminiumlegierung",
+    "Aluminium PA13": "Aluminiumlegierung",
+    "POM-C": "Polyoxymethylen-Copolymer"
+  },
+  "shapes": {
+    "rod": "Rundstab",
+    "tube": "Rohr",
+    "flat": "Flachstab"
+  },
+  "fields": {
+    "shape": "Rohteilform",
+    "outerDiameter": "Außendurchmesser [mm]",
+    "innerDiameter": "Innendurchmesser [mm]",
+    "length": "Länge [mm]",
+    "dimensionA": "Maß A [mm]",
+    "dimensionB": "Maß B [mm]",
+    "material": "Werkstoff",
+    "materialSelect": "Werkstoff wählen",
+    "quantity": "Stückzahl"
+  },
+  "result": {
+    "totalWeight": "Gesamtgewicht",
+    "pieces": "Stk.",
+    "volume": "Volumen",
+    "density": "Dichte",
+    "invalid": "Gültige Werte eingeben"
+  },
+  "clear": "Löschen"
+}

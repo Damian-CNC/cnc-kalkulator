@@ -1,0 +1,16 @@
+{
+  "shaftTab": "Albero — DIN 471",
+  "boreTab": "Foro — DIN 472",
+  "nominalDiameter": "Diametro nominale d₁ [mm]",
+  "notFound": "Nessuna misura normalizzata nell'intervallo 8–100 mm.",
+  "grooveDimensions": "Dimensioni della cava",
+  "grooveBottom": "Fondo cava d₂ ({{fit}})",
+  "widthM": "Larghezza m (H13)",
+  "ringStrength": "Anello e resistenza",
+  "ringThickness": "Spessore anello s",
+  "minEdgeDistance": "Distanza min. dal bordo n",
+  "grooveLoad": "Carico cava F_R (indicativo)",
+  "grooveDepth": "Profondità cava",
+  "crossSection": "Sezione",
+  "rotationAxis": "asse di rotazione"
+}

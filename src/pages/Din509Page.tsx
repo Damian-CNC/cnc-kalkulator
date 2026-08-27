@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import PageLayout from '@/components/PageLayout';
 import {
   DIN509_TYPES,
@@ -40,7 +41,7 @@ const Din509Svg = ({ type }: { type: Din509Type }) => {
     <svg viewBox="0 0 300 150" className="w-full max-w-md" fill="none">
       {/* Spindle axis */}
       <line x1="20" y1="140" x2="280" y2="140" stroke={axisStroke} strokeWidth="1" strokeDasharray="4 4" />
-      <text x="282" y="143" fill={axisStroke} fontSize="7">oś</text>
+      <text x="282" y="143" fill={axisStroke} fontSize="7">{t('din509:axis')}</text>
 
       {/* Helper lines */}
       <line x1="100" y1="30" x2="100" y2="110" stroke={axisStroke} strokeWidth="1" strokeDasharray="2 2" />
@@ -117,6 +118,7 @@ const Din509Svg = ({ type }: { type: Din509Type }) => {
 };
 
 const Din509Page = () => {
+  const { t } = useTranslation(['din509', 'translation']);
   const [type, setType] = useState<Din509Type>('E');
   const [rValue, setRValue] = useState<string>('');
   const [t1Value, setT1Value] = useState<string>('');
@@ -132,7 +134,7 @@ const Din509Page = () => {
   const t1Options = !isNaN(r) ? t1OptionsForRadius(r) : [];
 
   return (
-    <PageLayout title="Podcięcia DIN 509">
+    <PageLayout title={t('translation:pages.din509')}>
       <div className="space-y-4">
         {/* Type tabs */}
         <div className="grid grid-cols-4 gap-2">
@@ -146,7 +148,7 @@ const Din509Page = () => {
                   : 'bg-zinc-900 border-zinc-800 text-zinc-400 hover:border-zinc-700'
               }`}
             >
-              Typ {t}
+              {t('din509:type', { type: t })}
             </button>
           ))}
         </div>
@@ -156,9 +158,9 @@ const Din509Page = () => {
           <p className="text-sm text-zinc-300">{info.description}</p>
           <div className="flex gap-4 mt-2 text-xs text-zinc-500">
             {info.approachAngle !== null && (
-              <span>Kąt wejścia: <span className="text-cyan-400 font-bold">{info.approachAngle}°</span></span>
+              <span>{t('din509:entryAngle')} <span className="text-cyan-400 font-bold">{info.approachAngle}°</span></span>
             )}
-            <span>Kąt wyjścia: <span className="text-cyan-400 font-bold">{info.exitAngle}°</span></span>
+            <span>{t('din509:exitAngle')} <span className="text-cyan-400 font-bold">{info.exitAngle}°</span></span>
           </div>
         </div>
 
@@ -172,14 +174,14 @@ const Din509Page = () => {
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="block text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider">
-                Promień r (mm)
+                {t('din509:radiusR')}
               </label>
               <select
                 value={rValue}
                 onChange={(e) => { setRValue(e.target.value); setT1Value(''); }}
                 className="w-full bg-zinc-950/50 border border-zinc-700 rounded-xl px-4 py-3 text-zinc-100 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/50 cursor-pointer"
               >
-                <option value="">— wybierz —</option>
+                <option value="">{t('din509:select')}</option>
                 {uniqueRadii.map((v) => (
                   <option key={v} value={v}>{v}</option>
                 ))}
@@ -187,7 +189,7 @@ const Din509Page = () => {
             </div>
             <div>
               <label className="block text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider">
-                Głębokość t₁ (mm)
+                {t('din509:depthT1')}
               </label>
               <select
                 value={t1Value}
@@ -195,7 +197,7 @@ const Din509Page = () => {
                 disabled={!t1Options.length}
                 className="w-full bg-zinc-950/50 border border-zinc-700 rounded-xl px-4 py-3 text-zinc-100 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/50 cursor-pointer disabled:opacity-50"
               >
-                <option value="">— wybierz —</option>
+                <option value="">{t('din509:select')}</option>
                 {t1Options.map((v) => (
                   <option key={v} value={v}>{v}</option>
                 ))}
@@ -207,30 +209,30 @@ const Din509Page = () => {
         {/* Results */}
         {result ? (
           <div className="space-y-3">
-            <p className="text-xs uppercase tracking-widest text-zinc-500">Wymiary z normy DIN 509</p>
+            <p className="text-xs uppercase tracking-widest text-zinc-500">{t('din509:dimensionsTitle')}</p>
             <div className={`grid gap-3 ${type === 'E' ? 'grid-cols-1' : 'grid-cols-3'}`}>
-              <ResultCard label="Szerokość f" value={`${result.f} mm`} />
-              {type !== 'E' && <ResultCard label="Przesunięcie g" value={`${result.g} mm`} />}
-              {type !== 'E' && <ResultCard label="Głębokość t₂" value={`${result.t2} mm`} />}
+              <ResultCard label={t('din509:widthF')} value={`${result.f} mm`} />
+              {type !== 'E' && <ResultCard label={t('din509:offsetG')} value={`${result.g} mm`} />}
+              {type !== 'E' && <ResultCard label={t('din509:depthT2')} value={`${result.t2} mm`} />}
             </div>
             <div className="bg-zinc-900 border border-zinc-800/80 rounded-2xl p-4">
-              <p className="text-xs uppercase tracking-widest text-zinc-500 mb-2">Oznaczenie na rysunku</p>
+              <p className="text-xs uppercase tracking-widest text-zinc-500 mb-2">{t('din509:drawingMark')}</p>
               <p className="text-cyan-400 font-bold text-lg">
                 DIN 509 — {type} {result.r} × {result.t1}
               </p>
-              <p className="text-zinc-500 text-xs mt-1">Zakres: {result.dRange}</p>
+              <p className="text-zinc-500 text-xs mt-1">{t('din509:range', { range: result.dRange })}</p>
             </div>
           </div>
         ) : (
           <div className="bg-zinc-900 border border-zinc-800/80 rounded-2xl p-6 text-center text-zinc-500 text-sm">
-            Wybierz <span className="text-cyan-400 font-bold">r</span> oraz <span className="text-cyan-400 font-bold">t₁</span>, aby odczytać pozostałe wymiary.
+            {t('din509:chooseHintPrefix')} <span className="text-cyan-400 font-bold">r</span> {t('din509:chooseHintMiddle')} <span className="text-cyan-400 font-bold">t₁</span>{t('din509:chooseHintSuffix')}
           </div>
         )}
 
         {/* Full table */}
         <details className="bg-zinc-900 border border-zinc-800/80 rounded-2xl p-4">
           <summary className="cursor-pointer text-sm font-semibold text-zinc-300 uppercase tracking-wider">
-            Pełna tabela DIN 509
+            {t('din509:fullTable')}
           </summary>
           <div className="mt-3 overflow-x-auto cv-auto">
             <table className="w-full text-sm">
@@ -241,7 +243,7 @@ const Din509Page = () => {
                   <th className="py-2 px-2 text-left">f</th>
                   <th className="py-2 px-2 text-left">g</th>
                   <th className="py-2 px-2 text-left">t₂</th>
-                  <th className="py-2 px-2 text-left">Średnica</th>
+                  <th className="py-2 px-2 text-left">{t('din509:diameter')}</th>
                 </tr>
               </thead>
               <tbody>

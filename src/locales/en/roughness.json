@@ -10,5 +10,6 @@
   "standard": "Standard",
   "rough": "Rough",
   "isoClasses": "ISO classes N1–N12",
-  "theoreticalFormulas": "Theoretical formulas: Rz ≈ f² / (8·rε) · 1000 · Ra ≈ f² / (32·rε) · 1000"
+  "theoreticalFormulas": "Theoretical formulas: Rz ≈ f² / (8·rε) · 1000 · Ra ≈ f² / (32·rε) · 1000",
+  "perRev": "rev"
 }

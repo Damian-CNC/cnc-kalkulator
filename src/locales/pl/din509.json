@@ -1,0 +1,20 @@
+{
+  "type": "Typ {{type}}",
+  "entryAngle": "Kąt wejścia:",
+  "exitAngle": "Kąt wyjścia:",
+  "radiusR": "Promień r (mm)",
+  "depthT1": "Głębokość t₁ (mm)",
+  "select": "— wybierz —",
+  "dimensionsTitle": "Wymiary z normy DIN 509",
+  "widthF": "Szerokość f",
+  "offsetG": "Przesunięcie g",
+  "depthT2": "Głębokość t₂",
+  "drawingMark": "Oznaczenie na rysunku",
+  "range": "Zakres: {{range}}",
+  "fullTable": "Pełna tabela DIN 509",
+  "diameter": "Średnica",
+  "axis": "oś",
+  "chooseHintPrefix": "Wybierz",
+  "chooseHintMiddle": ",",
+  "chooseHintSuffix": "aby odczytać pozostałe wymiary."
+}

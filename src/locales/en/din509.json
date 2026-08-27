@@ -1,0 +1,20 @@
+{
+  "type": "Type {{type}}",
+  "entryAngle": "Entry angle:",
+  "exitAngle": "Exit angle:",
+  "radiusR": "Radius r (mm)",
+  "depthT1": "Depth t₁ (mm)",
+  "select": "— select —",
+  "dimensionsTitle": "Dimensions per DIN 509",
+  "widthF": "Width f",
+  "offsetG": "Offset g",
+  "depthT2": "Depth t₂",
+  "drawingMark": "Drawing designation",
+  "range": "Range: {{range}}",
+  "fullTable": "Full DIN 509 table",
+  "diameter": "Diameter",
+  "axis": "axis",
+  "chooseHintPrefix": "Select",
+  "chooseHintMiddle": "and",
+  "chooseHintSuffix": " to read the remaining dimensions."
+}

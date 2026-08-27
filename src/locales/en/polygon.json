@@ -1,0 +1,12 @@
+{
+  "hex": "Hexagon",
+  "square": "Square",
+  "fields": {
+    "s": "Wrench size S [mm]",
+    "d": "Diagonal / Min. shaft D [mm]"
+  },
+  "formula": {
+    "hex": "Hexagon: D = 2·S / √3",
+    "square": "Square: D = S · √2"
+  }
+}
