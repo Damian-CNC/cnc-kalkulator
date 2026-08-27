@@ -1,0 +1,14 @@
+{
+  "modeForward": "Roughness from feed",
+  "modeReverse": "Feed from target Ra",
+  "cornerRadius": "Corner radius rε [mm]",
+  "feed": "Feed f / fz [mm/rev]",
+  "targetRa": "Target Ra [µm]",
+  "positiveValuesRequired": "Enter positive values.",
+  "surfaceClass": "Surface class:",
+  "finishing": "Finishing",
+  "standard": "Standard",
+  "rough": "Rough",
+  "isoClasses": "ISO classes N1–N12",
+  "theoreticalFormulas": "Theoretical formulas: Rz ≈ f² / (8·rε) · 1000 · Ra ≈ f² / (32·rε) · 1000"
+}

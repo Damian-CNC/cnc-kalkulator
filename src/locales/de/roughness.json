@@ -1,0 +1,14 @@
+{
+  "modeForward": "Rauheit aus Vorschub",
+  "modeReverse": "Vorschub aus Ziel-Ra",
+  "cornerRadius": "Eckenradius rε [mm]",
+  "feed": "Vorschub f / fz [mm/U]",
+  "targetRa": "Ziel-Ra [µm]",
+  "positiveValuesRequired": "Positive Werte eingeben.",
+  "surfaceClass": "Oberflächenklasse:",
+  "finishing": "Feinbearbeitung",
+  "standard": "Standard",
+  "rough": "Schrupp",
+  "isoClasses": "ISO-Klassen N1–N12",
+  "theoreticalFormulas": "Theoretische Formeln: Rz ≈ f² / (8·rε) · 1000 · Ra ≈ f² / (32·rε) · 1000"
+}
