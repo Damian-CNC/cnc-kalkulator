@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, RotateCcw } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const parse = (v: string) => {
   const n = parseFloat(v.replace(',', '.'));
@@ -17,6 +18,8 @@ const toDms = (deg: number) => {
 type SolvedField = 'd1' | 'd2' | 'l' | 'halfAngle' | null;
 
 const TaperCalculatorPage = () => {
+  const { t } = useTranslation('taper');
+  const { t: tCommon } = useTranslation();
   const navigate = useNavigate();
   const [d1Input, setD1Input] = useState('');
   const [d2Input, setD2Input] = useState('');
@@ -89,21 +92,21 @@ const TaperCalculatorPage = () => {
         <button
           onClick={() => navigate('/')}
           className="p-2 -ml-2 rounded-xl text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800 transition-colors"
-          aria-label="Wstecz"
+          aria-label={tCommon('common.back')}
         >
           <ArrowLeft className="w-5 h-5" />
         </button>
-        <h1 className="text-lg sm:text-xl font-bold tracking-wide">Kalkulator Faz</h1>
+        <h1 className="text-lg sm:text-xl font-bold tracking-wide">{tCommon('pages.taper')}</h1>
       </header>
 
       <main className="w-full max-w-2xl mx-auto px-4 sm:px-6 space-y-5">
-        <span className="text-xs font-semibold text-zinc-500 uppercase tracking-widest block mb-2">Narzędzie dla tokarzy</span>
+        <span className="text-xs font-semibold text-zinc-500 uppercase tracking-widest block mb-2">{t('toolHint')}</span>
         {/* SVG — half-view of shaft chamfer (lathe view) */}
         <div className="rounded-xl border border-zinc-800 bg-zinc-900/30 p-4 flex justify-center">
           <svg viewBox="0 0 400 200" className="w-full max-w-md" fill="none">
             {/* Spindle axis (bottom) */}
             <line x1="20" y1="170" x2="380" y2="170" stroke="rgb(82,82,91)" strokeWidth="1" strokeDasharray="8 4" />
-            <text x="385" y="173" fill="rgb(82,82,91)" fontSize="9">oś</text>
+            <text x="385" y="173" fill="rgb(82,82,91)" fontSize="9">{t('axis')}</text>
 
             {/* Part contour: top OD line → chamfer → face down to axis */}
             {/* Top OD horizontal (left) at y=50, from x=40 to x=240 */}
@@ -140,24 +143,24 @@ const TaperCalculatorPage = () => {
             {/* Angle α/2 — between chamfer line and horizontal (extension of OD) */}
             <line x1="240" y1="50" x2="320" y2="50" stroke="rgb(244,114,182)" strokeWidth="0.8" strokeDasharray="3 2" />
             <path d="M 280,50 A 40 40 0 0 1 268.5,77" stroke="rgb(244,114,182)" strokeWidth="1.5" fill="none" />
-            <text x="288" y="72" fill="rgb(244,114,182)" fontSize="10" fontWeight="bold">Kąt α/2</text>
+            <text x="288" y="72" fill="rgb(244,114,182)" fontSize="10" fontWeight="bold">{t('angleLabel')}</text>
           </svg>
         </div>
 
         {/* 4 Input fields */}
         <div className="grid grid-cols-2 gap-3">
-          <Field label="D1 — Śr. większa (mm)" value={d1Input} onChange={setD1Input} color="text-emerald-400"
+          <Field label={t('fields.d1')} value={d1Input} onChange={setD1Input} color="text-emerald-400"
             solved={solver?.solvedField === 'd1'} solvedValue={solver?.d1} unit="mm" accentClass={accent} />
-          <Field label="D2 — Śr. mniejsza (mm)" value={d2Input} onChange={setD2Input} color="text-amber-400"
+          <Field label={t('fields.d2')} value={d2Input} onChange={setD2Input} color="text-amber-400"
             solved={solver?.solvedField === 'd2'} solvedValue={solver?.d2} unit="mm" accentClass={accent} />
-          <Field label="L — Długość (mm)" value={lInput} onChange={setLInput} color="text-zinc-300"
+          <Field label={t('fields.l')} value={lInput} onChange={setLInput} color="text-zinc-300"
             solved={solver?.solvedField === 'l'} solvedValue={solver?.l} unit="mm" accentClass={accent} />
-          <Field label="α/2 — Kąt ustawienia (°)" value={halfAngleInput} onChange={setHalfAngleInput} color="text-pink-400"
+          <Field label={t('fields.halfAngle')} value={halfAngleInput} onChange={setHalfAngleInput} color="text-pink-400"
             solved={solver?.solvedField === 'halfAngle'} solvedValue={solver?.halfDeg} unit="°" accentClass={accent} />
         </div>
 
         <button onClick={clearAll} className="flex items-center gap-2 mx-auto px-4 py-2 rounded-xl border border-zinc-800 bg-zinc-900/50 text-zinc-500 hover:text-zinc-300 hover:border-zinc-600 transition-colors text-sm">
-          <RotateCcw className="w-4 h-4" /> Wyczyść wszystko
+          <RotateCcw className="w-4 h-4" /> {t('clearAll')}
         </button>
 
         {/* Result cards */}
@@ -165,7 +168,7 @@ const TaperCalculatorPage = () => {
           <div className="space-y-3">
             {/* Full angle α */}
             <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
-              <p className="text-zinc-400 text-sm font-medium mb-2">Kąt pełny (α)</p>
+              <p className="text-zinc-400 text-sm font-medium mb-2">{t('result.fullAngle')}</p>
               <p className="text-3xl md:text-4xl font-black text-emerald-400 text-center">{solver.alphaDeg.toFixed(3)}°</p>
               <p className="text-center text-amber-400 text-sm mt-1 font-medium">
                 {solver.dmsAlpha.d}° {solver.dmsAlpha.m}' {solver.dmsAlpha.s}"
@@ -174,7 +177,7 @@ const TaperCalculatorPage = () => {
 
             {/* Half angle α/2 */}
             <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4">
-              <p className="text-cyan-300 text-sm font-medium mb-2">Kąt ustawienia (α/2) — dla maszyny</p>
+              <p className="text-cyan-300 text-sm font-medium mb-2">{t('result.settingAngle')}</p>
               <p className="text-3xl md:text-4xl font-black text-cyan-400 text-center">{solver.halfDeg.toFixed(3)}°</p>
               <p className="text-center text-amber-400 text-sm mt-1 font-medium">
                 {solver.dmsHalf.d}° {solver.dmsHalf.m}' {solver.dmsHalf.s}"
@@ -183,7 +186,7 @@ const TaperCalculatorPage = () => {
 
             {/* Taper ratio */}
             <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
-              <p className="text-zinc-400 text-sm font-medium mb-2">Zbieżność</p>
+              <p className="text-zinc-400 text-sm font-medium mb-2">{t('result.taper')}</p>
               <p className="text-2xl md:text-3xl font-bold text-cyan-400 text-center">
                 {solver.C > 0 ? `1 : ${solver.taperRatio.toFixed(2)}` : '—'}
               </p>
@@ -193,7 +196,7 @@ const TaperCalculatorPage = () => {
         )}
 
         {!solver && (
-          <p className="text-center text-zinc-500 py-10">Wypełnij dowolne 3 z 4 pól — czwarte zostanie obliczone automatycznie.</p>
+          <p className="text-center text-zinc-500 py-10">{t('hint')}</p>
         )}
       </main>
     </div>

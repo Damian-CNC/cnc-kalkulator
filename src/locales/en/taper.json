@@ -1,0 +1,18 @@
+{
+  "toolHint": "Tool for turners",
+  "axis": "axis",
+  "angleLabel": "Angle α/2",
+  "fields": {
+    "d1": "D1 — Large dia. (mm)",
+    "d2": "D2 — Small dia. (mm)",
+    "l": "L — Length (mm)",
+    "halfAngle": "α/2 — Setting angle (°)"
+  },
+  "clearAll": "Clear all",
+  "result": {
+    "fullAngle": "Full angle (α)",
+    "settingAngle": "Setting angle (α/2) — for the machine",
+    "taper": "Taper ratio"
+  },
+  "hint": "Fill in any 3 of the 4 fields — the fourth will be calculated automatically."
+}

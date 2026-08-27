@@ -1,4 +1,5 @@
 import { useState, ChangeEvent } from 'react';
+import { useTranslation } from 'react-i18next';
 import InputField from './InputField';
 
 type Shape = 'hex' | 'square';
@@ -7,6 +8,7 @@ type Field = 'S' | 'D';
 const round3 = (v: number) => parseFloat(v.toFixed(3)).toString();
 
 const PolygonShaftCalculator = () => {
+  const { t } = useTranslation('polygon');
   const [shape, setShape] = useState<Shape>('hex');
   const [values, setValues] = useState<{ S: string; D: string }>({ S: '', D: '' });
   const [computed, setComputed] = useState<Field | null>(null);
@@ -87,7 +89,7 @@ const PolygonShaftCalculator = () => {
               : 'text-zinc-400 hover:text-zinc-200'
           }`}
         >
-          Sześciokąt
+          {t('hex')}
         </button>
         <button
           onClick={() => handleShapeChange('square')}
@@ -97,7 +99,7 @@ const PolygonShaftCalculator = () => {
               : 'text-zinc-400 hover:text-zinc-200'
           }`}
         >
-          Kwadrat
+          {t('square')}
         </button>
       </div>
 
@@ -133,7 +135,7 @@ const PolygonShaftCalculator = () => {
       {/* Pola */}
       <div className="flex flex-col gap-4">
         <InputField
-          label="Wymiar pod klucz S [mm]"
+          label={t('fields.s')}
           type="number"
           step="0.001"
           inputMode="decimal"
@@ -142,7 +144,7 @@ const PolygonShaftCalculator = () => {
           computed={computed === 'S'}
         />
         <InputField
-          label="Przekątna / Min. wałek D [mm]"
+          label={t('fields.d')}
           type="number"
           step="0.001"
           inputMode="decimal"
@@ -154,8 +156,8 @@ const PolygonShaftCalculator = () => {
 
       <p className="text-xs text-muted-foreground text-center">
         {shape === 'hex'
-          ? 'Sześciokąt: D = 2·S / √3'
-          : 'Kwadrat: D = S · √2'}
+          ? t('formula.hex')
+          : t('formula.square')}
       </p>
     </div>
   );

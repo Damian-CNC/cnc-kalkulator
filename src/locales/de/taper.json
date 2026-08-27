@@ -1,0 +1,18 @@
+{
+  "toolHint": "Werkzeug für Dreher",
+  "axis": "Achse",
+  "angleLabel": "Winkel α/2",
+  "fields": {
+    "d1": "D1 — Großer Durchmesser (mm)",
+    "d2": "D2 — Kleiner Durchmesser (mm)",
+    "l": "L — Länge (mm)",
+    "halfAngle": "α/2 — Einstellwinkel (°)"
+  },
+  "clearAll": "Alles löschen",
+  "result": {
+    "fullAngle": "Vollwinkel (α)",
+    "settingAngle": "Einstellwinkel (α/2) — für die Maschine",
+    "taper": "Kegelverhältnis"
+  },
+  "hint": "Füllen Sie 3 der 4 Felder aus — das vierte wird automatisch berechnet."
+}

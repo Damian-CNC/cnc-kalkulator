@@ -1,0 +1,18 @@
+{
+  "toolHint": "Narzędzie dla tokarzy",
+  "axis": "oś",
+  "angleLabel": "Kąt α/2",
+  "fields": {
+    "d1": "D1 — Śr. większa (mm)",
+    "d2": "D2 — Śr. mniejsza (mm)",
+    "l": "L — Długość (mm)",
+    "halfAngle": "α/2 — Kąt ustawienia (°)"
+  },
+  "clearAll": "Wyczyść wszystko",
+  "result": {
+    "fullAngle": "Kąt pełny (α)",
+    "settingAngle": "Kąt ustawienia (α/2) — dla maszyny",
+    "taper": "Zbieżność"
+  },
+  "hint": "Wypełnij dowolne 3 z 4 pól — czwarte zostanie obliczone automatycznie."
+}
