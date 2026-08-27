@@ -1,0 +1,15 @@
+{
+  "modeForward": "Rugosità da avanzamento",
+  "modeReverse": "Avanzamento da Ra target",
+  "cornerRadius": "Raggio di punta rε [mm]",
+  "feed": "Avanzamento f / fz [mm/giro]",
+  "targetRa": "Ra target [µm]",
+  "positiveValuesRequired": "Inserire valori positivi.",
+  "surfaceClass": "Classe di superficie:",
+  "finishing": "Finitura",
+  "standard": "Standard",
+  "rough": "Sgrossatura",
+  "isoClasses": "Classi ISO N1–N12",
+  "theoreticalFormulas": "Formule teoriche: Rz ≈ f² / (8·rε) · 1000 · Ra ≈ f² / (32·rε) · 1000",
+  "perRev": "giro"
+}

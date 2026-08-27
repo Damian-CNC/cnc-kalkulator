@@ -1,0 +1,20 @@
+{
+  "modeRadial": "Statico radiale",
+  "modeAxial": "Statico assiale",
+  "modeDynamic": "Dinamico",
+  "cordThickness": "Spessore cordone d₂ [mm]",
+  "sealType": "Tipo di tenuta",
+  "grooveDimensions": "Dimensioni della cava",
+  "depthT": "Profondità t",
+  "rangeT": "Intervallo t",
+  "widthB0": "Larghezza b (senza supporto)",
+  "widthB1": "b — 1 anello di supporto",
+  "widthB2": "b — 2 anelli",
+  "squeeze": "Schiacciamento",
+  "radiusR1": "Raggio di fondo r₁",
+  "radiusR2": "Raggio di bordo r₂",
+  "chamfer": "Smusso di ingresso 15°, lunghezza",
+  "fillRatio": "Grado di riempimento cava",
+  "diagram": "Schema della cava",
+  "note": "Valori indicativi secondo ISO 3601-2. Riempimento cava raccomandato 70–85 %."
+}

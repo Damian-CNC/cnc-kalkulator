@@ -1,0 +1,20 @@
+{
+  "type": "Tipo {{type}}",
+  "entryAngle": "Angolo di entrata:",
+  "exitAngle": "Angolo di uscita:",
+  "radiusR": "Raggio r (mm)",
+  "depthT1": "Profondità t₁ (mm)",
+  "select": "— seleziona —",
+  "dimensionsTitle": "Dimensioni secondo DIN 509",
+  "widthF": "Larghezza f",
+  "offsetG": "Scostamento g",
+  "depthT2": "Profondità t₂",
+  "drawingMark": "Designazione sul disegno",
+  "range": "Campo: {{range}}",
+  "fullTable": "Tabella completa DIN 509",
+  "diameter": "Diametro",
+  "axis": "asse",
+  "chooseHintPrefix": "Seleziona",
+  "chooseHintMiddle": "e",
+  "chooseHintSuffix": " per leggere le altre dimensioni."
+}

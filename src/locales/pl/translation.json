@@ -1,0 +1,108 @@
+{
+  "common": {
+    "back": "Wstecz",
+    "menu": "Menu",
+    "clear": "Wyczyść",
+    "clearAll": "Wyczyść wszystko",
+    "new": "New",
+    "loading": "Wczytywanie...",
+    "results": "Wyniki",
+    "inputs": "Dane wejściowe",
+    "forceUpdate": "Wymuś aktualizację",
+    "language": "Język",
+    "notFoundTitle": "Nie znaleziono strony",
+    "notFoundHome": "Wróć na stronę główną",
+    "somethingWrong": "Coś poszło nie tak"
+  },
+  "nav": {
+    "appTitle": "Kalkulator CNC"
+  },
+  "sections": {
+    "machining": "Obróbka i Wykończenie",
+    "threadsFits": "Gwinty i Pasowania",
+    "geometry": "Geometria",
+    "standardParts": "Elementy Znormalizowane",
+    "materials": "Materiały"
+  },
+  "tiles": {
+    "parameters": "Parametry",
+    "stdCutting": "Standardowe Parametry",
+    "roughness": "Chropowatość Ra/Rz",
+    "tolerances": "Tolerancje ISO",
+    "threads": "Gwinty",
+    "taper": "Fazy",
+    "cone": "Stożek Wiertła",
+    "polygon": "Przekątne",
+    "din509": "Podcięcia DIN 509",
+    "seger": "Rowki Segera",
+    "keyways": "Wpusty pryzmowe",
+    "oring": "Rowki O-ring",
+    "weight": "Waga",
+    "hardness": "Twardość"
+  },
+  "pages": {
+    "parameters": "Parametry Skrawania",
+    "stdCutting": "Standardowe Parametry",
+    "roughness": "Chropowatość Ra/Rz",
+    "tolerances": "Tolerancje ISO 286",
+    "threadsMenu": "Wybierz rodzaj gwintu",
+    "taper": "Kalkulator Faz",
+    "cone": "Stożek Wiertła",
+    "polygon": "Kalkulator Przekątnych",
+    "din509": "Podcięcia DIN 509",
+    "seger": "Rowki Segera",
+    "keyways": "Wpusty pryzmowe",
+    "oring": "Rowki O-ring",
+    "weight": "Kalkulator Wagi",
+    "hardness": "Konwerter Twardości"
+  },
+  "threads": {
+    "metric": "Gwinty Metryczne",
+    "trapezoidal": "Gwinty Trapezowe (Tr)",
+    "bsp": "Gwinty Rurowe BSP (G)",
+    "npt": "Gwinty NPT (ANSI)",
+    "bsw": "Gwinty BSW (Whitworth)",
+    "bsf": "Gwinty BSF (British Fine)"
+  },
+  "params": {
+    "speedModule": "Obroty & prędkość skrawania",
+    "feedModule": "Posuw minutowy",
+    "circularModule": "Interpolacja kołowa (posuw centralny)",
+    "circularHint": "Wymaga D₂ > D (średnica narzędzia). Vf to posuw na obwodzie, Fc to posuw w osi środka narzędzia.",
+    "cuttingSpeed": "Prędkość skrawania Vc [m/min]",
+    "toolDiameter": "Średnica narzędzia D [mm]",
+    "spindleSpeed": "Obroty n [obr/min]",
+    "feedPerTooth": "Posuw na ząb fz [mm/ząb]",
+    "teeth": "Liczba zębów Z",
+    "feedRate": "Posuw minutowy Vf [mm/min]",
+    "toolDiameterD1": "Średnica narzędzia D₁ = D [mm]",
+    "workDiameterD2": "Średnica obrabiana D₂ [mm]",
+    "peripheralFeed": "Posuw obwodowy Vf [mm/min]",
+    "centralFeed": "Posuw centralny Fc [mm/min]"
+  },
+  "stdCutting": {
+    "material": "Materiał",
+    "ae": "Zagłębienie boczne (ae)",
+    "cutterDiameter": "Średnica freza D [mm]",
+    "teeth": "Ilość ostrzy (Z)",
+    "rpmUnit": "obr/min",
+    "feedUnit": "mm/min",
+    "perTooth": "mm/ząb"
+  },
+  "cone": {
+    "title": "Wysokość stożka wiertła",
+    "drillDiameter": "Średnica wiertła D [mm]",
+    "pointAngle": "Kąt wierzchołkowy α [°]",
+    "resultLabel": "Wysokość stożka",
+    "hint": "Wysokość stożka mierzona jest od czubka wiertła do początku pełnej średnicy.",
+    "invalid": "Wprowadź prawidłowe wartości"
+  },
+  "hardness": {
+    "title": "Konwerter twardości",
+    "direction": "Kierunek konwersji",
+    "hbInput": "Twardość HB",
+    "hrcInput": "Twardość HRC",
+    "resultTitle": "Wynik konwersji",
+    "standard": "Konwersja zgodna z ISO 18265 (ISO 6506/6508)"
+  }
+}

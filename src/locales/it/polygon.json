@@ -1,0 +1,12 @@
+{
+  "hex": "Esagono",
+  "square": "Quadrato",
+  "fields": {
+    "s": "Misura in chiave S [mm]",
+    "d": "Diagonale / Albero min. D [mm]"
+  },
+  "formula": {
+    "hex": "Esagono: D = 2·S / √3",
+    "square": "Quadrato: D = S · √2"
+  }
+}

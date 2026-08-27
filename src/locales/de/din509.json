@@ -1,0 +1,20 @@
+{
+  "type": "Typ {{type}}",
+  "entryAngle": "Eintrittswinkel:",
+  "exitAngle": "Austrittswinkel:",
+  "radiusR": "Radius r (mm)",
+  "depthT1": "Tiefe t₁ (mm)",
+  "select": "— auswählen —",
+  "dimensionsTitle": "Maße nach DIN 509",
+  "widthF": "Breite f",
+  "offsetG": "Versatz g",
+  "depthT2": "Tiefe t₂",
+  "drawingMark": "Zeichnungsangabe",
+  "range": "Bereich: {{range}}",
+  "fullTable": "Vollständige DIN 509-Tabelle",
+  "diameter": "Durchmesser",
+  "axis": "Achse",
+  "chooseHintPrefix": "Wählen Sie",
+  "chooseHintMiddle": "und",
+  "chooseHintSuffix": ", um die übrigen Maße abzulesen."
+}

@@ -1,0 +1,16 @@
+{
+  "shaftTab": "Wałek — DIN 471",
+  "boreTab": "Otwór — DIN 472",
+  "nominalDiameter": "Średnica nominalna d₁ [mm]",
+  "notFound": "Brak wymiaru znormalizowanego w zakresie 8–100 mm.",
+  "grooveDimensions": "Wymiary rowka",
+  "grooveBottom": "Dno rowka d₂ ({{fit}})",
+  "widthM": "Szerokość m (H13)",
+  "ringStrength": "Pierścień i wytrzymałość",
+  "ringThickness": "Grubość pierścienia s",
+  "minEdgeDistance": "Min. odległość od krawędzi n",
+  "grooveLoad": "Obciążenie rowka F_R (orient.)",
+  "grooveDepth": "Głębokość rowka",
+  "crossSection": "Przekrój",
+  "rotationAxis": "oś obrotu"
+}

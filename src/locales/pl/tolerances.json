@@ -1,0 +1,22 @@
+{
+  "nominalDimension": "Wymiar nominalny (mm)",
+  "nominalPlaceholder": "np. 25",
+  "hole": "🕳️ Otwór (A–ZC)",
+  "shaft": "🔩 Wałek (a–zc)",
+  "toleranceLetter": "Litera tolerancji",
+  "letterPlaceholder": "Litera",
+  "itClass": "Klasa IT",
+  "itPlaceholder": "IT",
+  "rangeInfo": "Przedział: {{range}} mm · IT{{it}} = {{value}} μm",
+  "deviations": "Odchyłki",
+  "upperDeviation": "Górna (ES/es)",
+  "lowerDeviation": "Dolna (EI/ei)",
+  "finalDimension": "Wymiar końcowy",
+  "max": "Max",
+  "min": "Min",
+  "toleranceCenter": "Środek tolerancji (Idealny)",
+  "aimHere": "↑ Celuj tutaj",
+  "footerNote": "Obliczenia wg algorytmu ISO 286-1 · Profil jednostki tolerancji i = 0.45·D¹ᐟ³ + 0.001·D",
+  "noDataForCombination": "Brak danych dla tej kombinacji. Sprawdź wymiar (0–3150 mm).",
+  "enterNominalPrompt": "Wpisz wymiar nominalny, aby obliczyć tolerancje."
+}

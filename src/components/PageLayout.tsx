@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './LanguageSwitcher';
 
 interface PageLayoutProps {
   title: string;
@@ -9,6 +11,7 @@ interface PageLayoutProps {
 
 const PageLayout = ({ title, children, backRoute = '/' }: PageLayoutProps) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <div
@@ -19,11 +22,12 @@ const PageLayout = ({ title, children, backRoute = '/' }: PageLayoutProps) => {
         <button
           onClick={() => navigate(backRoute)}
           className="p-2 -ml-2 rounded-xl text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800 transition-colors"
-          aria-label="Wstecz"
+          aria-label={t('common.back')}
         >
           <ArrowLeft className="w-5 h-5" />
         </button>
         <h1 className="text-lg sm:text-xl font-bold tracking-wide">{title}</h1>
+        <LanguageSwitcher className="ml-auto shrink-0" />
       </header>
 
       <main className="w-full max-w-2xl mx-auto px-4 sm:px-6 pb-28 sm:pb-32">

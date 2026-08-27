@@ -1,0 +1,16 @@
+{
+  "diameter": "Diametro albero / foro d [mm]",
+  "widthFit": "Accoppiamento larghezza b",
+  "outOfRange": "Nessun dato per questo diametro. Intervallo normativo del modulo: 6–75 mm.",
+  "keyDims": "Linguetta b × h",
+  "grooveWidth": "Larghezza cava {{fit}}: {{b}} mm ({{upper}} / {{lower}})",
+  "shaft": "Albero",
+  "hub": "Mozzo",
+  "depthT1": "Profondità t₁",
+  "controlDim1": "Dimensione di controllo d − t₁",
+  "depthT2": "Profondità t₂",
+  "controlDim2": "Dimensione di controllo d + t₂",
+  "diagram": "Schema",
+  "hubLabel": "mozzo",
+  "table": "Tabella DIN 6885"
+}

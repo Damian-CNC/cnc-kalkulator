@@ -1,0 +1,20 @@
+{
+  "modeRadial": "Static radial",
+  "modeAxial": "Static axial",
+  "modeDynamic": "Dynamic",
+  "cordThickness": "Cord thickness d₂ [mm]",
+  "sealType": "Seal type",
+  "grooveDimensions": "Groove dimensions",
+  "depthT": "Depth t",
+  "rangeT": "Range t",
+  "widthB0": "Width b (unsupported)",
+  "widthB1": "b — 1 back-up ring",
+  "widthB2": "b — 2 rings",
+  "squeeze": "Squeeze",
+  "radiusR1": "Bottom radius r₁",
+  "radiusR2": "Edge radius r₂",
+  "chamfer": "Lead-in chamfer 15°, length",
+  "fillRatio": "Groove fill ratio",
+  "diagram": "Groove diagram",
+  "note": "Approximate values per ISO 3601-2. Recommended groove fill 70–85 %."
+}

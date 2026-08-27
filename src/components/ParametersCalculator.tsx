@@ -1,4 +1,5 @@
 import { useState, ChangeEvent, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import InputField from './InputField';
 
 type Field = 'D' | 'Z' | 'vc' | 'n' | 'fz' | 'vf' | 'd2' | 'fc';
@@ -114,6 +115,7 @@ function solve(values: Values, changedField: Field): { values: Values; computed:
 }
 
 const ParametersCalculator = () => {
+  const { t } = useTranslation();
   const [values, setValues] = useState<Values>(EMPTY);
   const [computed, setComputed] = useState<Set<Field>>(new Set());
 
@@ -152,11 +154,11 @@ const ParametersCalculator = () => {
           {/* Module 1: Obroty (Vc, D, n) */}
           <div className="glass-module">
             <h2 className="text-primary font-semibold text-lg mb-4 flex items-center gap-2">
-              🌀 Obroty &amp; prędkość skrawania
+              🌀 {t('params.speedModule')}
             </h2>
             <div className="flex flex-col gap-4">
               <InputField
-                label="Prędkość skrawania Vc [m/min]"
+                label={t('params.cuttingSpeed')}
                 type="number"
                 step="0.1"
                 inputMode="decimal"
@@ -165,7 +167,7 @@ const ParametersCalculator = () => {
                 computed={isComputed('vc')}
               />
               <InputField
-                label="Średnica narzędzia D [mm]"
+                label={t('params.toolDiameter')}
                 type="number"
                 step="0.1"
                 inputMode="decimal"
@@ -174,7 +176,7 @@ const ParametersCalculator = () => {
                 computed={isComputed('D')}
               />
               <InputField
-                label="Obroty n [obr/min]"
+                label={t('params.spindleSpeed')}
                 type="number"
                 step="1"
                 inputMode="decimal"
@@ -188,11 +190,11 @@ const ParametersCalculator = () => {
           {/* Module 2: Posuw (fz, Z, n, Vf) */}
           <div className="glass-module">
             <h2 className="text-primary font-semibold text-lg mb-4 flex items-center gap-2">
-              🚀 Posuw minutowy
+              🚀 {t('params.feedModule')}
             </h2>
             <div className="flex flex-col gap-4">
               <InputField
-                label="Posuw na ząb fz [mm/ząb]"
+                label={t('params.feedPerTooth')}
                 type="number"
                 step="0.001"
                 inputMode="decimal"
@@ -201,7 +203,7 @@ const ParametersCalculator = () => {
                 computed={isComputed('fz')}
               />
               <InputField
-                label="Liczba zębów Z"
+                label={t('params.teeth')}
                 type="number"
                 step="1"
                 inputMode="numeric"
@@ -210,7 +212,7 @@ const ParametersCalculator = () => {
                 computed={isComputed('Z')}
               />
               <InputField
-                label="Posuw minutowy Vf [mm/min]"
+                label={t('params.feedRate')}
                 type="number"
                 step="0.1"
                 inputMode="decimal"
@@ -225,14 +227,14 @@ const ParametersCalculator = () => {
           <details className="glass-module group" open>
             <summary className="text-primary font-semibold text-lg mb-4 flex items-center gap-2 cursor-pointer list-none">
               <span className="transition-transform group-open:rotate-90">▸</span>
-              🎯 Interpolacja kołowa (posuw centralny)
+              🎯 {t('params.circularModule')}
             </summary>
             <div className="flex flex-col gap-4 mt-2">
               <p className="text-muted-foreground text-xs">
-                Wymaga D₂ &gt; D (średnica narzędzia). Vf to posuw na obwodzie, Fc to posuw w osi środka narzędzia.
+                {t('params.circularHint')}
               </p>
               <InputField
-                label="Średnica narzędzia D₁ = D [mm]"
+                label={t('params.toolDiameterD1')}
                 type="number"
                 step="0.1"
                 inputMode="decimal"
@@ -241,7 +243,7 @@ const ParametersCalculator = () => {
                 computed={isComputed('D')}
               />
               <InputField
-                label="Średnica obrabiana D₂ [mm]"
+                label={t('params.workDiameterD2')}
                 type="number"
                 step="0.1"
                 inputMode="decimal"
@@ -250,7 +252,7 @@ const ParametersCalculator = () => {
                 computed={isComputed('d2')}
               />
               <InputField
-                label="Posuw obwodowy Vf [mm/min]"
+                label={t('params.peripheralFeed')}
                 type="number"
                 step="0.1"
                 inputMode="decimal"
@@ -259,7 +261,7 @@ const ParametersCalculator = () => {
                 computed={isComputed('vf')}
               />
               <InputField
-                label="Posuw centralny Fc [mm/min]"
+                label={t('params.centralFeed')}
                 type="number"
                 step="0.1"
                 inputMode="decimal"

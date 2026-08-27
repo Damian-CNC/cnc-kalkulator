@@ -1,0 +1,39 @@
+{
+  "title": "Blank Weight Calculator",
+  "materials": {
+    "S235/S355": "Structural steel",
+    "40H/40HM": "Carbon structural steel",
+    "C45": "Carbon steel",
+    "NC11LV": "Martensitic stainless steel",
+    "AISI 304": "Austenitic stainless steel",
+    "AISI 316": "Austenitic stainless steel",
+    "4H13": "Martensitic stainless steel",
+    "Aluminium PA4": "Aluminium alloy",
+    "Aluminium PA13": "Aluminium alloy",
+    "POM-C": "Polyoxymethylene copolymer"
+  },
+  "shapes": {
+    "rod": "Rod",
+    "tube": "Tube",
+    "flat": "Flat bar"
+  },
+  "fields": {
+    "shape": "Blank shape",
+    "outerDiameter": "Outer diameter [mm]",
+    "innerDiameter": "Inner diameter [mm]",
+    "length": "Length [mm]",
+    "dimensionA": "Dimension A [mm]",
+    "dimensionB": "Dimension B [mm]",
+    "material": "Material",
+    "materialSelect": "Select material",
+    "quantity": "Quantity"
+  },
+  "result": {
+    "totalWeight": "Total weight",
+    "pieces": "pcs",
+    "volume": "Volume",
+    "density": "Density",
+    "invalid": "Enter valid values"
+  },
+  "clear": "Clear"
+}

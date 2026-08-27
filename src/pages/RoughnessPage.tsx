@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import PageLayout from '@/components/PageLayout';
 import ClearFab from '@/components/ClearFab';
 
@@ -25,19 +26,20 @@ const raColor = (ra: number) => {
   return 'text-orange-400';
 };
 
-const raLabel = (ra: number) => {
-  if (ra <= 1.6) return 'Wykończeniowa';
-  if (ra <= 3.2) return 'Standardowa';
-  return 'Zgrubna';
-};
-
 const isoClassFor = (ra: number) => isoClasses.find((c) => ra <= c.ra)?.n ?? '> N12';
 
 const RoughnessPage = () => {
+  const { t } = useTranslation(['roughness', 'translation']);
   const [mode, setMode] = useState<'forward' | 'reverse'>('forward');
   const [radius, setRadius] = useState('0.4');
   const [feed, setFeed] = useState('');
   const [targetRa, setTargetRa] = useState('');
+
+  const raLabel = (ra: number) => {
+    if (ra <= 1.6) return t('finishing');
+    if (ra <= 3.2) return t('standard');
+    return t('rough');
+  };
 
   const r = parseFloat(radius.replace(',', '.'));
   const f = parseFloat(feed.replace(',', '.'));
@@ -70,7 +72,7 @@ const RoughnessPage = () => {
   };
 
   return (
-    <PageLayout title="Chropowatość Ra / Rz">
+    <PageLayout title={t('pages.roughness', { ns: 'translation' })}>
       <div className="glass-module">
         <div className="grid grid-cols-2 gap-2 mb-6">
           {(['forward', 'reverse'] as const).map((m) => (
@@ -83,13 +85,13 @@ const RoughnessPage = () => {
                   : 'bg-zinc-900/50 border-zinc-800 text-zinc-400 hover:text-zinc-200'
               }`}
             >
-              {m === 'forward' ? 'Chropowatość z posuwu' : 'Posuw z docelowego Ra'}
+              {m === 'forward' ? t('modeForward') : t('modeReverse')}
             </button>
           ))}
         </div>
 
         <label className="block text-xs uppercase tracking-wider text-zinc-400 mb-2">
-          Promień naroża rε [mm]
+          {t('cornerRadius')}
         </label>
         <div className="flex flex-wrap gap-2 mb-3">
           {RADII.map((v) => (
@@ -117,7 +119,7 @@ const RoughnessPage = () => {
         {mode === 'forward' ? (
           <>
             <label className="block text-xs uppercase tracking-wider text-zinc-400 mb-2">
-              Posuw f / fz [mm/obr]
+              {t('feed')}
             </label>
             <input
               type="text"
@@ -130,7 +132,7 @@ const RoughnessPage = () => {
         ) : (
           <>
             <label className="block text-xs uppercase tracking-wider text-zinc-400 mb-2">
-              Docelowe Ra [µm]
+              {t('targetRa')}
             </label>
             <input
               type="text"
@@ -143,7 +145,7 @@ const RoughnessPage = () => {
         )}
 
         {invalid && (
-          <p className="mt-3 text-sm text-red-400">Podaj wartości dodatnie.</p>
+          <p className="mt-3 text-sm text-red-400">{t('positiveValuesRequired')}</p>
         )}
       </div>
 
@@ -167,19 +169,19 @@ const RoughnessPage = () => {
           </div>
 
           <div className="mt-4 text-center text-sm text-zinc-400">
-            Klasa powierzchni: <span className={raColor(result.ra)}>{raLabel(result.ra)}</span>
+            {t('surfaceClass')} <span className={raColor(result.ra)}>{raLabel(result.ra)}</span>
           </div>
 
           {result.fmax !== null && (
             <div className="result-box mt-4 text-2xl">
-              f max = {result.fmax.toFixed(3)} mm/obr
+              f max = {result.fmax.toFixed(3)} mm/{t('perRev')}
             </div>
           )}
         </div>
       )}
 
       <div className="glass-module">
-        <h2 className="text-sm uppercase tracking-wider text-zinc-400 mb-4">Klasy ISO N1–N12</h2>
+        <h2 className="text-sm uppercase tracking-wider text-zinc-400 mb-4">{t('isoClasses')}</h2>
         <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
           {isoClasses.map((c) => (
             <div
@@ -192,7 +194,7 @@ const RoughnessPage = () => {
           ))}
         </div>
         <p className="text-xs text-zinc-600 mt-4">
-          Wzory teoretyczne: Rz ≈ f² / (8·rε) · 1000 · Ra ≈ f² / (32·rε) · 1000
+          {t('theoreticalFormulas')}
         </p>
       </div>
 

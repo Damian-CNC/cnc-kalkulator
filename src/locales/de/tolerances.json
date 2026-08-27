@@ -1,0 +1,22 @@
+{
+  "nominalDimension": "Nennmaß (mm)",
+  "nominalPlaceholder": "z. B. 25",
+  "hole": "🕳️ Bohrung (A–ZC)",
+  "shaft": "🔩 Welle (a–zc)",
+  "toleranceLetter": "Toleranzbuchstabe",
+  "letterPlaceholder": "Buchstabe",
+  "itClass": "IT-Klasse",
+  "itPlaceholder": "IT",
+  "rangeInfo": "Bereich: {{range}} mm · IT{{it}} = {{value}} μm",
+  "deviations": "Abmaße",
+  "upperDeviation": "Oberes (ES/es)",
+  "lowerDeviation": "Unteres (EI/ei)",
+  "finalDimension": "Endmaß",
+  "max": "Max",
+  "min": "Min",
+  "toleranceCenter": "Toleranzmitte (Ideal)",
+  "aimHere": "↑ Hier anstreben",
+  "footerNote": "Berechnung nach ISO 286-1 · Grundtoleranzeinheit i = 0.45·D¹ᐟ³ + 0.001·D",
+  "noDataForCombination": "Keine Daten für diese Kombination. Maß prüfen (0–3150 mm).",
+  "enterNominalPrompt": "Nennmaß eingeben, um Toleranzen zu berechnen."
+}

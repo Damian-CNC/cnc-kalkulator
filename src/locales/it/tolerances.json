@@ -1,0 +1,22 @@
+{
+  "nominalDimension": "Dimensione nominale (mm)",
+  "nominalPlaceholder": "es. 25",
+  "hole": "🕳️ Foro (A–ZC)",
+  "shaft": "🔩 Albero (a–zc)",
+  "toleranceLetter": "Lettera di tolleranza",
+  "letterPlaceholder": "Lettera",
+  "itClass": "Classe IT",
+  "itPlaceholder": "IT",
+  "rangeInfo": "Intervallo: {{range}} mm · IT{{it}} = {{value}} μm",
+  "deviations": "Scostamenti",
+  "upperDeviation": "Superiore (ES/es)",
+  "lowerDeviation": "Inferiore (EI/ei)",
+  "finalDimension": "Dimensione finale",
+  "max": "Max",
+  "min": "Min",
+  "toleranceCenter": "Centro tolleranza (Ideale)",
+  "aimHere": "↑ Puntare qui",
+  "footerNote": "Calcolo secondo ISO 286-1 · Unità di tolleranza standard i = 0.45·D¹ᐟ³ + 0.001·D",
+  "noDataForCombination": "Nessun dato per questa combinazione. Controllare la dimensione (0–3150 mm).",
+  "enterNominalPrompt": "Inserire la dimensione nominale per calcolare le tolleranze."
+}

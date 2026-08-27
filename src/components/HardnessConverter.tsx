@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import InputField from './InputField';
 import SelectField from './SelectField';
 import ResultDisplay from './ResultDisplay';
 import { convertHardness, ConversionDirection } from '@/utils/isoHardnessConversion';
 
 const HardnessConverter = () => {
+  const { t } = useTranslation();
   const [direction, setDirection] = useState<ConversionDirection>('hb-to-hrc');
   const [inputValue, setInputValue] = useState('');
 
@@ -31,7 +33,7 @@ const HardnessConverter = () => {
   };
 
   const getInputLabel = () => {
-    return direction === 'hb-to-hrc' ? 'Twardość HB' : 'Twardość HRC';
+    return direction === 'hb-to-hrc' ? t('hardness.hbInput') : t('hardness.hrcInput');
   };
 
   const getResultLabel = () => {
@@ -42,12 +44,12 @@ const HardnessConverter = () => {
     <div className="glass-container">
       <div className="glass-module">
         <h2 className="text-primary font-semibold text-lg mb-4 flex items-center gap-2">
-          💎 Konwerter twardości
+          💎 {t('hardness.title')}
         </h2>
 
         <div className="flex flex-col gap-4">
           <SelectField
-            label="Kierunek konwersji"
+            label={t('hardness.direction')}
             options={directionOptions}
             value={direction}
             onChange={(e) => handleDirectionChange(e.target.value as ConversionDirection)}
@@ -66,13 +68,13 @@ const HardnessConverter = () => {
               result.success ? (
                 <div className="text-center w-full animate-fade-in">
                   <div className="text-lg text-primary font-semibold mb-1">
-                    Wynik konwersji
+                    {t('hardness.resultTitle')}
                   </div>
                   <div className="text-2xl font-bold text-foreground mb-2">
                     💎 {result.value} {getResultLabel()}
                   </div>
                   <div className="text-xs text-muted-foreground mt-2 px-2">
-                    Konwersja zgodna z ISO 18265 (ISO 6506/6508)
+                    {t('hardness.standard')}
                   </div>
                 </div>
               ) : (
@@ -88,7 +90,7 @@ const HardnessConverter = () => {
       </div>
 
       <button onClick={handleClear} className="clear-btn mt-6">
-        Wyczyść
+        {t('common.clear')}
       </button>
     </div>
   );

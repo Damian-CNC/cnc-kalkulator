@@ -1,53 +1,55 @@
 import { useNavigate } from 'react-router-dom';
 import { Settings, Scale, Triangle, Gem, Ruler, ClipboardList, RefreshCw, Cone, Hexagon, Bolt, Scissors, Waves, Disc, RectangleHorizontal, LifeBuoy } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 type Tile = {
   id: string;
-  label: string;
+  labelKey: string;
   icon: typeof Settings;
   route: string;
   isNew?: boolean;
 };
 
-const sections: { title: string; tiles: Tile[] }[] = [
+const sections: { titleKey: string; tiles: Tile[] }[] = [
   {
-    title: 'Obróbka i Wykończenie',
+    titleKey: 'sections.machining',
     tiles: [
-      { id: 'parameters', label: 'Parametry', icon: Settings, route: '/parametry' },
-      { id: 'std-cutting', label: 'Standardowe Parametry', icon: ClipboardList, route: '/standardowe-parametry' },
-      { id: 'roughness', label: 'Chropowatość Ra/Rz', icon: Waves, route: '/chropowatosc', isNew: true },
+      { id: 'parameters', labelKey: 'tiles.parameters', icon: Settings, route: '/parametry' },
+      { id: 'std-cutting', labelKey: 'tiles.stdCutting', icon: ClipboardList, route: '/standardowe-parametry' },
+      { id: 'roughness', labelKey: 'tiles.roughness', icon: Waves, route: '/chropowatosc', isNew: true },
     ],
   },
   {
-    title: 'Gwinty i Pasowania',
+    titleKey: 'sections.threadsFits',
     tiles: [
-      { id: 'tolerances', label: 'Tolerancje ISO', icon: Ruler, route: '/tolerancje' },
-      { id: 'threads', label: 'Gwinty', icon: Bolt, route: '/gwinty' },
+      { id: 'tolerances', labelKey: 'tiles.tolerances', icon: Ruler, route: '/tolerancje' },
+      { id: 'threads', labelKey: 'tiles.threads', icon: Bolt, route: '/gwinty' },
     ],
   },
   {
-    title: 'Geometria',
+    titleKey: 'sections.geometry',
     tiles: [
-      { id: 'taper', label: 'Fazy', icon: Cone, route: '/kalkulator-stozkow' },
-      { id: 'cone', label: 'Stożek Wiertła', icon: Triangle, route: '/stozek' },
-      { id: 'polygon', label: 'Przekątne', icon: Hexagon, route: '/przekatne' },
-      { id: 'din509', label: 'Podcięcia DIN 509', icon: Scissors, route: '/podciecia-din509' },
+      { id: 'taper', labelKey: 'tiles.taper', icon: Cone, route: '/kalkulator-stozkow' },
+      { id: 'cone', labelKey: 'tiles.cone', icon: Triangle, route: '/stozek' },
+      { id: 'polygon', labelKey: 'tiles.polygon', icon: Hexagon, route: '/przekatne' },
+      { id: 'din509', labelKey: 'tiles.din509', icon: Scissors, route: '/podciecia-din509' },
     ],
   },
   {
-    title: 'Elementy Znormalizowane',
+    titleKey: 'sections.standardParts',
     tiles: [
-      { id: 'seger', label: 'Rowki Segera', icon: Disc, route: '/rowki-segera', isNew: true },
-      { id: 'keyways', label: 'Wpusty pryzmowe', icon: RectangleHorizontal, route: '/wpusty', isNew: true },
-      { id: 'oring', label: 'Rowki O-ring', icon: LifeBuoy, route: '/rowki-oring', isNew: true },
+      { id: 'seger', labelKey: 'tiles.seger', icon: Disc, route: '/rowki-segera', isNew: true },
+      { id: 'keyways', labelKey: 'tiles.keyways', icon: RectangleHorizontal, route: '/wpusty', isNew: true },
+      { id: 'oring', labelKey: 'tiles.oring', icon: LifeBuoy, route: '/rowki-oring', isNew: true },
     ],
   },
   {
-    title: 'Materiały',
+    titleKey: 'sections.materials',
     tiles: [
-      { id: 'weight', label: 'Waga', icon: Scale, route: '/waga' },
-      { id: 'hardness', label: 'Twardość', icon: Gem, route: '/twardosc' },
+      { id: 'weight', labelKey: 'tiles.weight', icon: Scale, route: '/waga' },
+      { id: 'hardness', labelKey: 'tiles.hardness', icon: Gem, route: '/twardosc' },
     ],
   },
 ];
@@ -55,6 +57,7 @@ const sections: { title: string; tiles: Tile[] }[] = [
 
 const Index = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleForceUpdate = async () => {
     try {
@@ -70,7 +73,7 @@ const Index = () => {
       }
       window.location.reload();
     } catch (error) {
-      console.error('Błąd podczas aktualizacji:', error);
+      console.error('Update error:', error);
       window.location.reload();
     }
   };
@@ -80,6 +83,10 @@ const Index = () => {
       className="min-h-screen bg-zinc-950 p-4 pb-safe overflow-x-hidden flex flex-col items-center"
       style={{ paddingTop: 'max(2rem, env(safe-area-inset-top))' }}
     >
+      <div className="w-full max-w-4xl flex justify-end mb-2">
+        <LanguageSwitcher />
+      </div>
+
       <motion.h1
         className="text-2xl md:text-4xl font-black tracking-wide mb-8 text-zinc-100 select-none text-center"
         initial={{ rotate: -360, scale: 0.5, opacity: 0 }}
@@ -93,14 +100,14 @@ const Index = () => {
           textShadow: '0 0 20px rgba(6,182,212,0.4), 0 0 40px rgba(6,182,212,0.2)',
         }}
       >
-        ⚙️ Kalkulator CNC
+        ⚙️ {t('nav.appTitle')}
       </motion.h1>
 
       <div className="w-full max-w-4xl flex flex-col gap-8">
         {sections.map((section) => (
-          <section key={section.title}>
+          <section key={section.titleKey}>
             <h2 className="text-zinc-400 text-sm uppercase tracking-widest mb-4 px-1">
-              {section.title}
+              {t(section.titleKey)}
             </h2>
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:flex md:flex-wrap md:justify-center">
               {section.tiles.map((tile) => {
@@ -113,12 +120,12 @@ const Index = () => {
                   >
                     {tile.isNew && (
                       <span className="absolute top-2 right-2 text-[10px] font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-1.5 py-0.5 rounded uppercase tracking-wider">
-                        New
+                        {t('common.new')}
                       </span>
                     )}
                     <Icon className="w-8 h-8 text-cyan-400" strokeWidth={2} />
                     <span className="text-sm sm:text-base font-semibold text-zinc-200 leading-tight">
-                      {tile.label}
+                      {t(tile.labelKey)}
                     </span>
                   </button>
 
@@ -134,7 +141,7 @@ const Index = () => {
         className="mt-10 mb-4 flex items-center gap-2 px-4 py-2.5 rounded-xl border border-zinc-800 bg-zinc-900/50 text-zinc-500 hover:text-zinc-300 hover:border-zinc-600 transition-colors text-sm"
       >
         <RefreshCw className="w-4 h-4" />
-        Wymuś aktualizację
+        {t('common.forceUpdate')}
       </button>
 
       <footer className="text-center mt-auto pt-6 text-zinc-600 text-sm pb-[max(0.5rem,env(safe-area-inset-bottom))]">

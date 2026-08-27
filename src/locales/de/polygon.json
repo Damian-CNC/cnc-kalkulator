@@ -1,0 +1,12 @@
+{
+  "hex": "Sechskant",
+  "square": "Vierkant",
+  "fields": {
+    "s": "Schlüsselweite S [mm]",
+    "d": "Diagonale / Min. Wellendurchmesser D [mm]"
+  },
+  "formula": {
+    "hex": "Sechskant: D = 2·S / √3",
+    "square": "Vierkant: D = S · √2"
+  }
+}

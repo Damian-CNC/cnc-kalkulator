@@ -1,10 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import ParametersCalculator from '@/components/ParametersCalculator';
 import ClearFab from '@/components/ClearFab';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 const ParametersPage = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const handleReset = () => {
     window.dispatchEvent(new CustomEvent('parameters-calculator-clear'));
   };
@@ -20,11 +23,12 @@ const ParametersPage = () => {
               className="flex items-center gap-2 px-3 py-2 rounded-xl text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/60 transition-colors text-sm font-medium"
             >
               <ArrowLeft className="w-4 h-4" />
-              <span className="hidden sm:inline">Menu</span>
+              <span className="hidden sm:inline">{t('common.menu')}</span>
             </button>
             <h1 className="text-xl md:text-2xl font-bold text-zinc-100 tracking-wide">
-              Parametry Skrawania
+              {t('pages.parameters')}
             </h1>
+            <LanguageSwitcher className="ml-auto shrink-0" />
           </header>
 
           <main className="w-full max-w-2xl mx-auto">
@@ -33,7 +37,7 @@ const ParametersPage = () => {
         </div>
       </div>
 
-      <ClearFab onClear={handleReset} label="Wyczyść wszystko" />
+      <ClearFab onClear={handleReset} label={t('common.clearAll')} />
     </div>
   );
 };

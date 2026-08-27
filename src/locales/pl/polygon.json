@@ -1,0 +1,12 @@
+{
+  "hex": "Sześciokąt",
+  "square": "Kwadrat",
+  "fields": {
+    "s": "Wymiar pod klucz S [mm]",
+    "d": "Przekątna / Min. wałek D [mm]"
+  },
+  "formula": {
+    "hex": "Sześciokąt: D = 2·S / √3",
+    "square": "Kwadrat: D = S · √2"
+  }
+}

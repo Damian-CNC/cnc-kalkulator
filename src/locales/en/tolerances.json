@@ -1,0 +1,22 @@
+{
+  "nominalDimension": "Nominal dimension (mm)",
+  "nominalPlaceholder": "e.g. 25",
+  "hole": "🕳️ Hole (A–ZC)",
+  "shaft": "🔩 Shaft (a–zc)",
+  "toleranceLetter": "Tolerance letter",
+  "letterPlaceholder": "Letter",
+  "itClass": "IT grade",
+  "itPlaceholder": "IT",
+  "rangeInfo": "Range: {{range}} mm · IT{{it}} = {{value}} μm",
+  "deviations": "Deviations",
+  "upperDeviation": "Upper (ES/es)",
+  "lowerDeviation": "Lower (EI/ei)",
+  "finalDimension": "Final dimension",
+  "max": "Max",
+  "min": "Min",
+  "toleranceCenter": "Tolerance center (Ideal)",
+  "aimHere": "↑ Aim here",
+  "footerNote": "Calculated per ISO 286-1 · Standard tolerance unit i = 0.45·D¹ᐟ³ + 0.001·D",
+  "noDataForCombination": "No data for this combination. Check dimension (0–3150 mm).",
+  "enterNominalPrompt": "Enter the nominal dimension to calculate tolerances."
+}

@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import PageLayout from '@/components/PageLayout';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import {
@@ -9,6 +10,7 @@ import {
 } from '@/utils/isoMathCalculator';
 
 const TolerancesPage = () => {
+  const { t } = useTranslation(['tolerances', 'translation']);
   const [nominalInput, setNominalInput] = useState('');
   const [isHole, setIsHole] = useState(false);
   const [selectedLetter, setSelectedLetter] = useState('h');
@@ -33,16 +35,16 @@ const TolerancesPage = () => {
   };
 
   return (
-    <PageLayout title="Tolerancje ISO 286">
+    <PageLayout title={t('pages.tolerances', { ns: 'translation' })}>
       <div className="space-y-5">
         {/* Nominal dimension input */}
         <div className="flex flex-col">
-          <label className="block text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider">Wymiar nominalny (mm)</label>
+          <label className="block text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider">{t('nominalDimension')}</label>
           <input
             type="text"
             inputMode="decimal"
             pattern="[0-9]*[.,]?[0-9]*"
-            placeholder="np. 25"
+            placeholder={t('nominalPlaceholder')}
             value={nominalInput}
             onChange={(e) => setNominalInput(e.target.value)}
             className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500/50 transition-all text-lg text-center font-bold"
@@ -59,7 +61,7 @@ const TolerancesPage = () => {
                 : 'bg-zinc-900 border-zinc-700 text-zinc-500'
             }`}
           >
-            🕳️ Otwór (A–ZC)
+            {t('hole')}
           </button>
           <button
             onClick={() => handleTypeChange(false)}
@@ -69,17 +71,17 @@ const TolerancesPage = () => {
                 : 'bg-zinc-900 border-zinc-700 text-zinc-500'
             }`}
           >
-            🔩 Wałek (a–zc)
+            {t('shaft')}
           </button>
         </div>
 
         {/* Letter + IT grade selectors */}
         <div className="grid grid-cols-2 gap-3">
           <div className="flex flex-col gap-1.5">
-            <label className="text-zinc-400 text-sm font-medium">Litera tolerancji</label>
+            <label className="text-zinc-400 text-sm font-medium">{t('toleranceLetter')}</label>
             <Select value={selectedLetter} onValueChange={setSelectedLetter}>
               <SelectTrigger className="bg-zinc-900 border-zinc-700 text-zinc-100">
-                <SelectValue placeholder="Litera" />
+                <SelectValue placeholder={t('letterPlaceholder')} />
               </SelectTrigger>
               <SelectContent className="bg-zinc-900 border-zinc-700 max-h-60">
                 {letters.map((l) => (
@@ -92,10 +94,10 @@ const TolerancesPage = () => {
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-zinc-400 text-sm font-medium">Klasa IT</label>
+            <label className="text-zinc-400 text-sm font-medium">{t('itClass')}</label>
             <Select value={selectedIT} onValueChange={setSelectedIT}>
               <SelectTrigger className="bg-zinc-900 border-zinc-700 text-zinc-100">
-                <SelectValue placeholder="IT" />
+                <SelectValue placeholder={t('itPlaceholder')} />
               </SelectTrigger>
               <SelectContent className="bg-zinc-900 border-zinc-700 max-h-60">
                 {IT_GRADES.map((g) => (
@@ -120,15 +122,15 @@ const TolerancesPage = () => {
 
             {/* Range info */}
             <p className="text-center text-zinc-500 text-xs">
-              Przedział: {result.rangeLabel} mm · IT{selectedIT} = {result.itValue} μm
+              {t('rangeInfo', { range: result.rangeLabel, it: selectedIT, value: result.itValue })}
             </p>
 
             {/* Deviations card */}
             <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
-              <p className="text-zinc-400 text-sm font-medium mb-3">Odchyłki</p>
+              <p className="text-zinc-400 text-sm font-medium mb-3">{t('deviations')}</p>
               <div className="grid grid-cols-2 gap-3">
                 <div className="text-center">
-                  <span className="text-xs text-zinc-500 uppercase tracking-wider">Górna (ES/es)</span>
+                  <span className="text-xs text-zinc-500 uppercase tracking-wider">{t('upperDeviation')}</span>
                   <p className="text-2xl font-bold text-emerald-400">
                     {result.upperDeviation_um > 0 ? '+' : ''}{result.upperDeviation_um} <span className="text-sm text-zinc-500">μm</span>
                   </p>
@@ -137,7 +139,7 @@ const TolerancesPage = () => {
                   </p>
                 </div>
                 <div className="text-center">
-                  <span className="text-xs text-zinc-500 uppercase tracking-wider">Dolna (EI/ei)</span>
+                  <span className="text-xs text-zinc-500 uppercase tracking-wider">{t('lowerDeviation')}</span>
                   <p className="text-2xl font-bold text-amber-400">
                     {result.lowerDeviation_um > 0 ? '+' : ''}{result.lowerDeviation_um} <span className="text-sm text-zinc-500">μm</span>
                   </p>
@@ -150,22 +152,22 @@ const TolerancesPage = () => {
 
             {/* Final dimensions card */}
             <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4">
-              <p className="text-cyan-300 text-sm font-medium mb-3">Wymiar końcowy</p>
+              <p className="text-cyan-300 text-sm font-medium mb-3">{t('finalDimension')}</p>
               <div className="grid grid-cols-2 gap-3">
                 <div className="text-center">
-                  <span className="text-xs text-zinc-500 uppercase tracking-wider">Max</span>
+                  <span className="text-xs text-zinc-500 uppercase tracking-wider">{t('max')}</span>
                   <p className="text-2xl md:text-3xl font-bold text-emerald-400">{result.dimMax.toFixed(3)}</p>
                   <span className="text-xs text-zinc-500">mm</span>
                 </div>
                 <div className="text-center">
-                  <span className="text-xs text-zinc-500 uppercase tracking-wider">Min</span>
+                  <span className="text-xs text-zinc-500 uppercase tracking-wider">{t('min')}</span>
                   <p className="text-2xl md:text-3xl font-bold text-amber-400">{result.dimMin.toFixed(3)}</p>
                   <span className="text-xs text-zinc-500">mm</span>
                 </div>
               </div>
               {/* Środek tolerancji */}
               <div className="border-t border-cyan-800/30 mt-4 pt-3">
-                <p className="text-xs text-zinc-500 text-center mb-1">Środek tolerancji (Idealny)</p>
+                <p className="text-xs text-zinc-500 text-center mb-1">{t('toleranceCenter')}</p>
                 <p className="text-3xl md:text-4xl font-black text-cyan-400 text-center">
                   {((result.dimMax + result.dimMin) / 2).toFixed(3)} <span className="text-sm font-normal text-zinc-500">mm</span>
                 </p>
@@ -177,27 +179,27 @@ const TolerancesPage = () => {
                 </div>
                 <div className="flex justify-between mt-1">
                   <span className="text-[10px] text-amber-500/70">MIN</span>
-                  <span className="text-[10px] text-cyan-400 font-bold">↑ Celuj tutaj</span>
+                  <span className="text-[10px] text-cyan-400 font-bold">{t('aimHere')}</span>
                   <span className="text-[10px] text-emerald-500/70">MAX</span>
                 </div>
               </div>
             </div>
 
             <p className="text-zinc-600 text-xs text-center">
-              Obliczenia wg algorytmu ISO 286-1 · Profil jednostki tolerancji i = 0.45·D¹ᐟ³ + 0.001·D
+              {t('footerNote')}
             </p>
           </div>
         )}
 
         {parsedNominal !== null && !result && (
           <p className="text-center text-amber-400/70 py-6 text-sm">
-            Brak danych dla tej kombinacji. Sprawdź wymiar (0–3150 mm).
+            {t('noDataForCombination')}
           </p>
         )}
 
         {parsedNominal === null && (
           <p className="text-center text-zinc-500 py-10">
-            Wpisz wymiar nominalny, aby obliczyć tolerancje.
+            {t('enterNominalPrompt')}
           </p>
         )}
       </div>

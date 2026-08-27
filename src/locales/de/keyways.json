@@ -1,0 +1,16 @@
+{
+  "diameter": "Wellen-/Bohrungsdurchmesser d [mm]",
+  "widthFit": "Breitenpassung b",
+  "outOfRange": "Keine Daten für diesen Durchmesser. Normbereich des Moduls: 6–75 mm.",
+  "keyDims": "Passfeder b × h",
+  "grooveWidth": "Nutbreite {{fit}}: {{b}} mm ({{upper}} / {{lower}})",
+  "shaft": "Welle",
+  "hub": "Nabe",
+  "depthT1": "Tiefe t₁",
+  "controlDim1": "Kontrollmaß d − t₁",
+  "depthT2": "Tiefe t₂",
+  "controlDim2": "Kontrollmaß d + t₂",
+  "diagram": "Schema",
+  "hubLabel": "Nabe",
+  "table": "DIN 6885 Tabelle"
+}
