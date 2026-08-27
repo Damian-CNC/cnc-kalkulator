@@ -11,7 +11,7 @@ const queryClient = new QueryClient();
 
 const AppFallback = () => (
   <div className="min-h-screen bg-zinc-950 flex items-center justify-center text-zinc-500">
-    Wczytywanie...
+    Loading...
   </div>
 );
 
