@@ -13,6 +13,7 @@ import {
 const TYPES: Din509Type[] = ['E', 'F', 'G', 'H'];
 
 const Din509Svg = ({ type }: { type: Din509Type }) => {
+  const { t } = useTranslation(['din509', 'translation']);
   const profileStroke = 'rgb(6,182,212)';
   const dimStroke = 'rgb(113,113,122)';
   const labelFill = 'rgb(161,161,170)';
@@ -138,17 +139,17 @@ const Din509Page = () => {
       <div className="space-y-4">
         {/* Type tabs */}
         <div className="grid grid-cols-4 gap-2">
-          {TYPES.map((t) => (
+          {TYPES.map((ty) => (
             <button
-              key={t}
-              onClick={() => setType(t)}
+              key={ty}
+              onClick={() => setType(ty)}
               className={`py-3 rounded-xl font-bold text-sm transition-all border ${
-                type === t
+                type === ty
                   ? 'bg-cyan-600 border-cyan-500 text-white'
                   : 'bg-zinc-900 border-zinc-800 text-zinc-400 hover:border-zinc-700'
               }`}
             >
-              {t('din509:type', { type: t })}
+              {t('din509:type', { type: ty })}
             </button>
           ))}
         </div>

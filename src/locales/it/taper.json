@@ -1,0 +1,18 @@
+{
+  "toolHint": "Strumento per tornitori",
+  "axis": "asse",
+  "angleLabel": "Angolo α/2",
+  "fields": {
+    "d1": "D1 — Diam. maggiore (mm)",
+    "d2": "D2 — Diam. minore (mm)",
+    "l": "L — Lunghezza (mm)",
+    "halfAngle": "α/2 — Angolo di registrazione (°)"
+  },
+  "clearAll": "Cancella tutto",
+  "result": {
+    "fullAngle": "Angolo totale (α)",
+    "settingAngle": "Angolo di registrazione (α/2) — per la macchina",
+    "taper": "Conicità"
+  },
+  "hint": "Compila 3 dei 4 campi — il quarto verrà calcolato automaticamente."
+}
