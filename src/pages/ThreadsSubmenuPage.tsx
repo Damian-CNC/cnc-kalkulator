@@ -1,10 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import { Wrench, CircleDot, Cog, Hexagon, ChevronsUpDown, Pipette } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import PageLayout from '@/components/PageLayout';
 
 type Tile = {
   id: string;
-  label: string;
+  labelKey: string;
   icon: typeof Wrench;
   route: string;
   color: string;
@@ -12,21 +13,20 @@ type Tile = {
 };
 
 const tiles: Tile[] = [
-  { id: 'metric', label: 'Gwinty Metryczne', icon: Wrench, route: '/threads/metric', color: 'text-cyan-400' },
-  { id: 'trapezoidal', label: 'Gwinty Trapezowe (Tr)', icon: ChevronsUpDown, route: '/threads/trapezoidal', color: 'text-sky-400' },
-  { id: 'bsp', label: 'Gwinty Rurowe BSP (G)', icon: CircleDot, route: '/threads/bsp', color: 'text-emerald-400' },
-  { id: 'npt', label: 'Gwinty NPT (ANSI)', icon: Pipette, route: '/threads/npt', color: 'text-rose-400' },
-  { id: 'bsw', label: 'Gwinty BSW (Whitworth)', icon: Hexagon, route: '/threads/bsw', color: 'text-amber-400' },
-  { id: 'bsf', label: 'Gwinty BSF (British Fine)', icon: Cog, route: '/threads/bsf', color: 'text-violet-400' },
+  { id: 'metric', labelKey: 'threads.metric', icon: Wrench, route: '/threads/metric', color: 'text-cyan-400' },
+  { id: 'trapezoidal', labelKey: 'threads.trapezoidal', icon: ChevronsUpDown, route: '/threads/trapezoidal', color: 'text-sky-400' },
+  { id: 'bsp', labelKey: 'threads.bsp', icon: CircleDot, route: '/threads/bsp', color: 'text-emerald-400' },
+  { id: 'npt', labelKey: 'threads.npt', icon: Pipette, route: '/threads/npt', color: 'text-rose-400' },
+  { id: 'bsw', labelKey: 'threads.bsw', icon: Hexagon, route: '/threads/bsw', color: 'text-amber-400' },
+  { id: 'bsf', labelKey: 'threads.bsf', icon: Cog, route: '/threads/bsf', color: 'text-violet-400' },
 ];
-
-
 
 const ThreadsSubmenuPage = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
-    <PageLayout title="Wybierz rodzaj gwintu">
+    <PageLayout title={t('pages.threadsMenu')}>
       <div className="grid grid-cols-2 gap-4 sm:gap-6 w-full">
         {tiles.map((tile) => {
           const Icon = tile.icon;
@@ -38,12 +38,12 @@ const ThreadsSubmenuPage = () => {
             >
               {tile.isNew && (
                 <span className="absolute top-2 right-2 text-[10px] font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-1.5 py-0.5 rounded uppercase tracking-wider">
-                  New
+                  {t('common.new')}
                 </span>
               )}
               <Icon className={`w-10 h-10 ${tile.color}`} strokeWidth={2} />
               <span className="text-sm sm:text-base font-semibold text-zinc-200 leading-tight">
-                {tile.label}
+                {t(tile.labelKey)}
               </span>
             </button>
           );

@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import SelectField from './SelectField';
 import InputField from './InputField';
 import ResultDisplay from './ResultDisplay';
@@ -10,6 +11,7 @@ const materialOptions = materials.map(m => ({ value: m, label: m }));
 const aeOptions = aeTypes.map(a => ({ value: a, label: a }));
 
 const StandardCuttingCalculator = () => {
+  const { t } = useTranslation();
   const [material, setMaterial] = useState(materials[0]);
   const [ae, setAe] = useState<AeType>("1.0 x D");
   const [diameter, setDiameter] = useState('10');
@@ -38,29 +40,29 @@ const StandardCuttingCalculator = () => {
       <div className="flex flex-col gap-6">
         <div className="glass-module">
           <h2 className="text-primary font-semibold text-lg mb-4 flex items-center gap-2">
-            📋 Dane wejściowe
+            📋 {t('common.inputs')}
           </h2>
           <div className="flex flex-col gap-4">
             <SelectField
-              label="Materiał"
+              label={t('stdCutting.material')}
               options={materialOptions}
               value={material}
               onChange={(e) => setMaterial(e.target.value)}
             />
             <SelectField
-              label="Zagłębienie boczne (ae)"
+              label={t('stdCutting.ae')}
               options={aeOptions}
               value={ae}
               onChange={(e) => setAe(e.target.value as AeType)}
             />
             <SelectField
-              label="Średnica freza D [mm]"
+              label={t('stdCutting.cutterDiameter')}
               options={diameterOptions}
               value={diameter}
               onChange={(e) => setDiameter(e.target.value)}
             />
             <InputField
-              label="Ilość ostrzy (Z)"
+              label={t('stdCutting.teeth')}
               type="number"
               inputMode="numeric"
               min="1"
@@ -73,21 +75,21 @@ const StandardCuttingCalculator = () => {
         {result && (
           <div className="glass-module">
             <h2 className="text-primary font-semibold text-lg mb-4 flex items-center gap-2">
-              📊 Wyniki
+              📊 {t('common.results')}
             </h2>
             <div className="flex flex-col gap-3">
               <ResultDisplay>
                 <div className="flex flex-col items-center gap-1">
-                  <span className="text-primary text-xl font-bold">🌀 {result.n} obr/min</span>
+                  <span className="text-primary text-xl font-bold">🌀 {result.n} {t('stdCutting.rpmUnit')}</span>
                 </div>
               </ResultDisplay>
               <ResultDisplay>
                 <div className="flex flex-col items-center gap-1">
-                  <span className="text-primary text-xl font-bold">🚀 {result.vf} mm/min</span>
+                  <span className="text-primary text-xl font-bold">🚀 {result.vf} {t('stdCutting.feedUnit')}</span>
                 </div>
               </ResultDisplay>
               <div className="text-muted-foreground text-xs text-center mt-2 space-y-0.5">
-                <p>V<sub>c</sub> = {result.vc} m/min &nbsp;|&nbsp; f<sub>z</sub> = {result.fz} mm/ząb</p>
+                <p>V<sub>c</sub> = {result.vc} m/min &nbsp;|&nbsp; f<sub>z</sub> = {result.fz} {t('stdCutting.perTooth')}</p>
               </div>
             </div>
           </div>

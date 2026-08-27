@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import InputField from './InputField';
 import ResultDisplay from './ResultDisplay';
 
 const DrillConeCalculator = () => {
+  const { t } = useTranslation();
   const [diameter, setDiameter] = useState('');
   const [angle, setAngle] = useState('');
 
@@ -28,19 +30,19 @@ const DrillConeCalculator = () => {
     <div className="glass-container">
       <div className="glass-module">
         <h2 className="text-primary font-semibold text-lg mb-4 flex items-center gap-2">
-          🔺 Wysokość stożka wiertła
+          🔺 {t('cone.title')}
         </h2>
 
         <div className="flex flex-col gap-4">
           <InputField
-            label="Średnica wiertła D [mm]"
+            label={t('cone.drillDiameter')}
             type="number"
             step="0.1"
             value={diameter}
             onChange={(e) => setDiameter(e.target.value)}
           />
           <InputField
-            label="Kąt wierzchołkowy α [°]"
+            label={t('cone.pointAngle')}
             type="number"
             step="0.1"
             value={angle}
@@ -52,18 +54,18 @@ const DrillConeCalculator = () => {
             {result !== null ? (
               <div className="text-center w-full">
                 <div className="text-lg text-primary font-semibold mb-1">
-                  Wysokość stożka
+                  {t('cone.resultLabel')}
                 </div>
                 <div className="text-2xl font-bold text-foreground mb-2">
                   🔺 {result.toFixed(3)} mm
                 </div>
                 <div className="text-xs text-muted-foreground mt-2 px-2">
-                  Wysokość stożka mierzona jest od czubka wiertła do początku pełnej średnicy.
+                  {t('cone.hint')}
                 </div>
               </div>
             ) : (
               diameter && angle ? (
-                <span className="text-muted-foreground">Wprowadź prawidłowe wartości</span>
+                <span className="text-muted-foreground">{t('cone.invalid')}</span>
               ) : null
             )}
           </ResultDisplay>
@@ -71,7 +73,7 @@ const DrillConeCalculator = () => {
       </div>
 
       <button onClick={handleClear} className="clear-btn mt-6">
-        Wyczyść
+        {t('common.clear')}
       </button>
     </div>
   );
