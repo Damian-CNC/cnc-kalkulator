@@ -1,0 +1,108 @@
+{
+  "common": {
+    "back": "Zurück",
+    "menu": "Menü",
+    "clear": "Löschen",
+    "clearAll": "Alles löschen",
+    "new": "Neu",
+    "loading": "Wird geladen...",
+    "results": "Ergebnisse",
+    "inputs": "Eingabedaten",
+    "forceUpdate": "Update erzwingen",
+    "language": "Sprache",
+    "notFoundTitle": "Seite nicht gefunden",
+    "notFoundHome": "Zurück zur Startseite",
+    "somethingWrong": "Etwas ist schiefgelaufen"
+  },
+  "nav": {
+    "appTitle": "CNC-Rechner"
+  },
+  "sections": {
+    "machining": "Bearbeitung & Oberfläche",
+    "threadsFits": "Gewinde & Passungen",
+    "geometry": "Geometrie",
+    "standardParts": "Normteile",
+    "materials": "Werkstoffe"
+  },
+  "tiles": {
+    "parameters": "Schnittdaten",
+    "stdCutting": "Standardparameter",
+    "roughness": "Rauheit Ra/Rz",
+    "tolerances": "ISO-Toleranzen",
+    "threads": "Gewinde",
+    "taper": "Fasen",
+    "cone": "Bohrerspitze",
+    "polygon": "Eckenmaß",
+    "din509": "Freistiche DIN 509",
+    "seger": "Sicherungsringnuten",
+    "keyways": "Passfedernuten",
+    "oring": "O-Ring-Nuten",
+    "weight": "Gewicht",
+    "hardness": "Härte"
+  },
+  "pages": {
+    "parameters": "Schnittdaten",
+    "stdCutting": "Standardparameter",
+    "roughness": "Rauheit Ra/Rz",
+    "tolerances": "ISO 286 Toleranzen",
+    "threadsMenu": "Gewindeart wählen",
+    "taper": "Fasenrechner",
+    "cone": "Höhe der Bohrerspitze",
+    "polygon": "Eckenmaß-Rechner",
+    "din509": "Freistiche DIN 509",
+    "seger": "Sicherungsringnuten",
+    "keyways": "Passfedernuten",
+    "oring": "O-Ring-Nuten",
+    "weight": "Gewichtsrechner",
+    "hardness": "Härteumrechner"
+  },
+  "threads": {
+    "metric": "Metrische Gewinde",
+    "trapezoidal": "Trapezgewinde (Tr)",
+    "bsp": "BSP-Rohrgewinde (G)",
+    "npt": "NPT-Gewinde (ANSI)",
+    "bsw": "BSW-Gewinde (Whitworth)",
+    "bsf": "BSF-Gewinde (British Fine)"
+  },
+  "params": {
+    "speedModule": "Drehzahl & Schnittgeschwindigkeit",
+    "feedModule": "Vorschubgeschwindigkeit",
+    "circularModule": "Zirkularinterpolation (Mittelpunktsvorschub)",
+    "circularHint": "Erfordert D₂ > D (Werkzeugdurchmesser). Vf ist der Vorschub am Umfang, Fc der Vorschub in der Werkzeugmitte.",
+    "cuttingSpeed": "Schnittgeschwindigkeit Vc [m/min]",
+    "toolDiameter": "Werkzeugdurchmesser D [mm]",
+    "spindleSpeed": "Drehzahl n [1/min]",
+    "feedPerTooth": "Vorschub pro Zahn fz [mm/Zahn]",
+    "teeth": "Zähnezahl Z",
+    "feedRate": "Vorschubgeschwindigkeit Vf [mm/min]",
+    "toolDiameterD1": "Werkzeugdurchmesser D₁ = D [mm]",
+    "workDiameterD2": "Bearbeitungsdurchmesser D₂ [mm]",
+    "peripheralFeed": "Umfangsvorschub Vf [mm/min]",
+    "centralFeed": "Mittelpunktsvorschub Fc [mm/min]"
+  },
+  "stdCutting": {
+    "material": "Werkstoff",
+    "ae": "Seitliche Zustellung (ae)",
+    "cutterDiameter": "Fräserdurchmesser D [mm]",
+    "teeth": "Zähnezahl (Z)",
+    "rpmUnit": "1/min",
+    "feedUnit": "mm/min",
+    "perTooth": "mm/Zahn"
+  },
+  "cone": {
+    "title": "Höhe der Bohrerspitze",
+    "drillDiameter": "Bohrerdurchmesser D [mm]",
+    "pointAngle": "Spitzenwinkel α [°]",
+    "resultLabel": "Spitzenhöhe",
+    "hint": "Die Spitzenhöhe wird von der Bohrerspitze bis zum Beginn des vollen Durchmessers gemessen.",
+    "invalid": "Gültige Werte eingeben"
+  },
+  "hardness": {
+    "title": "Härteumrechner",
+    "direction": "Umrechnungsrichtung",
+    "hbInput": "Härte HB",
+    "hrcInput": "Härte HRC",
+    "resultTitle": "Umrechnungsergebnis",
+    "standard": "Umrechnung nach ISO 18265 (ISO 6506/6508)"
+  }
+}

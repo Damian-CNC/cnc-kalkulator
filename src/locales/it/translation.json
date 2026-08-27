@@ -1,0 +1,108 @@
+{
+  "common": {
+    "back": "Indietro",
+    "menu": "Menu",
+    "clear": "Cancella",
+    "clearAll": "Cancella tutto",
+    "new": "Nuovo",
+    "loading": "Caricamento...",
+    "results": "Risultati",
+    "inputs": "Dati di ingresso",
+    "forceUpdate": "Forza aggiornamento",
+    "language": "Lingua",
+    "notFoundTitle": "Pagina non trovata",
+    "notFoundHome": "Torna alla home",
+    "somethingWrong": "Qualcosa è andato storto"
+  },
+  "nav": {
+    "appTitle": "Calcolatore CNC"
+  },
+  "sections": {
+    "machining": "Lavorazione e Finitura",
+    "threadsFits": "Filettature e Tolleranze",
+    "geometry": "Geometria",
+    "standardParts": "Elementi Normalizzati",
+    "materials": "Materiali"
+  },
+  "tiles": {
+    "parameters": "Parametri di Taglio",
+    "stdCutting": "Parametri Standard",
+    "roughness": "Rugosità Ra/Rz",
+    "tolerances": "Tolleranze ISO",
+    "threads": "Filettature",
+    "taper": "Smussi",
+    "cone": "Punta del Trapano",
+    "polygon": "Diagonali",
+    "din509": "Scarichi DIN 509",
+    "seger": "Cave per Seeger",
+    "keyways": "Cave per Linguette",
+    "oring": "Cave O-ring",
+    "weight": "Peso",
+    "hardness": "Durezza"
+  },
+  "pages": {
+    "parameters": "Parametri di Taglio",
+    "stdCutting": "Parametri Standard",
+    "roughness": "Rugosità Ra/Rz",
+    "tolerances": "Tolleranze ISO 286",
+    "threadsMenu": "Scegli il tipo di filettatura",
+    "taper": "Calcolatore Smussi",
+    "cone": "Altezza Punta del Trapano",
+    "polygon": "Calcolatore Diagonali",
+    "din509": "Scarichi DIN 509",
+    "seger": "Cave per Seeger",
+    "keyways": "Cave per Linguette",
+    "oring": "Cave O-ring",
+    "weight": "Calcolatore Peso",
+    "hardness": "Convertitore Durezza"
+  },
+  "threads": {
+    "metric": "Filettature Metriche",
+    "trapezoidal": "Filettature Trapezoidali (Tr)",
+    "bsp": "Filettature Gas BSP (G)",
+    "npt": "Filettature NPT (ANSI)",
+    "bsw": "Filettature BSW (Whitworth)",
+    "bsf": "Filettature BSF (British Fine)"
+  },
+  "params": {
+    "speedModule": "Velocità mandrino e di taglio",
+    "feedModule": "Avanzamento al minuto",
+    "circularModule": "Interpolazione circolare (avanzamento centrale)",
+    "circularHint": "Richiede D₂ > D (diametro utensile). Vf è l'avanzamento periferico, Fc è l'avanzamento al centro utensile.",
+    "cuttingSpeed": "Velocità di taglio Vc [m/min]",
+    "toolDiameter": "Diametro utensile D [mm]",
+    "spindleSpeed": "Velocità mandrino n [giri/min]",
+    "feedPerTooth": "Avanzamento per dente fz [mm/dente]",
+    "teeth": "Numero di denti Z",
+    "feedRate": "Avanzamento al minuto Vf [mm/min]",
+    "toolDiameterD1": "Diametro utensile D₁ = D [mm]",
+    "workDiameterD2": "Diametro lavorato D₂ [mm]",
+    "peripheralFeed": "Avanzamento periferico Vf [mm/min]",
+    "centralFeed": "Avanzamento centrale Fc [mm/min]"
+  },
+  "stdCutting": {
+    "material": "Materiale",
+    "ae": "Impegno radiale (ae)",
+    "cutterDiameter": "Diametro fresa D [mm]",
+    "teeth": "Numero di taglienti (Z)",
+    "rpmUnit": "giri/min",
+    "feedUnit": "mm/min",
+    "perTooth": "mm/dente"
+  },
+  "cone": {
+    "title": "Altezza punta del trapano",
+    "drillDiameter": "Diametro punta D [mm]",
+    "pointAngle": "Angolo al vertice α [°]",
+    "resultLabel": "Altezza punta",
+    "hint": "L'altezza della punta è misurata dalla cima fino all'inizio del diametro pieno.",
+    "invalid": "Inserisci valori validi"
+  },
+  "hardness": {
+    "title": "Convertitore di durezza",
+    "direction": "Direzione di conversione",
+    "hbInput": "Durezza HB",
+    "hrcInput": "Durezza HRC",
+    "resultTitle": "Risultato conversione",
+    "standard": "Conversione secondo ISO 18265 (ISO 6506/6508)"
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "common": {
+    "back": "Back",
+    "menu": "Menu",
+    "clear": "Clear",
+    "clearAll": "Clear all",
+    "new": "New",
+    "loading": "Loading...",
+    "results": "Results",
+    "inputs": "Input data",
+    "forceUpdate": "Force update",
+    "language": "Language",
+    "notFoundTitle": "Page not found",
+    "notFoundHome": "Return to home",
+    "somethingWrong": "Something went wrong"
+  },
+  "nav": {
+    "appTitle": "CNC Calculator"
+  },
+  "sections": {
+    "machining": "Machining & Finishing",
+    "threadsFits": "Threads & Fits",
+    "geometry": "Geometry",
+    "standardParts": "Standard Parts",
+    "materials": "Materials"
+  },
+  "tiles": {
+    "parameters": "Cutting Data",
+    "stdCutting": "Standard Parameters",
+    "roughness": "Roughness Ra/Rz",
+    "tolerances": "ISO Tolerances",
+    "threads": "Threads",
+    "taper": "Chamfers",
+    "cone": "Drill Point",
+    "polygon": "Across Corners",
+    "din509": "Undercuts DIN 509",
+    "seger": "Retaining Ring Grooves",
+    "keyways": "Parallel Keys",
+    "oring": "O-ring Grooves",
+    "weight": "Weight",
+    "hardness": "Hardness"
+  },
+  "pages": {
+    "parameters": "Cutting Data",
+    "stdCutting": "Standard Parameters",
+    "roughness": "Roughness Ra/Rz",
+    "tolerances": "ISO 286 Tolerances",
+    "threadsMenu": "Select thread type",
+    "taper": "Chamfer Calculator",
+    "cone": "Drill Point Height",
+    "polygon": "Across Corners Calculator",
+    "din509": "Undercuts DIN 509",
+    "seger": "Retaining Ring Grooves",
+    "keyways": "Parallel Keys",
+    "oring": "O-ring Grooves",
+    "weight": "Weight Calculator",
+    "hardness": "Hardness Converter"
+  },
+  "threads": {
+    "metric": "Metric Threads",
+    "trapezoidal": "Trapezoidal Threads (Tr)",
+    "bsp": "BSP Pipe Threads (G)",
+    "npt": "NPT Threads (ANSI)",
+    "bsw": "BSW Threads (Whitworth)",
+    "bsf": "BSF Threads (British Fine)"
+  },
+  "params": {
+    "speedModule": "Spindle speed & cutting speed",
+    "feedModule": "Feed rate",
+    "circularModule": "Circular interpolation (central feed)",
+    "circularHint": "Requires D₂ > D (tool diameter). Vf is the feed at the periphery, Fc is the feed at the tool centre.",
+    "cuttingSpeed": "Cutting speed Vc [m/min]",
+    "toolDiameter": "Tool diameter D [mm]",
+    "spindleSpeed": "Spindle speed n [rpm]",
+    "feedPerTooth": "Feed per tooth fz [mm/tooth]",
+    "teeth": "Number of teeth Z",
+    "feedRate": "Feed rate Vf [mm/min]",
+    "toolDiameterD1": "Tool diameter D₁ = D [mm]",
+    "workDiameterD2": "Machined diameter D₂ [mm]",
+    "peripheralFeed": "Peripheral feed Vf [mm/min]",
+    "centralFeed": "Central feed Fc [mm/min]"
+  },
+  "stdCutting": {
+    "material": "Material",
+    "ae": "Radial depth of cut (ae)",
+    "cutterDiameter": "Cutter diameter D [mm]",
+    "teeth": "Number of teeth (Z)",
+    "rpmUnit": "rpm",
+    "feedUnit": "mm/min",
+    "perTooth": "mm/tooth"
+  },
+  "cone": {
+    "title": "Drill point height",
+    "drillDiameter": "Drill diameter D [mm]",
+    "pointAngle": "Point angle α [°]",
+    "resultLabel": "Point height",
+    "hint": "The point height is measured from the drill tip to the start of the full diameter.",
+    "invalid": "Enter valid values"
+  },
+  "hardness": {
+    "title": "Hardness converter",
+    "direction": "Conversion direction",
+    "hbInput": "Hardness HB",
+    "hrcInput": "Hardness HRC",
+    "resultTitle": "Conversion result",
+    "standard": "Conversion according to ISO 18265 (ISO 6506/6508)"
+  }
+}
