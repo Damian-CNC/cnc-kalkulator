@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import type { ThreadLimits } from '@/data/bspThreadsData';
@@ -19,6 +20,7 @@ interface WhitworthThreadCalculatorProps {
 }
 
 const WhitworthThreadCalculator = ({ threads, sizes, standardLabel, emptyMessage }: WhitworthThreadCalculatorProps) => {
+  const { t } = useTranslation('threadsCalc');
   const [selectedSize, setSelectedSize] = useState<string>('');
 
   const thread = useMemo(() => {
@@ -29,10 +31,10 @@ const WhitworthThreadCalculator = ({ threads, sizes, standardLabel, emptyMessage
   return (
     <div className="space-y-5">
       <div className="flex flex-col">
-        <label className="block text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider">Rozmiar gwintu</label>
+        <label className="block text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider">{t('whitworth.sizeLabel')}</label>
         <Select value={selectedSize} onValueChange={setSelectedSize}>
           <SelectTrigger className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-100 text-lg h-auto">
-            <SelectValue placeholder="Wybierz rozmiar" />
+            <SelectValue placeholder={t('whitworth.sizePlaceholder')} />
           </SelectTrigger>
           <SelectContent className="bg-zinc-900 border-zinc-700 max-h-60">
             {sizes.map((size) => (
@@ -55,28 +57,28 @@ const WhitworthThreadCalculator = ({ threads, sizes, standardLabel, emptyMessage
           <Tabs defaultValue="external" className="w-full">
             <TabsList className="w-full bg-zinc-900 border border-zinc-800">
               <TabsTrigger value="external" className="flex-1 data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50">
-                🔩 Czop
+                {t('whitworth.tabExternal')}
               </TabsTrigger>
               <TabsTrigger value="internal" className="flex-1 data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50">
-                🔧 Otwór
+                {t('whitworth.tabInternal')}
               </TabsTrigger>
             </TabsList>
 
             <TabsContent value="external">
               <div className="space-y-3 mt-3">
-                <DimensionCard label="Średnica zewnętrzna (d)" limits={thread.external.d} />
-                <DimensionCard label="Średnica podziałowa (d2)" limits={thread.external.d2} />
-                <DimensionCard label="Średnica rdzenia (d1)" limits={thread.external.d1} />
-                <CamCard label="Wysokość nacinania (h3)" value={thread.h3} />
+                <DimensionCard label={t('whitworth.extDiameter')} limits={thread.external.d} />
+                <DimensionCard label={t('whitworth.extPitchDiameter')} limits={thread.external.d2} />
+                <DimensionCard label={t('whitworth.extCoreDiameter')} limits={thread.external.d1} />
+                <CamCard label={t('whitworth.profileHeight')} value={thread.h3} />
               </div>
             </TabsContent>
 
             <TabsContent value="internal">
               <div className="space-y-3 mt-3">
-                <DimensionCard label="Średnica zewnętrzna (D)" limits={thread.internal.D} />
-                <DimensionCard label="Średnica podziałowa (D2)" limits={thread.internal.D2} />
-                <DimensionCard label="Średnica wewnętrzna (D1)" limits={thread.internal.D1} />
-                <CamCard label="Wysokość nacinania (h3)" value={thread.h3} />
+                <DimensionCard label={t('whitworth.intDiameter')} limits={thread.internal.D} />
+                <DimensionCard label={t('whitworth.intPitchDiameter')} limits={thread.internal.D2} />
+                <DimensionCard label={t('whitworth.intCoreDiameter')} limits={thread.internal.D1} />
+                <CamCard label={t('whitworth.profileHeight')} value={thread.h3} />
                 <DrillCard tapDrill={thread.internal.drill} />
               </div>
             </TabsContent>
@@ -90,7 +92,7 @@ const WhitworthThreadCalculator = ({ threads, sizes, standardLabel, emptyMessage
 
       {!thread && (
         <p className="text-center text-zinc-500 py-10">
-          {emptyMessage ?? 'Wybierz rozmiar gwintu z listy powyżej.'}
+          {emptyMessage ?? t('whitworth.defaultEmptyMessage')}
         </p>
       )}
     </div>
@@ -98,11 +100,12 @@ const WhitworthThreadCalculator = ({ threads, sizes, standardLabel, emptyMessage
 };
 
 function DimensionCard({ label, limits }: { label: string; limits: ThreadLimits }) {
+  const { t } = useTranslation('threadsCalc');
   const mid = ((limits.max + limits.min) / 2).toFixed(3);
   return (
     <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
       <p className="text-zinc-400 text-sm font-medium mb-2">{label}</p>
-      <p className="text-zinc-500 text-xs mb-2">Nominalna: {limits.nom} mm</p>
+      <p className="text-zinc-500 text-xs mb-2">{t('whitworth.nominal', { value: limits.nom })}</p>
       <div className="grid grid-cols-2 gap-3 mb-3">
         <div className="text-center">
           <span className="text-xs text-zinc-500 uppercase tracking-wider">Max</span>
@@ -114,7 +117,7 @@ function DimensionCard({ label, limits }: { label: string; limits: ThreadLimits 
         </div>
       </div>
       <div className="border-t border-zinc-700/50 pt-3">
-        <p className="text-xs text-zinc-500 text-center mb-1">Środek tolerancji (Idealny)</p>
+        <p className="text-xs text-zinc-500 text-center mb-1">{t('whitworth.toleranceMid')}</p>
         <p className="text-2xl md:text-3xl font-black text-cyan-400 text-center">{mid} <span className="text-sm font-normal text-zinc-500">mm</span></p>
         <div className="relative mt-3 h-2 rounded-full bg-zinc-700/50">
           <div className="absolute inset-y-0 left-0 right-0 rounded-full bg-gradient-to-r from-amber-500/40 via-cyan-500/40 to-emerald-500/40" />
@@ -124,7 +127,7 @@ function DimensionCard({ label, limits }: { label: string; limits: ThreadLimits 
         </div>
         <div className="flex justify-between mt-1">
           <span className="text-[10px] text-amber-500/70">MIN</span>
-          <span className="text-[10px] text-cyan-400 font-bold">↑ Celuj tutaj</span>
+          <span className="text-[10px] text-cyan-400 font-bold">{t('whitworth.targetHint')}</span>
           <span className="text-[10px] text-emerald-500/70">MAX</span>
         </div>
       </div>
@@ -133,19 +136,21 @@ function DimensionCard({ label, limits }: { label: string; limits: ThreadLimits 
 }
 
 function CamCard({ label, value }: { label: string; value: number }) {
+  const { t } = useTranslation('threadsCalc');
   return (
     <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4">
       <p className="text-cyan-300 text-sm font-medium mb-1">{label}</p>
       <p className="text-2xl md:text-3xl font-bold text-cyan-400">{value} mm</p>
-      <p className="text-cyan-600 text-xs mt-1.5">(Radialna głębokość profilu gwintu)</p>
+      <p className="text-cyan-600 text-xs mt-1.5">{t('whitworth.profileHeightNote')}</p>
     </div>
   );
 }
 
 function DrillCard({ tapDrill }: { tapDrill: number }) {
+  const { t } = useTranslation('threadsCalc');
   return (
     <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
-      <p className="text-zinc-400 text-sm font-medium mb-3">Wiertło pod gwintownik</p>
+      <p className="text-zinc-400 text-sm font-medium mb-3">{t('whitworth.tapDrill')}</p>
       <div className="text-center">
         <p className="text-xl md:text-2xl font-bold text-cyan-400">ø{tapDrill} <span className="text-sm font-normal text-zinc-500">mm</span></p>
       </div>
