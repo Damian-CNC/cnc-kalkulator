@@ -62,7 +62,6 @@ const TrapezoidalThreadPage = () => {
               inputMode="decimal"
                 pattern="^[0-9]*[.,]?[0-9]*$"
                 onFocus={selectOnFocus}
-              pattern="[0-9]*[.,]?[0-9]*"
               value={dInput}
               onChange={(e) => setDInput(sanitizeDecimal(e.target.value))}
               className="w-full bg-zinc-900/50 border border-zinc-700 rounded-xl px-4 py-4 text-zinc-100 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-lg"
@@ -77,7 +76,6 @@ const TrapezoidalThreadPage = () => {
               inputMode="decimal"
                 pattern="^[0-9]*[.,]?[0-9]*$"
                 onFocus={selectOnFocus}
-              pattern="[0-9]*[.,]?[0-9]*"
               value={pInput}
               onChange={(e) => setPInput(sanitizeDecimal(e.target.value))}
               className="w-full bg-zinc-900/50 border border-zinc-700 rounded-xl px-4 py-4 text-zinc-100 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-lg"

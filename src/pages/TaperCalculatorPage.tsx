@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, RotateCcw } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
 
 const parse = (v: string) => {
   const n = parseFloat(v.replace(',', '.'));

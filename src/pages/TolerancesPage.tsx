@@ -46,7 +46,6 @@ const TolerancesPage = () => {
             inputMode="decimal"
                 pattern="^[0-9]*[.,]?[0-9]*$"
                 onFocus={selectOnFocus}
-            pattern="[0-9]*[.,]?[0-9]*"
             placeholder={t('nominalPlaceholder')}
             value={nominalInput}
             onChange={(e) => setNominalInput(sanitizeDecimal(e.target.value))}

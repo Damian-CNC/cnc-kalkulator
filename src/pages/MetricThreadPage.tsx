@@ -109,7 +109,6 @@ const MetricThreadPage = () => {
                 inputMode="decimal"
                 pattern="^[0-9]*[.,]?[0-9]*$"
                 onFocus={selectOnFocus}
-                pattern="[0-9]*[.,]?[0-9]*"
                 placeholder={t('metric.diameterPlaceholder')}
                 value={diameterInput}
                 onChange={(e) => setDiameterInput(sanitizeDecimal(e.target.value))}
@@ -140,7 +139,6 @@ const MetricThreadPage = () => {
                   inputMode="decimal"
                 pattern="^[0-9]*[.,]?[0-9]*$"
                 onFocus={selectOnFocus}
-                  pattern="[0-9]*[.,]?[0-9]*"
                   placeholder={t('metric.pitchManualPlaceholder')}
                   value={manualPitch}
                   onChange={(e) => setManualPitch(sanitizeDecimal(e.target.value))}
