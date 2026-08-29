@@ -1,0 +1,1 @@
+const c="^[0-9]*[.,]?[0-9]*$",i=e=>{if(e==null)return"";let t=String(e).replace(/,/g,".").replace(/\s+/g,"");const n=t.startsWith("-");t=t.replace(/[^0-9.]/g,"");const s=t.split(".");return s.length>2&&(t=`${s.shift()}.${s.join("")}`),n?`-${t}`:t},a=e=>{e.target.select()};export{c as D,i as a,a as s};
