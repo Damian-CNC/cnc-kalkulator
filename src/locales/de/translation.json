@@ -12,7 +12,11 @@
     "language": "Sprache",
     "notFoundTitle": "Seite nicht gefunden",
     "notFoundHome": "Zurück zur Startseite",
-    "somethingWrong": "Etwas ist schiefgelaufen"
+    "somethingWrong": "Etwas ist schiefgelaufen",
+    "wakeLock": "Bildschirm wach halten",
+    "wakeLockOn": "Bildschirmsperre deaktiviert (Display bleibt an)",
+    "wakeLockOff": "Display-Wachhaltung deaktiviert",
+    "units": "Einheiten"
   },
   "nav": {
     "appTitle": "CNC-Rechner"

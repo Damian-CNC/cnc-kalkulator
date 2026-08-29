@@ -12,7 +12,11 @@
     "language": "Language",
     "notFoundTitle": "Page not found",
     "notFoundHome": "Return to home",
-    "somethingWrong": "Something went wrong"
+    "somethingWrong": "Something went wrong",
+    "wakeLock": "Keep screen awake",
+    "wakeLockOn": "Screen wake lock active",
+    "wakeLockOff": "Screen wake lock disabled",
+    "units": "Units"
   },
   "nav": {
     "appTitle": "CNC Calculator"

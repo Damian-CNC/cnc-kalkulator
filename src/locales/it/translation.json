@@ -12,7 +12,11 @@
     "language": "Lingua",
     "notFoundTitle": "Pagina non trovata",
     "notFoundHome": "Torna alla home",
-    "somethingWrong": "Qualcosa è andato storto"
+    "somethingWrong": "Qualcosa è andato storto",
+    "wakeLock": "Mantieni schermo acceso",
+    "wakeLockOn": "Blocco spegnimento schermo attivo",
+    "wakeLockOff": "Blocco spegnimento schermo disattivato",
+    "units": "Unità"
   },
   "nav": {
     "appTitle": "Calcolatore CNC"
