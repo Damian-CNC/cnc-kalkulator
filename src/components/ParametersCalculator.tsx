@@ -1,6 +1,7 @@
-import { useState, ChangeEvent, useEffect } from 'react';
+import { useState, ChangeEvent, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import InputField from './InputField';
+import { useUnits, mmToIn, inToMm, mMinToSfm, sfmToMMin } from '@/contexts/UnitContext';
 
 type Field = 'D' | 'Z' | 'vc' | 'n' | 'fz' | 'vf' | 'd2' | 'fc';
 
@@ -33,7 +34,7 @@ const fmt = (v: number, decimals = 3): string => {
  * computed = pola, które właśnie zostały wyliczone (do podświetlenia).
  * Iteruje, dopóki nowe wartości pojawiają się w polach pustych.
  */
-function solve(values: Values, changedField: Field): { values: Values; computed: Set<Field> } {
+function solve(values: Values, changedField: Field, K = 1000): { values: Values; computed: Set<Field> } {
   const v: Values = { ...values };
   const computed = new Set<Field>();
 
@@ -64,13 +65,13 @@ function solve(values: Values, changedField: Field): { values: Values; computed:
 
     // ===== Grupa A: Vc, n, D =====
     if (vc !== null && D !== null && D > 0) {
-      changed = setIfEmpty('n', (vc * 1000) / (Math.PI * D), 0) || changed;
+      changed = setIfEmpty('n', (vc * K) / (Math.PI * D), 0) || changed;
     }
     if (n !== null && D !== null && n > 0) {
-      changed = setIfEmpty('vc', (n * Math.PI * D) / 1000) || changed;
+      changed = setIfEmpty('vc', (n * Math.PI * D) / K) || changed;
     }
     if (vc !== null && n !== null && n > 0) {
-      changed = setIfEmpty('D', (vc * 1000) / (Math.PI * n)) || changed;
+      changed = setIfEmpty('D', (vc * K) / (Math.PI * n)) || changed;
     }
 
     // ===== Grupa B: Vf, fz, Z, n =====
@@ -116,8 +117,39 @@ function solve(values: Values, changedField: Field): { values: Values; computed:
 
 const ParametersCalculator = () => {
   const { t } = useTranslation();
+  const { system, isImperial, speedConstant, u } = useUnits();
   const [values, setValues] = useState<Values>(EMPTY);
   const [computed, setComputed] = useState<Set<Field>>(new Set());
+  const prevSystem = useRef(system);
+
+  // Swap the unit inside a translated label, e.g. "Vc [m/min]" -> "Vc [SFM]"
+  const withUnit = (key: string, unit: string) =>
+    t(key).replace(/\[[^\]]*\]/, `[${unit}]`);
+
+  // Convert entered values in place when the unit system changes.
+  useEffect(() => {
+    if (prevSystem.current === system) return;
+    const toImperial = system === 'imperial';
+    prevSystem.current = system;
+    setValues((prev) => {
+      const conv = (raw: string, fn: (n: number) => number) => {
+        const n = parseFloat(raw);
+        if (raw === '' || !isFinite(n)) return raw;
+        return fmt(fn(n), 4);
+      };
+      const len = toImperial ? mmToIn : inToMm;
+      const speed = toImperial ? mMinToSfm : sfmToMMin;
+      return {
+        ...prev,
+        D: conv(prev.D, len),
+        d2: conv(prev.d2, len),
+        fz: conv(prev.fz, len),
+        vf: conv(prev.vf, len),
+        fc: conv(prev.fc, len),
+        vc: conv(prev.vc, speed),
+      };
+    });
+  }, [system]);
 
   const handleChange = (field: Field) => (e: ChangeEvent<HTMLInputElement>) => {
     const newValues: Values = { ...values, [field]: e.target.value };
@@ -128,7 +160,7 @@ const ParametersCalculator = () => {
     for (const f of Array.from(baseComputed)) {
       newValues[f] = '';
     }
-    const result = solve(newValues, field);
+    const result = solve(newValues, field, speedConstant);
     setValues(result.values);
     setComputed(result.computed);
   };
@@ -158,7 +190,7 @@ const ParametersCalculator = () => {
             </h2>
             <div className="flex flex-col gap-4">
               <InputField
-                label={t('params.cuttingSpeed')}
+                label={withUnit('params.cuttingSpeed', u.speed)}
                 type="number"
                 step="0.1"
                 inputMode="decimal"
@@ -167,7 +199,7 @@ const ParametersCalculator = () => {
                 computed={isComputed('vc')}
               />
               <InputField
-                label={t('params.toolDiameter')}
+                label={withUnit('params.toolDiameter', u.length)}
                 type="number"
                 step="0.1"
                 inputMode="decimal"
@@ -194,7 +226,7 @@ const ParametersCalculator = () => {
             </h2>
             <div className="flex flex-col gap-4">
               <InputField
-                label={t('params.feedPerTooth')}
+                label={withUnit('params.feedPerTooth', isImperial ? 'IPT' : u.feedPerTooth)}
                 type="number"
                 step="0.001"
                 inputMode="decimal"
@@ -212,7 +244,7 @@ const ParametersCalculator = () => {
                 computed={isComputed('Z')}
               />
               <InputField
-                label={t('params.feedRate')}
+                label={withUnit('params.feedRate', u.feedRate)}
                 type="number"
                 step="0.1"
                 inputMode="decimal"
@@ -234,7 +266,7 @@ const ParametersCalculator = () => {
                 {t('params.circularHint')}
               </p>
               <InputField
-                label={t('params.toolDiameterD1')}
+                label={withUnit('params.toolDiameterD1', u.length)}
                 type="number"
                 step="0.1"
                 inputMode="decimal"
@@ -243,7 +275,7 @@ const ParametersCalculator = () => {
                 computed={isComputed('D')}
               />
               <InputField
-                label={t('params.workDiameterD2')}
+                label={withUnit('params.workDiameterD2', u.length)}
                 type="number"
                 step="0.1"
                 inputMode="decimal"
@@ -252,7 +284,7 @@ const ParametersCalculator = () => {
                 computed={isComputed('d2')}
               />
               <InputField
-                label={t('params.peripheralFeed')}
+                label={withUnit('params.peripheralFeed', u.feedRate)}
                 type="number"
                 step="0.1"
                 inputMode="decimal"
@@ -261,7 +293,7 @@ const ParametersCalculator = () => {
                 computed={isComputed('vf')}
               />
               <InputField
-                label={t('params.centralFeed')}
+                label={withUnit('params.centralFeed', u.feedRate)}
                 type="number"
                 step="0.1"
                 inputMode="decimal"
