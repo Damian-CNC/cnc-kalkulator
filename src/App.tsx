@@ -6,6 +6,7 @@ import { HashRouter } from "react-router-dom";
 import { Suspense } from "react";
 import AnimatedRoutes from "./components/AnimatedRoutes";
 import AppErrorBoundary from "./components/AppErrorBoundary";
+import { UnitProvider } from "./contexts/UnitContext";
 
 const queryClient = new QueryClient();
 
