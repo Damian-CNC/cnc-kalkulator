@@ -3,6 +3,8 @@ import { Settings, Scale, Triangle, Gem, Ruler, ClipboardList, RefreshCw, Cone, 
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
+import WakeLockToggle from '@/components/WakeLockToggle';
+import UnitSwitcher from '@/components/UnitSwitcher';
 
 type Tile = {
   id: string;
@@ -83,7 +85,9 @@ const Index = () => {
       className="min-h-screen bg-zinc-950 p-4 pb-safe overflow-x-hidden flex flex-col items-center"
       style={{ paddingTop: 'max(2rem, env(safe-area-inset-top))' }}
     >
-      <div className="w-full max-w-4xl flex justify-end mb-2">
+      <div className="w-full max-w-4xl flex justify-end items-center gap-1.5 mb-2">
+        <UnitSwitcher />
+        <WakeLockToggle />
         <LanguageSwitcher />
       </div>
 
