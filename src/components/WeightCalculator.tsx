@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import InputField from './InputField';
 import SelectField from './SelectField';
 import ResultDisplay from './ResultDisplay';
+import { useUnits } from '@/contexts/UnitContext';
 
 type ShapeType = 'rod' | 'tube' | 'flat';
 
@@ -24,6 +25,7 @@ const materials: Record<string, Material> = {
 };
 
 const WeightCalculator = () => {
+  const { isImperial } = useUnits();
   const [shapeType, setShapeType] = useState<ShapeType>('rod');
   const [materialType, setMaterialType] = useState('');
   const [quantity, setQuantity] = useState('1');
@@ -228,7 +230,9 @@ const WeightCalculator = () => {
                   Masa całkowita
                 </div>
                 <div className="text-2xl font-bold text-foreground mb-2">
-                  {calculateWeight.weightKg} kg
+                  {isImperial
+                    ? `${(parseFloat(calculateWeight.weightKg) * 2.20462262).toFixed(3)} lbs`
+                    : `${calculateWeight.weightKg} kg`}
                 </div>
                 <div className="text-sm text-muted-foreground">
                   {calculateWeight.weightG} g | {calculateWeight.quantity} szt. | {calculateWeight.material}
