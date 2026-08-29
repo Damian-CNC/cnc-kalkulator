@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, RotateCcw } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
 
 const parse = (v: string) => {
   const n = parseFloat(v.replace(',', '.'));
@@ -210,8 +211,10 @@ function Field({ label, value, onChange, color, solved, solvedValue, unit, accen
   return (
     <div className="flex flex-col">
       <label className={`block text-xs font-semibold mb-2 uppercase tracking-wider ${color}`}>{label}</label>
-      <input type="text" inputMode="decimal" placeholder={solved && solvedValue !== undefined ? solvedValue.toFixed(3) : '—'}
-        value={value} onChange={(e) => onChange(e.target.value)}
+      <input type="text" inputMode="decimal"
+                pattern="^[0-9]*[.,]?[0-9]*$"
+                onFocus={selectOnFocus} placeholder={solved && solvedValue !== undefined ? solvedValue.toFixed(3) : '—'}
+        value={value} onChange={(e) => onChange(sanitizeDecimal(e.target.value))}
         className={`w-full bg-zinc-900/50 border rounded-xl px-4 py-4 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500/50 transition-all text-lg text-center font-bold ${solved ? accentClass : 'border-zinc-800'}`}
       />
       {solved && solvedValue !== undefined && (

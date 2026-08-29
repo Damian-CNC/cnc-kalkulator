@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import PageLayout from '@/components/PageLayout';
 import ClearFab from '@/components/ClearFab';
+import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
 
 const RADII = [0.1, 0.2, 0.4, 0.8, 1.2, 1.6, 2.4];
 
@@ -111,8 +112,10 @@ const RoughnessPage = () => {
         <input
           type="text"
           inputMode="decimal"
+                pattern="^[0-9]*[.,]?[0-9]*$"
+                onFocus={selectOnFocus}
           value={radius}
-          onChange={(e) => setRadius(e.target.value)}
+          onChange={(e) => setRadius(sanitizeDecimal(e.target.value))}
           className="input-field mb-6"
         />
 
@@ -124,8 +127,10 @@ const RoughnessPage = () => {
             <input
               type="text"
               inputMode="decimal"
+                pattern="^[0-9]*[.,]?[0-9]*$"
+                onFocus={selectOnFocus}
               value={feed}
-              onChange={(e) => setFeed(e.target.value)}
+              onChange={(e) => setFeed(sanitizeDecimal(e.target.value))}
               className="input-field"
             />
           </>
@@ -137,8 +142,10 @@ const RoughnessPage = () => {
             <input
               type="text"
               inputMode="decimal"
+                pattern="^[0-9]*[.,]?[0-9]*$"
+                onFocus={selectOnFocus}
               value={targetRa}
-              onChange={(e) => setTargetRa(e.target.value)}
+              onChange={(e) => setTargetRa(sanitizeDecimal(e.target.value))}
               className="input-field"
             />
           </>

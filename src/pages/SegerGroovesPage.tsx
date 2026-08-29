@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import PageLayout from '@/components/PageLayout';
 import ClearFab from '@/components/ClearFab';
 import { din471, din472, it11, it13, type SegerRow } from '@/data/segerData';
+import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
 
 const SegerGroovesPage = () => {
   const [type, setType] = useState<'shaft' | 'bore'>('shaft');
@@ -57,8 +58,10 @@ const SegerGroovesPage = () => {
         <input
           type="text"
           inputMode="decimal"
+                pattern="^[0-9]*[.,]?[0-9]*$"
+                onFocus={selectOnFocus}
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => setQuery(sanitizeDecimal(e.target.value))}
           className="input-field"
         />
 

@@ -6,6 +6,7 @@ import { HashRouter } from "react-router-dom";
 import { Suspense } from "react";
 import AnimatedRoutes from "./components/AnimatedRoutes";
 import AppErrorBoundary from "./components/AppErrorBoundary";
+import { UnitProvider } from "./contexts/UnitContext";
 
 const queryClient = new QueryClient();
 
@@ -18,15 +19,17 @@ const AppFallback = () => (
 const App = () => (
   <AppErrorBoundary>
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <HashRouter>
-          <Suspense fallback={<AppFallback />}>
-            <AnimatedRoutes />
-          </Suspense>
-        </HashRouter>
-      </TooltipProvider>
+      <UnitProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <HashRouter>
+            <Suspense fallback={<AppFallback />}>
+              <AnimatedRoutes />
+            </Suspense>
+          </HashRouter>
+        </TooltipProvider>
+      </UnitProvider>
     </QueryClientProvider>
   </AppErrorBoundary>
 );

@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 import ParametersCalculator from '@/components/ParametersCalculator';
 import ClearFab from '@/components/ClearFab';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
+import WakeLockToggle from '@/components/WakeLockToggle';
+import UnitSwitcher from '@/components/UnitSwitcher';
 
 const ParametersPage = () => {
   const navigate = useNavigate();
@@ -28,7 +30,11 @@ const ParametersPage = () => {
             <h1 className="text-xl md:text-2xl font-bold text-zinc-100 tracking-wide">
               {t('pages.parameters')}
             </h1>
-            <LanguageSwitcher className="ml-auto shrink-0" />
+            <div className="ml-auto flex items-center gap-1.5 shrink-0">
+              <UnitSwitcher />
+              <WakeLockToggle />
+              <LanguageSwitcher />
+            </div>
           </header>
 
           <main className="w-full max-w-2xl mx-auto">

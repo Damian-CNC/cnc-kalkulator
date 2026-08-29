@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import PageLayout from '@/components/PageLayout';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
 
 const round = (v: number, n = 3) => Number.isFinite(v) ? Number(v.toFixed(n)) : null;
 
@@ -59,9 +60,10 @@ const TrapezoidalThreadPage = () => {
             <input
               type="text"
               inputMode="decimal"
-              pattern="[0-9]*[.,]?[0-9]*"
+                pattern="^[0-9]*[.,]?[0-9]*$"
+                onFocus={selectOnFocus}
               value={dInput}
-              onChange={(e) => setDInput(e.target.value)}
+              onChange={(e) => setDInput(sanitizeDecimal(e.target.value))}
               className="w-full bg-zinc-900/50 border border-zinc-700 rounded-xl px-4 py-4 text-zinc-100 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-lg"
             />
           </div>
@@ -72,9 +74,10 @@ const TrapezoidalThreadPage = () => {
             <input
               type="text"
               inputMode="decimal"
-              pattern="[0-9]*[.,]?[0-9]*"
+                pattern="^[0-9]*[.,]?[0-9]*$"
+                onFocus={selectOnFocus}
               value={pInput}
-              onChange={(e) => setPInput(e.target.value)}
+              onChange={(e) => setPInput(sanitizeDecimal(e.target.value))}
               className="w-full bg-zinc-900/50 border border-zinc-700 rounded-xl px-4 py-4 text-zinc-100 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-lg"
             />
           </div>

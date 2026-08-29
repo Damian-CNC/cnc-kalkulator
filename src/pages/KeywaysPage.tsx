@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import PageLayout from '@/components/PageLayout';
 import ClearFab from '@/components/ClearFab';
 import { findKeyway, keywayData, widthFits, widthLimits, type WidthFit } from '@/data/keywayData';
+import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
 
 const fmt = (v: number, d = 2) => v.toFixed(d);
 const sign = (v: number) => (v >= 0 ? `+${v.toFixed(3)}` : v.toFixed(3));
@@ -25,8 +26,10 @@ const KeywaysPage = () => {
         <input
           type="text"
           inputMode="decimal"
+                pattern="^[0-9]*[.,]?[0-9]*$"
+                onFocus={selectOnFocus}
           value={diameter}
-          onChange={(e) => setDiameter(e.target.value)}
+          onChange={(e) => setDiameter(sanitizeDecimal(e.target.value))}
           className="input-field mb-6"
         />
 

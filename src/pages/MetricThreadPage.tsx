@@ -7,6 +7,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@
 import { calculateMetricThread } from '@/utils/threadMath';
 import threadsData from '@/data/metric_threads.json';
 import standardMetricPitches from '@/data/standardMetricPitches';
+import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
 
 interface ThreadEntry {
   designation: string;
@@ -106,10 +107,11 @@ const MetricThreadPage = () => {
               <input
                 type="text"
                 inputMode="decimal"
-                pattern="[0-9]*[.,]?[0-9]*"
+                pattern="^[0-9]*[.,]?[0-9]*$"
+                onFocus={selectOnFocus}
                 placeholder={t('metric.diameterPlaceholder')}
                 value={diameterInput}
-                onChange={(e) => setDiameterInput(e.target.value)}
+                onChange={(e) => setDiameterInput(sanitizeDecimal(e.target.value))}
                 className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500/50 transition-all text-lg"
               />
             </div>
@@ -135,10 +137,11 @@ const MetricThreadPage = () => {
                 <input
                   type="text"
                   inputMode="decimal"
-                  pattern="[0-9]*[.,]?[0-9]*"
+                pattern="^[0-9]*[.,]?[0-9]*$"
+                onFocus={selectOnFocus}
                   placeholder={t('metric.pitchManualPlaceholder')}
                   value={manualPitch}
-                  onChange={(e) => setManualPitch(e.target.value)}
+                  onChange={(e) => setManualPitch(sanitizeDecimal(e.target.value))}
                   disabled={parsedD === null}
                   className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500/50 transition-all text-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 />

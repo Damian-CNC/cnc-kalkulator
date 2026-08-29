@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import PageLayout from '@/components/PageLayout';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
+import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
 import {
   calculateTolerance,
   HOLE_LETTERS,
@@ -43,10 +44,11 @@ const TolerancesPage = () => {
           <input
             type="text"
             inputMode="decimal"
-            pattern="[0-9]*[.,]?[0-9]*"
+                pattern="^[0-9]*[.,]?[0-9]*$"
+                onFocus={selectOnFocus}
             placeholder={t('nominalPlaceholder')}
             value={nominalInput}
-            onChange={(e) => setNominalInput(e.target.value)}
+            onChange={(e) => setNominalInput(sanitizeDecimal(e.target.value))}
             className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500/50 transition-all text-lg text-center font-bold"
           />
         </div>

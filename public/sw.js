@@ -1,10 +1,12 @@
 const CACHE_PREFIX = 'cnc-calculator-';
-const CACHE_NAME = `${CACHE_PREFIX}v5`;
-const PRECACHE_URLS = ['./', './index.html', './manifest.json'];
+const CACHE_NAME = `${CACHE_PREFIX}v6`;
+const PRECACHE_URLS = ['./', './index.html', './manifest.json', './favicon.png', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_URLS))
+    caches.open(CACHE_NAME).then((cache) =>
+      Promise.allSettled(PRECACHE_URLS.map((url) => cache.add(url))),
+    ),
   );
   self.skipWaiting();
 });
@@ -52,6 +54,29 @@ self.addEventListener('fetch', (event) => {
           return response;
         });
       })
+    );
+    return;
+  }
+
+  // Fonts & other cross-origin static assets — cache-first (works offline on the shop floor).
+  const isFontOrStatic =
+    /fonts\.(googleapis|gstatic)\.com$/.test(url.hostname) ||
+    /\.(woff2?|ttf|otf|png|jpg|jpeg|svg|webp|json)$/i.test(url.pathname);
+
+  if (isFontOrStatic && !isHTML) {
+    event.respondWith(
+      caches.match(req).then((cached) => {
+        const network = fetch(req)
+          .then((response) => {
+            if (response && (response.status === 200 || response.type === 'opaque')) {
+              const clone = response.clone();
+              caches.open(CACHE_NAME).then((cache) => cache.put(req, clone));
+            }
+            return response;
+          })
+          .catch(() => cached);
+        return cached || network;
+      }),
     );
     return;
   }
