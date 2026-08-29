@@ -2,8 +2,8 @@ import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import PageLayout from '@/components/PageLayout';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
-import {
 import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
+import {
   calculateTolerance,
   HOLE_LETTERS,
   SHAFT_LETTERS,
