@@ -19,15 +19,17 @@ const AppFallback = () => (
 const App = () => (
   <AppErrorBoundary>
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <HashRouter>
-          <Suspense fallback={<AppFallback />}>
-            <AnimatedRoutes />
-          </Suspense>
-        </HashRouter>
-      </TooltipProvider>
+      <UnitProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <HashRouter>
+            <Suspense fallback={<AppFallback />}>
+              <AnimatedRoutes />
+            </Suspense>
+          </HashRouter>
+        </TooltipProvider>
+      </UnitProvider>
     </QueryClientProvider>
   </AppErrorBoundary>
 );
