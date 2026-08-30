@@ -86,10 +86,9 @@ const Index = () => {
       style={{ paddingTop: 'max(2rem, env(safe-area-inset-top))' }}
     >
       <div className="w-full max-w-4xl flex justify-end items-center gap-1.5 mb-2">
-        <UnitSwitcher />
         <WakeLockToggle />
-        <LanguageSwitcher />
       </div>
+
 
       <motion.h1
         className="text-2xl md:text-4xl font-black tracking-wide mb-8 text-zinc-100 select-none text-center"
