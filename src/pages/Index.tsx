@@ -2,9 +2,9 @@ import { useNavigate } from 'react-router-dom';
 import { Settings, Scale, Triangle, Gem, Ruler, ClipboardList, RefreshCw, Cone, Hexagon, Bolt, Scissors, Waves, Disc, RectangleHorizontal, LifeBuoy } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import LanguageSwitcher from '@/components/LanguageSwitcher';
 import WakeLockToggle from '@/components/WakeLockToggle';
-import UnitSwitcher from '@/components/UnitSwitcher';
+import AppFooter from '@/components/AppFooter';
+
 
 type Tile = {
   id: string;
