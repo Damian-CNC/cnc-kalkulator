@@ -7,6 +7,8 @@ import { Suspense } from "react";
 import AnimatedRoutes from "./components/AnimatedRoutes";
 import AppErrorBoundary from "./components/AppErrorBoundary";
 import { UnitProvider } from "./contexts/UnitContext";
+import OnboardingModal from "./components/OnboardingModal";
+
 
 const queryClient = new QueryClient();
 
