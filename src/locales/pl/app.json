@@ -1,0 +1,54 @@
+{
+  "onboarding": {
+    "title": "Witaj w Kalkulatorze CNC",
+    "subtitle": "Skonfiguruj aplikację w dwóch krokach.",
+    "step": "Krok",
+    "stepLanguage": "Wybierz język",
+    "stepUnits": "Wybierz system jednostek",
+    "metric": "Metryczny",
+    "imperial": "Calowy",
+    "metricDesc": "mm / m/min",
+    "imperialDesc": "inch / SFM",
+    "cta": "Rozpocznij pracę",
+    "next": "Dalej",
+    "back": "Wstecz"
+  },
+  "footer": {
+    "changelog": "Historia zmian",
+    "version": "v2.4.0",
+    "copyright": "© 2026 Damian Drewniak",
+    "settings": "Ustawienia"
+  },
+  "changelog": {
+    "title": "Historia zmian",
+    "subtitle": "Ostatnie 5 wydań",
+    "latest": "Najnowsza",
+    "tags": {
+      "new": "NEW",
+      "update": "UPDATE",
+      "fix": "FIX"
+    },
+    "v240": [
+      "Dodano wielojęzyczność (PL, EN, DE, IT)",
+      "Dodano przełącznik jednostek Metric (mm) / Imperial (inch, SFM)",
+      "Dodano blokadę wygaszania ekranu (Screen Wake Lock)"
+    ],
+    "v230": [
+      "Nowe moduły: Rowki pod Segery (DIN 471/472), Wpusty pryzmowe (DIN 6885), Rowki O-ring (ISO 3601)",
+      "Nowy kalkulator teoretycznej chropowatości powierzchni Ra/Rz"
+    ],
+    "v220": [
+      "Optymalizacja działania na urządzeniach mobilnych (iOS/Android)",
+      "Nowy pływający przycisk resetowania parametrów (FAB)",
+      "Inteligentne formatowanie przecinków i kropek w polach numerycznych"
+    ],
+    "v210": [
+      "Dodano moduł geometrii: stożek wiertła i fazowanie krawędzi",
+      "Rozszerzenie bazy tolerancji ISO i podcięć obróbkowych DIN 509"
+    ],
+    "v200": [
+      "Nowy ciemny interfejs (Dark Mode) i pełne wsparcie PWA (działanie offline)",
+      "Moduł obliczania wagi materiałów oraz przelicznik twardości"
+    ]
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "onboarding": {
+    "title": "Willkommen beim CNC-Rechner",
+    "subtitle": "Richten Sie die App in zwei Schritten ein.",
+    "step": "Schritt",
+    "stepLanguage": "Sprache wählen",
+    "stepUnits": "Einheitensystem wählen",
+    "metric": "Metrisch",
+    "imperial": "Zoll",
+    "metricDesc": "mm / m/min",
+    "imperialDesc": "inch / SFM",
+    "cta": "Speichern & starten",
+    "next": "Weiter",
+    "back": "Zurück"
+  },
+  "footer": {
+    "changelog": "Änderungsverlauf",
+    "version": "v2.4.0",
+    "copyright": "© 2026 Damian Drewniak",
+    "settings": "Einstellungen"
+  },
+  "changelog": {
+    "title": "Änderungsverlauf",
+    "subtitle": "Die letzten 5 Versionen",
+    "latest": "Neueste",
+    "tags": {
+      "new": "NEU",
+      "update": "UPDATE",
+      "fix": "FIX"
+    },
+    "v240": [
+      "Mehrsprachigkeit hinzugefügt (PL, EN, DE, IT)",
+      "Einheitenumschalter Metrisch (mm) / Imperial (inch, SFM)",
+      "Bildschirmsperre deaktivieren (Screen Wake Lock)"
+    ],
+    "v230": [
+      "Neue Module: Sicherungsringnuten (DIN 471/472), Passfedern (DIN 6885), O-Ring-Nuten (ISO 3601)",
+      "Neuer Rechner für theoretische Oberflächenrauheit Ra/Rz"
+    ],
+    "v220": [
+      "Optimierung für mobile Geräte (iOS/Android)",
+      "Neuer schwebender Reset-Button (FAB)",
+      "Intelligente Komma- und Punktverarbeitung in Zahlenfeldern"
+    ],
+    "v210": [
+      "Neues Geometriemodul: Bohrerspitze und Kantenfasen",
+      "Erweiterte ISO-Toleranzdatenbank und DIN 509 Freistiche"
+    ],
+    "v200": [
+      "Neue dunkle Oberfläche und volle PWA-Unterstützung (Offline-Betrieb)",
+      "Modul zur Materialgewichtsberechnung und Härteumrechner"
+    ]
+  }
+}

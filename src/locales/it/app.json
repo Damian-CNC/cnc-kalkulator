@@ -1,0 +1,54 @@
+{
+  "onboarding": {
+    "title": "Benvenuto in CNC Calculator",
+    "subtitle": "Configura l'app in due passaggi.",
+    "step": "Passo",
+    "stepLanguage": "Scegli la lingua",
+    "stepUnits": "Scegli il sistema di unità",
+    "metric": "Metrico",
+    "imperial": "Imperiale",
+    "metricDesc": "mm / m/min",
+    "imperialDesc": "inch / SFM",
+    "cta": "Salva e inizia",
+    "next": "Avanti",
+    "back": "Indietro"
+  },
+  "footer": {
+    "changelog": "Cronologia modifiche",
+    "version": "v2.4.0",
+    "copyright": "© 2026 Damian Drewniak",
+    "settings": "Impostazioni"
+  },
+  "changelog": {
+    "title": "Cronologia modifiche",
+    "subtitle": "Ultime 5 versioni",
+    "latest": "Più recente",
+    "tags": {
+      "new": "NEW",
+      "update": "UPDATE",
+      "fix": "FIX"
+    },
+    "v240": [
+      "Aggiunto supporto multilingua (PL, EN, DE, IT)",
+      "Aggiunto selettore unità Metrico (mm) / Imperiale (inch, SFM)",
+      "Aggiunto blocco spegnimento schermo (Screen Wake Lock)"
+    ],
+    "v230": [
+      "Nuovi moduli: cave per anelli Seeger (DIN 471/472), linguette (DIN 6885), sedi O-ring (ISO 3601)",
+      "Nuovo calcolatore della rugosità superficiale teorica Ra/Rz"
+    ],
+    "v220": [
+      "Ottimizzazione per dispositivi mobili (iOS/Android)",
+      "Nuovo pulsante flottante di reset (FAB)",
+      "Gestione intelligente di virgole e punti nei campi numerici"
+    ],
+    "v210": [
+      "Aggiunto modulo geometria: cono della punta e smussi",
+      "Ampliato database tolleranze ISO e scarichi DIN 509"
+    ],
+    "v200": [
+      "Nuova interfaccia scura e pieno supporto PWA (offline)",
+      "Modulo calcolo peso materiali e convertitore di durezza"
+    ]
+  }
+}
