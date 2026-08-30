@@ -147,9 +147,8 @@ const Index = () => {
         {t('common.forceUpdate')}
       </button>
 
-      <footer className="text-center mt-auto pt-6 text-zinc-600 text-sm pb-[max(0.5rem,env(safe-area-inset-bottom))]">
-        © 2026 Damian Drewniak
-      </footer>
+      <AppFooter />
+
     </div>
   );
 };
