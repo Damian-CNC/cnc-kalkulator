@@ -23,6 +23,7 @@ const App = () => (
         <TooltipProvider>
           <Toaster />
           <Sonner />
+          <OnboardingModal />
           <HashRouter>
             <Suspense fallback={<AppFallback />}>
               <AnimatedRoutes />
@@ -32,6 +33,7 @@ const App = () => (
       </UnitProvider>
     </QueryClientProvider>
   </AppErrorBoundary>
+
 );
 
 export default App;
