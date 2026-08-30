@@ -2,9 +2,9 @@ import { useNavigate } from 'react-router-dom';
 import { Settings, Scale, Triangle, Gem, Ruler, ClipboardList, RefreshCw, Cone, Hexagon, Bolt, Scissors, Waves, Disc, RectangleHorizontal, LifeBuoy } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import LanguageSwitcher from '@/components/LanguageSwitcher';
 import WakeLockToggle from '@/components/WakeLockToggle';
-import UnitSwitcher from '@/components/UnitSwitcher';
+import AppFooter from '@/components/AppFooter';
+
 
 type Tile = {
   id: string;
@@ -86,10 +86,9 @@ const Index = () => {
       style={{ paddingTop: 'max(2rem, env(safe-area-inset-top))' }}
     >
       <div className="w-full max-w-4xl flex justify-end items-center gap-1.5 mb-2">
-        <UnitSwitcher />
         <WakeLockToggle />
-        <LanguageSwitcher />
       </div>
+
 
       <motion.h1
         className="text-2xl md:text-4xl font-black tracking-wide mb-8 text-zinc-100 select-none text-center"
@@ -148,9 +147,8 @@ const Index = () => {
         {t('common.forceUpdate')}
       </button>
 
-      <footer className="text-center mt-auto pt-6 text-zinc-600 text-sm pb-[max(0.5rem,env(safe-area-inset-bottom))]">
-        © 2026 Damian Drewniak
-      </footer>
+      <AppFooter />
+
     </div>
   );
 };

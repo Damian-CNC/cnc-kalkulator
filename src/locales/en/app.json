@@ -1,0 +1,54 @@
+{
+  "onboarding": {
+    "title": "Welcome to CNC Calculator",
+    "subtitle": "Set up the app in two quick steps.",
+    "step": "Step",
+    "stepLanguage": "Choose your language",
+    "stepUnits": "Choose your unit system",
+    "metric": "Metric",
+    "imperial": "Imperial",
+    "metricDesc": "mm / m/min",
+    "imperialDesc": "inch / SFM",
+    "cta": "Save & Continue",
+    "next": "Next",
+    "back": "Back"
+  },
+  "footer": {
+    "changelog": "Changelog",
+    "version": "v2.4.0",
+    "copyright": "© 2026 Damian Drewniak",
+    "settings": "Settings"
+  },
+  "changelog": {
+    "title": "Changelog",
+    "subtitle": "Last 5 releases",
+    "latest": "Latest",
+    "tags": {
+      "new": "NEW",
+      "update": "UPDATE",
+      "fix": "FIX"
+    },
+    "v240": [
+      "Added multi-language support (PL, EN, DE, IT)",
+      "Added Metric (mm) / Imperial (inch, SFM) unit switcher",
+      "Added Screen Wake Lock support"
+    ],
+    "v230": [
+      "New modules: retaining ring grooves (DIN 471/472), parallel keys (DIN 6885), O-ring grooves (ISO 3601)",
+      "New theoretical surface roughness Ra/Rz calculator"
+    ],
+    "v220": [
+      "Performance optimisation for mobile devices (iOS/Android)",
+      "New floating reset button (FAB)",
+      "Smart comma and dot handling in numeric fields"
+    ],
+    "v210": [
+      "Added geometry module: drill cone and edge chamfering",
+      "Extended ISO tolerance database and DIN 509 undercuts"
+    ],
+    "v200": [
+      "New dark interface and full PWA support (offline mode)",
+      "Material weight module and hardness converter"
+    ]
+  }
+}
