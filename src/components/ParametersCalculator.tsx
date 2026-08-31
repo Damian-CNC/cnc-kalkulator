@@ -237,6 +237,17 @@ const ParametersCalculator = () => {
           <div className="glass-module">
             <h2 className="text-primary font-semibold text-lg mb-4 flex items-center gap-2">
               🚀 {t('params.feedModule')}
+              <FormulaHelper
+                title={th('formulas.feed.title')}
+                formula="Vf = fz · z · n"
+                label={th('formulas.help')}
+                params={[
+                  { symbol: 'Vf', desc: th('formulas.feed.p.vf') },
+                  { symbol: 'fz', desc: th('formulas.feed.p.fz') },
+                  { symbol: 'z', desc: th('formulas.feed.p.z') },
+                  { symbol: 'n', desc: th('formulas.feed.p.n') },
+                ]}
+              />
             </h2>
             <div className="flex flex-col gap-4">
               <InputField
@@ -274,6 +285,17 @@ const ParametersCalculator = () => {
             <summary className="text-primary font-semibold text-lg mb-4 flex items-center gap-2 cursor-pointer list-none">
               <span className="transition-transform group-open:rotate-90">▸</span>
               🎯 {t('params.circularModule')}
+              <FormulaHelper
+                title={th('formulas.circular.title')}
+                formula="Fc = (Vf · (D2 − D1)) / D2"
+                label={th('formulas.help')}
+                params={[
+                  { symbol: 'Fc', desc: th('formulas.circular.p.Fc') },
+                  { symbol: 'Vf', desc: th('formulas.circular.p.vf') },
+                  { symbol: 'D1', desc: th('formulas.circular.p.D1') },
+                  { symbol: 'D2', desc: th('formulas.circular.p.D2') },
+                ]}
+              />
             </summary>
             <div className="flex flex-col gap-4 mt-2">
               <p className="text-muted-foreground text-xs">
