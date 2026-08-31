@@ -169,7 +169,7 @@ const ParametersCalculator = () => {
   };
 
   const handleClear = () => {
-    setValues(EMPTY);
+    resetValues();
     setComputed(new Set());
   };
 
@@ -177,7 +177,7 @@ const ParametersCalculator = () => {
     const handler = () => handleClear();
     window.addEventListener('parameters-calculator-clear', handler);
     return () => window.removeEventListener('parameters-calculator-clear', handler);
-  }, []);
+  }, [resetValues]);
 
   const isComputed = (f: Field) => computed.has(f);
 
@@ -190,6 +190,17 @@ const ParametersCalculator = () => {
           <div className="glass-module">
             <h2 className="text-primary font-semibold text-lg mb-4 flex items-center gap-2">
               🌀 {t('params.speedModule')}
+              <FormulaHelper
+                title={th('formulas.rpm.title')}
+                formula="n = (Vc · K) / (π · D)"
+                note={th('formulas.rpm.note')}
+                label={th('formulas.help')}
+                params={[
+                  { symbol: 'n', desc: th('formulas.rpm.p.n') },
+                  { symbol: 'Vc', desc: th('formulas.rpm.p.Vc') },
+                  { symbol: 'D', desc: th('formulas.rpm.p.D') },
+                ]}
+              />
             </h2>
             <div className="flex flex-col gap-4">
               <InputField
