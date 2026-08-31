@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import PageLayout from '@/components/PageLayout';
 import ClearFab from '@/components/ClearFab';
 import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
+import FormulaHelper from '@/components/FormulaHelper';
 
 const RADII = [0.1, 0.2, 0.4, 0.8, 1.2, 1.6, 2.4];
 
@@ -31,6 +32,7 @@ const isoClassFor = (ra: number) => isoClasses.find((c) => ra <= c.ra)?.n ?? '> 
 
 const RoughnessPage = () => {
   const { t } = useTranslation(['roughness', 'translation']);
+  const { t: th } = useTranslation('app');
   const [mode, setMode] = useState<'forward' | 'reverse'>('forward');
   const [radius, setRadius] = useState('0.4');
   const [feed, setFeed] = useState('');
@@ -75,7 +77,22 @@ const RoughnessPage = () => {
   return (
     <PageLayout title={t('pages.roughness', { ns: 'translation' })}>
       <div className="glass-module">
+        <div className="flex items-center gap-1 mb-3">
+          <h2 className="text-sm uppercase tracking-wider text-zinc-400">Ra / Rz</h2>
+          <FormulaHelper
+            title={th('formulas.roughness.title')}
+            formula="Ra ≈ (fn² / (32 · rε)) · 1000"
+            note={th('formulas.roughness.note')}
+            label={th('formulas.help')}
+            params={[
+              { symbol: 'Ra', desc: th('formulas.roughness.p.Ra') },
+              { symbol: 'fn', desc: th('formulas.roughness.p.fn') },
+              { symbol: 'rε', desc: th('formulas.roughness.p.re') },
+            ]}
+          />
+        </div>
         <div className="grid grid-cols-2 gap-2 mb-6">
+
           {(['forward', 'reverse'] as const).map((m) => (
             <button
               key={m}

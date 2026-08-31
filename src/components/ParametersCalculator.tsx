@@ -1,6 +1,8 @@
 import { useState, ChangeEvent, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import InputField from './InputField';
+import FormulaHelper from './FormulaHelper';
+import usePersistedState from '@/hooks/usePersistedState';
 import { useUnits, mmToIn, inToMm, mMinToSfm, sfmToMMin } from '@/contexts/UnitContext';
 
 type Field = 'D' | 'Z' | 'vc' | 'n' | 'fz' | 'vf' | 'd2' | 'fc';
@@ -117,8 +119,9 @@ function solve(values: Values, changedField: Field, K = 1000): { values: Values;
 
 const ParametersCalculator = () => {
   const { t } = useTranslation();
+  const { t: th } = useTranslation('app');
   const { system, isImperial, speedConstant, u } = useUnits();
-  const [values, setValues] = useState<Values>(EMPTY);
+  const [values, setValues, resetValues] = usePersistedState<Values>('speeds', EMPTY);
   const [computed, setComputed] = useState<Set<Field>>(new Set());
   const prevSystem = useRef(system);
 
@@ -166,7 +169,7 @@ const ParametersCalculator = () => {
   };
 
   const handleClear = () => {
-    setValues(EMPTY);
+    resetValues();
     setComputed(new Set());
   };
 
@@ -174,7 +177,7 @@ const ParametersCalculator = () => {
     const handler = () => handleClear();
     window.addEventListener('parameters-calculator-clear', handler);
     return () => window.removeEventListener('parameters-calculator-clear', handler);
-  }, []);
+  }, [resetValues]);
 
   const isComputed = (f: Field) => computed.has(f);
 
@@ -187,6 +190,17 @@ const ParametersCalculator = () => {
           <div className="glass-module">
             <h2 className="text-primary font-semibold text-lg mb-4 flex items-center gap-2">
               🌀 {t('params.speedModule')}
+              <FormulaHelper
+                title={th('formulas.rpm.title')}
+                formula="n = (Vc · K) / (π · D)"
+                note={th('formulas.rpm.note')}
+                label={th('formulas.help')}
+                params={[
+                  { symbol: 'n', desc: th('formulas.rpm.p.n') },
+                  { symbol: 'Vc', desc: th('formulas.rpm.p.Vc') },
+                  { symbol: 'D', desc: th('formulas.rpm.p.D') },
+                ]}
+              />
             </h2>
             <div className="flex flex-col gap-4">
               <InputField
@@ -223,6 +237,17 @@ const ParametersCalculator = () => {
           <div className="glass-module">
             <h2 className="text-primary font-semibold text-lg mb-4 flex items-center gap-2">
               🚀 {t('params.feedModule')}
+              <FormulaHelper
+                title={th('formulas.feed.title')}
+                formula="Vf = fz · z · n"
+                label={th('formulas.help')}
+                params={[
+                  { symbol: 'Vf', desc: th('formulas.feed.p.vf') },
+                  { symbol: 'fz', desc: th('formulas.feed.p.fz') },
+                  { symbol: 'z', desc: th('formulas.feed.p.z') },
+                  { symbol: 'n', desc: th('formulas.feed.p.n') },
+                ]}
+              />
             </h2>
             <div className="flex flex-col gap-4">
               <InputField
@@ -260,6 +285,17 @@ const ParametersCalculator = () => {
             <summary className="text-primary font-semibold text-lg mb-4 flex items-center gap-2 cursor-pointer list-none">
               <span className="transition-transform group-open:rotate-90">▸</span>
               🎯 {t('params.circularModule')}
+              <FormulaHelper
+                title={th('formulas.circular.title')}
+                formula="Fc = (Vf · (D2 − D1)) / D2"
+                label={th('formulas.help')}
+                params={[
+                  { symbol: 'Fc', desc: th('formulas.circular.p.Fc') },
+                  { symbol: 'Vf', desc: th('formulas.circular.p.vf') },
+                  { symbol: 'D1', desc: th('formulas.circular.p.D1') },
+                  { symbol: 'D2', desc: th('formulas.circular.p.D2') },
+                ]}
+              />
             </summary>
             <div className="flex flex-col gap-4 mt-2">
               <p className="text-muted-foreground text-xs">

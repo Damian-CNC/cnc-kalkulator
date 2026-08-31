@@ -50,5 +50,58 @@
       "New dark interface and full PWA support (offline mode)",
       "Material weight module and hardness converter"
     ]
+  },
+  "pwa": {
+    "message": "Install the app on your phone to use it offline on the shop floor",
+    "install": "Install",
+    "dismiss": "Dismiss"
+  },
+  "formulas": {
+    "help": "Formula and explanation",
+    "rpm": {
+      "title": "Spindle speed & Vc",
+      "note": "K = 1000 (mm, m/min) or 12 (inch, SFM)",
+      "p": {
+        "n": "spindle speed [rpm]",
+        "Vc": "cutting speed [m/min]",
+        "D": "tool or workpiece diameter [mm]"
+      }
+    },
+    "feed": {
+      "title": "Feed rate per minute",
+      "p": {
+        "vf": "feed rate [mm/min]",
+        "fz": "feed per tooth [mm/tooth]",
+        "z": "number of teeth",
+        "n": "spindle speed [rpm]"
+      }
+    },
+    "circular": {
+      "title": "Central feed (circular interpolation)",
+      "p": {
+        "Fc": "programmed central feed [mm/min]",
+        "vf": "peripheral tool feed [mm/min]",
+        "D1": "tool diameter [mm]",
+        "D2": "machined diameter [mm]"
+      }
+    },
+    "roughness": {
+      "title": "Theoretical surface roughness",
+      "note": "Theoretical value — real Ra is often 1.5–2× higher.",
+      "p": {
+        "Ra": "average roughness [µm]",
+        "fn": "feed per revolution [mm/rev]",
+        "re": "insert corner radius [mm]"
+      }
+    },
+    "din509": {
+      "title": "DIN 509 undercut",
+      "note": "f, g and t2 are taken from the standard table based on r and t1.",
+      "p": {
+        "r": "undercut radius [mm]",
+        "t1": "undercut depth [mm]",
+        "f": "undercut width [mm]"
+      }
+    }
   }
 }

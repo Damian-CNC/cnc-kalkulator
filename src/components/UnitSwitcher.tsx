@@ -1,11 +1,18 @@
 import { memo } from 'react';
 import { useUnits } from '@/contexts/UnitContext';
+import useHaptics from '@/hooks/useHaptics';
 
 const UnitSwitcher = ({ className = '' }: { className?: string }) => {
   const { system, setSystem } = useUnits();
+  const { triggerLight } = useHaptics();
 
   const base =
     'px-2 py-1 rounded-lg text-[11px] font-bold tracking-wider transition-colors';
+
+  const pick = (s: 'metric' | 'imperial') => {
+    triggerLight();
+    setSystem(s);
+  };
 
   return (
     <div
@@ -15,7 +22,7 @@ const UnitSwitcher = ({ className = '' }: { className?: string }) => {
     >
       <button
         type="button"
-        onClick={() => setSystem('metric')}
+        onClick={() => pick('metric')}
         aria-pressed={system === 'metric'}
         className={`${base} ${
           system === 'metric' ? 'bg-cyan-500/15 text-cyan-400' : 'text-zinc-500 hover:text-zinc-300'
@@ -25,7 +32,7 @@ const UnitSwitcher = ({ className = '' }: { className?: string }) => {
       </button>
       <button
         type="button"
-        onClick={() => setSystem('imperial')}
+        onClick={() => pick('imperial')}
         aria-pressed={system === 'imperial'}
         className={`${base} ${
           system === 'imperial' ? 'bg-cyan-500/15 text-cyan-400' : 'text-zinc-500 hover:text-zinc-300'
@@ -36,5 +43,6 @@ const UnitSwitcher = ({ className = '' }: { className?: string }) => {
     </div>
   );
 };
+
 
 export default memo(UnitSwitcher);
