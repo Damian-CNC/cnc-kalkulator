@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import WakeLockToggle from '@/components/WakeLockToggle';
 import AppFooter from '@/components/AppFooter';
+import useHaptics from '@/hooks/useHaptics';
 
 
 type Tile = {
