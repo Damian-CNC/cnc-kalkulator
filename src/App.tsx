@@ -8,6 +8,7 @@ import AnimatedRoutes from "./components/AnimatedRoutes";
 import AppErrorBoundary from "./components/AppErrorBoundary";
 import { UnitProvider } from "./contexts/UnitContext";
 import OnboardingModal from "./components/OnboardingModal";
+import PwaInstallBanner from "./components/PwaInstallBanner";
 
 
 const queryClient = new QueryClient();
@@ -31,6 +32,7 @@ const App = () => (
               <AnimatedRoutes />
             </Suspense>
           </HashRouter>
+          <PwaInstallBanner />
         </TooltipProvider>
       </UnitProvider>
     </QueryClientProvider>
