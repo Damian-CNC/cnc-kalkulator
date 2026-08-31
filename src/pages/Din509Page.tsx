@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import PageLayout from '@/components/PageLayout';
+import FormulaHelper from '@/components/FormulaHelper';
 import {
   DIN509_TYPES,
   DIN509_ROWS,
@@ -157,7 +158,20 @@ const Din509Page = () => {
 
         {/* Description */}
         <div className="bg-zinc-900 border border-zinc-800/80 rounded-2xl p-4">
-          <p className="text-sm text-zinc-300">{info.description}</p>
+          <div className="flex items-start gap-1">
+            <p className="text-sm text-zinc-300 flex-1">{info.description}</p>
+            <FormulaHelper
+              title={th('formulas.din509.title')}
+              formula="r + t1 → f, g, t2 (DIN 509)"
+              note={th('formulas.din509.note')}
+              label={th('formulas.help')}
+              params={[
+                { symbol: 'r', desc: th('formulas.din509.p.r') },
+                { symbol: 't1', desc: th('formulas.din509.p.t1') },
+                { symbol: 'f', desc: th('formulas.din509.p.f') },
+              ]}
+            />
+          </div>
           <div className="flex gap-4 mt-2 text-xs text-zinc-500">
             {info.approachAngle !== null && (
               <span>{t('din509:entryAngle')} <span className="text-cyan-400 font-bold">{info.approachAngle}°</span></span>
