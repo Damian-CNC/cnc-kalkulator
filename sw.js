@@ -1,5 +1,5 @@
 const CACHE_PREFIX = 'cnc-calculator-';
-const CACHE_NAME = `${CACHE_PREFIX}v6`;
+const CACHE_NAME = `${CACHE_PREFIX}v7`;
 const PRECACHE_URLS = ['./', './index.html', './manifest.json', './favicon.png', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', (event) => {
