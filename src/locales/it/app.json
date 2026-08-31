@@ -50,5 +50,58 @@
       "Nuova interfaccia scura e pieno supporto PWA (offline)",
       "Modulo calcolo peso materiali e convertitore di durezza"
     ]
+  },
+  "pwa": {
+    "message": "Installa l'app sul telefono per usarla offline in officina",
+    "install": "Installa",
+    "dismiss": "Chiudi"
+  },
+  "formulas": {
+    "help": "Formula e spiegazione",
+    "rpm": {
+      "title": "Giri mandrino & Vc",
+      "note": "K = 1000 (mm, m/min) oppure 12 (inch, SFM)",
+      "p": {
+        "n": "giri mandrino [giri/min]",
+        "Vc": "velocità di taglio [m/min]",
+        "D": "diametro utensile o pezzo [mm]"
+      }
+    },
+    "feed": {
+      "title": "Avanzamento al minuto",
+      "p": {
+        "vf": "avanzamento [mm/min]",
+        "fz": "avanzamento per dente [mm/dente]",
+        "z": "numero di taglienti",
+        "n": "giri mandrino [giri/min]"
+      }
+    },
+    "circular": {
+      "title": "Avanzamento centrale (interpolazione circolare)",
+      "p": {
+        "Fc": "avanzamento centrale programmato [mm/min]",
+        "vf": "avanzamento periferico utensile [mm/min]",
+        "D1": "diametro utensile [mm]",
+        "D2": "diametro lavorato [mm]"
+      }
+    },
+    "roughness": {
+      "title": "Rugosità teorica",
+      "note": "Valore teorico — la Ra reale è spesso 1,5–2× maggiore.",
+      "p": {
+        "Ra": "rugosità media [µm]",
+        "fn": "avanzamento al giro [mm/giro]",
+        "re": "raggio inserto [mm]"
+      }
+    },
+    "din509": {
+      "title": "Scarico DIN 509",
+      "note": "f, g e t2 derivano dalla tabella della norma in base a r e t1.",
+      "p": {
+        "r": "raggio scarico [mm]",
+        "t1": "profondità scarico [mm]",
+        "f": "larghezza scarico [mm]"
+      }
+    }
   }
 }

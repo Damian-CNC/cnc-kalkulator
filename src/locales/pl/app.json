@@ -50,5 +50,58 @@
       "Nowy ciemny interfejs (Dark Mode) i pełne wsparcie PWA (działanie offline)",
       "Moduł obliczania wagi materiałów oraz przelicznik twardości"
     ]
+  },
+  "pwa": {
+    "message": "Zainstaluj aplikację na telefonie, aby korzystać z niej offline na warsztacie",
+    "install": "Instaluj",
+    "dismiss": "Zamknij"
+  },
+  "formulas": {
+    "help": "Wzór i objaśnienie",
+    "rpm": {
+      "title": "Obroty wrzeciona & Vc",
+      "note": "K = 1000 (mm, m/min) lub 12 (inch, SFM)",
+      "p": {
+        "n": "obroty wrzeciona [obr/min]",
+        "Vc": "prędkość skrawania [m/min]",
+        "D": "średnica narzędzia lub detalu [mm]"
+      }
+    },
+    "feed": {
+      "title": "Posuw minutowy",
+      "p": {
+        "vf": "posuw minutowy [mm/min]",
+        "fz": "posuw na ostrze [mm/ząb]",
+        "z": "liczba ostrzy",
+        "n": "obroty wrzeciona [obr/min]"
+      }
+    },
+    "circular": {
+      "title": "Posuw centralny (interpolacja kołowa)",
+      "p": {
+        "Fc": "posuw centralny (w programie) [mm/min]",
+        "vf": "posuw obwodowy narzędzia [mm/min]",
+        "D1": "średnica narzędzia [mm]",
+        "D2": "średnica obrabiana [mm]"
+      }
+    },
+    "roughness": {
+      "title": "Chropowatość teoretyczna",
+      "note": "Wartość teoretyczna — realna Ra bywa 1,5–2× większa.",
+      "p": {
+        "Ra": "chropowatość średnia [µm]",
+        "fn": "posuw na obrót [mm/obr]",
+        "re": "promień naroża płytki [mm]"
+      }
+    },
+    "din509": {
+      "title": "Podcięcie DIN 509",
+      "note": "Wartości f, g i t2 dobierane są z tabeli normy na podstawie r i t1.",
+      "p": {
+        "r": "promień podcięcia [mm]",
+        "t1": "głębokość podcięcia [mm]",
+        "f": "szerokość podcięcia [mm]"
+      }
+    }
   }
 }

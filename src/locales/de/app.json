@@ -50,5 +50,58 @@
       "Neue dunkle Oberfläche und volle PWA-Unterstützung (Offline-Betrieb)",
       "Modul zur Materialgewichtsberechnung und Härteumrechner"
     ]
+  },
+  "pwa": {
+    "message": "Installiere die App auf dem Smartphone, um sie offline in der Werkstatt zu nutzen",
+    "install": "Installieren",
+    "dismiss": "Schließen"
+  },
+  "formulas": {
+    "help": "Formel und Erklärung",
+    "rpm": {
+      "title": "Drehzahl & Vc",
+      "note": "K = 1000 (mm, m/min) oder 12 (inch, SFM)",
+      "p": {
+        "n": "Spindeldrehzahl [1/min]",
+        "Vc": "Schnittgeschwindigkeit [m/min]",
+        "D": "Werkzeug- bzw. Werkstückdurchmesser [mm]"
+      }
+    },
+    "feed": {
+      "title": "Minutenvorschub",
+      "p": {
+        "vf": "Minutenvorschub [mm/min]",
+        "fz": "Vorschub pro Zahn [mm/Zahn]",
+        "z": "Zähnezahl",
+        "n": "Spindeldrehzahl [1/min]"
+      }
+    },
+    "circular": {
+      "title": "Mittenvorschub (Zirkularinterpolation)",
+      "p": {
+        "Fc": "programmierter Mittenvorschub [mm/min]",
+        "vf": "Umfangsvorschub [mm/min]",
+        "D1": "Werkzeugdurchmesser [mm]",
+        "D2": "bearbeiteter Durchmesser [mm]"
+      }
+    },
+    "roughness": {
+      "title": "Theoretische Rauheit",
+      "note": "Theoretischer Wert — reales Ra ist oft 1,5–2× höher.",
+      "p": {
+        "Ra": "Mittenrauwert [µm]",
+        "fn": "Vorschub pro Umdrehung [mm/U]",
+        "re": "Eckenradius der Wendeplatte [mm]"
+      }
+    },
+    "din509": {
+      "title": "Freistich DIN 509",
+      "note": "f, g und t2 stammen aus der Normtabelle nach r und t1.",
+      "p": {
+        "r": "Freistichradius [mm]",
+        "t1": "Freistichtiefe [mm]",
+        "f": "Freistichbreite [mm]"
+      }
+    }
   }
 }
