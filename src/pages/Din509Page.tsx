@@ -120,6 +120,7 @@ const Din509Svg = ({ type }: { type: Din509Type }) => {
 
 const Din509Page = () => {
   const { t } = useTranslation(['din509', 'translation']);
+  const { t: th } = useTranslation('app');
   const [type, setType] = useState<Din509Type>('E');
   const [rValue, setRValue] = useState<string>('');
   const [t1Value, setT1Value] = useState<string>('');

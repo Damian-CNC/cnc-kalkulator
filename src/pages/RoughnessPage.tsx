@@ -32,6 +32,7 @@ const isoClassFor = (ra: number) => isoClasses.find((c) => ra <= c.ra)?.n ?? '> 
 
 const RoughnessPage = () => {
   const { t } = useTranslation(['roughness', 'translation']);
+  const { t: th } = useTranslation('app');
   const [mode, setMode] = useState<'forward' | 'reverse'>('forward');
   const [radius, setRadius] = useState('0.4');
   const [feed, setFeed] = useState('');
