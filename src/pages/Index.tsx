@@ -59,6 +59,7 @@ const sections: { titleKey: string; tiles: Tile[] }[] = [
 
 const Index = () => {
   const navigate = useNavigate();
+  const { triggerLight } = useHaptics();
   const { t } = useTranslation();
 
   const handleForceUpdate = async () => {
@@ -118,7 +119,10 @@ const Index = () => {
                 return (
                   <button
                     key={tile.id}
-                    onClick={() => navigate(tile.route)}
+                    onClick={() => {
+                      triggerLight();
+                      navigate(tile.route);
+                    }}
                     className="relative aspect-square bg-zinc-900 border border-zinc-800 rounded-2xl flex flex-col items-center justify-center gap-3 p-4 text-center cursor-pointer transition-all hover:bg-zinc-800/80 hover:border-cyan-500/50 hover:shadow-[0_0_15px_rgba(6,182,212,0.15)] active:scale-95 md:w-[calc((100%-3rem)/4)]"
                   >
                     {tile.isNew && (
