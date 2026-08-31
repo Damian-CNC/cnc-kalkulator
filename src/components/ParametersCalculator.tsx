@@ -1,6 +1,8 @@
 import { useState, ChangeEvent, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import InputField from './InputField';
+import FormulaHelper from './FormulaHelper';
+import usePersistedState from '@/hooks/usePersistedState';
 import { useUnits, mmToIn, inToMm, mMinToSfm, sfmToMMin } from '@/contexts/UnitContext';
 
 type Field = 'D' | 'Z' | 'vc' | 'n' | 'fz' | 'vf' | 'd2' | 'fc';
@@ -117,8 +119,9 @@ function solve(values: Values, changedField: Field, K = 1000): { values: Values;
 
 const ParametersCalculator = () => {
   const { t } = useTranslation();
+  const { t: th } = useTranslation('app');
   const { system, isImperial, speedConstant, u } = useUnits();
-  const [values, setValues] = useState<Values>(EMPTY);
+  const [values, setValues, resetValues] = usePersistedState<Values>('speeds', EMPTY);
   const [computed, setComputed] = useState<Set<Field>>(new Set());
   const prevSystem = useRef(system);
 
