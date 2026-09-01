@@ -30,7 +30,6 @@
   },
   "tiles": {
     "parameters": "Parametry",
-    "stdCutting": "Standardowe Parametry",
     "roughness": "Chropowatość Ra/Rz",
     "tolerances": "Tolerancje ISO",
     "threads": "Gwinty",
@@ -42,11 +41,11 @@
     "keyways": "Wpusty pryzmowe",
     "oring": "Rowki O-ring",
     "weight": "Waga",
-    "hardness": "Twardość"
+    "hardness": "Twardość",
+    "iso2768": "Tolerancje ISO 2768"
   },
   "pages": {
     "parameters": "Parametry Skrawania",
-    "stdCutting": "Standardowe Parametry",
     "roughness": "Chropowatość Ra/Rz",
     "tolerances": "Tolerancje ISO 286",
     "threadsMenu": "Wybierz rodzaj gwintu",
@@ -58,7 +57,8 @@
     "keyways": "Wpusty pryzmowe",
     "oring": "Rowki O-ring",
     "weight": "Kalkulator Wagi",
-    "hardness": "Konwerter Twardości"
+    "hardness": "Konwerter Twardości",
+    "iso2768": "Tolerancje ISO 2768"
   },
   "threads": {
     "metric": "Gwinty Metryczne",
@@ -83,15 +83,6 @@
     "workDiameterD2": "Średnica obrabiana D₂ [mm]",
     "peripheralFeed": "Posuw obwodowy Vf [mm/min]",
     "centralFeed": "Posuw centralny Fc [mm/min]"
-  },
-  "stdCutting": {
-    "material": "Materiał",
-    "ae": "Zagłębienie boczne (ae)",
-    "cutterDiameter": "Średnica freza D [mm]",
-    "teeth": "Ilość ostrzy (Z)",
-    "rpmUnit": "obr/min",
-    "feedUnit": "mm/min",
-    "perTooth": "mm/ząb"
   },
   "cone": {
     "title": "Wysokość stożka wiertła",

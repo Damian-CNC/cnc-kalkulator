@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Settings, Scale, Triangle, Gem, Ruler, ClipboardList, RefreshCw, Cone, Hexagon, Bolt, Scissors, Waves, Disc, RectangleHorizontal, LifeBuoy } from 'lucide-react';
+import { Settings, Scale, Triangle, Gem, Ruler, RefreshCw, Cone, Hexagon, Bolt, Scissors, Waves, Disc, RectangleHorizontal, LifeBuoy } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import WakeLockToggle from '@/components/WakeLockToggle';
@@ -20,7 +20,6 @@ const sections: { titleKey: string; tiles: Tile[] }[] = [
     titleKey: 'sections.machining',
     tiles: [
       { id: 'parameters', labelKey: 'tiles.parameters', icon: Settings, route: '/parametry' },
-      { id: 'std-cutting', labelKey: 'tiles.stdCutting', icon: ClipboardList, route: '/standardowe-parametry' },
       { id: 'roughness', labelKey: 'tiles.roughness', icon: Waves, route: '/chropowatosc', isNew: true },
     ],
   },
@@ -29,6 +28,7 @@ const sections: { titleKey: string; tiles: Tile[] }[] = [
     tiles: [
       { id: 'tolerances', labelKey: 'tiles.tolerances', icon: Ruler, route: '/tolerancje' },
       { id: 'threads', labelKey: 'tiles.threads', icon: Bolt, route: '/gwinty' },
+      { id: 'iso2768', labelKey: 'tiles.iso2768', icon: Scale, route: '/tolerancje-iso-2768', isNew: true },
     ],
   },
   {
