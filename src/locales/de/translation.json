@@ -30,7 +30,6 @@
   },
   "tiles": {
     "parameters": "Schnittdaten",
-    "stdCutting": "Standardparameter",
     "roughness": "Rauheit Ra/Rz",
     "tolerances": "ISO-Toleranzen",
     "threads": "Gewinde",
@@ -42,11 +41,11 @@
     "keyways": "Passfedernuten",
     "oring": "O-Ring-Nuten",
     "weight": "Gewicht",
-    "hardness": "Härte"
+    "hardness": "Härte",
+    "iso2768": "ISO 2768 Toleranzen"
   },
   "pages": {
     "parameters": "Schnittdaten",
-    "stdCutting": "Standardparameter",
     "roughness": "Rauheit Ra/Rz",
     "tolerances": "ISO 286 Toleranzen",
     "threadsMenu": "Gewindeart wählen",
@@ -58,7 +57,8 @@
     "keyways": "Passfedernuten",
     "oring": "O-Ring-Nuten",
     "weight": "Gewichtsrechner",
-    "hardness": "Härteumrechner"
+    "hardness": "Härteumrechner",
+    "iso2768": "ISO 2768 Toleranzen"
   },
   "threads": {
     "metric": "Metrische Gewinde",
@@ -83,15 +83,6 @@
     "workDiameterD2": "Bearbeitungsdurchmesser D₂ [mm]",
     "peripheralFeed": "Umfangsvorschub Vf [mm/min]",
     "centralFeed": "Mittelpunktsvorschub Fc [mm/min]"
-  },
-  "stdCutting": {
-    "material": "Werkstoff",
-    "ae": "Seitliche Zustellung (ae)",
-    "cutterDiameter": "Fräserdurchmesser D [mm]",
-    "teeth": "Zähnezahl (Z)",
-    "rpmUnit": "1/min",
-    "feedUnit": "mm/min",
-    "perTooth": "mm/Zahn"
   },
   "cone": {
     "title": "Höhe der Bohrerspitze",

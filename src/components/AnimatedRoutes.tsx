@@ -16,7 +16,7 @@ const BsfThreadPage = lazyWithRetry(() => import('@/pages/BsfThreadPage'));
 const TrapezoidalThreadPage = lazyWithRetry(() => import('@/pages/TrapezoidalThreadPage'));
 const NptThreadPage = lazyWithRetry(() => import('@/pages/NptThreadCalculator'));
 const TolerancesPage = lazyWithRetry(() => import('@/pages/TolerancesPage'));
-const StandardCuttingPage = lazyWithRetry(() => import('@/pages/StandardCuttingPage'));
+const Iso2768Page = lazyWithRetry(() => import('@/pages/Iso2768Page'));
 const TaperCalculatorPage = lazyWithRetry(() => import('@/pages/TaperCalculatorPage'));
 const PolygonShaftPage = lazyWithRetry(() => import('@/pages/PolygonShaftPage'));
 const ThreadsSubmenuPage = lazyWithRetry(() => import('@/pages/ThreadsSubmenuPage'));
@@ -95,7 +95,8 @@ const AnimatedRoutes = () => {
               <Route path="/threads/trapezoidal" element={<TrapezoidalThreadPage />} />
               <Route path="/threads/npt" element={<NptThreadPage />} />
               <Route path="/tolerancje" element={<TolerancesPage />} />
-              <Route path="/standardowe-parametry" element={<StandardCuttingPage />} />
+              <Route path="/tolerancje-iso-2768" element={<Iso2768Page />} />
+              <Route path="/iso-2768" element={<Iso2768Page />} />
               <Route path="/kalkulator-stozkow" element={<TaperCalculatorPage />} />
               <Route path="/przekatne" element={<PolygonShaftPage />} />
               <Route path="/gwinty" element={<ThreadsSubmenuPage />} />

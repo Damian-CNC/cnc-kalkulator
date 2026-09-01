@@ -30,7 +30,6 @@
   },
   "tiles": {
     "parameters": "Cutting Data",
-    "stdCutting": "Standard Parameters",
     "roughness": "Roughness Ra/Rz",
     "tolerances": "ISO Tolerances",
     "threads": "Threads",
@@ -42,11 +41,11 @@
     "keyways": "Parallel Keys",
     "oring": "O-ring Grooves",
     "weight": "Weight",
-    "hardness": "Hardness"
+    "hardness": "Hardness",
+    "iso2768": "ISO 2768 Tolerances"
   },
   "pages": {
     "parameters": "Cutting Data",
-    "stdCutting": "Standard Parameters",
     "roughness": "Roughness Ra/Rz",
     "tolerances": "ISO 286 Tolerances",
     "threadsMenu": "Select thread type",
@@ -58,7 +57,8 @@
     "keyways": "Parallel Keys",
     "oring": "O-ring Grooves",
     "weight": "Weight Calculator",
-    "hardness": "Hardness Converter"
+    "hardness": "Hardness Converter",
+    "iso2768": "ISO 2768 Tolerances"
   },
   "threads": {
     "metric": "Metric Threads",
@@ -83,15 +83,6 @@
     "workDiameterD2": "Machined diameter D₂ [mm]",
     "peripheralFeed": "Peripheral feed Vf [mm/min]",
     "centralFeed": "Central feed Fc [mm/min]"
-  },
-  "stdCutting": {
-    "material": "Material",
-    "ae": "Radial depth of cut (ae)",
-    "cutterDiameter": "Cutter diameter D [mm]",
-    "teeth": "Number of teeth (Z)",
-    "rpmUnit": "rpm",
-    "feedUnit": "mm/min",
-    "perTooth": "mm/tooth"
   },
   "cone": {
     "title": "Drill point height",
