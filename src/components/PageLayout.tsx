@@ -9,9 +9,11 @@ interface PageLayoutProps {
   title: string;
   children: React.ReactNode;
   backRoute?: string;
+  /** Use compact bottom padding when the page's scroll should end with its content. */
+  compactBottom?: boolean;
 }
 
-const PageLayout = ({ title, children, backRoute = '/' }: PageLayoutProps) => {
+const PageLayout = ({ title, children, backRoute = '/', compactBottom = false }: PageLayoutProps) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
