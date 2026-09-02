@@ -5,7 +5,7 @@ import Iso2768Calculator from '@/components/Iso2768Calculator';
 const Iso2768Page = () => {
   const { t } = useTranslation('iso2768');
   return (
-    <PageLayout title={t('shortTitle')}>
+    <PageLayout title={t('shortTitle')} compactBottom>
       <Iso2768Calculator />
     </PageLayout>
   );

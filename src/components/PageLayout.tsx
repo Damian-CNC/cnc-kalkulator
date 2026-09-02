@@ -38,7 +38,13 @@ const PageLayout = ({ title, children, backRoute = '/', compactBottom = false }:
         </div>
       </header>
 
-      <main className="w-full max-w-2xl mx-auto px-4 sm:px-6 pb-28 sm:pb-32">
+      <main
+        className={`w-full max-w-2xl mx-auto px-4 sm:px-6 ${
+          compactBottom
+            ? 'pb-[calc(1.5rem+env(safe-area-inset-bottom))]'
+            : 'pb-28 sm:pb-32'
+        }`}
+      >
         {children}
       </main>
     </div>
