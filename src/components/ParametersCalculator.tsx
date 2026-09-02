@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, useEffect, useRef } from 'react';
+import { ChangeEvent, useCallback, useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import InputField from './InputField';
 import FormulaHelper from './FormulaHelper';
@@ -117,13 +117,55 @@ function solve(values: Values, changedField: Field, K = 1000): { values: Values;
   return { values: v, computed };
 }
 
+/** Groups of interdependent fields and how many of them fully determine the group. */
+const GROUPS: { fields: Field[]; needed: number }[] = [
+  { fields: ['vc', 'D', 'n'], needed: 2 },
+  { fields: ['fz', 'Z', 'n', 'vf'], needed: 3 },
+  { fields: ['D', 'd2', 'vf', 'fc'], needed: 3 },
+];
+
+interface PersistedShape {
+  /** only the values typed by the user – everything else is derived */
+  inputs: Values;
+  /** field edit order (oldest first) – used to release over-determined groups */
+  order: Field[];
+}
+
+const EMPTY_STATE: PersistedShape = { inputs: EMPTY, order: [] };
+
+/** Drops the least recently edited entries so no group is over-determined. */
+const releaseOverdetermined = (inputs: Values, order: Field[], keep: Field): Values => {
+  const next = { ...inputs };
+  for (const group of GROUPS) {
+    const filled = () => group.fields.filter((f) => next[f] !== '');
+    let guard = 0;
+    while (filled().length > group.needed && guard++ < 4) {
+      const candidates = filled().filter((f) => f !== keep);
+      if (!candidates.length) break;
+      const oldest =
+        candidates.slice().sort((a, b) => order.indexOf(a) - order.indexOf(b))[0];
+      next[oldest] = '';
+    }
+  }
+  return next;
+};
+
 const ParametersCalculator = () => {
   const { t } = useTranslation();
   const { t: th } = useTranslation('app');
   const { system, isImperial, speedConstant, u } = useUnits();
-  const [values, setValues, resetValues] = usePersistedState<Values>('speeds', EMPTY);
-  const [computed, setComputed] = useState<Set<Field>>(new Set());
+  const [state, setState, resetState] = usePersistedState<PersistedShape>('speeds', EMPTY_STATE);
   const prevSystem = useRef(system);
+
+  const inputs = state.inputs ?? EMPTY;
+  const lastChanged = state.order[state.order.length - 1] ?? 'D';
+
+  // Derived state – recalculated on every render pass from the reactive inputs,
+  // so restored (persisted) values are solved immediately on mount too.
+  const { values, computed } = useMemo(
+    () => solve(inputs, lastChanged, speedConstant),
+    [inputs, lastChanged, speedConstant]
+  );
 
   // Swap the unit inside a translated label, e.g. "Vc [m/min]" -> "Vc [SFM]"
   const withUnit = (key: string, unit: string) =>
@@ -134,7 +176,7 @@ const ParametersCalculator = () => {
     if (prevSystem.current === system) return;
     const toImperial = system === 'imperial';
     prevSystem.current = system;
-    setValues((prev) => {
+    setState((prev) => {
       const conv = (raw: string, fn: (n: number) => number) => {
         const n = parseFloat(raw);
         if (raw === '' || !isFinite(n)) return raw;
@@ -142,44 +184,48 @@ const ParametersCalculator = () => {
       };
       const len = toImperial ? mmToIn : inToMm;
       const speed = toImperial ? mMinToSfm : sfmToMMin;
+      const p = prev.inputs ?? EMPTY;
       return {
         ...prev,
-        D: conv(prev.D, len),
-        d2: conv(prev.d2, len),
-        fz: conv(prev.fz, len),
-        vf: conv(prev.vf, len),
-        fc: conv(prev.fc, len),
-        vc: conv(prev.vc, speed),
+        inputs: {
+          ...p,
+          D: conv(p.D, len),
+          d2: conv(p.d2, len),
+          fz: conv(p.fz, len),
+          vf: conv(p.vf, len),
+          fc: conv(p.fc, len),
+          vc: conv(p.vc, speed),
+        },
       };
     });
-  }, [system]);
+  }, [system, setState]);
 
   const handleChange = (field: Field) => (e: ChangeEvent<HTMLInputElement>) => {
-    const newValues: Values = { ...values, [field]: e.target.value };
-    // Wyczyść z "computed" pola, których wartość użytkownik właśnie zmienia
-    const baseComputed = new Set(computed);
-    baseComputed.delete(field);
-    // Wyczyść te wyliczone wartości, które zależą od zmienionego pola – pozwól solverowi je przeliczyć
-    for (const f of Array.from(baseComputed)) {
-      newValues[f] = '';
-    }
-    const result = solve(newValues, field, speedConstant);
-    setValues(result.values);
-    setComputed(result.computed);
+    const raw = e.target.value;
+    setState((prev) => {
+      const base = prev.inputs ?? EMPTY;
+      const order = [...prev.order.filter((f) => f !== field), field];
+      let nextInputs: Values = { ...base, [field]: raw };
+      if (raw === '') {
+        return { inputs: nextInputs, order: order.filter((f) => f !== field) };
+      }
+      nextInputs = releaseOverdetermined(nextInputs, order, field);
+      return { inputs: nextInputs, order: order.filter((f) => nextInputs[f] !== '') };
+    });
   };
 
-  const handleClear = () => {
-    resetValues();
-    setComputed(new Set());
-  };
+  const handleClear = useCallback(() => {
+    resetState();
+  }, [resetState]);
 
   useEffect(() => {
     const handler = () => handleClear();
     window.addEventListener('parameters-calculator-clear', handler);
     return () => window.removeEventListener('parameters-calculator-clear', handler);
-  }, [resetValues]);
+  }, [handleClear]);
 
   const isComputed = (f: Field) => computed.has(f);
+
 
   return (
     <div className="glass-container p-0 overflow-hidden">

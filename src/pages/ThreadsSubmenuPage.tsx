@@ -33,8 +33,9 @@ const ThreadsSubmenuPage = () => {
           return (
             <button
               key={tile.id}
+              type="button"
               onClick={() => navigate(tile.route)}
-              className="relative aspect-square bg-zinc-900 border border-zinc-800/80 rounded-2xl flex flex-col items-center justify-center gap-3 p-4 text-center cursor-pointer transition-all hover:bg-zinc-800/80 hover:border-cyan-500/50 active:scale-95"
+              className="relative aspect-square bg-zinc-900 border border-zinc-800/80 rounded-2xl flex flex-col items-center justify-center gap-3 p-4 text-center cursor-pointer touch-manipulation transition-all hover:bg-zinc-800/80 hover:border-cyan-500/50 active:scale-95"
             >
               {tile.isNew && (
                 <span className="absolute top-2 right-2 text-[10px] font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-1.5 py-0.5 rounded uppercase tracking-wider">

@@ -1,6 +1,6 @@
 import { Routes, Route, useLocation, useNavigationType } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, Suspense } from 'react';
 import { lazyWithRetry } from '@/lib/lazyWithRetry';
 
 const Index = lazyWithRetry(() => import('@/pages/Index'));
@@ -81,6 +81,7 @@ const AnimatedRoutes = () => {
           exit="exit"
           className="app-scroll-container absolute top-0 left-0 w-full h-[100dvh] overflow-y-auto bg-zinc-950 pb-20"
         >
+          <Suspense fallback={<div className="min-h-[50vh]" aria-hidden />}>
           <Routes location={location}>
               <Route path="/" element={<Index />} />
               <Route path="/parametry" element={<ParametersPage />} />
@@ -111,6 +112,7 @@ const AnimatedRoutes = () => {
               <Route path="/oring" element={<ORingGroovesPage />} />
               <Route path="*" element={<NotFound />} />
           </Routes>
+          </Suspense>
         </motion.div>
       </AnimatePresence>
     </div>
