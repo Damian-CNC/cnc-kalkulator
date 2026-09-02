@@ -6,9 +6,7 @@ const Iso2768Page = () => {
   const { t } = useTranslation('iso2768');
   return (
     <PageLayout title={t('shortTitle')}>
-      <div className="pb-32">
-        <Iso2768Calculator />
-      </div>
+      <Iso2768Calculator />
     </PageLayout>
   );
 };
