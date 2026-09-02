@@ -34,6 +34,7 @@ const MetricThreadPage = () => {
   const [diameterInput, setDiameterInput] = useState<string>('');
   const [selectedP, setSelectedP] = useState<string>('');
   const [manualPitch, setManualPitch] = useState<string>('');
+  const [threadTab, setThreadTab] = useState<'external' | 'internal'>('external');
 
   const parsedD = useMemo(() => {
     const val = parseFloat(diameterInput.replace(',', '.'));
@@ -158,12 +159,12 @@ const MetricThreadPage = () => {
           )}
 
           {nominal && (
-            <Tabs defaultValue="external" className="w-full">
+            <Tabs value={threadTab} onValueChange={(v) => setThreadTab(v as 'external' | 'internal')} className="w-full">
               <TabsList className="w-full bg-zinc-900 border border-zinc-800">
-                <TabsTrigger value="external" className="flex-1 data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50">
+                <TabsTrigger value="external" type="button" className="flex-1 touch-manipulation data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50">
                   {t('metric.tabExternal')}
                 </TabsTrigger>
-                <TabsTrigger value="internal" className="flex-1 data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50">
+                <TabsTrigger value="internal" type="button" className="flex-1 touch-manipulation data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50">
                   {t('metric.tabInternal')}
                 </TabsTrigger>
               </TabsList>
