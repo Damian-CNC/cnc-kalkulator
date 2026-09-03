@@ -10,12 +10,13 @@ type Release = {
 };
 
 const RELEASES: Release[] = [
+  { version: 'v2.5.0', key: 'v250', date: '2026-09', tag: 'new' },
   { version: 'v2.4.0', key: 'v240', date: '2026-08', tag: 'new' },
   { version: 'v2.3.0', key: 'v230', date: '2026-06', tag: 'new' },
   { version: 'v2.2.0', key: 'v220', date: '2026-04', tag: 'update' },
   { version: 'v2.1.0', key: 'v210', date: '2026-02', tag: 'update' },
-  { version: 'v2.0.0', key: 'v200', date: '2025-12', tag: 'fix' },
 ];
+
 
 const tagStyles: Record<Release['tag'], string> = {
   new: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/30',
