@@ -1,0 +1,37 @@
+{
+  "common": {
+    "no": "Hole no.",
+    "angle": "Angle [°]",
+    "coords": "Hole coordinates"
+  },
+  "pcd": {
+    "d": "Bolt circle diameter PCD",
+    "n": "Number of holes N",
+    "a0": "Start angle α₀ [°]",
+    "x0": "Center X₀",
+    "y0": "Center Y₀",
+    "preview": "Layout preview",
+    "copyGcode": "Copy G-code points"
+  },
+  "linear": {
+    "l": "Pitch / spacing L",
+    "n": "Number of holes N",
+    "theta": "Line angle θ [°]",
+    "preview": "Hole row preview"
+  },
+  "tp": {
+    "nominal": "Nominal dimension",
+    "actual": "Measured dimension",
+    "tolerance": "Position tolerance",
+    "mmc": "Maximum material condition (MMC) — optional",
+    "mmcMin": "MMC hole size (min.)",
+    "mmcAct": "Actual hole size",
+    "result": "Result",
+    "tp": "True position TP",
+    "bonus": "MMC bonus",
+    "allowed": "Allowed tolerance",
+    "margin": "Remaining margin",
+    "pass": "PASS",
+    "fail": "FAIL"
+  }
+}

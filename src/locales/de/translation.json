@@ -42,7 +42,10 @@
     "oring": "O-Ring-Nuten",
     "weight": "Gewicht",
     "hardness": "Härte",
-    "iso2768": "ISO 2768 Toleranzen"
+    "iso2768": "ISO 2768 Toleranzen",
+    "pcd": "Lochkreis (PCD)",
+    "linearHoles": "Bohrreihe im Winkel",
+    "truePosition": "Wahre Position"
   },
   "pages": {
     "parameters": "Schnittdaten",
@@ -58,7 +61,10 @@
     "oring": "O-Ring-Nuten",
     "weight": "Gewichtsrechner",
     "hardness": "Härteumrechner",
-    "iso2768": "ISO 2768 Toleranzen"
+    "iso2768": "ISO 2768 Toleranzen",
+    "pcd": "Lochkreis-Rechner",
+    "linearHoles": "Bohrreihe im Winkel",
+    "truePosition": "Wahre Position (True Position)"
   },
   "threads": {
     "metric": "Metrische Gewinde",

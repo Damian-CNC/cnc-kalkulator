@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Settings, Scale, Triangle, Gem, Ruler, RefreshCw, Cone, Hexagon, Bolt, Scissors, Waves, Disc, RectangleHorizontal, LifeBuoy } from 'lucide-react';
+import { Settings, Scale, Triangle, Gem, Ruler, RefreshCw, Cone, Hexagon, Bolt, Scissors, Waves, Disc, RectangleHorizontal, LifeBuoy, CircleDot, MoveDiagonal2, Target } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import WakeLockToggle from '@/components/WakeLockToggle';
@@ -20,7 +20,7 @@ const sections: { titleKey: string; tiles: Tile[] }[] = [
     titleKey: 'sections.machining',
     tiles: [
       { id: 'parameters', labelKey: 'tiles.parameters', icon: Settings, route: '/parametry' },
-      { id: 'roughness', labelKey: 'tiles.roughness', icon: Waves, route: '/chropowatosc', isNew: true },
+      { id: 'roughness', labelKey: 'tiles.roughness', icon: Waves, route: '/chropowatosc' },
     ],
   },
   {
@@ -28,7 +28,7 @@ const sections: { titleKey: string; tiles: Tile[] }[] = [
     tiles: [
       { id: 'tolerances', labelKey: 'tiles.tolerances', icon: Ruler, route: '/tolerancje' },
       { id: 'threads', labelKey: 'tiles.threads', icon: Bolt, route: '/gwinty' },
-      { id: 'iso2768', labelKey: 'tiles.iso2768', icon: Scale, route: '/tolerancje-iso-2768', isNew: true },
+      { id: 'iso2768', labelKey: 'tiles.iso2768', icon: Scale, route: '/tolerancje-iso-2768' },
     ],
   },
   {
@@ -38,14 +38,17 @@ const sections: { titleKey: string; tiles: Tile[] }[] = [
       { id: 'cone', labelKey: 'tiles.cone', icon: Triangle, route: '/stozek' },
       { id: 'polygon', labelKey: 'tiles.polygon', icon: Hexagon, route: '/przekatne' },
       { id: 'din509', labelKey: 'tiles.din509', icon: Scissors, route: '/podciecia-din509' },
+      { id: 'pcd', labelKey: 'tiles.pcd', icon: CircleDot, route: '/pcd', isNew: true },
+      { id: 'linearHoles', labelKey: 'tiles.linearHoles', icon: MoveDiagonal2, route: '/otwory-liniowe', isNew: true },
+      { id: 'truePosition', labelKey: 'tiles.truePosition', icon: Target, route: '/true-position', isNew: true },
     ],
   },
   {
     titleKey: 'sections.standardParts',
     tiles: [
-      { id: 'seger', labelKey: 'tiles.seger', icon: Disc, route: '/rowki-segera', isNew: true },
-      { id: 'keyways', labelKey: 'tiles.keyways', icon: RectangleHorizontal, route: '/wpusty', isNew: true },
-      { id: 'oring', labelKey: 'tiles.oring', icon: LifeBuoy, route: '/rowki-oring', isNew: true },
+      { id: 'seger', labelKey: 'tiles.seger', icon: Disc, route: '/rowki-segera' },
+      { id: 'keyways', labelKey: 'tiles.keyways', icon: RectangleHorizontal, route: '/wpusty' },
+      { id: 'oring', labelKey: 'tiles.oring', icon: LifeBuoy, route: '/rowki-oring' },
     ],
   },
   {

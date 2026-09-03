@@ -1,0 +1,37 @@
+{
+  "common": {
+    "no": "Foro n.",
+    "angle": "Angolo [°]",
+    "coords": "Coordinate dei fori"
+  },
+  "pcd": {
+    "d": "Diametro del cerchio dei fori PCD",
+    "n": "Numero di fori N",
+    "a0": "Angolo iniziale α₀ [°]",
+    "x0": "Centro X₀",
+    "y0": "Centro Y₀",
+    "preview": "Anteprima disposizione",
+    "copyGcode": "Copia punti G-code"
+  },
+  "linear": {
+    "l": "Passo / interasse L",
+    "n": "Numero di fori N",
+    "theta": "Angolo di inclinazione θ [°]",
+    "preview": "Anteprima fila di fori"
+  },
+  "tp": {
+    "nominal": "Quota nominale",
+    "actual": "Quota reale (misura)",
+    "tolerance": "Tolleranza di posizione",
+    "mmc": "Condizione di massimo materiale (MMC) — opzionale",
+    "mmcMin": "Foro MMC (min.)",
+    "mmcAct": "Foro reale",
+    "result": "Risultato",
+    "tp": "Posizione reale TP",
+    "bonus": "Bonus MMC",
+    "allowed": "Tolleranza ammessa",
+    "margin": "Margine residuo",
+    "pass": "PASS",
+    "fail": "FAIL"
+  }
+}

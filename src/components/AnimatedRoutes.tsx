@@ -25,6 +25,9 @@ const RoughnessPage = lazyWithRetry(() => import('@/pages/RoughnessPage'));
 const SegerGroovesPage = lazyWithRetry(() => import('@/pages/SegerGroovesPage'));
 const KeywaysPage = lazyWithRetry(() => import('@/pages/KeywaysPage'));
 const ORingGroovesPage = lazyWithRetry(() => import('@/pages/ORingGroovesPage'));
+const BoltCirclePage = lazyWithRetry(() => import('@/pages/BoltCirclePage'));
+const LinearHolesPage = lazyWithRetry(() => import('@/pages/LinearHolesPage'));
+const TruePositionPage = lazyWithRetry(() => import('@/pages/TruePositionPage'));
 const NotFound = lazyWithRetry(() => import('@/pages/NotFound'));
 
 const AnimatedRoutes = () => {
@@ -110,6 +113,9 @@ const AnimatedRoutes = () => {
               <Route path="/seger" element={<SegerGroovesPage />} />
               <Route path="/feather-keys" element={<KeywaysPage />} />
               <Route path="/oring" element={<ORingGroovesPage />} />
+              <Route path="/pcd" element={<BoltCirclePage />} />
+              <Route path="/otwory-liniowe" element={<LinearHolesPage />} />
+              <Route path="/true-position" element={<TruePositionPage />} />
               <Route path="*" element={<NotFound />} />
           </Routes>
           </Suspense>
