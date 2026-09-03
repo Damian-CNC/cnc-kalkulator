@@ -5,7 +5,7 @@ import LinearHolesCalculator from '@/components/LinearHolesCalculator';
 const LinearHolesPage = () => {
   const { t } = useTranslation();
   return (
-    <PageLayout title={t('pages.linearHoles')} compactBottom>
+    <PageLayout title={t('pages.linearHoles')}>
       <LinearHolesCalculator />
     </PageLayout>
   );
