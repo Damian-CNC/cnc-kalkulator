@@ -42,7 +42,10 @@
     "oring": "O-ring Grooves",
     "weight": "Weight",
     "hardness": "Hardness",
-    "iso2768": "ISO 2768 Tolerances"
+    "iso2768": "ISO 2768 Tolerances",
+    "pcd": "Bolt Circle (PCD)",
+    "linearHoles": "Angled Hole Row",
+    "truePosition": "True Position"
   },
   "pages": {
     "parameters": "Cutting Data",
@@ -58,7 +61,10 @@
     "oring": "O-ring Grooves",
     "weight": "Weight Calculator",
     "hardness": "Hardness Converter",
-    "iso2768": "ISO 2768 Tolerances"
+    "iso2768": "ISO 2768 Tolerances",
+    "pcd": "Bolt Circle Calculator",
+    "linearHoles": "Angled Hole Row",
+    "truePosition": "True Position Calculator"
   },
   "threads": {
     "metric": "Metric Threads",

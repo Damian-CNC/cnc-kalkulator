@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Cronologia modifiche",
-    "version": "v2.4.0",
+    "version": "v2.5.0",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Impostazioni"
   },
@@ -28,6 +28,11 @@
       "update": "UPDATE",
       "fix": "FIX"
     },
+    "v250": [
+      "Nuovo modulo cerchio fori (PCD) con anteprima SVG ed esportazione punti G-code",
+      "Nuovo calcolatore delle coordinate per fila di fori inclinata",
+      "Nuovo calcolatore della posizione reale con verifica PASS/FAIL e bonus MMC"
+    ],
     "v240": [
       "Aggiunto supporto multilingua (PL, EN, DE, IT)",
       "Aggiunto selettore unità Metrico (mm) / Imperiale (inch, SFM)",
@@ -45,10 +50,6 @@
     "v210": [
       "Aggiunto modulo geometria: cono della punta e smussi",
       "Ampliato database tolleranze ISO e scarichi DIN 509"
-    ],
-    "v200": [
-      "Nuova interfaccia scura e pieno supporto PWA (offline)",
-      "Modulo calcolo peso materiali e convertitore di durezza"
     ]
   },
   "pwa": {

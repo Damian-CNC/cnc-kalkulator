@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Changelog",
-    "version": "v2.4.0",
+    "version": "v2.5.0",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Settings"
   },
@@ -28,6 +28,11 @@
       "update": "UPDATE",
       "fix": "FIX"
     },
+    "v250": [
+      "Added bolt circle (PCD) module with SVG preview and G-code point export",
+      "Added angled hole row coordinate calculator",
+      "Added True Position calculator with PASS/FAIL validation and MMC bonus"
+    ],
     "v240": [
       "Added multi-language support (PL, EN, DE, IT)",
       "Added Metric (mm) / Imperial (inch, SFM) unit switcher",
@@ -45,10 +50,6 @@
     "v210": [
       "Added geometry module: drill cone and edge chamfering",
       "Extended ISO tolerance database and DIN 509 undercuts"
-    ],
-    "v200": [
-      "New dark interface and full PWA support (offline mode)",
-      "Material weight module and hardness converter"
     ]
   },
   "pwa": {

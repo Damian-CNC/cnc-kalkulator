@@ -42,7 +42,10 @@
     "oring": "Rowki O-ring",
     "weight": "Waga",
     "hardness": "Twardość",
-    "iso2768": "Tolerancje ISO 2768"
+    "iso2768": "Tolerancje ISO 2768",
+    "pcd": "Podziałka PCD",
+    "linearHoles": "Otwory pod kątem",
+    "truePosition": "Pozycja rzeczywista"
   },
   "pages": {
     "parameters": "Parametry Skrawania",
@@ -58,7 +61,10 @@
     "oring": "Rowki O-ring",
     "weight": "Kalkulator Wagi",
     "hardness": "Konwerter Twardości",
-    "iso2768": "Tolerancje ISO 2768"
+    "iso2768": "Tolerancje ISO 2768",
+    "pcd": "Podziałka otworów na okręgu",
+    "linearHoles": "Rząd otworów pod kątem",
+    "truePosition": "Pozycja rzeczywista (True Position)"
   },
   "threads": {
     "metric": "Gwinty Metryczne",

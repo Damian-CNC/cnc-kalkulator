@@ -42,7 +42,10 @@
     "oring": "Cave O-ring",
     "weight": "Peso",
     "hardness": "Durezza",
-    "iso2768": "Tolleranze ISO 2768"
+    "iso2768": "Tolleranze ISO 2768",
+    "pcd": "Cerchio fori (PCD)",
+    "linearHoles": "Fila di fori inclinata",
+    "truePosition": "Posizione reale"
   },
   "pages": {
     "parameters": "Parametri di Taglio",
@@ -58,7 +61,10 @@
     "oring": "Cave O-ring",
     "weight": "Calcolatore Peso",
     "hardness": "Convertitore Durezza",
-    "iso2768": "Tolleranze ISO 2768"
+    "iso2768": "Tolleranze ISO 2768",
+    "pcd": "Calcolatore cerchio fori",
+    "linearHoles": "Fila di fori inclinata",
+    "truePosition": "Posizione reale (True Position)"
   },
   "threads": {
     "metric": "Filettature Metriche",

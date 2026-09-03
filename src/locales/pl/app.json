@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Historia zmian",
-    "version": "v2.4.0",
+    "version": "v2.5.0",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Ustawienia"
   },
@@ -28,6 +28,11 @@
       "update": "UPDATE",
       "fix": "FIX"
     },
+    "v250": [
+      "Dodano moduł podziałki otworów na okręgu (PCD) z podglądem SVG i eksportem punktów G-code",
+      "Dodano kalkulator współrzędnych rzędu otworów pod kątem",
+      "Dodano kalkulator Pozycji Rzeczywistej (True Position) z walidacją PASS/FAIL i bonusem MMC"
+    ],
     "v240": [
       "Dodano wielojęzyczność (PL, EN, DE, IT)",
       "Dodano przełącznik jednostek Metric (mm) / Imperial (inch, SFM)",
@@ -45,10 +50,6 @@
     "v210": [
       "Dodano moduł geometrii: stożek wiertła i fazowanie krawędzi",
       "Rozszerzenie bazy tolerancji ISO i podcięć obróbkowych DIN 509"
-    ],
-    "v200": [
-      "Nowy ciemny interfejs (Dark Mode) i pełne wsparcie PWA (działanie offline)",
-      "Moduł obliczania wagi materiałów oraz przelicznik twardości"
     ]
   },
   "pwa": {
