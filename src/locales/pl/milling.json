@@ -1,0 +1,37 @@
+{
+  "common": {
+    "no": "Nr otworu",
+    "angle": "Kąt [°]",
+    "coords": "Współrzędne otworów"
+  },
+  "pcd": {
+    "d": "Średnica podziałowa PCD",
+    "n": "Liczba otworów N",
+    "a0": "Kąt startowy α₀ [°]",
+    "x0": "Środek X₀",
+    "y0": "Środek Y₀",
+    "preview": "Podgląd rozmieszczenia",
+    "copyGcode": "Kopiuj punkty G-code"
+  },
+  "linear": {
+    "l": "Rozstaw / skok L",
+    "n": "Liczba otworów N",
+    "theta": "Kąt nachylenia θ [°]",
+    "preview": "Podgląd rzędu otworów"
+  },
+  "tp": {
+    "nominal": "Wymiar nominalny",
+    "actual": "Wymiar rzeczywisty (pomiar)",
+    "tolerance": "Tolerancja pozycji",
+    "mmc": "Warunek maksimum materiału (MMC) — opcjonalnie",
+    "mmcMin": "Otwór MMC (min.)",
+    "mmcAct": "Otwór rzeczywisty",
+    "result": "Wynik",
+    "tp": "Pozycja rzeczywista TP",
+    "bonus": "Bonus MMC",
+    "allowed": "Dopuszczalna tolerancja",
+    "margin": "Pozostały margines",
+    "pass": "PASS",
+    "fail": "FAIL"
+  }
+}
