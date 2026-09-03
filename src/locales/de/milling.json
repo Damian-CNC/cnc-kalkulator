@@ -1,0 +1,37 @@
+{
+  "common": {
+    "no": "Bohrung Nr.",
+    "angle": "Winkel [°]",
+    "coords": "Bohrungskoordinaten"
+  },
+  "pcd": {
+    "d": "Lochkreisdurchmesser PCD",
+    "n": "Anzahl der Bohrungen N",
+    "a0": "Startwinkel α₀ [°]",
+    "x0": "Mittelpunkt X₀",
+    "y0": "Mittelpunkt Y₀",
+    "preview": "Vorschau der Anordnung",
+    "copyGcode": "G-Code-Punkte kopieren"
+  },
+  "linear": {
+    "l": "Teilung / Abstand L",
+    "n": "Anzahl der Bohrungen N",
+    "theta": "Neigungswinkel θ [°]",
+    "preview": "Vorschau der Bohrreihe"
+  },
+  "tp": {
+    "nominal": "Nennmaß",
+    "actual": "Istmaß (Messung)",
+    "tolerance": "Positionstoleranz",
+    "mmc": "Maximum-Material-Bedingung (MMB) — optional",
+    "mmcMin": "Bohrung MMB (min.)",
+    "mmcAct": "Ist-Bohrungsmaß",
+    "result": "Ergebnis",
+    "tp": "Wahre Position TP",
+    "bonus": "MMB-Bonus",
+    "allowed": "Zulässige Toleranz",
+    "margin": "Verbleibende Reserve",
+    "pass": "PASS",
+    "fail": "FAIL"
+  }
+}
