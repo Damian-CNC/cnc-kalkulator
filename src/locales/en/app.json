@@ -15,9 +15,10 @@
   },
   "footer": {
     "changelog": "Changelog",
-    "version": "v2.5.0",
+    "version": "v2.6.0",
     "copyright": "© 2026 Damian Drewniak",
-    "settings": "Settings"
+    "settings": "Settings",
+    "feedback": "Report bug / Suggestion"
   },
   "changelog": {
     "title": "Changelog",
@@ -28,6 +29,11 @@
       "update": "UPDATE",
       "fix": "FIX"
     },
+    "v260": [
+      "Added a direct bug report and suggestion module in the footer",
+      "Integration with a secure e-mail notification backend (Resend API)",
+      "Diagnostic metadata attached to help analyse shop-floor issues"
+    ],
     "v250": [
       "Added bolt circle (PCD) module with SVG preview and G-code point export",
       "Added angled hole row coordinate calculator",
@@ -46,10 +52,6 @@
       "Performance optimisation for mobile devices (iOS/Android)",
       "New floating reset button (FAB)",
       "Smart comma and dot handling in numeric fields"
-    ],
-    "v210": [
-      "Added geometry module: drill cone and edge chamfering",
-      "Extended ISO tolerance database and DIN 509 undercuts"
     ]
   },
   "pwa": {
@@ -104,5 +106,19 @@
         "f": "undercut width [mm]"
       }
     }
+  },
+  "feedback": {
+    "title": "Report a bug or suggestion",
+    "subtitle": "Your feedback helps improve the app",
+    "typeLabel": "Feedback type",
+    "bug": "Bug",
+    "suggestion": "Suggestion",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Describe the problem in detail (module, entered values, machine type) or your feature idea.",
+    "emailLabel": "Your email (optional)",
+    "submit": "Send feedback",
+    "success": "Thank you! Your feedback has been sent.",
+    "error": "Sending failed. Please try again later.",
+    "close": "Close"
   }
 }

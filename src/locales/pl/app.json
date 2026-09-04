@@ -15,9 +15,10 @@
   },
   "footer": {
     "changelog": "Historia zmian",
-    "version": "v2.5.0",
+    "version": "v2.6.0",
     "copyright": "© 2026 Damian Drewniak",
-    "settings": "Ustawienia"
+    "settings": "Ustawienia",
+    "feedback": "Zgłoś błąd / Sugestia"
   },
   "changelog": {
     "title": "Historia zmian",
@@ -28,6 +29,11 @@
       "update": "UPDATE",
       "fix": "FIX"
     },
+    "v260": [
+      "Dodano moduł bezpośredniego zgłaszania błędów i sugestii z poziomu stopki",
+      "Integracja z bezpiecznym backendem powiadomień e-mail (Resend API)",
+      "Dołączanie metadanych diagnostycznych ułatwiających analizę problemów warsztatowych"
+    ],
     "v250": [
       "Dodano moduł podziałki otworów na okręgu (PCD) z podglądem SVG i eksportem punktów G-code",
       "Dodano kalkulator współrzędnych rzędu otworów pod kątem",
@@ -46,10 +52,6 @@
       "Optymalizacja działania na urządzeniach mobilnych (iOS/Android)",
       "Nowy pływający przycisk resetowania parametrów (FAB)",
       "Inteligentne formatowanie przecinków i kropek w polach numerycznych"
-    ],
-    "v210": [
-      "Dodano moduł geometrii: stożek wiertła i fazowanie krawędzi",
-      "Rozszerzenie bazy tolerancji ISO i podcięć obróbkowych DIN 509"
     ]
   },
   "pwa": {
@@ -104,5 +106,19 @@
         "f": "szerokość podcięcia [mm]"
       }
     }
+  },
+  "feedback": {
+    "title": "Zgłoś błąd lub sugestię",
+    "subtitle": "Twoja opinia pomaga rozwijać aplikację",
+    "typeLabel": "Typ zgłoszenia",
+    "bug": "Błąd",
+    "suggestion": "Sugestia",
+    "messageLabel": "Treść wiadomości",
+    "messagePlaceholder": "Opisz dokładnie problem (moduł, wprowadzone wartości, typ maszyny) lub propozycję nowej funkcji.",
+    "emailLabel": "Twój e-mail (opcjonalnie)",
+    "submit": "Wyślij zgłoszenie",
+    "success": "Dziękujemy! Zgłoszenie zostało wysłane.",
+    "error": "Wystąpił błąd podczas wysyłania. Spróbuj ponownie później.",
+    "close": "Zamknij"
   }
 }

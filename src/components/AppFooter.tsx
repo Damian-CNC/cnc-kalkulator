@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { History } from 'lucide-react';
+import { History, MessageSquarePlus } from 'lucide-react';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import UnitSwitcher from '@/components/UnitSwitcher';
 import ChangelogModal from '@/components/ChangelogModal';
+import FeedbackModal from '@/components/FeedbackModal';
 
 const AppFooter = ({ className = '' }: { className?: string }) => {
   const { t } = useTranslation('app');
   const [open, setOpen] = useState(false);
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
 
   return (
     <footer
@@ -24,6 +26,14 @@ const AppFooter = ({ className = '' }: { className?: string }) => {
           <History className="w-4 h-4 text-cyan-400" />
           {t('footer.changelog')}
         </button>
+        <button
+          type="button"
+          onClick={() => setFeedbackOpen(true)}
+          className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border border-zinc-800 bg-zinc-900/70 backdrop-blur-md text-zinc-400 hover:text-zinc-100 transition-colors text-xs sm:text-sm font-semibold tracking-wide hover:border-cyan-500/40 active:scale-95"
+        >
+          <MessageSquarePlus className="w-4 h-4 text-cyan-400" />
+          {t('footer.feedback')}
+        </button>
       </div>
 
       <p className="text-zinc-600 text-xs tracking-wide">
@@ -31,6 +41,8 @@ const AppFooter = ({ className = '' }: { className?: string }) => {
       </p>
 
       <ChangelogModal open={open} onClose={() => setOpen(false)} />
+      <FeedbackModal open={feedbackOpen} onClose={() => setFeedbackOpen(false)} />
+
     </footer>
   );
 };

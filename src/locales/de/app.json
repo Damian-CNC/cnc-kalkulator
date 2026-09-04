@@ -15,9 +15,10 @@
   },
   "footer": {
     "changelog": "Änderungsverlauf",
-    "version": "v2.5.0",
+    "version": "v2.6.0",
     "copyright": "© 2026 Damian Drewniak",
-    "settings": "Einstellungen"
+    "settings": "Einstellungen",
+    "feedback": "Fehler / Vorschlag melden"
   },
   "changelog": {
     "title": "Änderungsverlauf",
@@ -28,6 +29,11 @@
       "update": "UPDATE",
       "fix": "FIX"
     },
+    "v260": [
+      "Neues Modul zum direkten Melden von Fehlern und Vorschlägen in der Fußzeile",
+      "Anbindung an ein sicheres E-Mail-Benachrichtigungs-Backend (Resend API)",
+      "Diagnosedaten werden zur einfacheren Analyse von Werkstattproblemen mitgesendet"
+    ],
     "v250": [
       "Neues Lochkreis-Modul (PCD) mit SVG-Vorschau und G-Code-Punktexport",
       "Neuer Rechner für Bohrreihen im Winkel",
@@ -46,10 +52,6 @@
       "Optimierung für mobile Geräte (iOS/Android)",
       "Neuer schwebender Reset-Button (FAB)",
       "Intelligente Komma- und Punktverarbeitung in Zahlenfeldern"
-    ],
-    "v210": [
-      "Neues Geometriemodul: Bohrerspitze und Kantenfasen",
-      "Erweiterte ISO-Toleranzdatenbank und DIN 509 Freistiche"
     ]
   },
   "pwa": {
@@ -104,5 +106,19 @@
         "f": "Freistichbreite [mm]"
       }
     }
+  },
+  "feedback": {
+    "title": "Fehler oder Vorschlag melden",
+    "subtitle": "Ihr Feedback hilft, die App zu verbessern",
+    "typeLabel": "Art der Rückmeldung",
+    "bug": "Fehler",
+    "suggestion": "Vorschlag",
+    "messageLabel": "Nachricht",
+    "messagePlaceholder": "Beschreiben Sie das Problem genau (Modul, eingegebene Werte, Maschinentyp) oder Ihren Funktionswunsch.",
+    "emailLabel": "Ihre E-Mail (optional)",
+    "submit": "Feedback senden",
+    "success": "Vielen Dank! Ihre Meldung wurde gesendet.",
+    "error": "Beim Senden ist ein Fehler aufgetreten. Bitte später erneut versuchen.",
+    "close": "Schließen"
   }
 }
