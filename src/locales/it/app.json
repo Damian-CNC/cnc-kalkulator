@@ -15,9 +15,10 @@
   },
   "footer": {
     "changelog": "Cronologia modifiche",
-    "version": "v2.5.0",
+    "version": "v2.6.0",
     "copyright": "© 2026 Damian Drewniak",
-    "settings": "Impostazioni"
+    "settings": "Impostazioni",
+    "feedback": "Segnala bug / Suggerimento"
   },
   "changelog": {
     "title": "Cronologia modifiche",
@@ -28,6 +29,11 @@
       "update": "UPDATE",
       "fix": "FIX"
     },
+    "v260": [
+      "Nuovo modulo per segnalare bug e suggerimenti direttamente dal footer",
+      "Integrazione con un backend sicuro di notifiche e-mail (Resend API)",
+      "Metadati diagnostici allegati per facilitare l'analisi dei problemi in officina"
+    ],
     "v250": [
       "Nuovo modulo cerchio fori (PCD) con anteprima SVG ed esportazione punti G-code",
       "Nuovo calcolatore delle coordinate per fila di fori inclinata",
@@ -46,10 +52,6 @@
       "Ottimizzazione per dispositivi mobili (iOS/Android)",
       "Nuovo pulsante flottante di reset (FAB)",
       "Gestione intelligente di virgole e punti nei campi numerici"
-    ],
-    "v210": [
-      "Aggiunto modulo geometria: cono della punta e smussi",
-      "Ampliato database tolleranze ISO e scarichi DIN 509"
     ]
   },
   "pwa": {
@@ -104,5 +106,19 @@
         "f": "larghezza scarico [mm]"
       }
     }
+  },
+  "feedback": {
+    "title": "Segnala un bug o suggerimento",
+    "subtitle": "Il tuo feedback aiuta a migliorare l'app",
+    "typeLabel": "Tipo di segnalazione",
+    "bug": "Bug",
+    "suggestion": "Suggerimento",
+    "messageLabel": "Messaggio",
+    "messagePlaceholder": "Descrivi il problema in dettaglio (modulo, valori inseriti, tipo di macchina) o la tua proposta.",
+    "emailLabel": "La tua email (opzionale)",
+    "submit": "Invia segnalazione",
+    "success": "Grazie! La segnalazione è stata inviata.",
+    "error": "Errore durante l'invio. Riprova più tardi.",
+    "close": "Chiudi"
   }
 }
