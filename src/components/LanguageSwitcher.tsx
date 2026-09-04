@@ -22,7 +22,6 @@ const LanguageSwitcher = ({ className = '' }: { className?: string }) => {
           className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border border-zinc-800 bg-zinc-900/70 backdrop-blur-md text-zinc-300 text-sm font-semibold tracking-wide transition-colors hover:text-cyan-400 hover:border-cyan-500/40 active:scale-95 ${className}`}
         >
           <Languages className="w-4 h-4 text-cyan-400" />
-          <span aria-hidden>{current.flag}</span>
           <span>{current.label}</span>
         </button>
       </DropdownMenuTrigger>
