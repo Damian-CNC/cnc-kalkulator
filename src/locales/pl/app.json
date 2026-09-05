@@ -29,6 +29,10 @@
       "update": "UPDATE",
       "fix": "FIX"
     },
+    "v261": [
+      "Poprawka wizualna: usunięto podwójne wyświetlanie kodu języka w przełączniku (np. \"PL PL\" -> \"PL\")",
+      "Drobne poprawki wyrównania elementów w dolnym pasku ustawień"
+    ],
     "v260": [
       "Dodano moduł bezpośredniego zgłaszania błędów i sugestii z poziomu stopki",
       "Integracja z bezpiecznym backendem powiadomień e-mail (Resend API)",
