@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Cronologia modifiche",
-    "version": "v2.6.1",
+    "version": "v2.6.2",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Impostazioni",
     "feedback": "Segnala bug / Suggerimento"
@@ -29,6 +29,11 @@
       "update": "UPDATE",
       "fix": "FIX"
     },
+    "v262": [
+      "Calcolatore peso: inventario multi-voce con peso totale",
+      "Calcolatore peso: supporto barre esagonali (chiave s)",
+      "Ergonomia mobile: layout input a 2 colonne"
+    ],
     "v261": [
       "Correzione visiva: rimosso il codice lingua duplicato nel selettore (es. \"PL PL\" -> \"PL\")",
       "Piccole correzioni di allineamento degli elementi nella barra impostazioni inferiore"

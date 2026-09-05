@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Historia zmian",
-    "version": "v2.6.1",
+    "version": "v2.6.2",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Ustawienia",
     "feedback": "Zgłoś błąd / Sugestia"
@@ -29,6 +29,11 @@
       "update": "UPDATE",
       "fix": "FIX"
     },
+    "v262": [
+      "Kalkulator wagi: dodano moduł inwentaryzacji i sumowania wagi wielu pozycji",
+      "Kalkulator wagi: dodano obsługę prętów sześciokątnych (rozmiar pod klucz s)",
+      "Ergonomia mobilna: 2-kolumnowy układ pól wejściowych na telefonach"
+    ],
     "v261": [
       "Poprawka wizualna: usunięto podwójne wyświetlanie kodu języka w przełączniku (np. \"PL PL\" -> \"PL\")",
       "Drobne poprawki wyrównania elementów w dolnym pasku ustawień"

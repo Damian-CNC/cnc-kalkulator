@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Changelog",
-    "version": "v2.6.1",
+    "version": "v2.6.2",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Settings",
     "feedback": "Report bug / Suggestion"
@@ -29,6 +29,11 @@
       "update": "UPDATE",
       "fix": "FIX"
     },
+    "v262": [
+      "Weight calculator: multi-item inventory with total weight aggregation",
+      "Weight calculator: hexagonal bar support (across-flats size s)",
+      "Mobile ergonomics: compact 2-column input layout on phones"
+    ],
     "v261": [
       "Visual fix: removed duplicate language code in the switcher (e.g. \"PL PL\" -> \"PL\")",
       "Minor alignment fixes for items in the bottom settings bar"

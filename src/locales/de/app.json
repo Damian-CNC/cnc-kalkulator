@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Änderungsverlauf",
-    "version": "v2.6.1",
+    "version": "v2.6.2",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Einstellungen",
     "feedback": "Fehler / Vorschlag melden"
@@ -29,6 +29,11 @@
       "update": "UPDATE",
       "fix": "FIX"
     },
+    "v262": [
+      "Gewichtsrechner: Inventarliste mit Gesamtgewicht mehrerer Positionen",
+      "Gewichtsrechner: Sechskantstäbe (Schlüsselweite s)",
+      "Mobile Ergonomie: kompaktes 2-Spalten-Eingabelayout"
+    ],
     "v261": [
       "Visueller Fix: doppelte Anzeige des Sprachcodes im Umschalter entfernt (z. B. \"PL PL\" -> \"PL\")",
       "Kleine Ausrichtungs-Korrekturen der Elemente in der unteren Einstellungsleiste"

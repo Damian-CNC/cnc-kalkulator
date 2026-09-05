@@ -15,7 +15,9 @@
   "shapes": {
     "rod": "Wałek",
     "tube": "Rura",
-    "flat": "Płaskownik"
+    "flat": "Płaskownik",
+    "square": "Pręt kwadratowy",
+    "hex": "Sześciokąt"
   },
   "fields": {
     "shape": "Kształt półfabrykatu",
@@ -26,7 +28,9 @@
     "dimensionB": "Wymiar B [mm]",
     "material": "Materiał",
     "materialSelect": "Wybierz materiał",
-    "quantity": "Ilość sztuk"
+    "quantity": "Ilość sztuk",
+    "side": "Bok a [mm]",
+    "acrossFlats": "Rozmiar pod klucz s [mm]"
   },
   "result": {
     "totalWeight": "Masa całkowita",
@@ -35,5 +39,17 @@
     "density": "Gęstość",
     "invalid": "Wprowadź prawidłowe wartości"
   },
-  "clear": "Wyczyść"
+  "clear": "Wyczyść",
+  "inventory": {
+    "title": "Inwentaryzacja",
+    "add": "Dodaj do listy",
+    "added": "Dodano pozycję do listy",
+    "empty": "Lista jest pusta — dodaj pierwszą pozycję.",
+    "remove": "Usuń pozycję",
+    "clearList": "Wyczyść listę",
+    "confirmClear": "Czy na pewno wyczyścić całą listę?",
+    "cleared": "Lista została wyczyszczona",
+    "totalWeight": "Łączna waga",
+    "totalPieces": "Łączna liczba sztuk"
+  }
 }

@@ -15,7 +15,9 @@
   "shapes": {
     "rod": "Rundstab",
     "tube": "Rohr",
-    "flat": "Flachstab"
+    "flat": "Flachstab",
+    "square": "Vierkantstab",
+    "hex": "Sechskantstab"
   },
   "fields": {
     "shape": "Rohteilform",
@@ -26,7 +28,9 @@
     "dimensionB": "Maß B [mm]",
     "material": "Werkstoff",
     "materialSelect": "Werkstoff wählen",
-    "quantity": "Stückzahl"
+    "quantity": "Stückzahl",
+    "side": "Seite a [mm]",
+    "acrossFlats": "Schlüsselweite s [mm]"
   },
   "result": {
     "totalWeight": "Gesamtgewicht",
@@ -35,5 +39,17 @@
     "density": "Dichte",
     "invalid": "Gültige Werte eingeben"
   },
-  "clear": "Löschen"
+  "clear": "Löschen",
+  "inventory": {
+    "title": "Inventar",
+    "add": "Zur Liste hinzufügen",
+    "added": "Position hinzugefügt",
+    "empty": "Liste ist leer — erste Position hinzufügen.",
+    "remove": "Position löschen",
+    "clearList": "Liste löschen",
+    "confirmClear": "Gesamte Liste löschen?",
+    "cleared": "Liste gelöscht",
+    "totalWeight": "Gesamtgewicht",
+    "totalPieces": "Gesamtstückzahl"
+  }
 }
