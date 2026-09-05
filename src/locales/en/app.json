@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Changelog",
-    "version": "v2.6.0",
+    "version": "v2.6.1",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Settings",
     "feedback": "Report bug / Suggestion"
@@ -29,6 +29,10 @@
       "update": "UPDATE",
       "fix": "FIX"
     },
+    "v261": [
+      "Visual fix: removed duplicate language code in the switcher (e.g. \"PL PL\" -> \"PL\")",
+      "Minor alignment fixes for items in the bottom settings bar"
+    ],
     "v260": [
       "Added a direct bug report and suggestion module in the footer",
       "Integration with a secure e-mail notification backend (Resend API)",

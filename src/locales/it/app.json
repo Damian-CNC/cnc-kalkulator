@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Cronologia modifiche",
-    "version": "v2.6.0",
+    "version": "v2.6.1",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Impostazioni",
     "feedback": "Segnala bug / Suggerimento"
@@ -29,6 +29,10 @@
       "update": "UPDATE",
       "fix": "FIX"
     },
+    "v261": [
+      "Correzione visiva: rimosso il codice lingua duplicato nel selettore (es. \"PL PL\" -> \"PL\")",
+      "Piccole correzioni di allineamento degli elementi nella barra impostazioni inferiore"
+    ],
     "v260": [
       "Nuovo modulo per segnalare bug e suggerimenti direttamente dal footer",
       "Integrazione con un backend sicuro di notifiche e-mail (Resend API)",
