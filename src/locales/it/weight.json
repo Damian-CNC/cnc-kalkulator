@@ -15,7 +15,9 @@
   "shapes": {
     "rod": "Tondo",
     "tube": "Tubo",
-    "flat": "Piatto"
+    "flat": "Piatto",
+    "square": "Barra quadra",
+    "hex": "Barra esagonale"
   },
   "fields": {
     "shape": "Forma del grezzo",
@@ -26,7 +28,9 @@
     "dimensionB": "Dimensione B [mm]",
     "material": "Materiale",
     "materialSelect": "Seleziona materiale",
-    "quantity": "Quantità pezzi"
+    "quantity": "Quantità pezzi",
+    "side": "Lato a [mm]",
+    "acrossFlats": "Chiave s [mm]"
   },
   "result": {
     "totalWeight": "Peso totale",
@@ -35,5 +39,17 @@
     "density": "Densità",
     "invalid": "Inserire valori validi"
   },
-  "clear": "Cancella"
+  "clear": "Cancella",
+  "inventory": {
+    "title": "Inventario",
+    "add": "Aggiungi alla lista",
+    "added": "Voce aggiunta alla lista",
+    "empty": "Lista vuota — aggiungi la prima voce.",
+    "remove": "Rimuovi voce",
+    "clearList": "Svuota lista",
+    "confirmClear": "Svuotare tutta la lista?",
+    "cleared": "Lista svuotata",
+    "totalWeight": "Peso totale",
+    "totalPieces": "Pezzi totali"
+  }
 }

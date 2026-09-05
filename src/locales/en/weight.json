@@ -15,7 +15,9 @@
   "shapes": {
     "rod": "Rod",
     "tube": "Tube",
-    "flat": "Flat bar"
+    "flat": "Flat bar",
+    "square": "Square bar",
+    "hex": "Hex bar"
   },
   "fields": {
     "shape": "Blank shape",
@@ -26,7 +28,9 @@
     "dimensionB": "Dimension B [mm]",
     "material": "Material",
     "materialSelect": "Select material",
-    "quantity": "Quantity"
+    "quantity": "Quantity",
+    "side": "Side a [mm]",
+    "acrossFlats": "Across flats s [mm]"
   },
   "result": {
     "totalWeight": "Total weight",
@@ -35,5 +39,17 @@
     "density": "Density",
     "invalid": "Enter valid values"
   },
-  "clear": "Clear"
+  "clear": "Clear",
+  "inventory": {
+    "title": "Inventory",
+    "add": "Add to list",
+    "added": "Item added to list",
+    "empty": "List is empty — add your first item.",
+    "remove": "Remove item",
+    "clearList": "Clear list",
+    "confirmClear": "Clear the entire list?",
+    "cleared": "List cleared",
+    "totalWeight": "Total weight",
+    "totalPieces": "Total pieces"
+  }
 }
