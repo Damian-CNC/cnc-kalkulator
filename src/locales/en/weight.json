@@ -1,23 +1,16 @@
 {
   "title": "Blank Weight Calculator",
-  "materials": {
-    "S235/S355": "Structural steel",
-    "40H/40HM": "Carbon structural steel",
-    "C45": "Carbon steel",
-    "NC11LV": "Martensitic stainless steel",
-    "AISI 304": "Austenitic stainless steel",
-    "AISI 316": "Austenitic stainless steel",
-    "4H13": "Martensitic stainless steel",
-    "Aluminium PA4": "Aluminium alloy",
-    "Aluminium PA13": "Aluminium alloy",
-    "POM-C": "Polyoxymethylene copolymer"
-  },
   "shapes": {
     "rod": "Rod",
     "tube": "Tube",
     "flat": "Flat bar",
     "square": "Square bar",
-    "hex": "Hex bar"
+    "hex": "Hex bar",
+    "rhs": "Box section",
+    "angle": "Angle",
+    "channel": "Channel",
+    "tee": "T-section",
+    "ibeam": "I-beam"
   },
   "fields": {
     "shape": "Blank shape",
@@ -30,7 +23,15 @@
     "materialSelect": "Select material",
     "quantity": "Quantity",
     "side": "Side a [mm]",
-    "acrossFlats": "Across flats s [mm]"
+    "acrossFlats": "Across flats s [mm]",
+    "height": "Height H [mm]",
+    "width": "Width B [mm]",
+    "wallThickness": "Wall thickness g [mm]",
+    "legA": "Leg A [mm]",
+    "legB": "Leg B [mm]",
+    "flangeWidth": "Flange width B [mm]",
+    "flangeThickness": "Flange thickness t [mm]",
+    "webThickness": "Web thickness s [mm]"
   },
   "result": {
     "totalWeight": "Total weight",
@@ -51,5 +52,19 @@
     "cleared": "List cleared",
     "totalWeight": "Total weight",
     "totalPieces": "Total pieces"
+  },
+  "materialGroups": {
+    "steel": "Structural steel (C45, 42CrMo4, S355)",
+    "stainless": "Stainless / acid-proof (304, 316, 1.4301)",
+    "toolSteel": "Tool steel (D2, O2, cold work)",
+    "castIron": "Cast iron (GJL-250, GJS-500)",
+    "aluminium": "Aluminium (6082, 7075, alloys)",
+    "brass": "Brass (CuZn39Pb3)",
+    "bronze": "Bronze (RG7 / B101)",
+    "copper": "Pure copper (Cu-ETP)",
+    "pomc": "POM-C / Acetal",
+    "pa6": "PA6 / Polyamide",
+    "ptfe": "PTFE / Teflon",
+    "peek": "PEEK"
   }
 }
