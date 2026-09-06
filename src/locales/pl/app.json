@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Historia zmian",
-    "version": "v2.6.2",
+    "version": "v2.7.0",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Ustawienia",
     "feedback": "Zgłoś błąd / Sugestia"
@@ -29,6 +29,11 @@
       "update": "UPDATE",
       "fix": "FIX"
     },
+    "v270": [
+      "Kalkulator wagi: dodano profile zamknięte, ceowniki, teowniki, dwuteowniki i kątowniki",
+      "Wizualne ikony przekrojów (SVG) przy wyborze kształtu półfabrykatu",
+      "Skondensowana baza materiałów: grupowanie stopów o zbliżonej gęstości"
+    ],
     "v262": [
       "Kalkulator wagi: dodano moduł inwentaryzacji i sumowania wagi wielu pozycji",
       "Kalkulator wagi: dodano obsługę prętów sześciokątnych (rozmiar pod klucz s)",

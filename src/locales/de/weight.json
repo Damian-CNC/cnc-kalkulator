@@ -1,23 +1,16 @@
 {
   "title": "Rohteil-Gewichtsrechner",
-  "materials": {
-    "S235/S355": "Baustahl",
-    "40H/40HM": "Kohlenstoff-Baustahl",
-    "C45": "Kohlenstoffstahl",
-    "NC11LV": "Martensitischer rostfreier Stahl",
-    "AISI 304": "Austenitischer rostfreier Stahl",
-    "AISI 316": "Austenitischer rostfreier Stahl",
-    "4H13": "Martensitischer rostfreier Stahl",
-    "Aluminium PA4": "Aluminiumlegierung",
-    "Aluminium PA13": "Aluminiumlegierung",
-    "POM-C": "Polyoxymethylen-Copolymer"
-  },
   "shapes": {
     "rod": "Rundstab",
     "tube": "Rohr",
     "flat": "Flachstab",
     "square": "Vierkantstab",
-    "hex": "Sechskantstab"
+    "hex": "Sechskantstab",
+    "rhs": "Hohlprofil",
+    "angle": "Winkel",
+    "channel": "U-Profil",
+    "tee": "T-Profil",
+    "ibeam": "I-Träger"
   },
   "fields": {
     "shape": "Rohteilform",
@@ -30,7 +23,15 @@
     "materialSelect": "Werkstoff wählen",
     "quantity": "Stückzahl",
     "side": "Seite a [mm]",
-    "acrossFlats": "Schlüsselweite s [mm]"
+    "acrossFlats": "Schlüsselweite s [mm]",
+    "height": "Höhe H [mm]",
+    "width": "Breite B [mm]",
+    "wallThickness": "Wandstärke g [mm]",
+    "legA": "Schenkel A [mm]",
+    "legB": "Schenkel B [mm]",
+    "flangeWidth": "Flanschbreite B [mm]",
+    "flangeThickness": "Flanschdicke t [mm]",
+    "webThickness": "Stegdicke s [mm]"
   },
   "result": {
     "totalWeight": "Gesamtgewicht",
@@ -51,5 +52,19 @@
     "cleared": "Liste gelöscht",
     "totalWeight": "Gesamtgewicht",
     "totalPieces": "Gesamtstückzahl"
+  },
+  "materialGroups": {
+    "steel": "Baustahl / Vergütungsstahl (C45, 42CrMo4, S355)",
+    "stainless": "Edelstahl / säurebeständig (304, 316, 1.4301)",
+    "toolSteel": "Werkzeugstahl (D2, O2, Kaltarbeit)",
+    "castIron": "Gusseisen (GJL-250, GJS-500)",
+    "aluminium": "Aluminium (6082, 7075, Legierungen)",
+    "brass": "Messing (CuZn39Pb3)",
+    "bronze": "Bronze (RG7 / B101)",
+    "copper": "Reinkupfer (Cu-ETP)",
+    "pomc": "POM-C / Acetal",
+    "pa6": "PA6 / Polyamid",
+    "ptfe": "PTFE / Teflon",
+    "peek": "PEEK"
   }
 }

@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Cronologia modifiche",
-    "version": "v2.6.2",
+    "version": "v2.7.0",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Impostazioni",
     "feedback": "Segnala bug / Suggerimento"
@@ -29,6 +29,11 @@
       "update": "UPDATE",
       "fix": "FIX"
     },
+    "v270": [
+      "Calcolatore peso: aggiunti tubolari, profili U, T, IPE e angolari",
+      "Icone SVG delle sezioni nel selettore di forma",
+      "Database materiali compatto: leghe raggruppate per densità simile"
+    ],
     "v262": [
       "Calcolatore peso: inventario multi-voce con peso totale",
       "Calcolatore peso: supporto barre esagonali (chiave s)",

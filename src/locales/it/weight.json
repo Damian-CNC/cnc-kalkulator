@@ -1,23 +1,16 @@
 {
   "title": "Calcolatore peso grezzo",
-  "materials": {
-    "S235/S355": "Acciaio da costruzione",
-    "40H/40HM": "Acciaio da costruzione al carbonio",
-    "C45": "Acciaio al carbonio",
-    "NC11LV": "Acciaio inossidabile martensitico",
-    "AISI 304": "Acciaio inossidabile austenitico",
-    "AISI 316": "Acciaio inossidabile austenitico",
-    "4H13": "Acciaio inossidabile martensitico",
-    "Aluminium PA4": "Lega di alluminio",
-    "Aluminium PA13": "Lega di alluminio",
-    "POM-C": "Copolimero di poliossimetilene"
-  },
   "shapes": {
     "rod": "Tondo",
     "tube": "Tubo",
     "flat": "Piatto",
     "square": "Barra quadra",
-    "hex": "Barra esagonale"
+    "hex": "Barra esagonale",
+    "rhs": "Tubolare",
+    "angle": "Angolare",
+    "channel": "Profilo U",
+    "tee": "Profilo T",
+    "ibeam": "Trave IPE"
   },
   "fields": {
     "shape": "Forma del grezzo",
@@ -30,7 +23,15 @@
     "materialSelect": "Seleziona materiale",
     "quantity": "Quantità pezzi",
     "side": "Lato a [mm]",
-    "acrossFlats": "Chiave s [mm]"
+    "acrossFlats": "Chiave s [mm]",
+    "height": "Altezza H [mm]",
+    "width": "Larghezza B [mm]",
+    "wallThickness": "Spessore parete g [mm]",
+    "legA": "Ala A [mm]",
+    "legB": "Ala B [mm]",
+    "flangeWidth": "Larghezza ala B [mm]",
+    "flangeThickness": "Spessore ala t [mm]",
+    "webThickness": "Spessore anima s [mm]"
   },
   "result": {
     "totalWeight": "Peso totale",
@@ -51,5 +52,19 @@
     "cleared": "Lista svuotata",
     "totalWeight": "Peso totale",
     "totalPieces": "Pezzi totali"
+  },
+  "materialGroups": {
+    "steel": "Acciaio da costruzione (C45, 42CrMo4, S355)",
+    "stainless": "Inox / antiacido (304, 316, 1.4301)",
+    "toolSteel": "Acciaio per utensili (D2, O2)",
+    "castIron": "Ghisa (GJL-250, GJS-500)",
+    "aluminium": "Alluminio (6082, 7075, leghe)",
+    "brass": "Ottone (CuZn39Pb3)",
+    "bronze": "Bronzo (RG7 / B101)",
+    "copper": "Rame puro (Cu-ETP)",
+    "pomc": "POM-C / Acetalica",
+    "pa6": "PA6 / Poliammide",
+    "ptfe": "PTFE / Teflon",
+    "peek": "PEEK"
   }
 }

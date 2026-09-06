@@ -1,23 +1,16 @@
 {
   "title": "Kalkulator wagi przygotówki",
-  "materials": {
-    "S235/S355": "Stal konstrukcyjna",
-    "40H/40HM": "Stal konstrukcyjna węglowa",
-    "C45": "Stal węglowa",
-    "NC11LV": "Stal nierdzewna martenzytyczna",
-    "AISI 304": "Stal nierdzewna austenityczna",
-    "AISI 316": "Stal nierdzewna austenityczna",
-    "4H13": "Stal nierdzewna martenzytyczna",
-    "Aluminium PA4": "Stop aluminium",
-    "Aluminium PA13": "Stop aluminium",
-    "POM-C": "Polioxymetan kopolimer"
-  },
   "shapes": {
     "rod": "Wałek",
     "tube": "Rura",
     "flat": "Płaskownik",
     "square": "Pręt kwadratowy",
-    "hex": "Sześciokąt"
+    "hex": "Sześciokąt",
+    "rhs": "Profil",
+    "angle": "Kątownik",
+    "channel": "Ceownik",
+    "tee": "Teownik",
+    "ibeam": "Dwuteownik"
   },
   "fields": {
     "shape": "Kształt półfabrykatu",
@@ -30,7 +23,15 @@
     "materialSelect": "Wybierz materiał",
     "quantity": "Ilość sztuk",
     "side": "Bok a [mm]",
-    "acrossFlats": "Rozmiar pod klucz s [mm]"
+    "acrossFlats": "Rozmiar pod klucz s [mm]",
+    "height": "Wysokość H [mm]",
+    "width": "Szerokość B [mm]",
+    "wallThickness": "Grubość ścianki g [mm]",
+    "legA": "Ramię A [mm]",
+    "legB": "Ramię B [mm]",
+    "flangeWidth": "Szerokość półki B [mm]",
+    "flangeThickness": "Grubość półki t [mm]",
+    "webThickness": "Grubość środnika s [mm]"
   },
   "result": {
     "totalWeight": "Masa całkowita",
@@ -51,5 +52,19 @@
     "cleared": "Lista została wyczyszczona",
     "totalWeight": "Łączna waga",
     "totalPieces": "Łączna liczba sztuk"
+  },
+  "materialGroups": {
+    "steel": "Stal konstr. (C45, 40HM, S355, 38HMJ)",
+    "stainless": "Nierdzewka / Kwasówka (304, 316, 1.4301)",
+    "toolSteel": "Stal narzędziowa (NC11LV/D2, NC6, NMV/O2)",
+    "castIron": "Żeliwo szare / sferoidalne (GJL-250, GJS-500)",
+    "aluminium": "Aluminium (PA4/6082, PA6, PA9/7075, PA13)",
+    "brass": "Mosiądz (MO58/CuZn39Pb3, MO59)",
+    "bronze": "Brąz (RG7/B101, BA1032)",
+    "copper": "Miedź czysta (M1E / Cu-ETP)",
+    "pomc": "POM-C / Poliacetal",
+    "pa6": "PA6 / Poliamid",
+    "ptfe": "PTFE / Teflon",
+    "peek": "PEEK"
   }
 }
