@@ -15,20 +15,18 @@
   },
   "footer": {
     "changelog": "Historia zmian",
-    "version": "v2.7.0",
+    "version": "v2.7.1",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Ustawienia",
     "feedback": "Zgłoś błąd / Sugestia"
   },
   "changelog": {
-    "title": "Historia zmian",
-    "subtitle": "Ostatnie 5 wydań",
-    "latest": "Najnowsza",
-    "tags": {
-      "new": "NEW",
-      "update": "UPDATE",
-      "fix": "FIX"
-    },
+    "v271": [
+      "Kalkulator wagi: wyrównano wysokość etykiet w 2-kolumnowym układzie na telefonach",
+      "Kalkulator wagi: pionowe przyciski +/- (stepper) przy wyborze ilości sztuk",
+      "Kalkulator wagi: pełna szerokość i pogrubione nazwy kategorii na liście materiałów",
+      "Dodawanie do inwentaryzacji zachowuje wybrany kształt i materiał"
+    ],
     "v270": [
       "Kalkulator wagi: dodano profile zamknięte, ceowniki, teowniki, dwuteowniki i kątowniki",
       "Wizualne ikony przekrojów (SVG) przy wyborze kształtu półfabrykatu",

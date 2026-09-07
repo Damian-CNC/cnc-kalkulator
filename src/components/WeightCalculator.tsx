@@ -1,8 +1,7 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { PlusCircle, Trash2, RotateCcw } from 'lucide-react';
+import { PlusCircle, Trash2, RotateCcw, Plus, Minus, ChevronDown } from 'lucide-react';
 import InputField from './InputField';
-import SelectField from './SelectField';
 import ResultDisplay from './ResultDisplay';
 import ShapeIcon, { ShapeType } from './ShapeIcon';
 import { useUnits } from '@/contexts/UnitContext';
@@ -119,12 +118,31 @@ const WeightCalculator = () => {
     [setForm]
   );
 
-  const materialOptions = useMemo(
-    () => [
-      { value: '', label: t('fields.materialSelect') },
-      ...MATERIALS.map((m) => ({ value: m.id, label: t(`materialGroups.${m.id}`) })),
-    ],
-    [t]
+  const [matOpen, setMatOpen] = useState(false);
+  const matRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!matOpen) return;
+    const onDown = (e: MouseEvent) => {
+      if (matRef.current && !matRef.current.contains(e.target as Node)) setMatOpen(false);
+    };
+    document.addEventListener('mousedown', onDown);
+    return () => document.removeEventListener('mousedown', onDown);
+  }, [matOpen]);
+
+  const splitLabel = useCallback((label: string) => {
+    const i = label.indexOf('(');
+    return i === -1
+      ? { main: label, sub: '' }
+      : { main: label.slice(0, i).trim(), sub: label.slice(i).trim() };
+  }, []);
+
+  const stepQty = useCallback(
+    (d: number) => {
+      const cur = Math.floor(parseDecimal(form.quantity) ?? 1) || 1;
+      set({ quantity: String(Math.max(1, cur + d)) });
+    },
+    [form.quantity, set]
   );
 
   const fields = SHAPE_FIELDS[form.shapeType] ?? SHAPE_FIELDS.rod;
@@ -237,6 +255,8 @@ const WeightCalculator = () => {
     setItems(next);
     writeInventory(next);
     toast({ title: t('inventory.added') });
+    // keep shape & material for consecutive cuts; reset dims and quantity
+    set({ dimA: '', dimB: '', dimC: '', dimD: '', length: '', quantity: '1' });
   };
 
   const removeItem = (id: string) => {
@@ -327,20 +347,102 @@ const WeightCalculator = () => {
             />
           )}
 
-          <div className="col-span-2">
-            <SelectField
-              label={t('fields.material')}
-              value={form.materialType}
-              onChange={(e) => set({ materialType: e.target.value })}
-              options={materialOptions}
-            />
+          <div className="col-span-2 relative" ref={matRef}>
+            <label className="min-h-[2.5rem] flex items-end text-xs font-semibold text-zinc-500 pb-1 mb-1 uppercase tracking-wider">
+              {t('fields.material')}
+            </label>
+            <button
+              type="button"
+              onClick={() => setMatOpen((o) => !o)}
+              aria-haspopup="listbox"
+              aria-expanded={matOpen}
+              className="input-field cursor-pointer w-full flex items-center justify-between gap-2 text-left"
+            >
+              {form.materialType ? (
+                (() => {
+                  const { main, sub } = splitLabel(t(`materialGroups.${form.materialType}`));
+                  return (
+                    <span className="truncate">
+                      <span className="font-semibold text-zinc-100">{main}</span>
+                      {sub && <span className="font-normal text-zinc-400 text-xs"> {sub}</span>}
+                    </span>
+                  );
+                })()
+              ) : (
+                <span className="text-zinc-500">{t('fields.materialSelect')}</span>
+              )}
+              <ChevronDown
+                className={`w-4 h-4 shrink-0 text-zinc-500 transition-transform ${matOpen ? 'rotate-180' : ''}`}
+              />
+            </button>
+            {matOpen && (
+              <ul
+                role="listbox"
+                className="absolute z-40 left-0 right-0 mt-1 max-h-64 overflow-y-auto rounded-xl border border-zinc-700 bg-zinc-900 shadow-xl"
+              >
+                {MATERIALS.map((m) => {
+                  const { main, sub } = splitLabel(t(`materialGroups.${m.id}`));
+                  const active = form.materialType === m.id;
+                  return (
+                    <li key={m.id}>
+                      <button
+                        type="button"
+                        role="option"
+                        aria-selected={active}
+                        onClick={() => {
+                          set({ materialType: m.id });
+                          setMatOpen(false);
+                        }}
+                        className={`w-full text-left px-3 py-2.5 transition-colors ${
+                          active ? 'bg-cyan-500/10' : 'hover:bg-zinc-800'
+                        }`}
+                      >
+                        <span className={`font-semibold ${active ? 'text-cyan-300' : 'text-zinc-100'}`}>
+                          {main}
+                        </span>
+                        {sub && (
+                          <span className="font-normal text-zinc-400 text-xs"> {sub}</span>
+                        )}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
           </div>
-          <InputField
-            label={t('fields.quantity')}
-            inputMode="numeric"
-            value={form.quantity}
-            onChange={(e) => set({ quantity: e.target.value })}
-          />
+          <div className="flex flex-col">
+            <label className="min-h-[2.5rem] flex items-end text-xs font-semibold text-zinc-500 pb-1 mb-1 uppercase tracking-wider">
+              {t('fields.quantity')}
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                inputMode="numeric"
+                value={form.quantity}
+                onChange={(e) => set({ quantity: e.target.value.replace(/[^0-9]/g, '') })}
+                onFocus={(e) => e.target.select()}
+                className="input-field w-full pr-10"
+              />
+              <div className="absolute right-1 top-1 bottom-1 flex flex-col gap-0.5">
+                <button
+                  type="button"
+                  onClick={() => stepQty(1)}
+                  aria-label="+"
+                  className="flex-1 w-8 flex items-center justify-center rounded-md border border-zinc-700 bg-zinc-800 text-zinc-300 hover:text-cyan-400 hover:border-cyan-500/50 active:bg-zinc-700 transition-colors touch-manipulation"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => stepQty(-1)}
+                  aria-label="−"
+                  className="flex-1 w-8 flex items-center justify-center rounded-md border border-zinc-700 bg-zinc-800 text-zinc-300 hover:text-cyan-400 hover:border-cyan-500/50 active:bg-zinc-700 transition-colors touch-manipulation"
+                >
+                  <Minus className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
 
         <ResultDisplay className="!min-h-[5rem] mt-4">

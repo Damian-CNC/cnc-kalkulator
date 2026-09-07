@@ -15,20 +15,18 @@
   },
   "footer": {
     "changelog": "Cronologia modifiche",
-    "version": "v2.7.0",
+    "version": "v2.7.1",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Impostazioni",
     "feedback": "Segnala bug / Suggerimento"
   },
   "changelog": {
-    "title": "Cronologia modifiche",
-    "subtitle": "Ultime 5 versioni",
-    "latest": "Più recente",
-    "tags": {
-      "new": "NEW",
-      "update": "UPDATE",
-      "fix": "FIX"
-    },
+    "v271": [
+      "Calcolatore peso: altezze delle etichette allineate nel layout a 2 colonne su mobile",
+      "Calcolatore peso: pulsanti +/- verticali (stepper) per la quantità",
+      "Calcolatore peso: elenco materiali a larghezza piena con categorie in grassetto",
+      "L'aggiunta all'inventario mantiene forma e materiale selezionati"
+    ],
     "v270": [
       "Calcolatore peso: aggiunti tubolari, profili U, T, IPE e angolari",
       "Icone SVG delle sezioni nel selettore di forma",

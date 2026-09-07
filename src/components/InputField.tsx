@@ -44,7 +44,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 
     return (
       <div className="flex flex-col">
-        <label className="block text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider flex items-center gap-2">
+        <label className="min-h-[2.5rem] flex items-end gap-2 text-xs font-semibold text-zinc-500 pb-1 mb-1 uppercase tracking-wider">
           {label}
           {computed && (
             <span className="text-[10px] uppercase tracking-wider text-cyan-400 font-bold normal-case">

@@ -15,20 +15,18 @@
   },
   "footer": {
     "changelog": "Changelog",
-    "version": "v2.7.0",
+    "version": "v2.7.1",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Settings",
     "feedback": "Report bug / Suggestion"
   },
   "changelog": {
-    "title": "Changelog",
-    "subtitle": "Last 5 releases",
-    "latest": "Latest",
-    "tags": {
-      "new": "NEW",
-      "update": "UPDATE",
-      "fix": "FIX"
-    },
+    "v271": [
+      "Weight calculator: aligned label heights in the 2-column mobile layout",
+      "Weight calculator: stacked +/- stepper buttons for quantity",
+      "Weight calculator: full-width material list with bold category names",
+      "Adding to inventory now keeps the selected shape and material"
+    ],
     "v270": [
       "Weight calculator: added box, channel, T, I-beam and angle sections",
       "Visual SVG cross-section icons in the shape selector",
