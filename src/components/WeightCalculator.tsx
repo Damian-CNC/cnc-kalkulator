@@ -1,8 +1,7 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { PlusCircle, Trash2, RotateCcw } from 'lucide-react';
+import { PlusCircle, Trash2, RotateCcw, Plus, Minus, ChevronDown } from 'lucide-react';
 import InputField from './InputField';
-import SelectField from './SelectField';
 import ResultDisplay from './ResultDisplay';
 import ShapeIcon, { ShapeType } from './ShapeIcon';
 import { useUnits } from '@/contexts/UnitContext';
@@ -237,6 +236,8 @@ const WeightCalculator = () => {
     setItems(next);
     writeInventory(next);
     toast({ title: t('inventory.added') });
+    // keep shape & material for consecutive cuts; reset dims and quantity
+    set({ dimA: '', dimB: '', dimC: '', dimD: '', length: '', quantity: '1' });
   };
 
   const removeItem = (id: string) => {
