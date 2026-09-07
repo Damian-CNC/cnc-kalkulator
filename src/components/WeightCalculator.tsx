@@ -118,12 +118,31 @@ const WeightCalculator = () => {
     [setForm]
   );
 
-  const materialOptions = useMemo(
-    () => [
-      { value: '', label: t('fields.materialSelect') },
-      ...MATERIALS.map((m) => ({ value: m.id, label: t(`materialGroups.${m.id}`) })),
-    ],
-    [t]
+  const [matOpen, setMatOpen] = useState(false);
+  const matRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!matOpen) return;
+    const onDown = (e: MouseEvent) => {
+      if (matRef.current && !matRef.current.contains(e.target as Node)) setMatOpen(false);
+    };
+    document.addEventListener('mousedown', onDown);
+    return () => document.removeEventListener('mousedown', onDown);
+  }, [matOpen]);
+
+  const splitLabel = useCallback((label: string) => {
+    const i = label.indexOf('(');
+    return i === -1
+      ? { main: label, sub: '' }
+      : { main: label.slice(0, i).trim(), sub: label.slice(i).trim() };
+  }, []);
+
+  const stepQty = useCallback(
+    (d: number) => {
+      const cur = Math.floor(parseDecimal(form.quantity) ?? 1) || 1;
+      set({ quantity: String(Math.max(1, cur + d)) });
+    },
+    [form.quantity, set]
   );
 
   const fields = SHAPE_FIELDS[form.shapeType] ?? SHAPE_FIELDS.rod;
