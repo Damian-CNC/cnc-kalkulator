@@ -7,8 +7,7 @@ import { Suspense } from "react";
 import AnimatedRoutes from "./components/AnimatedRoutes";
 import AppErrorBoundary from "./components/AppErrorBoundary";
 import { UnitProvider } from "./contexts/UnitContext";
-import OnboardingModal from "./components/OnboardingModal";
-import DisclaimerGateModal from "./components/DisclaimerGateModal";
+import OnboardingController from "./components/OnboardingController";
 import PwaInstallBanner from "./components/PwaInstallBanner";
 
 
@@ -27,8 +26,7 @@ const App = () => (
         <TooltipProvider>
           <Toaster />
           <Sonner />
-          <OnboardingModal />
-          <DisclaimerGateModal />
+          <OnboardingController />
           <HashRouter>
             <Suspense fallback={<AppFallback />}>
               <AnimatedRoutes />

@@ -28,6 +28,7 @@ const ORingGroovesPage = lazyWithRetry(() => import('@/pages/ORingGroovesPage'))
 const BoltCirclePage = lazyWithRetry(() => import('@/pages/BoltCirclePage'));
 const LinearHolesPage = lazyWithRetry(() => import('@/pages/LinearHolesPage'));
 const TruePositionPage = lazyWithRetry(() => import('@/pages/TruePositionPage'));
+const PrivacyPage = lazyWithRetry(() => import('@/pages/PrivacyPage'));
 const NotFound = lazyWithRetry(() => import('@/pages/NotFound'));
 
 const AnimatedRoutes = () => {
@@ -116,6 +117,7 @@ const AnimatedRoutes = () => {
               <Route path="/pcd" element={<BoltCirclePage />} />
               <Route path="/otwory-liniowe" element={<LinearHolesPage />} />
               <Route path="/true-position" element={<TruePositionPage />} />
+              <Route path="/privacy" element={<PrivacyPage />} />
               <Route path="*" element={<NotFound />} />
           </Routes>
           </Suspense>
