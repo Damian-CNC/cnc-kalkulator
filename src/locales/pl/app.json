@@ -15,10 +15,11 @@
   },
   "footer": {
     "changelog": "Historia zmian",
-    "version": "v2.7.1",
+    "version": "v2.7.2",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Ustawienia",
-    "feedback": "Zgłoś błąd / Sugestia"
+    "feedback": "Zgłoś błąd / Sugestia",
+    "legal": "Warunki i Prywatność"
   },
   "changelog": {
     "v271": [
@@ -41,11 +42,6 @@
       "Poprawka wizualna: usunięto podwójne wyświetlanie kodu języka w przełączniku (np. \"PL PL\" -> \"PL\")",
       "Drobne poprawki wyrównania elementów w dolnym pasku ustawień"
     ],
-    "v260": [
-      "Dodano moduł bezpośredniego zgłaszania błędów i sugestii z poziomu stopki",
-      "Integracja z bezpiecznym backendem powiadomień e-mail (Resend API)",
-      "Dołączanie metadanych diagnostycznych ułatwiających analizę problemów warsztatowych"
-    ],
     "v250": [
       "Dodano moduł podziałki otworów na okręgu (PCD) z podglądem SVG i eksportem punktów G-code",
       "Dodano kalkulator współrzędnych rzędu otworów pod kątem",
@@ -64,6 +60,11 @@
       "Optymalizacja działania na urządzeniach mobilnych (iOS/Android)",
       "Nowy pływający przycisk resetowania parametrów (FAB)",
       "Inteligentne formatowanie przecinków i kropek w polach numerycznych"
+    ],
+    "v272": [
+      "Dodano obowiązkową klauzulę inżynieryjną (wyłączenie odpowiedzialności za kolizje i braki)",
+      "Wdrożono politykę prywatności z uwzględnieniem anonimowej analityki Cloudflare",
+      "Dodano ekran weryfikacji i akceptacji warunków przy pierwszym uruchomieniu aplikacji"
     ]
   },
   "pwa": {
@@ -131,6 +132,20 @@
     "submit": "Wyślij zgłoszenie",
     "success": "Dziękujemy! Zgłoszenie zostało wysłane.",
     "error": "Wystąpił błąd podczas wysyłania. Spróbuj ponownie później.",
+    "close": "Zamknij"
+  },
+  "legal": {
+    "gateTitle": "Zastrzeżenie prawne i warunki użytkowania",
+    "modalTitle": "Warunki i Prywatność",
+    "liabilityTitle": "Wyłączenie odpowiedzialności",
+    "liabilityBody": "Aplikacja ma charakter wyłącznie pomocniczy. Autor nie ponosi odpowiedzialności za kolizje obrabiarek, zniszczone narzędzia, braki detali ani straty produkcyjne. Użytkownik ma obowiązek weryfikacji danych z dokumentacją techniczną maszyny i narzędzi (DTR).",
+    "privacyTitle": "Prywatność i Cloudflare Analytics",
+    "privacyBody": "Aplikacja nie zbiera danych osobowych. Wymiary i ustawienia zapisywane są wyłącznie lokalnie na Twoim urządzeniu (localStorage). Korzystamy z anonimowej, bezciasteczkowej analityki Cloudflare, która nie śledzi użytkowników.",
+    "checkboxLabel": "Rozumiem ryzyko i akceptuję wyłączenie odpowiedzialności oraz zasady prywatności.",
+    "accept": "Akceptuję i przejdź do aplikacji",
+    "decline": "Odrzucam",
+    "lockedBody": "Dostęp do kalkulatora został zablokowany z powodu braku akceptacji warunków. Możesz bezpiecznie zamknąć tę kartę w przeglądarce.",
+    "changeDecision": "Zmień decyzję",
     "close": "Zamknij"
   }
 }
