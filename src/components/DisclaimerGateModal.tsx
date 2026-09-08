@@ -12,44 +12,58 @@ export const readAccepted = (): boolean => {
   }
 };
 
-/** Shared scrollable terms body — used by the gate and the footer legal modal. */
-export const LegalTerms = () => {
+const useList = (key: string): string[] => {
   const { t } = useTranslation('app');
+  const value = t(key, { returnObjects: true }) as unknown;
+  return Array.isArray(value) ? (value as string[]) : [];
+};
+
+/** Full legal + privacy content, shared by the gate, the footer modal and /privacy. */
+export const LegalSections = () => {
+  const { t } = useTranslation('app');
+  const liability = useList('legal.liabilityItems');
+  const privacy = useList('legal.privacyItems');
+
   return (
-    <div className="max-h-56 overflow-y-auto text-xs text-zinc-400 bg-zinc-950/80 p-3 rounded-md border border-zinc-800 leading-relaxed space-y-3">
-      <div>
-        <h3 className="text-zinc-200 font-bold mb-1">{t('legal.liabilityTitle')}</h3>
-        <p>{t('legal.liabilityBody')}</p>
-      </div>
-      <div>
-        <h3 className="text-zinc-200 font-bold mb-1">{t('legal.privacyTitle')}</h3>
-        <p>{t('legal.privacyBody')}</p>
-      </div>
-    </div>
+    <>
+      <section>
+        <h2 className="text-zinc-100 font-bold mb-1.5">{t('legal.liabilityTitle')}</h2>
+        <ul className="space-y-2">
+          {liability.map((item) => (
+            <li key={item} className="flex gap-2">
+              <span className="text-amber-500/70">•</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+      <section>
+        <h2 className="text-zinc-100 font-bold mb-1.5">{t('legal.privacyTitle')}</h2>
+        <ul className="space-y-2">
+          {privacy.map((item) => (
+            <li key={item} className="flex gap-2">
+              <span className="text-cyan-500/70">•</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </>
   );
 };
 
-/** Non-dismissible first-visit gate. Blocks the whole app until accepted. */
-const DisclaimerGateModal = () => {
+/** Scrollable boxed variant used inside modals. */
+export const LegalTerms = () => (
+  <div className="max-h-64 overflow-y-auto text-xs space-y-3 bg-zinc-950/80 p-4 rounded-lg border border-zinc-800 text-zinc-300 leading-relaxed">
+    <LegalSections />
+  </div>
+);
+
+/** Non-dismissible legal gate (step 2 of onboarding). */
+const DisclaimerGateModal = ({ onAccepted }: { onAccepted: () => void }) => {
   const { t } = useTranslation('app');
-  const [open, setOpen] = useState(false);
   const [checked, setChecked] = useState(false);
   const [locked, setLocked] = useState(false);
-
-  useEffect(() => {
-    if (!readAccepted()) setOpen(true);
-  }, []);
-
-  useEffect(() => {
-    if (!open) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [open]);
-
-  if (!open) return null;
 
   const accept = () => {
     try {
@@ -57,7 +71,7 @@ const DisclaimerGateModal = () => {
     } catch {
       /* noop */
     }
-    setOpen(false);
+    onAccepted();
   };
 
   if (locked) {
@@ -88,7 +102,7 @@ const DisclaimerGateModal = () => {
       aria-modal="true"
       className="fixed inset-0 z-[110] flex items-center justify-center bg-black/80 backdrop-blur-md p-4"
     >
-      <div className="w-full max-w-md rounded-2xl border border-zinc-800 bg-zinc-900/90 backdrop-blur-xl shadow-2xl p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
+      <div className="w-full max-w-md rounded-2xl border border-zinc-800 bg-zinc-900/90 backdrop-blur-xl shadow-2xl p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] max-h-[92vh] overflow-y-auto">
         <div className="flex items-center gap-3 mb-4">
           <div className="p-2 rounded-xl bg-amber-500/10 border border-amber-500/30">
             <ShieldAlert className="w-6 h-6 text-amber-400" />
