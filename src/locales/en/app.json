@@ -15,10 +15,11 @@
   },
   "footer": {
     "changelog": "Changelog",
-    "version": "v2.7.1",
+    "version": "v2.7.2",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Settings",
-    "feedback": "Report bug / Suggestion"
+    "feedback": "Report bug / Suggestion",
+    "legal": "Terms & Privacy"
   },
   "changelog": {
     "v271": [
@@ -41,11 +42,6 @@
       "Visual fix: removed duplicate language code in the switcher (e.g. \"PL PL\" -> \"PL\")",
       "Minor alignment fixes for items in the bottom settings bar"
     ],
-    "v260": [
-      "Added a direct bug report and suggestion module in the footer",
-      "Integration with a secure e-mail notification backend (Resend API)",
-      "Diagnostic metadata attached to help analyse shop-floor issues"
-    ],
     "v250": [
       "Added bolt circle (PCD) module with SVG preview and G-code point export",
       "Added angled hole row coordinate calculator",
@@ -64,6 +60,11 @@
       "Performance optimisation for mobile devices (iOS/Android)",
       "New floating reset button (FAB)",
       "Smart comma and dot handling in numeric fields"
+    ],
+    "v272": [
+      "Added a mandatory engineering disclaimer (no liability for collisions and scrap)",
+      "Implemented a privacy policy covering anonymous Cloudflare analytics",
+      "Added a first-launch terms acceptance screen"
     ]
   },
   "pwa": {
@@ -131,6 +132,20 @@
     "submit": "Send feedback",
     "success": "Thank you! Your feedback has been sent.",
     "error": "Sending failed. Please try again later.",
+    "close": "Close"
+  },
+  "legal": {
+    "gateTitle": "Legal disclaimer and terms of use",
+    "modalTitle": "Terms & Privacy",
+    "liabilityTitle": "Limitation of liability",
+    "liabilityBody": "This app is an auxiliary tool only. The author is not liable for machine collisions, broken tools, scrapped parts or production losses. You must verify all data against the machine and tool documentation.",
+    "privacyTitle": "Privacy & Cloudflare Analytics",
+    "privacyBody": "The app collects no personal data. Dimensions and settings are stored locally on your device only (localStorage). We use anonymous, cookieless Cloudflare analytics that does not track users.",
+    "checkboxLabel": "I understand the risks and accept the limitation of liability and the privacy policy.",
+    "accept": "Accept and enter the app",
+    "decline": "Decline",
+    "lockedBody": "Access to the calculator has been blocked because the terms were not accepted. You can safely close this browser tab.",
+    "changeDecision": "Change decision",
     "close": "Close"
   }
 }

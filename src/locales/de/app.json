@@ -15,10 +15,11 @@
   },
   "footer": {
     "changelog": "Änderungsverlauf",
-    "version": "v2.7.1",
+    "version": "v2.7.2",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Einstellungen",
-    "feedback": "Fehler / Vorschlag melden"
+    "feedback": "Fehler / Vorschlag melden",
+    "legal": "AGB & Datenschutz"
   },
   "changelog": {
     "v271": [
@@ -41,11 +42,6 @@
       "Visueller Fix: doppelte Anzeige des Sprachcodes im Umschalter entfernt (z. B. \"PL PL\" -> \"PL\")",
       "Kleine Ausrichtungs-Korrekturen der Elemente in der unteren Einstellungsleiste"
     ],
-    "v260": [
-      "Neues Modul zum direkten Melden von Fehlern und Vorschlägen in der Fußzeile",
-      "Anbindung an ein sicheres E-Mail-Benachrichtigungs-Backend (Resend API)",
-      "Diagnosedaten werden zur einfacheren Analyse von Werkstattproblemen mitgesendet"
-    ],
     "v250": [
       "Neues Lochkreis-Modul (PCD) mit SVG-Vorschau und G-Code-Punktexport",
       "Neuer Rechner für Bohrreihen im Winkel",
@@ -64,6 +60,11 @@
       "Optimierung für mobile Geräte (iOS/Android)",
       "Neuer schwebender Reset-Button (FAB)",
       "Intelligente Komma- und Punktverarbeitung in Zahlenfeldern"
+    ],
+    "v272": [
+      "Verbindlicher technischer Haftungsausschluss hinzugefügt (keine Haftung für Kollisionen und Ausschuss)",
+      "Datenschutzerklärung mit anonymer Cloudflare-Analytics umgesetzt",
+      "Bildschirm zur Zustimmung zu den Bedingungen beim ersten Start hinzugefügt"
     ]
   },
   "pwa": {
@@ -131,6 +132,20 @@
     "submit": "Feedback senden",
     "success": "Vielen Dank! Ihre Meldung wurde gesendet.",
     "error": "Beim Senden ist ein Fehler aufgetreten. Bitte später erneut versuchen.",
+    "close": "Schließen"
+  },
+  "legal": {
+    "gateTitle": "Rechtlicher Hinweis und Nutzungsbedingungen",
+    "modalTitle": "AGB & Datenschutz",
+    "liabilityTitle": "Haftungsausschluss",
+    "liabilityBody": "Die App dient ausschließlich als Hilfsmittel. Der Autor haftet nicht für Maschinenkollisionen, beschädigte Werkzeuge, Ausschussteile oder Produktionsverluste. Der Nutzer muss alle Daten anhand der Maschinen- und Werkzeugdokumentation prüfen.",
+    "privacyTitle": "Datenschutz & Cloudflare Analytics",
+    "privacyBody": "Die App erhebt keine personenbezogenen Daten. Maße und Einstellungen werden nur lokal auf Ihrem Gerät gespeichert (localStorage). Wir nutzen anonyme, cookielose Cloudflare-Analytics ohne Nutzer-Tracking.",
+    "checkboxLabel": "Ich verstehe das Risiko und akzeptiere den Haftungsausschluss sowie die Datenschutzregeln.",
+    "accept": "Akzeptieren und App öffnen",
+    "decline": "Ablehnen",
+    "lockedBody": "Der Zugriff auf den Rechner wurde wegen fehlender Zustimmung zu den Bedingungen gesperrt. Sie können diesen Browser-Tab sicher schließen.",
+    "changeDecision": "Entscheidung ändern",
     "close": "Schließen"
   }
 }
