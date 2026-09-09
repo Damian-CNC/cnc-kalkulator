@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Settings, Scale, Triangle, Gem, Ruler, RefreshCw, Cone, Hexagon, Bolt, Scissors, Waves, Disc, RectangleHorizontal, LifeBuoy, CircleDot, MoveDiagonal2, Target } from 'lucide-react';
+import { Settings, Scale, Triangle, Gem, Ruler, Cone, Hexagon, Bolt, Scissors, Waves, Disc, RectangleHorizontal, LifeBuoy, CircleDot, MoveDiagonal2, Target } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import WakeLockToggle from '@/components/WakeLockToggle';
@@ -65,25 +65,6 @@ const Index = () => {
   const navigate = useNavigate();
   const { triggerLight } = useHaptics();
   const { t } = useTranslation();
-
-  const handleForceUpdate = async () => {
-    try {
-      if ('caches' in window) {
-        const cacheNames = await caches.keys();
-        await Promise.all(cacheNames.map(name => caches.delete(name)));
-      }
-      if ('serviceWorker' in navigator) {
-        const registrations = await navigator.serviceWorker.getRegistrations();
-        for (const registration of registrations) {
-          await registration.unregister();
-        }
-      }
-      window.location.reload();
-    } catch (error) {
-      console.error('Update error:', error);
-      window.location.reload();
-    }
-  };
 
   return (
     <div
