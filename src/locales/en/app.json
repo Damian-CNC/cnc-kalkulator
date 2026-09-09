@@ -15,13 +15,18 @@
   },
   "footer": {
     "changelog": "Changelog",
-    "version": "v2.7.2",
+    "version": "v2.7.3",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Settings",
     "feedback": "Report bug / Suggestion",
     "legal": "Terms & Privacy"
   },
   "changelog": {
+    "v273": [
+      "Two-step welcome flow (language and units first, then terms acceptance)",
+      "Expanded engineering disclaimer (no liability for collisions and scrap) and privacy policy",
+      "Added a dedicated public /privacy page for Google Play store review"
+    ],
     "v271": [
       "Weight calculator: aligned label heights in the 2-column mobile layout",
       "Weight calculator: stacked +/- stepper buttons for quantity",
@@ -135,17 +140,26 @@
     "close": "Close"
   },
   "legal": {
-    "gateTitle": "Legal disclaimer and terms of use",
+    "gateTitle": "Engineering disclaimer & Privacy",
     "modalTitle": "Terms & Privacy",
-    "liabilityTitle": "Limitation of liability",
-    "liabilityBody": "This app is an auxiliary tool only. The author is not liable for machine collisions, broken tools, scrapped parts or production losses. You must verify all data against the machine and tool documentation.",
-    "privacyTitle": "Privacy & Cloudflare Analytics",
-    "privacyBody": "The app collects no personal data. Dimensions and settings are stored locally on your device only (localStorage). We use anonymous, cookieless Cloudflare analytics that does not track users.",
-    "checkboxLabel": "I understand the risks and accept the limitation of liability and the privacy policy.",
-    "accept": "Accept and enter the app",
+    "liabilityTitle": "Engineering disclaimer (limitation of liability)",
+    "liabilityItems": [
+      "The CNC Calculator app is an auxiliary and educational tool only. All formulas, cutting parameter selections (Vc, fz, n, Vf), fit and ISO 2768 tables, seat and groove dimensions and generated hole coordinates (PCD) are provided AS IS.",
+      "Verification duty: the user (operator, programmer, process engineer) must always verify calculated values against the machine documentation, the cutting tool manufacturer data sheets and the part drawing.",
+      "No liability: the author and owner of the app accept no liability for any direct or indirect material damage, in particular machine collisions, spindle damage, broken tools, scrapped parts, production downtime or personal injury resulting from using the calculator results."
+    ],
+    "privacyTitle": "Privacy policy and local storage",
+    "privacyItems": [
+      "No personal data: the app requires no registration, no sign-in and no personal data.",
+      "Device local storage: all entered dimensions, the material inventory list and unit/language preferences are stored only locally in your browser. This data is never sent to external servers.",
+      "Cookieless Cloudflare analytics: the site uses anonymous Cloudflare Web Analytics. It sets no cookies, does not track users across sites and collects no IP addresses or device fingerprints. Only aggregated visit statistics (page views, country, browser type) are collected."
+    ],
+    "checkboxLabel": "I understand the engineering risk and accept the limitation of liability and the privacy policy.",
+    "accept": "Accept and open the calculator",
     "decline": "Decline",
-    "lockedBody": "Access to the calculator has been blocked because the terms were not accepted. You can safely close this browser tab.",
-    "changeDecision": "Change decision",
-    "close": "Close"
+    "lockedBody": "Access to the app has been blocked because the terms were not accepted. You can safely close this tab.",
+    "changeDecision": "Show the terms again",
+    "close": "Close",
+    "back": "Back"
   }
 }

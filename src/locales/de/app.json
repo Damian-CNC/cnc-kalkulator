@@ -15,13 +15,18 @@
   },
   "footer": {
     "changelog": "Änderungsverlauf",
-    "version": "v2.7.2",
+    "version": "v2.7.3",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Einstellungen",
     "feedback": "Fehler / Vorschlag melden",
     "legal": "AGB & Datenschutz"
   },
   "changelog": {
+    "v273": [
+      "Zweistufiger Willkommensprozess (zuerst Sprache und Einheiten, dann Zustimmung zu den Bedingungen)",
+      "Erweiterter technischer Haftungsausschluss (keine Haftung für Kollisionen und Ausschuss) und Datenschutzerklärung",
+      "Neue öffentliche Seite /privacy für die Prüfung im Google Play Store"
+    ],
     "v271": [
       "Gewichtsrechner: Labelhöhen im 2-Spalten-Layout auf Mobilgeräten angleichen",
       "Gewichtsrechner: vertikale +/- Stepper-Buttons für die Stückzahl",
@@ -135,17 +140,26 @@
     "close": "Schließen"
   },
   "legal": {
-    "gateTitle": "Rechtlicher Hinweis und Nutzungsbedingungen",
+    "gateTitle": "Technischer Haftungsausschluss & Datenschutz",
     "modalTitle": "AGB & Datenschutz",
-    "liabilityTitle": "Haftungsausschluss",
-    "liabilityBody": "Die App dient ausschließlich als Hilfsmittel. Der Autor haftet nicht für Maschinenkollisionen, beschädigte Werkzeuge, Ausschussteile oder Produktionsverluste. Der Nutzer muss alle Daten anhand der Maschinen- und Werkzeugdokumentation prüfen.",
-    "privacyTitle": "Datenschutz & Cloudflare Analytics",
-    "privacyBody": "Die App erhebt keine personenbezogenen Daten. Maße und Einstellungen werden nur lokal auf Ihrem Gerät gespeichert (localStorage). Wir nutzen anonyme, cookielose Cloudflare-Analytics ohne Nutzer-Tracking.",
-    "checkboxLabel": "Ich verstehe das Risiko und akzeptiere den Haftungsausschluss sowie die Datenschutzregeln.",
-    "accept": "Akzeptieren und App öffnen",
+    "liabilityTitle": "Technischer Haftungsausschluss (Haftungsbeschränkung)",
+    "liabilityItems": [
+      "Die App CNC Kalkulator dient ausschließlich als Hilfsmittel und zu Lernzwecken. Alle Formeln, Schnittparameter (Vc, fz, n, Vf), Passungs- und ISO-2768-Tabellen, Nut- und Sitzmaße sowie erzeugte Bohrungskoordinaten (Lochkreis) werden „wie besehen“ (AS IS) bereitgestellt.",
+      "Prüfpflicht: Der Nutzer (Bediener, Programmierer, Fertigungsplaner) muss die berechneten Werte stets anhand der Maschinendokumentation, der Datenblätter des Werkzeugherstellers und der Fertigungszeichnung prüfen.",
+      "Keine Haftung: Autor und Betreiber der App haften nicht für direkte oder indirekte Sachschäden, insbesondere Maschinenkollisionen, Spindelschäden, Werkzeugbruch, Ausschussteile, Produktionsausfälle sowie Personenschäden infolge der Nutzung der Berechnungen."
+    ],
+    "privacyTitle": "Datenschutz und lokaler Speicher",
+    "privacyItems": [
+      "Keine personenbezogenen Daten: Die App erfordert keine Registrierung, keine Anmeldung und keine personenbezogenen Angaben.",
+      "Lokaler Gerätespeicher (localStorage): Alle eingegebenen Maße, die Materialinventarliste sowie Einheiten- und Spracheinstellungen werden ausschließlich lokal im Browser gespeichert und niemals an externe Server übertragen.",
+      "Cookielose Cloudflare-Analytics: Die Seite nutzt anonymes Cloudflare Web Analytics. Es setzt keine Cookies, verfolgt Nutzer nicht domainübergreifend und erfasst weder IP-Adressen noch Geräte-Fingerprints. Erfasst werden nur aggregierte Statistiken (Seitenaufrufe, Land, Browsertyp)."
+    ],
+    "checkboxLabel": "Ich verstehe das technische Risiko und akzeptiere den Haftungsausschluss sowie die Datenschutzerklärung.",
+    "accept": "Akzeptieren und Rechner öffnen",
     "decline": "Ablehnen",
-    "lockedBody": "Der Zugriff auf den Rechner wurde wegen fehlender Zustimmung zu den Bedingungen gesperrt. Sie können diesen Browser-Tab sicher schließen.",
-    "changeDecision": "Entscheidung ändern",
-    "close": "Schließen"
+    "lockedBody": "Der Zugriff auf die App wurde gesperrt, da die Bedingungen nicht akzeptiert wurden. Sie können diesen Tab sicher schließen.",
+    "changeDecision": "Bedingungen erneut anzeigen",
+    "close": "Schließen",
+    "back": "Zurück"
   }
 }
