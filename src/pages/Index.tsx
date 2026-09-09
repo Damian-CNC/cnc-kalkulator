@@ -147,14 +147,6 @@ const Index = () => {
         ))}
       </div>
 
-      <button
-        onClick={handleForceUpdate}
-        className="mt-10 mb-4 flex items-center gap-2 px-4 py-2.5 rounded-xl border border-zinc-800 bg-zinc-900/50 text-zinc-500 hover:text-zinc-300 hover:border-zinc-600 transition-colors text-sm"
-      >
-        <RefreshCw className="w-4 h-4" />
-        {t('common.forceUpdate')}
-      </button>
-
       <AppFooter />
 
     </div>
