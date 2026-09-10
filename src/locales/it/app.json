@@ -22,6 +22,10 @@
     "legal": "Termini e Privacy"
   },
   "changelog": {
+    "title": "Cronologia modifiche",
+    "subtitle": "Ultimi aggiornamenti dell'app",
+    "latest": "Attuale",
+    "tags": { "new": "Novità", "update": "Aggiornamento", "fix": "Correzione" },
     "v274": [
       "Unificazione visiva del footer: colori di testo, icone e bordi coerenti su tutti i pulsanti",
       "Aggiornato l'aspetto del pulsante \"Forza aggiornamento\" in linea col tema dei controlli inferiori",

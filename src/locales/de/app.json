@@ -22,6 +22,10 @@
     "legal": "AGB & Datenschutz"
   },
   "changelog": {
+    "title": "Änderungsverlauf",
+    "subtitle": "Neueste App-Updates",
+    "latest": "Aktuell",
+    "tags": { "new": "Neu", "update": "Update", "fix": "Fix" },
     "v274": [
       "Einheitliche Footer-Optik: konsistente Text-, Icon- und Rahmenfarben bei allen Schaltflächen",
       "Darstellung der Schaltfläche \"Update erzwingen\" an das Design der unteren Steuerleiste angepasst",

@@ -22,6 +22,10 @@
     "legal": "Terms & Privacy"
   },
   "changelog": {
+    "title": "Changelog",
+    "subtitle": "Latest app updates",
+    "latest": "Current",
+    "tags": { "new": "New", "update": "Update", "fix": "Fix" },
     "v274": [
       "Unified footer visuals: consistent text, icon and border colors across all buttons",
       "Refreshed the \"Force update\" button to match the lower controls theme",

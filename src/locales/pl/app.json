@@ -22,6 +22,10 @@
     "legal": "Warunki i Prywatność"
   },
   "changelog": {
+    "title": "Historia zmian",
+    "subtitle": "Najnowsze aktualizacje aplikacji",
+    "latest": "Aktualna",
+    "tags": { "new": "Nowość", "update": "Aktualizacja", "fix": "Poprawka" },
     "v274": [
       "Wizualne ujednolicenie stopki: spójna kolorystyka tekstu, ikon oraz obrysów we wszystkich przyciskach",
       "Odświeżono wygląd przycisku \"Wymuś aktualizację\" zgodnie z motywem dolnych kontrolek",
