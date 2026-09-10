@@ -15,13 +15,22 @@
   },
   "footer": {
     "changelog": "Historia zmian",
-    "version": "v2.7.3",
+    "version": "v2.7.4",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Ustawienia",
     "feedback": "Zgłoś błąd / Sugestia",
     "legal": "Warunki i Prywatność"
   },
   "changelog": {
+    "title": "Historia zmian",
+    "subtitle": "Najnowsze aktualizacje aplikacji",
+    "latest": "Aktualna",
+    "tags": { "new": "Nowość", "update": "Aktualizacja", "fix": "Poprawka" },
+    "v274": [
+      "Wizualne ujednolicenie stopki: spójna kolorystyka tekstu, ikon oraz obrysów we wszystkich przyciskach",
+      "Odświeżono wygląd przycisku \"Wymuś aktualizację\" zgodnie z motywem dolnych kontrolek",
+      "Poprawiono kontrast i czytelność przełącznika jednostek oraz wyboru języka"
+    ],
     "v273": [
       "Wdrożono 2-etapowy proces powitalny (najpierw wybór języka i jednostek, potem akceptacja warunków)",
       "Rozbudowano prawną klauzulę inżynieryjną (brak odpowiedzialności za kolizje i braki) oraz politykę prywatności",

@@ -44,7 +44,9 @@ const AppFooter = ({ className = '' }: { className?: string }) => {
     >
       <div className="flex flex-wrap items-center justify-center gap-2">
         <LanguageSwitcher btnClass={BTN} txtClass={TXT} iconClass={ICON} />
-        <UnitSwitcher containerClass={BTN} />
+        <UnitSwitcher
+          containerClass="flex items-center gap-1 px-1.5 py-1 rounded-xl border border-zinc-800 bg-zinc-900/70 hover:border-zinc-700 hover:bg-zinc-800/60 shadow-sm transition-all"
+        />
         <button type="button" onClick={handleForceUpdate} className={`${BTN} ${TXT}`}>
           <RefreshCw className={ICON} />
           {t('common.forceUpdate', { defaultValue: 'Wymuś aktualizację' })}

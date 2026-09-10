@@ -11,7 +11,7 @@ const UnitSwitcher = ({ className = '', containerClass = '' }: Props) => {
   const { system, setSystem } = useUnits();
   const { triggerLight } = useHaptics();
 
-  const base = 'px-2 py-1 rounded-lg text-[11px] font-bold tracking-wider transition-colors';
+  const base = 'px-2 py-0.5 rounded-lg text-[11px] font-bold tracking-wider transition-colors';
 
   const pick = (s: 'metric' | 'imperial') => {
     triggerLight();
