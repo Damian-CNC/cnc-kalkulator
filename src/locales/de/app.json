@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Änderungsverlauf",
-    "version": "v2.7.4",
+    "version": "v2.7.5",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Einstellungen",
     "feedback": "Fehler / Vorschlag melden",
@@ -25,7 +25,16 @@
     "title": "Änderungsverlauf",
     "subtitle": "Neueste App-Updates",
     "latest": "Aktuell",
-    "tags": { "new": "Neu", "update": "Update", "fix": "Fix" },
+    "tags": {
+      "new": "Neu",
+      "update": "Update",
+      "fix": "Fix"
+    },
+    "v275": [
+      "Technische Zeichnungen für DIN 509 (Form E/F), DIN 471/472, DIN 6885 und ISO 3601 nach ISO 128 neu aufgebaut",
+      "Professionelle Maßlinien, Pfeilspitzen, Symmetrieachsen und 45°-Schraffuren umgesetzt",
+      "Dynamische Hervorhebung der Maße beim Bearbeiten der Rechnerfelder hinzugefügt"
+    ],
     "v274": [
       "Einheitliche Footer-Optik: konsistente Text-, Icon- und Rahmenfarben bei allen Schaltflächen",
       "Darstellung der Schaltfläche \"Update erzwingen\" an das Design der unteren Steuerleiste angepasst",
@@ -36,49 +45,16 @@
       "Erweiterter technischer Haftungsausschluss (keine Haftung für Kollisionen und Ausschuss) und Datenschutzerklärung",
       "Neue öffentliche Seite /privacy für die Prüfung im Google Play Store"
     ],
+    "v272": [
+      "Verbindlicher technischer Haftungsausschluss hinzugefügt (keine Haftung für Kollisionen und Ausschuss)",
+      "Datenschutzerklärung mit anonymer Cloudflare-Analytics umgesetzt",
+      "Bildschirm zur Zustimmung zu den Bedingungen beim ersten Start hinzugefügt"
+    ],
     "v271": [
       "Gewichtsrechner: Labelhöhen im 2-Spalten-Layout auf Mobilgeräten angleichen",
       "Gewichtsrechner: vertikale +/- Stepper-Buttons für die Stückzahl",
       "Gewichtsrechner: Materialliste in voller Breite mit fetten Kategorienamen",
       "Beim Hinzufügen zum Inventar bleiben Form und Material erhalten"
-    ],
-    "v270": [
-      "Gewichtsrechner: Hohlprofile, U-, T-, I-Profile und Winkel ergänzt",
-      "Visuelle SVG-Querschnittssymbole in der Formauswahl",
-      "Kompakte Werkstoffdatenbank: Legierungen nach ähnlicher Dichte gruppiert"
-    ],
-    "v262": [
-      "Gewichtsrechner: Inventarliste mit Gesamtgewicht mehrerer Positionen",
-      "Gewichtsrechner: Sechskantstäbe (Schlüsselweite s)",
-      "Mobile Ergonomie: kompaktes 2-Spalten-Eingabelayout"
-    ],
-    "v261": [
-      "Visueller Fix: doppelte Anzeige des Sprachcodes im Umschalter entfernt (z. B. \"PL PL\" -> \"PL\")",
-      "Kleine Ausrichtungs-Korrekturen der Elemente in der unteren Einstellungsleiste"
-    ],
-    "v250": [
-      "Neues Lochkreis-Modul (PCD) mit SVG-Vorschau und G-Code-Punktexport",
-      "Neuer Rechner für Bohrreihen im Winkel",
-      "Neuer Rechner für die wahre Position mit PASS/FAIL-Prüfung und MMB-Bonus"
-    ],
-    "v240": [
-      "Mehrsprachigkeit hinzugefügt (PL, EN, DE, IT)",
-      "Einheitenumschalter Metrisch (mm) / Imperial (inch, SFM)",
-      "Bildschirmsperre deaktivieren (Screen Wake Lock)"
-    ],
-    "v230": [
-      "Neue Module: Sicherungsringnuten (DIN 471/472), Passfedern (DIN 6885), O-Ring-Nuten (ISO 3601)",
-      "Neuer Rechner für theoretische Oberflächenrauheit Ra/Rz"
-    ],
-    "v220": [
-      "Optimierung für mobile Geräte (iOS/Android)",
-      "Neuer schwebender Reset-Button (FAB)",
-      "Intelligente Komma- und Punktverarbeitung in Zahlenfeldern"
-    ],
-    "v272": [
-      "Verbindlicher technischer Haftungsausschluss hinzugefügt (keine Haftung für Kollisionen und Ausschuss)",
-      "Datenschutzerklärung mit anonymer Cloudflare-Analytics umgesetzt",
-      "Bildschirm zur Zustimmung zu den Bedingungen beim ersten Start hinzugefügt"
     ]
   },
   "pwa": {

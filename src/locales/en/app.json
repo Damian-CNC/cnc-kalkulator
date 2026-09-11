@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Changelog",
-    "version": "v2.7.4",
+    "version": "v2.7.5",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Settings",
     "feedback": "Report bug / Suggestion",
@@ -25,7 +25,16 @@
     "title": "Changelog",
     "subtitle": "Latest app updates",
     "latest": "Current",
-    "tags": { "new": "New", "update": "Update", "fix": "Fix" },
+    "tags": {
+      "new": "New",
+      "update": "Update",
+      "fix": "Fix"
+    },
+    "v275": [
+      "Rebuilt the DIN 509 (Forms E/F), DIN 471/472, DIN 6885 and ISO 3601 technical drawings to ISO 128 conventions",
+      "Added professional dimension lines, arrowheads, symmetry axes and 45° section hatching",
+      "Added dynamic dimension highlighting in drawings while editing calculator fields"
+    ],
     "v274": [
       "Unified footer visuals: consistent text, icon and border colors across all buttons",
       "Refreshed the \"Force update\" button to match the lower controls theme",
@@ -36,49 +45,16 @@
       "Expanded engineering disclaimer (no liability for collisions and scrap) and privacy policy",
       "Added a dedicated public /privacy page for Google Play store review"
     ],
+    "v272": [
+      "Added a mandatory engineering disclaimer (no liability for collisions and scrap)",
+      "Implemented a privacy policy covering anonymous Cloudflare analytics",
+      "Added a first-launch terms acceptance screen"
+    ],
     "v271": [
       "Weight calculator: aligned label heights in the 2-column mobile layout",
       "Weight calculator: stacked +/- stepper buttons for quantity",
       "Weight calculator: full-width material list with bold category names",
       "Adding to inventory now keeps the selected shape and material"
-    ],
-    "v270": [
-      "Weight calculator: added box, channel, T, I-beam and angle sections",
-      "Visual SVG cross-section icons in the shape selector",
-      "Condensed material database: alloys grouped by similar density"
-    ],
-    "v262": [
-      "Weight calculator: multi-item inventory with total weight aggregation",
-      "Weight calculator: hexagonal bar support (across-flats size s)",
-      "Mobile ergonomics: compact 2-column input layout on phones"
-    ],
-    "v261": [
-      "Visual fix: removed duplicate language code in the switcher (e.g. \"PL PL\" -> \"PL\")",
-      "Minor alignment fixes for items in the bottom settings bar"
-    ],
-    "v250": [
-      "Added bolt circle (PCD) module with SVG preview and G-code point export",
-      "Added angled hole row coordinate calculator",
-      "Added True Position calculator with PASS/FAIL validation and MMC bonus"
-    ],
-    "v240": [
-      "Added multi-language support (PL, EN, DE, IT)",
-      "Added Metric (mm) / Imperial (inch, SFM) unit switcher",
-      "Added Screen Wake Lock support"
-    ],
-    "v230": [
-      "New modules: retaining ring grooves (DIN 471/472), parallel keys (DIN 6885), O-ring grooves (ISO 3601)",
-      "New theoretical surface roughness Ra/Rz calculator"
-    ],
-    "v220": [
-      "Performance optimisation for mobile devices (iOS/Android)",
-      "New floating reset button (FAB)",
-      "Smart comma and dot handling in numeric fields"
-    ],
-    "v272": [
-      "Added a mandatory engineering disclaimer (no liability for collisions and scrap)",
-      "Implemented a privacy policy covering anonymous Cloudflare analytics",
-      "Added a first-launch terms acceptance screen"
     ]
   },
   "pwa": {

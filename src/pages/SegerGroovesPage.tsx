@@ -128,7 +128,7 @@ const SegerGroovesPage = () => {
                 <span className="text-zinc-500">Grubość pierścienia s</span>
                 <span className="text-cyan-400 font-bold">{row.s.toFixed(2)} mm</span>
               </div>
-              <div className="flex justify-between">
+              <div tabIndex={0} onFocus={() => setActiveDimension('n')} onBlur={() => setActiveDimension(null)} onClick={() => setActiveDimension('n')} className="flex justify-between rounded focus:outline-none focus:ring-1 focus:ring-cyan-500/60">
                 <span className="text-zinc-500">Min. odległość od krawędzi n</span>
                 <span className="text-cyan-400 font-bold">{row.n.toFixed(1)} mm</span>
               </div>
