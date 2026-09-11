@@ -1,12 +1,16 @@
 import { useState, useMemo } from 'react';
 import PageLayout from '@/components/PageLayout';
 import ClearFab from '@/components/ClearFab';
+import { Centerline, Dimension, EngineeringDrawing, Witness } from '@/components/EngineeringDrawing';
 import { din471, din472, it11, it13, type SegerRow } from '@/data/segerData';
 import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
+
+type SegerDimension = 'd1' | 'd2' | 'm' | 'n' | null;
 
 const SegerGroovesPage = () => {
   const [type, setType] = useState<'shaft' | 'bore'>('shaft');
   const [query, setQuery] = useState('');
+  const [activeDimension, setActiveDimension] = useState<SegerDimension>(null);
 
   const table = type === 'shaft' ? din471 : din472;
   const d1 = parseFloat(query.replace(',', '.'));
@@ -59,9 +63,10 @@ const SegerGroovesPage = () => {
           type="text"
           inputMode="decimal"
                 pattern="^[0-9]*[.,]?[0-9]*$"
-                onFocus={selectOnFocus}
+                onFocus={(event) => { selectOnFocus(event); setActiveDimension('d1'); }}
+                onBlur={() => setActiveDimension(null)}
           value={query}
-          onChange={(e) => setQuery(sanitizeDecimal(e.target.value))}
+          onChange={(e) => { setActiveDimension('d1'); setQuery(sanitizeDecimal(e.target.value)); }}
           className="input-field"
         />
 
@@ -91,7 +96,7 @@ const SegerGroovesPage = () => {
           <div className="glass-module">
             <h2 className="text-sm uppercase tracking-wider text-zinc-400 mb-4">Wymiary rowka</h2>
             <div className="grid grid-cols-2 gap-4">
-              <div className="bg-zinc-900/60 border border-zinc-800 rounded-xl p-4">
+              <div tabIndex={0} onFocus={() => setActiveDimension('d2')} onBlur={() => setActiveDimension(null)} onClick={() => setActiveDimension('d2')} className="bg-zinc-900/60 border border-zinc-800 rounded-xl p-4 focus:outline-none focus:border-cyan-500/60">
                 <div className="text-xs uppercase tracking-wider text-zinc-500 mb-1">
                   Dno rowka d₂ ({type === 'shaft' ? 'h11' : 'H11'})
                 </div>
@@ -102,7 +107,7 @@ const SegerGroovesPage = () => {
                     : `${row.d2.toFixed(2)} … ${(row.d2 + tolD2).toFixed(2)} mm`}
                 </div>
               </div>
-              <div className="bg-zinc-900/60 border border-zinc-800 rounded-xl p-4">
+              <div tabIndex={0} onFocus={() => setActiveDimension('m')} onBlur={() => setActiveDimension(null)} onClick={() => setActiveDimension('m')} className="bg-zinc-900/60 border border-zinc-800 rounded-xl p-4 focus:outline-none focus:border-cyan-500/60">
                 <div className="text-xs uppercase tracking-wider text-zinc-500 mb-1">
                   Szerokość m (H13)
                 </div>
@@ -142,50 +147,39 @@ const SegerGroovesPage = () => {
 
           <div className="glass-module">
             <h2 className="text-sm uppercase tracking-wider text-zinc-400 mb-4">Przekrój</h2>
-            <svg viewBox="0 0 300 150" className="w-full max-w-lg mx-auto">
-              <line x1="20" y1="120" x2="280" y2="120" stroke="#3f3f46" strokeDasharray="6 4" />
-              {type === 'shaft' ? (
+            <EngineeringDrawing label={type === 'shaft' ? 'DIN 471 shaft groove' : 'DIN 472 bore groove'}>
+              {({ arrow, hatch }) => type === 'shaft' ? (
                 <>
-                  <path
-                    d="M20 60 H130 V78 H165 V60 H280"
-                    fill="none"
-                    stroke="#22d3ee"
-                    strokeWidth="2.5"
-                  />
-                  <line x1="130" y1="40" x2="130" y2="78" stroke="#71717a" />
-                  <line x1="165" y1="40" x2="165" y2="78" stroke="#71717a" />
-                  <line x1="130" y1="44" x2="165" y2="44" stroke="#a1a1aa" />
-                  <text x="140" y="38" fill="#22d3ee" fontSize="11">m</text>
-                  <line x1="240" y1="60" x2="240" y2="120" stroke="#a1a1aa" />
-                  <text x="246" y="94" fill="#a1a1aa" fontSize="11">d₁/2</text>
-                  <line x1="200" y1="78" x2="200" y2="120" stroke="#a1a1aa" />
-                  <text x="176" y="100" fill="#22d3ee" fontSize="11">d₂/2</text>
+                  <path d="M24 48 H206 V62 H230 V48 H296 V132 H230 V118 H206 V132 H24 Z" fill={`url(#${hatch})`} className="stroke-zinc-200 stroke-[2]" />
+                  <Centerline x1={16} y1={90} x2={304} y2={90} />
+                  <Witness x1={294} y1={46} x2={310} y2={46} /><Witness x1={294} y1={134} x2={310} y2={134} />
+                  <Dimension x1={304} y1={50} x2={304} y2={130} label="d₁" arrowId={arrow} active={activeDimension === 'd1'} labelX={292} labelY={90} rotateLabel />
+                  <Witness x1={228} y1={60} x2={274} y2={60} /><Witness x1={228} y1={120} x2={274} y2={120} />
+                  <Dimension x1={266} y1={64} x2={266} y2={116} label="d₂" arrowId={arrow} active={activeDimension === 'd2'} labelX={254} labelY={90} rotateLabel />
+                  <Witness x1={204} y1={46} x2={204} y2={25} /><Witness x1={232} y1={46} x2={232} y2={25} />
+                  <Dimension x1={208} y1={30} x2={228} y2={30} label="m" arrowId={arrow} active={activeDimension === 'm'} labelY={17} />
+                  <Witness x1={232} y1={44} x2={232} y2={10} /><Witness x1={294} y1={44} x2={294} y2={10} />
+                  <Dimension x1={236} y1={14} x2={290} y2={14} label="n" arrowId={arrow} active={activeDimension === 'n'} labelY={6} />
                 </>
               ) : (
                 <>
-                  <path
-                    d="M20 40 H130 V22 H165 V40 H280"
-                    fill="none"
-                    stroke="#22d3ee"
-                    strokeWidth="2.5"
-                  />
-                  <line x1="130" y1="22" x2="130" y2="12" stroke="#71717a" />
-                  <line x1="165" y1="22" x2="165" y2="12" stroke="#71717a" />
-                  <text x="140" y="12" fill="#22d3ee" fontSize="11">m</text>
-                  <line x1="240" y1="40" x2="240" y2="120" stroke="#a1a1aa" />
-                  <text x="246" y="84" fill="#a1a1aa" fontSize="11">d₁/2</text>
-                  <line x1="200" y1="22" x2="200" y2="120" stroke="#a1a1aa" />
-                  <text x="172" y="72" fill="#22d3ee" fontSize="11">d₂/2</text>
+                  <path d="M24 24 H296 V58 H222 V72 H198 V58 H24 Z M24 122 H198 V108 H222 V122 H296 V156 H24 Z" fill={`url(#${hatch})`} className="stroke-zinc-200 stroke-[2]" />
+                  <Centerline x1={16} y1={90} x2={304} y2={90} />
+                  <Witness x1={292} y1={56} x2={310} y2={56} /><Witness x1={292} y1={124} x2={310} y2={124} />
+                  <Dimension x1={304} y1={60} x2={304} y2={120} label="d₁" arrowId={arrow} active={activeDimension === 'd1'} labelX={292} labelY={90} rotateLabel />
+                  <Witness x1={220} y1={70} x2={276} y2={70} /><Witness x1={220} y1={110} x2={276} y2={110} />
+                  <Dimension x1={268} y1={74} x2={268} y2={106} label="d₂" arrowId={arrow} active={activeDimension === 'd2'} labelX={256} labelY={90} rotateLabel />
+                  <Witness x1={196} y1={56} x2={196} y2={38} /><Witness x1={224} y1={56} x2={224} y2={38} />
+                  <Dimension x1={200} y1={42} x2={220} y2={42} label="m" arrowId={arrow} active={activeDimension === 'm'} labelY={30} />
                 </>
               )}
-              <text x="24" y="136" fill="#71717a" fontSize="10">oś obrotu</text>
-            </svg>
+            </EngineeringDrawing>
           </div>
         </>
       )}
 
       <div className="h-20" />
-      <ClearFab onClear={() => setQuery('')} />
+      <ClearFab onClear={() => { setQuery(''); setActiveDimension(null); }} />
     </PageLayout>
   );
 };
