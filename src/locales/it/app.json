@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Cronologia modifiche",
-    "version": "v2.7.4",
+    "version": "v2.7.5",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Impostazioni",
     "feedback": "Segnala bug / Suggerimento",
@@ -25,7 +25,16 @@
     "title": "Cronologia modifiche",
     "subtitle": "Ultimi aggiornamenti dell'app",
     "latest": "Attuale",
-    "tags": { "new": "Novità", "update": "Aggiornamento", "fix": "Correzione" },
+    "tags": {
+      "new": "Novità",
+      "update": "Aggiornamento",
+      "fix": "Correzione"
+    },
+    "v275": [
+      "Ricostruiti i disegni tecnici DIN 509 (Forme E/F), DIN 471/472, DIN 6885 e ISO 3601 secondo ISO 128",
+      "Introdotte linee di quota professionali, frecce, assi di simmetria e tratteggio delle sezioni a 45°",
+      "Aggiunta l’evidenziazione dinamica delle quote durante la modifica dei campi del calcolatore"
+    ],
     "v274": [
       "Unificazione visiva del footer: colori di testo, icone e bordi coerenti su tutti i pulsanti",
       "Aggiornato l'aspetto del pulsante \"Forza aggiornamento\" in linea col tema dei controlli inferiori",
@@ -36,49 +45,16 @@
       "Ampliata l’avvertenza tecnica (nessuna responsabilità per collisioni e scarti) e l’informativa privacy",
       "Aggiunta la pagina pubblica dedicata /privacy per la verifica su Google Play"
     ],
+    "v272": [
+      "Aggiunta clausola ingegneristica obbligatoria (nessuna responsabilità per collisioni e scarti)",
+      "Implementata informativa privacy con analytics Cloudflare anonime",
+      "Aggiunta schermata di accettazione delle condizioni al primo avvio"
+    ],
     "v271": [
       "Calcolatore peso: altezze delle etichette allineate nel layout a 2 colonne su mobile",
       "Calcolatore peso: pulsanti +/- verticali (stepper) per la quantità",
       "Calcolatore peso: elenco materiali a larghezza piena con categorie in grassetto",
       "L'aggiunta all'inventario mantiene forma e materiale selezionati"
-    ],
-    "v270": [
-      "Calcolatore peso: aggiunti tubolari, profili U, T, IPE e angolari",
-      "Icone SVG delle sezioni nel selettore di forma",
-      "Database materiali compatto: leghe raggruppate per densità simile"
-    ],
-    "v262": [
-      "Calcolatore peso: inventario multi-voce con peso totale",
-      "Calcolatore peso: supporto barre esagonali (chiave s)",
-      "Ergonomia mobile: layout input a 2 colonne"
-    ],
-    "v261": [
-      "Correzione visiva: rimosso il codice lingua duplicato nel selettore (es. \"PL PL\" -> \"PL\")",
-      "Piccole correzioni di allineamento degli elementi nella barra impostazioni inferiore"
-    ],
-    "v250": [
-      "Nuovo modulo cerchio fori (PCD) con anteprima SVG ed esportazione punti G-code",
-      "Nuovo calcolatore delle coordinate per fila di fori inclinata",
-      "Nuovo calcolatore della posizione reale con verifica PASS/FAIL e bonus MMC"
-    ],
-    "v240": [
-      "Aggiunto supporto multilingua (PL, EN, DE, IT)",
-      "Aggiunto selettore unità Metrico (mm) / Imperiale (inch, SFM)",
-      "Aggiunto blocco spegnimento schermo (Screen Wake Lock)"
-    ],
-    "v230": [
-      "Nuovi moduli: cave per anelli Seeger (DIN 471/472), linguette (DIN 6885), sedi O-ring (ISO 3601)",
-      "Nuovo calcolatore della rugosità superficiale teorica Ra/Rz"
-    ],
-    "v220": [
-      "Ottimizzazione per dispositivi mobili (iOS/Android)",
-      "Nuovo pulsante flottante di reset (FAB)",
-      "Gestione intelligente di virgole e punti nei campi numerici"
-    ],
-    "v272": [
-      "Aggiunta clausola ingegneristica obbligatoria (nessuna responsabilità per collisioni e scarti)",
-      "Implementata informativa privacy con analytics Cloudflare anonime",
-      "Aggiunta schermata di accettazione delle condizioni al primo avvio"
     ]
   },
   "pwa": {

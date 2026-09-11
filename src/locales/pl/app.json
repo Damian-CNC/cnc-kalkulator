@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Historia zmian",
-    "version": "v2.7.4",
+    "version": "v2.7.5",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Ustawienia",
     "feedback": "Zgłoś błąd / Sugestia",
@@ -25,7 +25,16 @@
     "title": "Historia zmian",
     "subtitle": "Najnowsze aktualizacje aplikacji",
     "latest": "Aktualna",
-    "tags": { "new": "Nowość", "update": "Aktualizacja", "fix": "Poprawka" },
+    "tags": {
+      "new": "Nowość",
+      "update": "Aktualizacja",
+      "fix": "Poprawka"
+    },
+    "v275": [
+      "Zrekonstruowano rysunki techniczne: DIN 509 (Form E/F), DIN 471/472, DIN 6885 oraz ISO 3601 zgodnie z normami ISO 128",
+      "Wdrożono profesjonalne linie wymiarowe, strzałki, osie symetrii oraz kreskowanie przekrojów (hatching 45°)",
+      "Dodano dynamiczne podświetlanie wymiarów na schemacie przy edycji pól kalkulatora"
+    ],
     "v274": [
       "Wizualne ujednolicenie stopki: spójna kolorystyka tekstu, ikon oraz obrysów we wszystkich przyciskach",
       "Odświeżono wygląd przycisku \"Wymuś aktualizację\" zgodnie z motywem dolnych kontrolek",
@@ -36,49 +45,16 @@
       "Rozbudowano prawną klauzulę inżynieryjną (brak odpowiedzialności za kolizje i braki) oraz politykę prywatności",
       "Dodano dedykowaną, publiczną podstronę /privacy dla weryfikacji w sklepie Google Play"
     ],
+    "v272": [
+      "Dodano obowiązkową klauzulę inżynieryjną (wyłączenie odpowiedzialności za kolizje i braki)",
+      "Wdrożono politykę prywatności z uwzględnieniem anonimowej analityki Cloudflare",
+      "Dodano ekran weryfikacji i akceptacji warunków przy pierwszym uruchomieniu aplikacji"
+    ],
     "v271": [
       "Kalkulator wagi: wyrównano wysokość etykiet w 2-kolumnowym układzie na telefonach",
       "Kalkulator wagi: pionowe przyciski +/- (stepper) przy wyborze ilości sztuk",
       "Kalkulator wagi: pełna szerokość i pogrubione nazwy kategorii na liście materiałów",
       "Dodawanie do inwentaryzacji zachowuje wybrany kształt i materiał"
-    ],
-    "v270": [
-      "Kalkulator wagi: dodano profile zamknięte, ceowniki, teowniki, dwuteowniki i kątowniki",
-      "Wizualne ikony przekrojów (SVG) przy wyborze kształtu półfabrykatu",
-      "Skondensowana baza materiałów: grupowanie stopów o zbliżonej gęstości"
-    ],
-    "v262": [
-      "Kalkulator wagi: dodano moduł inwentaryzacji i sumowania wagi wielu pozycji",
-      "Kalkulator wagi: dodano obsługę prętów sześciokątnych (rozmiar pod klucz s)",
-      "Ergonomia mobilna: 2-kolumnowy układ pól wejściowych na telefonach"
-    ],
-    "v261": [
-      "Poprawka wizualna: usunięto podwójne wyświetlanie kodu języka w przełączniku (np. \"PL PL\" -> \"PL\")",
-      "Drobne poprawki wyrównania elementów w dolnym pasku ustawień"
-    ],
-    "v250": [
-      "Dodano moduł podziałki otworów na okręgu (PCD) z podglądem SVG i eksportem punktów G-code",
-      "Dodano kalkulator współrzędnych rzędu otworów pod kątem",
-      "Dodano kalkulator Pozycji Rzeczywistej (True Position) z walidacją PASS/FAIL i bonusem MMC"
-    ],
-    "v240": [
-      "Dodano wielojęzyczność (PL, EN, DE, IT)",
-      "Dodano przełącznik jednostek Metric (mm) / Imperial (inch, SFM)",
-      "Dodano blokadę wygaszania ekranu (Screen Wake Lock)"
-    ],
-    "v230": [
-      "Nowe moduły: Rowki pod Segery (DIN 471/472), Wpusty pryzmowe (DIN 6885), Rowki O-ring (ISO 3601)",
-      "Nowy kalkulator teoretycznej chropowatości powierzchni Ra/Rz"
-    ],
-    "v220": [
-      "Optymalizacja działania na urządzeniach mobilnych (iOS/Android)",
-      "Nowy pływający przycisk resetowania parametrów (FAB)",
-      "Inteligentne formatowanie przecinków i kropek w polach numerycznych"
-    ],
-    "v272": [
-      "Dodano obowiązkową klauzulę inżynieryjną (wyłączenie odpowiedzialności za kolizje i braki)",
-      "Wdrożono politykę prywatności z uwzględnieniem anonimowej analityki Cloudflare",
-      "Dodano ekran weryfikacji i akceptacji warunków przy pierwszym uruchomieniu aplikacji"
     ]
   },
   "pwa": {

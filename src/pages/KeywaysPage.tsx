@@ -1,15 +1,18 @@
 import { useState, useMemo } from 'react';
 import PageLayout from '@/components/PageLayout';
 import ClearFab from '@/components/ClearFab';
+import { Centerline, Dimension, EngineeringDrawing, Witness } from '@/components/EngineeringDrawing';
 import { findKeyway, keywayData, widthFits, widthLimits, type WidthFit } from '@/data/keywayData';
 import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
 
 const fmt = (v: number, d = 2) => v.toFixed(d);
 const sign = (v: number) => (v >= 0 ? `+${v.toFixed(3)}` : v.toFixed(3));
+type KeywayDimension = 'd' | 'b' | 't1' | 't2' | null;
 
 const KeywaysPage = () => {
   const [diameter, setDiameter] = useState('');
   const [fit, setFit] = useState<WidthFit['id']>('N9');
+  const [activeDimension, setActiveDimension] = useState<KeywayDimension>(null);
 
   const d = parseFloat(diameter.replace(',', '.'));
   const row = useMemo(() => (d > 0 ? findKeyway(d) : undefined), [d]);
@@ -27,9 +30,10 @@ const KeywaysPage = () => {
           type="text"
           inputMode="decimal"
                 pattern="^[0-9]*[.,]?[0-9]*$"
-                onFocus={selectOnFocus}
+                onFocus={(event) => { selectOnFocus(event); setActiveDimension('d'); }}
+                onBlur={() => setActiveDimension(null)}
           value={diameter}
-          onChange={(e) => setDiameter(sanitizeDecimal(e.target.value))}
+          onChange={(e) => { setActiveDimension('d'); setDiameter(sanitizeDecimal(e.target.value)); }}
           className="input-field mb-6"
         />
 
@@ -64,7 +68,7 @@ const KeywaysPage = () => {
         <>
           <div className="glass-module">
             <h2 className="text-sm uppercase tracking-wider text-zinc-400 mb-4">Wpust b × h</h2>
-            <div className="result-box text-2xl">
+            <div tabIndex={0} onFocus={() => setActiveDimension('b')} onBlur={() => setActiveDimension(null)} onClick={() => setActiveDimension('b')} className="result-box text-2xl focus:outline-none focus:ring-1 focus:ring-cyan-500/60">
               {row.b} × {row.h} mm
             </div>
             <div className="mt-3 text-center text-sm text-zinc-400">
@@ -76,13 +80,13 @@ const KeywaysPage = () => {
             <div className="glass-module mb-0">
               <h3 className="text-sm uppercase tracking-wider text-zinc-400 mb-3">Wałek</h3>
               <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
+                <div tabIndex={0} onFocus={() => setActiveDimension('t1')} onBlur={() => setActiveDimension(null)} onClick={() => setActiveDimension('t1')} className="flex justify-between rounded focus:outline-none focus:ring-1 focus:ring-cyan-500/60">
                   <span className="text-zinc-500">Głębokość t₁</span>
                   <span className="text-cyan-400 font-bold">
                     {fmt(row.t1, 1)} <span className="text-zinc-500">+{row.t1Tol}</span>
                   </span>
                 </div>
-                <div className="flex justify-between">
+                <div tabIndex={0} onFocus={() => setActiveDimension('t2')} onBlur={() => setActiveDimension(null)} onClick={() => setActiveDimension('t2')} className="flex justify-between rounded focus:outline-none focus:ring-1 focus:ring-cyan-500/60">
                   <span className="text-zinc-500">Wymiar kontrolny d − t₁</span>
                   <span className="text-cyan-400 font-bold">{fmt(d - row.t1)} mm</span>
                 </div>
@@ -108,22 +112,25 @@ const KeywaysPage = () => {
 
           <div className="glass-module mt-4">
             <h3 className="text-sm uppercase tracking-wider text-zinc-400 mb-3">Schemat</h3>
-            <svg viewBox="0 0 240 160" className="w-full max-w-md mx-auto">
-              <circle cx="80" cy="80" r="60" fill="none" stroke="#3f3f46" strokeWidth="2" />
-              <rect x="66" y="18" width="28" height="16" fill="#09090b" stroke="#22d3ee" strokeWidth="2" />
-              <line x1="80" y1="20" x2="80" y2="140" stroke="#3f3f46" strokeDasharray="4 4" />
-              <line x1="120" y1="20" x2="150" y2="20" stroke="#71717a" />
-              <line x1="120" y1="34" x2="150" y2="34" stroke="#71717a" />
-              <text x="154" y="31" fill="#22d3ee" fontSize="10">t₁</text>
-              <text x="60" y="12" fill="#22d3ee" fontSize="10">b</text>
-              <text x="96" y="86" fill="#a1a1aa" fontSize="10">d</text>
-
-              <rect x="150" y="30" width="80" height="100" fill="none" stroke="#3f3f46" strokeWidth="2" />
-              <path d="M160 80 A30 30 0 0 1 220 80" fill="none" stroke="#3f3f46" strokeWidth="2" />
-              <rect x="176" y="44" width="28" height="14" fill="#09090b" stroke="#22d3ee" strokeWidth="2" />
-              <text x="206" y="54" fill="#22d3ee" fontSize="10">t₂</text>
-              <text x="168" y="146" fill="#a1a1aa" fontSize="10">piasta</text>
-            </svg>
+            <EngineeringDrawing label="DIN 6885 keyway cross-section">
+              {({ arrow, hatch }) => (
+                <>
+                  <path d="M56 84 A68 68 0 1 0 192 84 A68 68 0 0 0 56 84 Z M105 22 V49 H143 V22" fill={`url(#${hatch})`} fillRule="evenodd" className="stroke-zinc-200 stroke-[2]" strokeLinejoin="round" />
+                  <Centerline x1={44} y1={84} x2={204} y2={84} /><Centerline x1={124} y1={8} x2={124} y2={160} />
+                  <Witness x1={103} y1={20} x2={103} y2={8} /><Witness x1={145} y1={20} x2={145} y2={8} />
+                  <Dimension x1={107} y1={12} x2={141} y2={12} label="b" arrowId={arrow} active={activeDimension === 'b'} labelY={5} />
+                  <Witness x1={145} y1={22} x2={174} y2={22} /><Witness x1={145} y1={49} x2={174} y2={49} />
+                  <Dimension x1={166} y1={26} x2={166} y2={45} label="t₁" arrowId={arrow} active={activeDimension === 't1'} labelX={180} labelY={36} rotateLabel />
+                  <Witness x1={56} y1={82} x2={30} y2={82} /><Witness x1={56} y1={152} x2={30} y2={152} />
+                  <Dimension x1={38} y1={86} x2={38} y2={148} label="d" arrowId={arrow} active={activeDimension === 'd'} labelX={25} labelY={117} rotateLabel />
+                  <path d="M226 40 H300 V136 H226 V110 Q263 74 300 110 V40 Z M248 78 V98 H278 V78" fill={`url(#${hatch})`} fillRule="evenodd" className="stroke-zinc-200 stroke-[2]" />
+                  <Witness x1={246} y1={76} x2={246} y2={60} /><Witness x1={280} y1={76} x2={280} y2={60} />
+                  <Dimension x1={250} y1={64} x2={276} y2={64} label="b" arrowId={arrow} active={activeDimension === 'b'} labelY={53} />
+                  <Witness x1={280} y1={78} x2={308} y2={78} /><Witness x1={280} y1={98} x2={308} y2={98} />
+                  <Dimension x1={302} y1={82} x2={302} y2={94} label="t₂" arrowId={arrow} active={activeDimension === 't2'} labelX={291} labelY={88} rotateLabel />
+                </>
+              )}
+            </EngineeringDrawing>
           </div>
         </>
       )}
@@ -160,7 +167,7 @@ const KeywaysPage = () => {
       </div>
 
       <div className="h-20" />
-      <ClearFab onClear={() => { setDiameter(''); setFit('N9'); }} />
+      <ClearFab onClear={() => { setDiameter(''); setFit('N9'); setActiveDimension(null); }} />
     </PageLayout>
   );
 };

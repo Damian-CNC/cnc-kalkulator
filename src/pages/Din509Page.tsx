@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import PageLayout from '@/components/PageLayout';
 import FormulaHelper from '@/components/FormulaHelper';
+import { Centerline, Dimension, EngineeringDrawing, Leader, Witness } from '@/components/EngineeringDrawing';
 import {
   DIN509_TYPES,
   DIN509_ROWS,
@@ -13,109 +14,39 @@ import {
 
 const TYPES: Din509Type[] = ['E', 'F', 'G', 'H'];
 
-const Din509Svg = ({ type }: { type: Din509Type }) => {
-  const { t } = useTranslation(['din509', 'translation']);
-  const profileStroke = 'rgb(6,182,212)';
-  const dimStroke = 'rgb(113,113,122)';
-  const labelFill = 'rgb(161,161,170)';
-  const axisStroke = 'rgb(82,82,91)';
+type DinDimension = 'r' | 't1' | 't2' | null;
 
-  const mainPaths: Record<Din509Type, string> = {
-    E: 'M 20,30 L 100,30 L 100,80 A 10,10 0 0,0 110,90 L 150,90 L 187,80 L 280,80',
-    F: 'M 20,30 L 100,30 L 100,70 L 96,82 A 8,8 0 0,0 104,90 L 150,90 L 187,80 L 280,80',
-    G: 'M 20,30 L 100,30 L 100,65 L 85,82 A 8,8 0 0,0 93,90 L 150,90 L 187,80 L 280,80',
-    H: 'M 20,30 L 100,30 L 100,60 L 82,85 A 5,5 0 0,0 87,90 L 150,90 L 187,80 L 280,80',
+const Din509Svg = ({ type, active }: { type: Din509Type; active: DinDimension }) => {
+  const profileByType: Record<Din509Type, string> = {
+    E: 'M24 36 H116 V104 H132 Q140 104 146 96 Q158 83 184 80 H296 V160 H24 Z',
+    F: 'M24 36 H116 V91 Q116 104 129 104 H144 Q151 104 157 97 Q169 84 190 80 H296 V160 H24 Z',
+    G: 'M24 36 H116 V83 L101 101 Q104 104 113 104 H145 Q152 104 158 97 Q170 84 191 80 H296 V160 H24 Z',
+    H: 'M24 36 H116 V78 L98 101 Q101 104 109 104 H145 Q152 104 158 97 Q170 84 191 80 H296 V160 H24 Z',
   };
-
-  const t2LeftX: Record<'F' | 'G' | 'H', number> = { F: 96, G: 85, H: 82 };
-  // X coordinate where the entry chamfer ends and radius r starts (bottom of undercut)
-  const gEndX: Record<'F' | 'G' | 'H', number> = { F: 104, G: 93, H: 87 };
-
-  const entryAngleLabels: Partial<Record<Din509Type, { x: number; y: number; text: string }>> = {
-    F: { x: 72, y: 77, text: '8°' },
-    G: { x: 56, y: 72, text: '55°' },
-    H: { x: 58, y: 78, text: '60°' },
-  };
-
-  const entryLabel = entryAngleLabels[type];
+  const t2Start = type === 'F' ? 116 : type === 'G' ? 101 : 98;
 
   return (
-    <svg viewBox="0 0 300 150" className="w-full max-w-md" fill="none">
-      {/* Spindle axis */}
-      <line x1="20" y1="140" x2="280" y2="140" stroke={axisStroke} strokeWidth="1" strokeDasharray="4 4" />
-      <text x="282" y="143" fill={axisStroke} fontSize="7">{t('din509:axis')}</text>
-
-      {/* Helper lines */}
-      <line x1="100" y1="30" x2="100" y2="110" stroke={axisStroke} strokeWidth="1" strokeDasharray="2 2" />
-      <line x1="80" y1="80" x2="280" y2="80" stroke={axisStroke} strokeWidth="1" strokeDasharray="2 2" />
-
-      {/* Main profile contour */}
-      <path d={mainPaths[type]} stroke={profileStroke} strokeWidth={2} fill="none" strokeLinejoin="round" strokeLinecap="round" />
-
-      {/* t1 — vertical depth from smaller Ø down to undercut bottom */}
-      <line x1="88" y1="80" x2="88" y2="90" stroke={dimStroke} strokeWidth="0.8" />
-      <line x1="84" y1="80" x2="92" y2="80" stroke={dimStroke} strokeWidth="0.8" />
-      <line x1="84" y1="90" x2="92" y2="90" stroke={dimStroke} strokeWidth="0.8" />
-      <text x="76" y="88" fill={labelFill} fontSize="9" fontWeight="bold">t₁</text>
-
-      {type !== 'E' && (
+    <EngineeringDrawing label={`DIN 509 form ${type}`}>
+      {({ arrow, hatch }) => (
         <>
-          {/* t2 — horizontal face allowance to the left of the shoulder */}
-          {(() => {
-            const xLeft = t2LeftX[type as 'F' | 'G' | 'H'];
-            return (
-              <>
-                <line x1={xLeft} y1="20" x2={xLeft} y2="40" stroke={dimStroke} strokeWidth="0.8" strokeDasharray="2 2" />
-                <line x1={xLeft} y1="24" x2="100" y2="24" stroke={dimStroke} strokeWidth="0.8" />
-                <line x1={xLeft} y1="20" x2={xLeft} y2="28" stroke={dimStroke} strokeWidth="0.8" />
-                <line x1="100" y1="20" x2="100" y2="28" stroke={dimStroke} strokeWidth="0.8" />
-                <text x={(xLeft + 100) / 2 - 4} y="18" fill={labelFill} fontSize="9" fontWeight="bold">t₂</text>
-              </>
-            );
-          })()}
+          <path d={profileByType[type]} fill={`url(#${hatch})`} className="stroke-zinc-200 stroke-[2]" strokeLinejoin="round" />
+          <Centerline x1={18} y1={160} x2={302} y2={160} />
+          <Witness x1={180} y1={78} x2={278} y2={78} />
+          <Witness x1={180} y1={106} x2={278} y2={106} />
+          <Dimension x1={268} y1={80} x2={268} y2={104} label="t₁" arrowId={arrow} active={active === 't1'} labelX={282} labelY={92} rotateLabel />
+          <Leader points="145,97 164,62 197,62" label="r" labelX={201} labelY={65} active={active === 'r'} />
+          <Leader points="176,86 202,54 233,54" label="15°" labelX={237} labelY={57} />
+          {type !== 'E' && (
+            <>
+              <Witness x1={t2Start} y1={34} x2={t2Start} y2={18} />
+              <Witness x1={116} y1={34} x2={116} y2={18} />
+              <Dimension x1={t2Start + 3} y1={22} x2={113} y2={22} label="t₂" arrowId={arrow} active={active === 't2'} labelY={11} />
+            </>
+          )}
+          <text x="22" y="174" className="fill-zinc-500 font-mono text-[9px]">ISO 128 · DIN 509-{type}</text>
         </>
       )}
-
-      {/* f below the undercut bottom */}
-      <line x1="115" y1="102" x2="150" y2="102" stroke={dimStroke} strokeWidth="0.8" />
-      <line x1="115" y1="98" x2="115" y2="106" stroke={dimStroke} strokeWidth="0.8" />
-      <line x1="150" y1="98" x2="150" y2="106" stroke={dimStroke} strokeWidth="0.8" />
-      <text x="130" y="116" fill={labelFill} fontSize="9" fontWeight="bold">f</text>
-
-      {/* g — horizontal distance from shoulder face (x=100) to end of entry chamfer */}
-      {type !== 'E' && (() => {
-        const xEnd = gEndX[type as 'F' | 'G' | 'H'];
-        return (
-          <>
-            <line x1={xEnd} y1="86" x2={xEnd} y2="96" stroke={dimStroke} strokeWidth="0.8" strokeDasharray="2 2" />
-            <line x1="100" y1="96" x2={xEnd} y2="96" stroke={dimStroke} strokeWidth="0.8" />
-            <line x1="100" y1="93" x2="100" y2="99" stroke={dimStroke} strokeWidth="0.8" />
-            <line x1={xEnd} y1="93" x2={xEnd} y2="99" stroke={dimStroke} strokeWidth="0.8" />
-            <text x={(100 + xEnd) / 2 - 2} y="94" fill={labelFill} fontSize="8" fontWeight="bold">g</text>
-          </>
-        );
-      })()}
-
-      {/* r pointer */}
-      <line x1="112" y1="88" x2="128" y2="78" stroke={dimStroke} strokeWidth="0.8" />
-      <text x="131" y="78" fill={labelFill} fontSize="9" fontWeight="bold">r</text>
-
-      {/* Angle label 15° on the exit ramp (150,90 → 187,80) */}
-      <text x="170" y="78" fill={labelFill} fontSize="9" fontWeight="bold">15°</text>
-
-      {/* d1 (smaller Ø) */}
-      <line x1="270" y1="80" x2="270" y2="140" stroke={dimStroke} strokeWidth="0.8" />
-      <line x1="266" y1="80" x2="274" y2="80" stroke={dimStroke} strokeWidth="0.8" />
-      <line x1="266" y1="140" x2="274" y2="140" stroke={dimStroke} strokeWidth="0.8" />
-      <text x="258" y="113" fill={labelFill} fontSize="9" fontWeight="bold">d₁</text>
-
-      {/* Entry angle label (8° / 55° / 60°) */}
-      {entryLabel && (
-        <text x={entryLabel.x} y={entryLabel.y} fill={labelFill} fontSize="11" fontWeight="bold">
-          {entryLabel.text}
-        </text>
-      )}
-    </svg>
+    </EngineeringDrawing>
   );
 };
 
@@ -125,6 +56,7 @@ const Din509Page = () => {
   const [type, setType] = useState<Din509Type>('E');
   const [rValue, setRValue] = useState<string>('');
   const [t1Value, setT1Value] = useState<string>('');
+  const [activeDimension, setActiveDimension] = useState<DinDimension>(null);
 
   const r = parseFloat(rValue.replace(',', '.'));
   const t1 = parseFloat(t1Value.replace(',', '.'));
@@ -182,7 +114,7 @@ const Din509Page = () => {
 
         {/* SVG */}
         <div className="bg-zinc-900 border border-zinc-800/80 rounded-2xl p-4 sm:p-6 flex justify-center">
-          <Din509Svg type={type} />
+          <Din509Svg type={type} active={activeDimension} />
         </div>
 
         {/* Inputs */}
@@ -194,7 +126,9 @@ const Din509Page = () => {
               </label>
               <select
                 value={rValue}
-                onChange={(e) => { setRValue(e.target.value); setT1Value(''); }}
+                onFocus={() => setActiveDimension('r')}
+                onBlur={() => setActiveDimension(null)}
+                onChange={(e) => { setActiveDimension('r'); setRValue(e.target.value); setT1Value(''); }}
                 className="w-full bg-zinc-950/50 border border-zinc-700 rounded-xl px-4 py-3 text-zinc-100 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/50 cursor-pointer"
               >
                 <option value="">{t('din509:select')}</option>
@@ -209,7 +143,9 @@ const Din509Page = () => {
               </label>
               <select
                 value={t1Value}
-                onChange={(e) => setT1Value(e.target.value)}
+                onFocus={() => setActiveDimension('t1')}
+                onBlur={() => setActiveDimension(null)}
+                onChange={(e) => { setActiveDimension('t1'); setT1Value(e.target.value); }}
                 disabled={!t1Options.length}
                 className="w-full bg-zinc-950/50 border border-zinc-700 rounded-xl px-4 py-3 text-zinc-100 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/50 cursor-pointer disabled:opacity-50"
               >
@@ -229,7 +165,7 @@ const Din509Page = () => {
             <div className={`grid gap-3 ${type === 'E' ? 'grid-cols-1' : 'grid-cols-3'}`}>
               <ResultCard label={t('din509:widthF')} value={`${result.f} mm`} />
               {type !== 'E' && <ResultCard label={t('din509:offsetG')} value={`${result.g} mm`} />}
-              {type !== 'E' && <ResultCard label={t('din509:depthT2')} value={`${result.t2} mm`} />}
+              {type !== 'E' && <ResultCard label={t('din509:depthT2')} value={`${result.t2} mm`} onFocus={() => setActiveDimension('t2')} onBlur={() => setActiveDimension(null)} />}
             </div>
             <div className="bg-zinc-900 border border-zinc-800/80 rounded-2xl p-4">
               <p className="text-xs uppercase tracking-widest text-zinc-500 mb-2">{t('din509:drawingMark')}</p>
@@ -282,8 +218,8 @@ const Din509Page = () => {
   );
 };
 
-const ResultCard = ({ label, value }: { label: string; value: string }) => (
-  <div className="bg-zinc-900 border border-zinc-800/80 rounded-2xl p-4 text-center">
+const ResultCard = ({ label, value, onFocus, onBlur }: { label: string; value: string; onFocus?: () => void; onBlur?: () => void }) => (
+  <div tabIndex={onFocus ? 0 : undefined} onFocus={onFocus} onBlur={onBlur} onClick={onFocus} className="bg-zinc-900 border border-zinc-800/80 rounded-2xl p-4 text-center focus:outline-none focus:border-cyan-500/60">
     <p className="text-xs uppercase tracking-wider text-zinc-500 mb-1">{label}</p>
     <p className="text-cyan-400 font-bold text-xl">{value}</p>
   </div>
