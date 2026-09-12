@@ -35,7 +35,7 @@ const SegerGroovesPage = () => {
       <div className="glass-module">
         <div className="grid grid-cols-2 gap-2 mb-6">
           <button
-            onClick={() => setType('shaft')}
+            onClick={() => { setType('shaft'); setActiveDimension(null); }}
             className={`py-3 rounded-xl border text-sm font-semibold transition-all ${
               type === 'shaft'
                 ? 'bg-cyan-500/10 border-cyan-500/50 text-cyan-400'
@@ -45,7 +45,7 @@ const SegerGroovesPage = () => {
             Wałek — DIN 471
           </button>
           <button
-            onClick={() => setType('bore')}
+            onClick={() => { setType('bore'); setActiveDimension(null); }}
             className={`py-3 rounded-xl border text-sm font-semibold transition-all ${
               type === 'bore'
                 ? 'bg-cyan-500/10 border-cyan-500/50 text-cyan-400'
@@ -75,7 +75,7 @@ const SegerGroovesPage = () => {
             {suggestions.map((s) => (
               <button
                 key={s.d1}
-                onClick={() => setQuery(String(s.d1))}
+                onClick={() => { setQuery(String(s.d1)); setActiveDimension('d1'); }}
                 className="px-3 py-2 rounded-lg text-sm border border-zinc-800 bg-zinc-900/50 text-zinc-300 hover:border-cyan-500/50 hover:text-cyan-400 transition-all"
               >
                 Ø{s.d1}

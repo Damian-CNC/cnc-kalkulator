@@ -76,7 +76,7 @@ const Din509Page = () => {
           {TYPES.map((ty) => (
             <button
               key={ty}
-              onClick={() => setType(ty)}
+              onClick={() => { setType(ty); setActiveDimension(null); }}
               className={`py-3 rounded-xl font-bold text-sm transition-all border ${
                 type === ty
                   ? 'bg-cyan-600 border-cyan-500 text-white'

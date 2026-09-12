@@ -20,7 +20,7 @@ const ORingGroovesPage = () => {
   const [activeDimension, setActiveDimension] = useState<ORingDimension>(null);
 
   const data = useMemo(() => {
-    const m = modes.find((x) => x.id === mode)!;
+    const m = modes.find((x) => x.id === mode) ?? modes[0];
     const [sMin, sMax] = m.squeeze;
     const sNom = (sMin + sMax) / 2;
     const t = cord * (1 - sNom);

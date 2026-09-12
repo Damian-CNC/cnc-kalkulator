@@ -44,7 +44,7 @@ const KeywaysPage = () => {
           {widthFits.map((f) => (
             <button
               key={f.id}
-              onClick={() => setFit(f.id)}
+              onClick={() => { setFit(f.id); setActiveDimension('b'); }}
               className={`py-3 rounded-xl border text-sm font-semibold transition-all ${
                 fit === f.id
                   ? 'bg-cyan-500/10 border-cyan-500/50 text-cyan-400'
@@ -72,7 +72,7 @@ const KeywaysPage = () => {
               {row.b} × {row.h} mm
             </div>
             <div className="mt-3 text-center text-sm text-zinc-400">
-              Szerokość rowka {fit}: {row.b} mm ({sign(limits!.upper)} / {sign(limits!.lower)})
+              {limits && <>Szerokość rowka {fit}: {row.b} mm ({sign(limits.upper)} / {sign(limits.lower)})</>}
             </div>
           </div>
 
