@@ -7,7 +7,7 @@ import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
 
 const fmt = (v: number, d = 2) => v.toFixed(d);
 const sign = (v: number) => (v >= 0 ? `+${v.toFixed(3)}` : v.toFixed(3));
-type KeywayDimension = 'd' | 'b' | 't1' | 't2' | null;
+type KeywayDimension = 'd' | 'b' | 't1' | 'control' | null;
 
 const KeywaysPage = () => {
   const [diameter, setDiameter] = useState('');
@@ -86,7 +86,7 @@ const KeywaysPage = () => {
                     {fmt(row.t1, 1)} <span className="text-zinc-500">+{row.t1Tol}</span>
                   </span>
                 </div>
-                <div tabIndex={0} onFocus={() => setActiveDimension('t2')} onBlur={() => setActiveDimension(null)} onClick={() => setActiveDimension('t2')} className="flex justify-between rounded focus:outline-none focus:ring-1 focus:ring-cyan-500/60">
+                <div tabIndex={0} onFocus={() => setActiveDimension('control')} onBlur={() => setActiveDimension(null)} onClick={() => setActiveDimension('control')} className="flex justify-between rounded focus:outline-none focus:ring-1 focus:ring-cyan-500/60">
                   <span className="text-zinc-500">Wymiar kontrolny d − t₁</span>
                   <span className="text-cyan-400 font-bold">{fmt(d - row.t1)} mm</span>
                 </div>
@@ -124,7 +124,7 @@ const KeywaysPage = () => {
                   <Witness x1={93} y1={25} x2={68} y2={25} /><Witness x1={95} y1={155} x2={68} y2={155} />
                   <Dimension x1={76} y1={29} x2={76} y2={151} label="d" arrowId={arrow} active={activeDimension === 'd'} labelX={63} labelY={90} rotateLabel />
                   <Witness x1={188} y1={62} x2={292} y2={62} /><Witness x1={160} y1={155} x2={292} y2={155} />
-                  <Dimension x1={284} y1={66} x2={284} y2={151} label="d − t₁" arrowId={arrow} active={activeDimension === 't2'} labelX={299} labelY={109} rotateLabel />
+                  <Dimension x1={284} y1={66} x2={284} y2={151} label="d − t₁" arrowId={arrow} active={activeDimension === 'control'} labelX={299} labelY={109} rotateLabel />
                   <Leader points="136,61 112,76 91,76" label="r" labelX={79} labelY={79} arrowId={arrow} />
                   <Leader points="184,61 207,76 229,76" label="r" labelX={233} labelY={79} arrowId={arrow} />
                 </>
