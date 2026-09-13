@@ -18,29 +18,39 @@ type DinDimension = 'r' | 't1' | 't2' | null;
 
 const Din509Svg = ({ type, active }: { type: Din509Type; active: DinDimension }) => {
   const profileByType: Record<Din509Type, string> = {
-    E: 'M24 36 H116 V104 H132 Q140 104 146 96 Q158 83 184 80 H296 V160 H24 Z',
-    F: 'M24 36 H116 V91 Q116 104 129 104 H144 Q151 104 157 97 Q169 84 190 80 H296 V160 H24 Z',
-    G: 'M24 36 H116 V83 L101 101 Q104 104 113 104 H145 Q152 104 158 97 Q170 84 191 80 H296 V160 H24 Z',
-    H: 'M24 36 H116 V78 L98 101 Q101 104 109 104 H145 Q152 104 158 97 Q170 84 191 80 H296 V160 H24 Z',
+    E: 'M20 28 H96 V102 A10 10 0 0 0 106 112 H112 L202 88 H300 V164 H20 Z',
+    F: 'M20 28 H96 L106 100 A12 12 0 0 0 118 112 H124 L214 88 H300 V164 H20 Z',
+    G: 'M20 28 H96 L104 103 A7 7 0 0 0 111 110 H119 L201 88 H300 V164 H20 Z',
+    H: 'M20 28 H96 L108 94 A18 18 0 0 0 126 112 H134 L224 88 H300 V164 H20 Z',
   };
-  const t2Start = type === 'F' ? 116 : type === 'G' ? 101 : 98;
+  const isCombined = type !== 'E';
+  const shoulderInset = type === 'G' ? 104 : type === 'H' ? 108 : 106;
+  const radiusPoint = type === 'E' ? '106,111' : type === 'G' ? '108,109' : type === 'H' ? '119,108' : '113,110';
+  const flankStart = type === 'E' ? 112 : type === 'G' ? 119 : type === 'H' ? 134 : 124;
+  const flankEnd = type === 'E' ? 202 : type === 'G' ? 201 : type === 'H' ? 224 : 214;
 
   return (
     <EngineeringDrawing label={`DIN 509 form ${type}`}>
       {({ arrow, hatch }) => (
         <>
           <path d={profileByType[type]} fill={`url(#${hatch})`} className="stroke-zinc-200 stroke-[2]" strokeLinejoin="round" />
-          <Centerline x1={18} y1={160} x2={302} y2={160} />
-          <Witness x1={180} y1={78} x2={278} y2={78} />
-          <Witness x1={180} y1={106} x2={278} y2={106} />
-          <Dimension x1={268} y1={80} x2={268} y2={104} label="t₁" arrowId={arrow} active={active === 't1'} labelX={282} labelY={92} rotateLabel />
-          <Leader points="145,97 164,62 197,62" label="r" labelX={201} labelY={65} active={active === 'r'} />
-          <Leader points="176,86 202,54 233,54" label="15°" labelX={237} labelY={57} />
-          {type !== 'E' && (
+          <Centerline x1={18} y1={164} x2={302} y2={164} />
+          <line x1={96} y1={88} x2={286} y2={88} className="stroke-zinc-500 stroke-[1]" strokeDasharray="5 4" />
+          <Witness x1={flankStart - 2} y1={114} x2={274} y2={114} />
+          <Witness x1={flankEnd + 2} y1={88} x2={274} y2={88} />
+          <Dimension x1={266} y1={92} x2={266} y2={110} label="t₁" arrowId={arrow} active={active === 't1'} labelX={280} labelY={101} rotateLabel />
+          <Leader points={`${radiusPoint} 147,67 174,67`} label="r" labelX={180} labelY={70} active={active === 'r'} arrowId={arrow} />
+          <line x1={flankEnd - 30} y1={88} x2={flankEnd + 4} y2={88} className="stroke-cyan-400 stroke-[1.2]" />
+          <path d={`M${flankEnd - 23} 88 A23 23 0 0 1 ${flankEnd - 24} 94`} className="stroke-cyan-400 stroke-[1.2]" />
+          <text x={flankEnd - 47} y="82" className="fill-cyan-300 font-mono text-[11px] font-bold">15°</text>
+          {isCombined && (
             <>
-              <Witness x1={t2Start} y1={34} x2={t2Start} y2={18} />
-              <Witness x1={116} y1={34} x2={116} y2={18} />
-              <Dimension x1={t2Start + 3} y1={22} x2={113} y2={22} label="t₂" arrowId={arrow} active={active === 't2'} labelY={11} />
+              <Witness x1={96} y1={30} x2={96} y2={13} />
+              <Witness x1={shoulderInset} y1={88} x2={shoulderInset} y2={13} />
+              <Dimension x1={99} y1={17} x2={shoulderInset - 3} y2={17} label="t₂" arrowId={arrow} active={active === 't2'} labelX={102} labelY={8} />
+              <line x1={96} y1={55} x2={96} y2={82} className="stroke-cyan-400 stroke-[1.2]" />
+              <path d={`M96 72 A22 22 0 0 1 ${shoulderInset - 1} 70`} className="stroke-cyan-400 stroke-[1.2]" />
+              <text x="70" y="70" className="fill-cyan-300 font-mono text-[11px] font-bold">8°</text>
             </>
           )}
           <text x="22" y="174" className="fill-zinc-500 font-mono text-[9px]">ISO 128 · DIN 509-{type}</text>
