@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Änderungsverlauf",
-    "version": "v2.7.5",
+    "version": "v2.7.6",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Einstellungen",
     "feedback": "Fehler / Vorschlag melden",
@@ -30,6 +30,11 @@
       "update": "Update",
       "fix": "Fix"
     },
+    "v276": [
+      "DIN-509-Zeichnungen E/F/G/H vollständig neu aufgebaut: Freistichprofile korrigiert, Wölbungen entfernt und Radius r richtig angesetzt",
+      "Bemaßung der Passfedernut DIN 6885 korrigiert und das Kontrollmaß d − t₁ für die Bügelmessschraube ergänzt",
+      "O-Ring-Nut nach ISO 3601 mit Bodenradius r₁, Kantenradius r₂ und Montagefase 15°–20° neu gezeichnet"
+    ],
     "v275": [
       "Technische Zeichnungen für DIN 509 (Form E/F), DIN 471/472, DIN 6885 und ISO 3601 nach ISO 128 neu aufgebaut",
       "Professionelle Maßlinien, Pfeilspitzen, Symmetrieachsen und 45°-Schraffuren umgesetzt",

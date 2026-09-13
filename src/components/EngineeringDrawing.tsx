@@ -58,13 +58,13 @@ export const Witness = ({ x1, y1, x2, y2 }: { x1: number; y1: number; x2: number
 );
 
 export const Centerline = ({ x1, y1, x2, y2 }: { x1: number; y1: number; x2: number; y2: number }) => (
-  <line x1={x1} y1={y1} x2={x2} y2={y2} className="stroke-zinc-500 stroke-[1]" strokeDasharray="16 3 3 3" />
+  <line x1={x1} y1={y1} x2={x2} y2={y2} className="stroke-zinc-500 stroke-[1]" strokeDasharray="14 3 3 3" />
 );
 
-export const Leader = ({ points, label, active = false, labelX, labelY }: { points: string; label: string; active?: boolean; labelX: number; labelY: number }) => (
+export const Leader = ({ points, label, active = false, labelX, labelY, arrowId }: { points: string; label: string; active?: boolean; labelX: number; labelY: number; arrowId?: string }) => (
   <g>
-    <polyline points={points} className={active ? 'stroke-cyan-300 stroke-[2]' : 'stroke-cyan-400 stroke-[1.2]'} fill="none" />
-    <circle cx={Number(points.split(/[ ,]/)[0])} cy={Number(points.split(/[ ,]/)[1])} r="2" className={active ? 'fill-cyan-200' : 'fill-cyan-400'} />
+    <polyline points={points} className={active ? 'stroke-cyan-300 stroke-[2]' : 'stroke-cyan-400 stroke-[1.2]'} fill="none" markerStart={arrowId ? `url(#${arrowId})` : undefined} />
+    {!arrowId && <circle cx={Number(points.split(/[ ,]/)[0])} cy={Number(points.split(/[ ,]/)[1])} r="2" className={active ? 'fill-cyan-200' : 'fill-cyan-400'} />}
     <text x={labelX} y={labelY} className={`${active ? 'fill-cyan-200' : 'fill-cyan-300'} font-mono text-[11px] font-bold`}>{label}</text>
   </g>
 );

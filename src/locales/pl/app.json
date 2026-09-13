@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Historia zmian",
-    "version": "v2.7.5",
+    "version": "v2.7.6",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Ustawienia",
     "feedback": "Zgłoś błąd / Sugestia",
@@ -30,6 +30,11 @@
       "update": "Aktualizacja",
       "fix": "Poprawka"
     },
+    "v276": [
+      "Całkowicie zrekonstruowano rysunki DIN 509 E/F/G/H: poprawiono profile podcięć, usunięto wybrzuszenia i prawidłowo osadzono promień r",
+      "Poprawiono wymiarowanie rowka wpustowego DIN 6885 i dodano kontrolny wymiar d − t₁ do pomiaru mikrometrem",
+      "Przebudowano schemat rowka O-ring ISO 3601 z promieniami dna r₁, krawędzi r₂ i fazą montażową 15°–20°"
+    ],
     "v275": [
       "Zrekonstruowano rysunki techniczne: DIN 509 (Form E/F), DIN 471/472, DIN 6885 oraz ISO 3601 zgodnie z normami ISO 128",
       "Wdrożono profesjonalne linie wymiarowe, strzałki, osie symetrii oraz kreskowanie przekrojów (hatching 45°)",

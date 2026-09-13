@@ -1,13 +1,13 @@
 import { useState, useMemo } from 'react';
 import PageLayout from '@/components/PageLayout';
 import ClearFab from '@/components/ClearFab';
-import { Centerline, Dimension, EngineeringDrawing, Witness } from '@/components/EngineeringDrawing';
+import { Centerline, Dimension, EngineeringDrawing, Leader, Witness } from '@/components/EngineeringDrawing';
 import { findKeyway, keywayData, widthFits, widthLimits, type WidthFit } from '@/data/keywayData';
 import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
 
 const fmt = (v: number, d = 2) => v.toFixed(d);
 const sign = (v: number) => (v >= 0 ? `+${v.toFixed(3)}` : v.toFixed(3));
-type KeywayDimension = 'd' | 'b' | 't1' | 't2' | null;
+type KeywayDimension = 'd' | 'b' | 't1' | 'control' | null;
 
 const KeywaysPage = () => {
   const [diameter, setDiameter] = useState('');
@@ -86,7 +86,7 @@ const KeywaysPage = () => {
                     {fmt(row.t1, 1)} <span className="text-zinc-500">+{row.t1Tol}</span>
                   </span>
                 </div>
-                <div tabIndex={0} onFocus={() => setActiveDimension('t2')} onBlur={() => setActiveDimension(null)} onClick={() => setActiveDimension('t2')} className="flex justify-between rounded focus:outline-none focus:ring-1 focus:ring-cyan-500/60">
+                <div tabIndex={0} onFocus={() => setActiveDimension('control')} onBlur={() => setActiveDimension(null)} onClick={() => setActiveDimension('control')} className="flex justify-between rounded focus:outline-none focus:ring-1 focus:ring-cyan-500/60">
                   <span className="text-zinc-500">Wymiar kontrolny d − t₁</span>
                   <span className="text-cyan-400 font-bold">{fmt(d - row.t1)} mm</span>
                 </div>
@@ -115,19 +115,18 @@ const KeywaysPage = () => {
             <EngineeringDrawing label="DIN 6885 keyway cross-section">
               {({ arrow, hatch }) => (
                 <>
-                  <path d="M56 84 A68 68 0 1 0 192 84 A68 68 0 0 0 56 84 Z M105 22 V49 H143 V22" fill={`url(#${hatch})`} fillRule="evenodd" className="stroke-zinc-200 stroke-[2]" strokeLinejoin="round" />
-                  <Centerline x1={44} y1={84} x2={204} y2={84} /><Centerline x1={124} y1={8} x2={124} y2={160} />
-                  <Witness x1={103} y1={20} x2={103} y2={8} /><Witness x1={145} y1={20} x2={145} y2={8} />
-                  <Dimension x1={107} y1={12} x2={141} y2={12} label="b" arrowId={arrow} active={activeDimension === 'b'} labelY={5} />
-                  <Witness x1={145} y1={22} x2={174} y2={22} /><Witness x1={145} y1={49} x2={174} y2={49} />
-                  <Dimension x1={166} y1={26} x2={166} y2={45} label="t₁" arrowId={arrow} active={activeDimension === 't1'} labelX={180} labelY={36} rotateLabel />
-                  <Witness x1={56} y1={82} x2={30} y2={82} /><Witness x1={56} y1={152} x2={30} y2={152} />
-                  <Dimension x1={38} y1={86} x2={38} y2={148} label="d" arrowId={arrow} active={activeDimension === 'd'} labelX={25} labelY={117} rotateLabel />
-                  <path d="M226 40 H300 V136 H226 V110 Q263 74 300 110 V40 Z M248 78 V98 H278 V78" fill={`url(#${hatch})`} fillRule="evenodd" className="stroke-zinc-200 stroke-[2]" />
-                  <Witness x1={246} y1={76} x2={246} y2={60} /><Witness x1={280} y1={76} x2={280} y2={60} />
-                  <Dimension x1={250} y1={64} x2={276} y2={64} label="b" arrowId={arrow} active={activeDimension === 'b'} labelY={53} />
-                  <Witness x1={280} y1={78} x2={308} y2={78} /><Witness x1={280} y1={98} x2={308} y2={98} />
-                  <Dimension x1={302} y1={82} x2={302} y2={94} label="t₂" arrowId={arrow} active={activeDimension === 't2'} labelX={291} labelY={88} rotateLabel />
+                  <path d="M132 31 V58 Q132 62 136 62 H184 Q188 62 188 58 V31 A65 65 0 1 1 132 31 Z" fill={`url(#${hatch})`} className="stroke-zinc-200 stroke-[2]" strokeLinejoin="round" />
+                  <Centerline x1={78} y1={90} x2={242} y2={90} /><Centerline x1={160} y1={10} x2={160} y2={170} />
+                  <Witness x1={130} y1={29} x2={130} y2={13} /><Witness x1={190} y1={29} x2={190} y2={13} />
+                  <Dimension x1={134} y1={17} x2={186} y2={17} label="b" arrowId={arrow} active={activeDimension === 'b'} labelY={8} />
+                  <Witness x1={190} y1={29} x2={218} y2={29} /><Witness x1={190} y1={62} x2={218} y2={62} />
+                  <Dimension x1={210} y1={33} x2={210} y2={58} label="t₁" arrowId={arrow} active={activeDimension === 't1'} labelX={223} labelY={46} rotateLabel />
+                  <Witness x1={93} y1={25} x2={68} y2={25} /><Witness x1={95} y1={155} x2={68} y2={155} />
+                  <Dimension x1={76} y1={29} x2={76} y2={151} label="d" arrowId={arrow} active={activeDimension === 'd'} labelX={63} labelY={90} rotateLabel />
+                  <Witness x1={188} y1={62} x2={292} y2={62} /><Witness x1={160} y1={155} x2={292} y2={155} />
+                  <Dimension x1={284} y1={66} x2={284} y2={151} label="d − t₁" arrowId={arrow} active={activeDimension === 'control'} labelX={299} labelY={109} rotateLabel />
+                  <Leader points="136,61 112,76 91,76" label="r" labelX={79} labelY={79} arrowId={arrow} />
+                  <Leader points="184,61 207,76 229,76" label="r" labelX={233} labelY={79} arrowId={arrow} />
                 </>
               )}
             </EngineeringDrawing>

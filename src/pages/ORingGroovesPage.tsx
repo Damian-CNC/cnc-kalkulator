@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import PageLayout from '@/components/PageLayout';
 import ClearFab from '@/components/ClearFab';
-import { Dimension, EngineeringDrawing, Leader, Witness } from '@/components/EngineeringDrawing';
+import { Centerline, Dimension, EngineeringDrawing, Leader, Witness } from '@/components/EngineeringDrawing';
 
 const CORDS = [1.5, 1.78, 2.0, 2.5, 2.62, 3.0, 3.53, 4.0, 5.0, 5.33, 7.0];
 
@@ -118,15 +118,18 @@ const ORingGroovesPage = () => {
         <EngineeringDrawing label="ISO 3601 radial O-ring groove">
           {({ arrow, hatch }) => (
             <>
-              <path d="M20 40 H102 V58 Q102 62 106 62 V122 Q106 128 112 128 H208 Q214 128 214 122 V62 Q218 62 218 58 V40 H270 L300 22 V160 H20 Z" fill={`url(#${hatch})`} className="stroke-zinc-200 stroke-[2]" strokeLinejoin="round" />
-              <circle cx="160" cy="91" r="31" className="stroke-zinc-500 stroke-[1] fill-transparent" strokeDasharray="5 4" />
-              <Witness x1={104} y1={130} x2={104} y2={154} /><Witness x1={216} y1={130} x2={216} y2={154} />
-              <Dimension x1={108} y1={148} x2={212} y2={148} label="b" arrowId={arrow} active={activeDimension === 'b'} labelY={138} />
-              <Witness x1={216} y1={40} x2={252} y2={40} /><Witness x1={216} y1={128} x2={252} y2={128} />
-              <Dimension x1={244} y1={44} x2={244} y2={124} label="t" arrowId={arrow} active={activeDimension === 't'} labelX={257} labelY={84} rotateLabel />
-              <Leader points="112,124 88,108 64,108" label="r₁" labelX={46} labelY={111} active={activeDimension === 'r1'} />
-              <Leader points="106,62 82,72 60,72" label="r₂" labelX={42} labelY={75} active={activeDimension === 'r2'} />
-              <Leader points="284,31 270,52 250,52" label="15°" labelX={226} labelY={55} />
+              <path d="M20 52 H100 L112 64 V116 Q112 124 120 124 H200 Q208 124 208 116 V60 Q208 52 216 52 H270 L300 34 V164 H20 Z" fill={`url(#${hatch})`} className="stroke-zinc-200 stroke-[2]" strokeLinejoin="round" />
+              <Centerline x1={160} y1={38} x2={160} y2={166} />
+              <circle cx="160" cy="88" r="30" className="stroke-zinc-500 stroke-[1] fill-transparent" strokeDasharray="5 4" />
+              <Witness x1={110} y1={126} x2={110} y2={154} /><Witness x1={210} y1={126} x2={210} y2={154} />
+              <Dimension x1={114} y1={148} x2={206} y2={148} label="b" arrowId={arrow} active={activeDimension === 'b'} labelY={138} />
+              <Witness x1={212} y1={52} x2={252} y2={52} /><Witness x1={210} y1={124} x2={252} y2={124} />
+              <Dimension x1={244} y1={56} x2={244} y2={120} label="t" arrowId={arrow} active={activeDimension === 't'} labelX={257} labelY={88} rotateLabel />
+              <Leader points="119,123 91,109 65,109" label="r₁" labelX={46} labelY={112} active={activeDimension === 'r1'} arrowId={arrow} />
+              <Leader points="111,63 86,77 62,77" label="r₂" labelX={43} labelY={80} active={activeDimension === 'r2'} arrowId={arrow} />
+              <line x1="270" y1="52" x2="270" y2="78" className="stroke-zinc-500 stroke-[1]" />
+              <path d="M270 70 A18 18 0 0 1 275 69" className="stroke-cyan-400 stroke-[1.2]" />
+              <Leader points="285,43 266,25 236,25" label="15°–20°" labelX={200} labelY={28} arrowId={arrow} />
             </>
           )}
         </EngineeringDrawing>

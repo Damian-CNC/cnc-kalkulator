@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Changelog",
-    "version": "v2.7.5",
+    "version": "v2.7.6",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Settings",
     "feedback": "Report bug / Suggestion",
@@ -30,6 +30,11 @@
       "update": "Update",
       "fix": "Fix"
     },
+    "v276": [
+      "Completely rebuilt DIN 509 E/F/G/H drawings with corrected undercut profiles, no humps, and correctly seated radius r",
+      "Corrected DIN 6885 keyway dimensioning and added the d − t₁ workshop micrometer measurement",
+      "Rebuilt the ISO 3601 O-ring groove drawing with bottom radius r₁, entry radius r₂ and a 15°–20° assembly chamfer"
+    ],
     "v275": [
       "Rebuilt the DIN 509 (Forms E/F), DIN 471/472, DIN 6885 and ISO 3601 technical drawings to ISO 128 conventions",
       "Added professional dimension lines, arrowheads, symmetry axes and 45° section hatching",

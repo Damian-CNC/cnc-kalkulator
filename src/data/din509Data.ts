@@ -38,14 +38,14 @@ export const DIN509_TYPES: Record<Din509Type, Din509TypeInfo> = {
   },
   G: {
     type: 'G',
-    description: 'Typ G — bez promienia, kąt wejścia 55° (np. pod gwint).',
-    approachAngle: 55,
+    description: 'Typ G — kompaktowe podcięcie łączone pod obróbkę płytką WSP; mały promień r = 0,4 mm do niższych obciążeń.',
+    approachAngle: 8,
     exitAngle: 15,
   },
   H: {
     type: 'H',
-    description: 'Typ H — bez promienia, kąt wejścia 60° (do specjalnych zastosowań).',
-    approachAngle: 60,
+    description: 'Typ H — podcięcie łączone pod obróbkę płytką WSP; duży promień r = 1,2–2,5 mm zwiększa wytrzymałość zmęczeniową.',
+    approachAngle: 8,
     exitAngle: 15,
   },
 };
