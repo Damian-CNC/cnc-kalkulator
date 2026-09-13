@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Cronologia modifiche",
-    "version": "v2.7.5",
+    "version": "v2.7.6",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Impostazioni",
     "feedback": "Segnala bug / Suggerimento",
@@ -30,6 +30,11 @@
       "update": "Aggiornamento",
       "fix": "Correzione"
     },
+    "v276": [
+      "Ricostruiti completamente i disegni DIN 509 E/F/G/H: profili di scarico corretti, rigonfiamenti rimossi e raggio r posizionato correttamente",
+      "Corretta la quotatura della cava DIN 6885 e aggiunta la quota di controllo d − t₁ per il micrometro",
+      "Ridisegnata la cava O-ring ISO 3601 con raggio di fondo r₁, raggio d’ingresso r₂ e smusso di montaggio 15°–20°"
+    ],
     "v275": [
       "Ricostruiti i disegni tecnici DIN 509 (Forme E/F), DIN 471/472, DIN 6885 e ISO 3601 secondo ISO 128",
       "Introdotte linee di quota professionali, frecce, assi di simmetria e tratteggio delle sezioni a 45°",
