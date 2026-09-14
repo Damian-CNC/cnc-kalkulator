@@ -2,63 +2,18 @@ import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import PageLayout from '@/components/PageLayout';
 import FormulaHelper from '@/components/FormulaHelper';
-import { Centerline, Dimension, EngineeringDrawing, Leader, Witness } from '@/components/EngineeringDrawing';
 import {
   DIN509_TYPES,
-  DIN509_ROWS,
   findDin509,
-  uniqueRadii,
+  rowsForType,
+  uniqueRadiiForType,
   t1OptionsForRadius,
   type Din509Type,
 } from '@/data/din509Data';
 
 const TYPES: Din509Type[] = ['E', 'F', 'G', 'H'];
 
-type DinDimension = 'r' | 't1' | 't2' | null;
-
-const Din509Svg = ({ type, active }: { type: Din509Type; active: DinDimension }) => {
-  const profileByType: Record<Din509Type, string> = {
-    E: 'M20 28 H96 V102 A10 10 0 0 0 106 112 H112 L202 88 H300 V164 H20 Z',
-    F: 'M20 28 H96 L106 100 A12 12 0 0 0 118 112 H124 L214 88 H300 V164 H20 Z',
-    G: 'M20 28 H96 L104 103 A7 7 0 0 0 111 110 H119 L201 88 H300 V164 H20 Z',
-    H: 'M20 28 H96 L108 94 A18 18 0 0 0 126 112 H134 L224 88 H300 V164 H20 Z',
-  };
-  const isCombined = type !== 'E';
-  const shoulderInset = type === 'G' ? 104 : type === 'H' ? 108 : 106;
-  const radiusPoint = type === 'E' ? '106,111' : type === 'G' ? '108,109' : type === 'H' ? '119,108' : '113,110';
-  const flankStart = type === 'E' ? 112 : type === 'G' ? 119 : type === 'H' ? 134 : 124;
-  const flankEnd = type === 'E' ? 202 : type === 'G' ? 201 : type === 'H' ? 224 : 214;
-
-  return (
-    <EngineeringDrawing label={`DIN 509 form ${type}`}>
-      {({ arrow, hatch }) => (
-        <>
-          <path d={profileByType[type]} fill={`url(#${hatch})`} className="stroke-zinc-200 stroke-[2]" strokeLinejoin="round" />
-          <Centerline x1={18} y1={164} x2={302} y2={164} />
-          <line x1={96} y1={88} x2={286} y2={88} className="stroke-zinc-500 stroke-[1]" strokeDasharray="5 4" />
-          <Witness x1={flankStart - 2} y1={114} x2={274} y2={114} />
-          <Witness x1={flankEnd + 2} y1={88} x2={274} y2={88} />
-          <Dimension x1={266} y1={92} x2={266} y2={110} label="t₁" arrowId={arrow} active={active === 't1'} labelX={280} labelY={101} rotateLabel />
-          <Leader points={`${radiusPoint} 147,67 174,67`} label="r" labelX={180} labelY={70} active={active === 'r'} arrowId={arrow} />
-          <line x1={flankEnd - 30} y1={88} x2={flankEnd + 4} y2={88} className="stroke-cyan-400 stroke-[1.2]" />
-          <path d={`M${flankEnd - 23} 88 A23 23 0 0 1 ${flankEnd - 24} 94`} className="stroke-cyan-400 stroke-[1.2]" />
-          <text x={flankEnd - 47} y="82" className="fill-cyan-300 font-mono text-[11px] font-bold">15°</text>
-          {isCombined && (
-            <>
-              <Witness x1={96} y1={30} x2={96} y2={13} />
-              <Witness x1={shoulderInset} y1={88} x2={shoulderInset} y2={13} />
-              <Dimension x1={99} y1={17} x2={shoulderInset - 3} y2={17} label="t₂" arrowId={arrow} active={active === 't2'} labelX={102} labelY={8} />
-              <line x1={96} y1={55} x2={96} y2={82} className="stroke-cyan-400 stroke-[1.2]" />
-              <path d={`M96 72 A22 22 0 0 1 ${shoulderInset - 1} 70`} className="stroke-cyan-400 stroke-[1.2]" />
-              <text x="70" y="70" className="fill-cyan-300 font-mono text-[11px] font-bold">8°</text>
-            </>
-          )}
-          <text x="22" y="174" className="fill-zinc-500 font-mono text-[9px]">ISO 128 · DIN 509-{type}</text>
-        </>
-      )}
-    </EngineeringDrawing>
-  );
-};
+const imageForType = (type: Din509Type) => `${import.meta.env.BASE_URL}din509/form-${type.toLowerCase()}.svg`;
 
 const Din509Page = () => {
   const { t } = useTranslation(['din509', 'translation']);
@@ -66,17 +21,18 @@ const Din509Page = () => {
   const [type, setType] = useState<Din509Type>('E');
   const [rValue, setRValue] = useState<string>('');
   const [t1Value, setT1Value] = useState<string>('');
-  const [activeDimension, setActiveDimension] = useState<DinDimension>(null);
 
   const r = parseFloat(rValue.replace(',', '.'));
   const t1 = parseFloat(t1Value.replace(',', '.'));
   const result = useMemo(() => {
     if (isNaN(r) || isNaN(t1)) return null;
-    return findDin509(r, t1);
-  }, [r, t1]);
+    return findDin509(type, r, t1);
+  }, [type, r, t1]);
 
   const info = DIN509_TYPES[type];
-  const t1Options = !isNaN(r) ? t1OptionsForRadius(r) : [];
+  const typeRows = rowsForType(type);
+  const uniqueRadii = uniqueRadiiForType(type);
+  const t1Options = !isNaN(r) ? t1OptionsForRadius(type, r) : [];
 
   return (
     <PageLayout title={t('translation:pages.din509')}>
@@ -86,7 +42,7 @@ const Din509Page = () => {
           {TYPES.map((ty) => (
             <button
               key={ty}
-              onClick={() => { setType(ty); setActiveDimension(null); }}
+              onClick={() => { setType(ty); setRValue(''); setT1Value(''); }}
               className={`py-3 rounded-xl font-bold text-sm transition-all border ${
                 type === ty
                   ? 'bg-cyan-600 border-cyan-500 text-white'
@@ -104,7 +60,7 @@ const Din509Page = () => {
             <p className="text-sm text-zinc-300 flex-1">{info.description}</p>
             <FormulaHelper
               title={th('formulas.din509.title')}
-              formula="r + t1 → f, g, t2 (DIN 509)"
+              formula={type === 'E' ? 'r + t₁ → f, d₁' : 'r + t₁ → t₂, f, g, d₁'}
               note={th('formulas.din509.note')}
               label={th('formulas.help')}
               params={[
@@ -122,9 +78,12 @@ const Din509Page = () => {
           </div>
         </div>
 
-        {/* SVG */}
-        <div className="bg-zinc-900 border border-zinc-800/80 rounded-2xl p-4 sm:p-6 flex justify-center">
-          <Din509Svg type={type} active={activeDimension} />
+        <div className="bg-zinc-950/70 border border-zinc-800 rounded-xl p-3 flex items-center justify-center min-h-[200px]">
+          <img
+            src={imageForType(type)}
+            alt={t('din509:drawingAlt', { type })}
+            className="max-h-52 w-auto max-w-full object-contain"
+          />
         </div>
 
         {/* Inputs */}
@@ -136,9 +95,8 @@ const Din509Page = () => {
               </label>
               <select
                 value={rValue}
-                onFocus={() => setActiveDimension('r')}
-                onBlur={() => setActiveDimension(null)}
-                onChange={(e) => { setActiveDimension('r'); setRValue(e.target.value); setT1Value(''); }}
+                title={t('din509:radiusTolerance')}
+                onChange={(e) => { setRValue(e.target.value); setT1Value(''); }}
                 className="w-full bg-zinc-950/50 border border-zinc-700 rounded-xl px-4 py-3 text-zinc-100 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/50 cursor-pointer"
               >
                 <option value="">{t('din509:select')}</option>
@@ -153,9 +111,8 @@ const Din509Page = () => {
               </label>
               <select
                 value={t1Value}
-                onFocus={() => setActiveDimension('t1')}
-                onBlur={() => setActiveDimension(null)}
-                onChange={(e) => { setActiveDimension('t1'); setT1Value(e.target.value); }}
+                title={t('din509:depthT1Tolerance')}
+                onChange={(e) => setT1Value(e.target.value)}
                 disabled={!t1Options.length}
                 className="w-full bg-zinc-950/50 border border-zinc-700 rounded-xl px-4 py-3 text-zinc-100 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/50 cursor-pointer disabled:opacity-50"
               >
@@ -172,17 +129,17 @@ const Din509Page = () => {
         {result ? (
           <div className="space-y-3">
             <p className="text-xs uppercase tracking-widest text-zinc-500">{t('din509:dimensionsTitle')}</p>
-            <div className={`grid gap-3 ${type === 'E' ? 'grid-cols-1' : 'grid-cols-3'}`}>
-              <ResultCard label={t('din509:widthF')} value={`${result.f} mm`} />
-              {type !== 'E' && <ResultCard label={t('din509:offsetG')} value={`${result.g} mm`} />}
-              {type !== 'E' && <ResultCard label={t('din509:depthT2')} value={`${result.t2} mm`} onFocus={() => setActiveDimension('t2')} onBlur={() => setActiveDimension(null)} />}
+            <div className="grid grid-cols-2 gap-3">
+              <ResultCard label={t('din509:widthF')} value={`${result.f} mm`} note={t('din509:widthFTolerance')} />
+              {result.g !== null && <ResultCard label={t('din509:offsetG')} value={`${result.g} mm`} note={t('din509:offsetGNote')} />}
+              {result.t2 !== null && <ResultCard label={t('din509:depthT2')} value={`${result.t2} mm`} note={t('din509:depthT2Tolerance')} />}
+              <ResultCard label={t('din509:diameterD1')} value={result.dRange} note={t('din509:diameterNote')} />
             </div>
             <div className="bg-zinc-900 border border-zinc-800/80 rounded-2xl p-4">
               <p className="text-xs uppercase tracking-widest text-zinc-500 mb-2">{t('din509:drawingMark')}</p>
               <p className="text-cyan-400 font-bold text-lg">
                 DIN 509 — {type} {result.r} × {result.t1}
               </p>
-              <p className="text-zinc-500 text-xs mt-1">{t('din509:range', { range: result.dRange })}</p>
             </div>
           </div>
         ) : (
@@ -194,31 +151,32 @@ const Din509Page = () => {
         {/* Full table */}
         <details className="bg-zinc-900 border border-zinc-800/80 rounded-2xl p-4">
           <summary className="cursor-pointer text-sm font-semibold text-zinc-300 uppercase tracking-wider">
-            {t('din509:fullTable')}
+            {t('din509:dimensionsTable')}
           </summary>
           <div className="mt-3 overflow-x-auto cv-auto">
             <table className="w-full text-sm">
               <thead>
                 <tr className="text-zinc-500 text-xs uppercase tracking-wider">
-                  <th className="py-2 px-2 text-left">r</th>
-                  <th className="py-2 px-2 text-left">t₁</th>
-                  <th className="py-2 px-2 text-left">f</th>
-                  <th className="py-2 px-2 text-left">g</th>
-                  <th className="py-2 px-2 text-left">t₂</th>
-                  <th className="py-2 px-2 text-left">{t('din509:diameter')}</th>
+                  <th className="py-2 px-2 text-left" title={t('din509:radiusTolerance')}>r</th>
+                  <th className="py-2 px-2 text-left" title={t('din509:depthT1Tolerance')}>t₁</th>
+                  {type !== 'E' && <th className="py-2 px-2 text-left" title={t('din509:depthT2Tolerance')}>t₂</th>}
+                  <th className="py-2 px-2 text-left" title={t('din509:widthFTolerance')}>f</th>
+                  {type !== 'E' && <th className="py-2 px-2 text-left" title={t('din509:offsetGNote')}>g</th>}
+                  <th className="py-2 px-2 text-left">d₁</th>
                 </tr>
               </thead>
               <tbody>
-                {DIN509_ROWS.map((row, i) => (
-                  <tr key={i} className="border-t border-zinc-800/60 text-zinc-300">
+                {typeRows.map((row) => {
+                  const selected = result?.r === row.r && result?.t1 === row.t1;
+                  return <tr key={`${row.type}-${row.r}-${row.t1}`} className={`border-t border-zinc-800/60 ${selected ? 'bg-cyan-500/10 text-zinc-100' : 'text-zinc-300'}`}>
                     <td className="py-2 px-2">{row.r}</td>
                     <td className="py-2 px-2">{row.t1}</td>
+                    {type !== 'E' && <td className="py-2 px-2 text-cyan-400 font-bold">{row.t2 ?? '—'}</td>}
                     <td className="py-2 px-2 text-cyan-400 font-bold">{row.f}</td>
-                    <td className="py-2 px-2 text-cyan-400 font-bold">{row.g}</td>
-                    <td className="py-2 px-2 text-cyan-400 font-bold">{row.t2}</td>
+                    {type !== 'E' && <td className="py-2 px-2 text-cyan-400 font-bold">{row.g ?? '—'}</td>}
                     <td className="py-2 px-2 text-zinc-500 text-xs">{row.dRange}</td>
-                  </tr>
-                ))}
+                  </tr>;
+                })}
               </tbody>
             </table>
           </div>
@@ -228,10 +186,11 @@ const Din509Page = () => {
   );
 };
 
-const ResultCard = ({ label, value, onFocus, onBlur }: { label: string; value: string; onFocus?: () => void; onBlur?: () => void }) => (
-  <div tabIndex={onFocus ? 0 : undefined} onFocus={onFocus} onBlur={onBlur} onClick={onFocus} className="bg-zinc-900 border border-zinc-800/80 rounded-2xl p-4 text-center focus:outline-none focus:border-cyan-500/60">
+const ResultCard = ({ label, value, note }: { label: string; value: string; note: string }) => (
+  <div className="bg-zinc-900 border border-zinc-800/80 rounded-2xl p-4 text-center" title={note}>
     <p className="text-xs uppercase tracking-wider text-zinc-500 mb-1">{label}</p>
     <p className="text-cyan-400 font-bold text-xl">{value}</p>
+    <p className="text-[10px] leading-snug text-zinc-600 mt-1">{note}</p>
   </div>
 );
 
