@@ -13,6 +13,7 @@ export interface Din509Row {
   t2: number | null;
   /** Diameter range applicability description */
   dRange: string;
+  load: 'normal' | 'alternating';
 }
 
 export interface Din509TypeInfo {
@@ -51,20 +52,20 @@ export const DIN509_TYPES: Record<Din509Type, Din509TypeInfo> = {
 
 export const DIN509_ROWS: Din509Row[] = [
   ...([
-    [0.2, 0.1, 1, 'Ø > 1.6–3'], [0.4, 0.2, 2, 'Ø > 3–18'], [0.6, 0.2, 2, 'Ø > 10–18'],
-    [0.6, 0.3, 2.5, 'Ø > 18–80'], [0.8, 0.3, 2.5, 'Ø > 18–80'], [1, 0.2, 2.5, 'Ø > 18–50 · obciążenia zmienne'],
-    [1, 0.4, 4, 'Ø > 80'], [1.2, 0.2, 2.5, 'Ø > 18–50 · obciążenia zmienne'], [1.2, 0.4, 4, 'Ø > 80'],
-    [1.6, 0.3, 4, 'Ø > 50–80 · obciążenia zmienne'], [2.5, 0.4, 5, 'Ø > 80–125 · obciążenia zmienne'], [4, 0.5, 7, 'Ø > 125 · obciążenia zmienne'],
-  ] as const).map(([r, t1, f, dRange]) => ({ type: 'E' as const, r, t1, t2: null, f, g: null, dRange })),
+    [0.2, 0.1, 1, 'Ø > 1.6–3', 'normal'], [0.4, 0.2, 2, 'Ø > 3–18', 'normal'], [0.6, 0.2, 2, 'Ø > 10–18', 'normal'],
+    [0.6, 0.3, 2.5, 'Ø > 18–80', 'normal'], [0.8, 0.3, 2.5, 'Ø > 18–80', 'normal'], [1, 0.2, 2.5, 'Ø > 18–50', 'alternating'],
+    [1, 0.4, 4, 'Ø > 80', 'normal'], [1.2, 0.2, 2.5, 'Ø > 18–50', 'alternating'], [1.2, 0.4, 4, 'Ø > 80', 'normal'],
+    [1.6, 0.3, 4, 'Ø > 50–80', 'alternating'], [2.5, 0.4, 5, 'Ø > 80–125', 'alternating'], [4, 0.5, 7, 'Ø > 125', 'alternating'],
+  ] as const).map(([r, t1, f, dRange, load]) => ({ type: 'E' as const, r, t1, t2: null, f, g: null, dRange, load })),
   ...([
-    [0.2, 0.1, 0.1, 1, 0.9, 'Ø > 1.6–3'], [0.4, 0.2, 0.1, 2, 1.1, 'Ø > 3–18'], [0.6, 0.2, 0.1, 2, 1.4, 'Ø > 10–18'],
-    [0.6, 0.3, 0.2, 2.5, 2.1, 'Ø > 18–80'], [0.8, 0.3, 0.2, 2.5, 2.3, 'Ø > 18–80'], [1, 0.2, 0.1, 2.5, 1.8, 'Ø > 18–50 · obciążenia zmienne'],
-    [1, 0.4, 0.3, 4, 3.2, 'Ø > 80'], [1.2, 0.2, 0.1, 2.5, 2, 'Ø > 18–50 · obciążenia zmienne'], [1.2, 0.4, 0.3, 4, 3.4, 'Ø > 80'],
-    [1.6, 0.3, 0.2, 4, 3.1, 'Ø > 50–80 · obciążenia zmienne'], [2.5, 0.4, 0.3, 5, 4.8, 'Ø > 80–125 · obciążenia zmienne'], [4, 0.5, 0.3, 7, 6.4, 'Ø > 125 · obciążenia zmienne'],
-  ] as const).map(([r, t1, t2, f, g, dRange]) => ({ type: 'F' as const, r, t1, t2, f, g, dRange })),
-  { type: 'G', r: 0.4, t1: 0.2, t2: 0.2, f: 0.9, g: 1.1, dRange: 'Ø > 3–18' },
-  { type: 'H', r: 0.8, t1: 0.3, t2: 0.05, f: 2, g: 1.1, dRange: 'Ø > 18–80' },
-  { type: 'H', r: 1.2, t1: 0.3, t2: 0.05, f: 2.4, g: 1.5, dRange: 'Ø > 18–50 · obciążenia zmienne' },
+    [0.2, 0.1, 0.1, 1, 0.9, 'Ø > 1.6–3', 'normal'], [0.4, 0.2, 0.1, 2, 1.1, 'Ø > 3–18', 'normal'], [0.6, 0.2, 0.1, 2, 1.4, 'Ø > 10–18', 'normal'],
+    [0.6, 0.3, 0.2, 2.5, 2.1, 'Ø > 18–80', 'normal'], [0.8, 0.3, 0.2, 2.5, 2.3, 'Ø > 18–80', 'normal'], [1, 0.2, 0.1, 2.5, 1.8, 'Ø > 18–50', 'alternating'],
+    [1, 0.4, 0.3, 4, 3.2, 'Ø > 80', 'normal'], [1.2, 0.2, 0.1, 2.5, 2, 'Ø > 18–50', 'alternating'], [1.2, 0.4, 0.3, 4, 3.4, 'Ø > 80', 'normal'],
+    [1.6, 0.3, 0.2, 4, 3.1, 'Ø > 50–80', 'alternating'], [2.5, 0.4, 0.3, 5, 4.8, 'Ø > 80–125', 'alternating'], [4, 0.5, 0.3, 7, 6.4, 'Ø > 125', 'alternating'],
+  ] as const).map(([r, t1, t2, f, g, dRange, load]) => ({ type: 'F' as const, r, t1, t2, f, g, dRange, load })),
+  { type: 'G', r: 0.4, t1: 0.2, t2: 0.2, f: 0.9, g: 1.1, dRange: 'Ø > 3–18', load: 'normal' },
+  { type: 'H', r: 0.8, t1: 0.3, t2: 0.05, f: 2, g: 1.1, dRange: 'Ø > 18–80', load: 'normal' },
+  { type: 'H', r: 1.2, t1: 0.3, t2: 0.05, f: 2.4, g: 1.5, dRange: 'Ø > 18–50', load: 'alternating' },
 ];
 
 export const rowsForType = (type: Din509Type): Din509Row[] => DIN509_ROWS.filter((row) => row.type === type);

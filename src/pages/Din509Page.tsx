@@ -57,7 +57,7 @@ const Din509Page = () => {
         {/* Description */}
         <div className="bg-zinc-900 border border-zinc-800/80 rounded-2xl p-4">
           <div className="flex items-start gap-1">
-            <p className="text-sm text-zinc-300 flex-1">{info.description}</p>
+            <p className="text-sm text-zinc-300 flex-1">{t(`din509:descriptions.${type}`)}</p>
             <FormulaHelper
               title={th('formulas.din509.title')}
               formula={type === 'E' ? 'r + t₁ → f, d₁' : 'r + t₁ → t₂, f, g, d₁'}
@@ -133,7 +133,7 @@ const Din509Page = () => {
               <ResultCard label={t('din509:widthF')} value={`${result.f} mm`} note={t('din509:widthFTolerance')} />
               {result.g !== null && <ResultCard label={t('din509:offsetG')} value={`${result.g} mm`} note={t('din509:offsetGNote')} />}
               {result.t2 !== null && <ResultCard label={t('din509:depthT2')} value={`${result.t2} mm`} note={t('din509:depthT2Tolerance')} />}
-              <ResultCard label={t('din509:diameterD1')} value={result.dRange} note={t('din509:diameterNote')} />
+              <ResultCard label={t('din509:diameterD1')} value={result.dRange} note={`${t('din509:diameterNote')} · ${t(`din509:loads.${result.load}`)}`} />
             </div>
             <div className="bg-zinc-900 border border-zinc-800/80 rounded-2xl p-4">
               <p className="text-xs uppercase tracking-widest text-zinc-500 mb-2">{t('din509:drawingMark')}</p>
@@ -174,7 +174,7 @@ const Din509Page = () => {
                     {type !== 'E' && <td className="py-2 px-2 text-cyan-400 font-bold">{row.t2 ?? '—'}</td>}
                     <td className="py-2 px-2 text-cyan-400 font-bold">{row.f}</td>
                     {type !== 'E' && <td className="py-2 px-2 text-cyan-400 font-bold">{row.g ?? '—'}</td>}
-                    <td className="py-2 px-2 text-zinc-500 text-xs">{row.dRange}</td>
+                    <td className="py-2 px-2 text-zinc-500 text-xs">{row.dRange}<span className="block text-[10px]">{t(`din509:loads.${row.load}`)}</span></td>
                   </tr>;
                 })}
               </tbody>
