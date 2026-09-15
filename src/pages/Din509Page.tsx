@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import PageLayout from '@/components/PageLayout';
 import FormulaHelper from '@/components/FormulaHelper';
 import {
-  DIN509_TYPES,
   findDin509,
   rowsForType,
   uniqueRadiiForType,
@@ -29,7 +28,6 @@ const Din509Page = () => {
     return findDin509(type, r, t1);
   }, [type, r, t1]);
 
-  const info = DIN509_TYPES[type];
   const typeRows = rowsForType(type);
   const uniqueRadii = uniqueRadiiForType(type);
   const t1Options = !isNaN(r) ? t1OptionsForRadius(type, r) : [];
