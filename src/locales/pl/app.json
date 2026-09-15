@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Historia zmian",
-    "version": "v2.7.6",
+    "version": "v2.7.7",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Ustawienia",
     "feedback": "Zgłoś błąd / Sugestia",
@@ -30,6 +30,11 @@
       "update": "Aktualizacja",
       "fix": "Poprawka"
     },
+    "v277": [
+      "Wdrożono zwymiarowane rysunki techniczne DIN 509 dla form E, F, G i H",
+      "Pełna synchronizacja oznaczeń parametrów (r, t₁, t₂, f, g, d₁) z normą DIN 509",
+      "Dodano tabelę doboru wymiarów podcięcia oraz tolerancje wykonawcze"
+    ],
     "v276": [
       "Całkowicie zrekonstruowano rysunki DIN 509 E/F/G/H: poprawiono profile podcięć, usunięto wybrzuszenia i prawidłowo osadzono promień r",
       "Poprawiono wymiarowanie rowka wpustowego DIN 6885 i dodano kontrolny wymiar d − t₁ do pomiaru mikrometrem",

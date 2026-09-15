@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Changelog",
-    "version": "v2.7.6",
+    "version": "v2.7.7",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Settings",
     "feedback": "Report bug / Suggestion",
@@ -30,6 +30,11 @@
       "update": "Update",
       "fix": "Fix"
     },
+    "v277": [
+      "Added fully dimensioned DIN 509 technical drawings for Forms E, F, G and H",
+      "Fully synchronized parameter labels (r, t₁, t₂, f, g, d₁) with DIN 509",
+      "Added an undercut dimension selection table and manufacturing tolerances"
+    ],
     "v276": [
       "Completely rebuilt DIN 509 E/F/G/H drawings with corrected undercut profiles, no humps, and correctly seated radius r",
       "Corrected DIN 6885 keyway dimensioning and added the d − t₁ workshop micrometer measurement",

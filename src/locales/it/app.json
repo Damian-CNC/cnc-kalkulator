@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Cronologia modifiche",
-    "version": "v2.7.6",
+    "version": "v2.7.7",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Impostazioni",
     "feedback": "Segnala bug / Suggerimento",
@@ -30,6 +30,11 @@
       "update": "Aggiornamento",
       "fix": "Correzione"
     },
+    "v277": [
+      "Aggiunti disegni tecnici DIN 509 completamente quotati per le forme E, F, G e H",
+      "Sincronizzate le sigle dei parametri (r, t₁, t₂, f, g, d₁) con la norma DIN 509",
+      "Aggiunta la tabella di selezione delle dimensioni e le tolleranze di lavorazione"
+    ],
     "v276": [
       "Ricostruiti completamente i disegni DIN 509 E/F/G/H: profili di scarico corretti, rigonfiamenti rimossi e raggio r posizionato correttamente",
       "Corretta la quotatura della cava DIN 6885 e aggiunta la quota di controllo d − t₁ per il micrometro",
