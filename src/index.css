@@ -2,22 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body, #root {
-  min-height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-html, body {
-  overscroll-behavior-x: none;
+html {
+  overflow-y: auto;
+  scrollbar-gutter: stable;
   overscroll-behavior-y: none;
-  overflow-x: hidden;
-  background-color: #09090b; /* zinc-950 — zapobiega białym krawędziom przy overscroll */
 }
 
 body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: visible;
+  background-color: #09090b; /* zinc-950 — zapobiega białym krawędziom przy overscroll */
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
