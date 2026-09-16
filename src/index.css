@@ -2,11 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+html, body, #root {
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 html, body {
   overscroll-behavior-x: none;
   overscroll-behavior-y: none;
   overflow-x: hidden;
   background-color: #09090b; /* zinc-950 — zapobiega białym krawędziom przy overscroll */
+}
+
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');

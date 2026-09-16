@@ -19,7 +19,7 @@ const PageLayout = ({ title, children, backRoute = '/', compactBottom = false }:
 
   return (
     <div
-      className="min-h-screen bg-zinc-950 text-zinc-100 overflow-x-hidden pb-safe"
+      className="min-h-screen flex flex-col bg-background text-zinc-100 overflow-x-hidden"
       style={{ paddingTop: 'max(0.5rem, env(safe-area-inset-top))' }}
     >
       <header className="flex items-center gap-4 mb-6 sm:mb-8 mt-2 p-4 sm:p-6 pb-0 max-w-2xl mx-auto w-full">
@@ -39,10 +39,10 @@ const PageLayout = ({ title, children, backRoute = '/', compactBottom = false }:
       </header>
 
       <main
-        className={`w-full max-w-2xl mx-auto px-4 sm:px-6 ${
+        className={`flex-1 w-full max-w-4xl mx-auto px-4 pt-4 ${
           compactBottom
-            ? 'pb-[calc(1.5rem+env(safe-area-inset-bottom))]'
-            : 'pb-28 sm:pb-32'
+            ? 'pb-6'
+            : 'pb-[calc(6rem+env(safe-area-inset-bottom))] md:pb-6'
         }`}
       >
         {children}

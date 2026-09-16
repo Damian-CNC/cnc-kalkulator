@@ -74,7 +74,7 @@ const AnimatedRoutes = () => {
   };
 
   return (
-    <div className="relative w-full h-[100dvh] overflow-hidden bg-zinc-950 touch-pan-y">
+    <div className="relative min-h-screen w-full overflow-x-hidden bg-background touch-pan-y">
       <AnimatePresence initial={false} custom={direction} mode="popLayout">
         <motion.div
           key={location.pathname}
@@ -83,7 +83,7 @@ const AnimatedRoutes = () => {
           initial="initial"
           animate="animate"
           exit="exit"
-          className="app-scroll-container absolute top-0 left-0 w-full h-[100dvh] overflow-y-auto bg-zinc-950 pb-20"
+          className="min-h-screen w-full bg-background"
         >
           <Suspense fallback={<div className="min-h-[50vh]" aria-hidden />}>
           <Routes location={location}>
