@@ -1,9 +1,10 @@
-import { useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { ArrowLeft, Star } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
 import WakeLockToggle from './WakeLockToggle';
 import UnitSwitcher from './UnitSwitcher';
+import useFavorites from '@/hooks/useFavorites';
 
 interface PageLayoutProps {
   title: string;
@@ -16,10 +17,24 @@ interface PageLayoutProps {
 const PageLayout = ({ title, children, backRoute = '/', compactBottom = false }: PageLayoutProps) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const location = useLocation();
+  const { addFavorite, removeFavorite, isFavorite, favorites } = useFavorites();
+
+  const path = location.pathname;
+  const favorited = isFavorite(path);
+
+  const toggleFavorite = () => {
+    if (favorited) {
+      const existing = favorites.find((f) => f.path === path);
+      if (existing) removeFavorite(existing.id);
+    } else {
+      addFavorite({ id: path.replace(/^\//, '').replace(/\//g, '-') || 'home', title, path });
+    }
+  };
 
   return (
     <div
-      className="min-h-screen flex flex-col bg-background text-zinc-100 overflow-x-hidden"
+      className="min-h-screen flex flex-col bg-background text-zinc-100 overflow-x-hidden md:pt-12"
       style={{ paddingTop: 'max(0.5rem, env(safe-area-inset-top))' }}
     >
       <header className="flex items-center gap-4 mb-6 sm:mb-8 mt-2 p-4 sm:p-6 pb-0 max-w-2xl mx-auto w-full">
@@ -31,6 +46,20 @@ const PageLayout = ({ title, children, backRoute = '/', compactBottom = false }:
           <ArrowLeft className="w-5 h-5" />
         </button>
         <h1 className="text-lg sm:text-xl font-bold tracking-wide truncate">{title}</h1>
+        <button
+          onClick={toggleFavorite}
+          className="hidden md:inline-flex p-1.5 rounded-lg hover:bg-zinc-800 transition-colors shrink-0"
+          aria-label="Ulubione"
+          aria-pressed={favorited}
+        >
+          <Star
+            className={
+              favorited
+                ? 'fill-amber-400 text-amber-400 w-4 h-4'
+                : 'text-zinc-500 hover:text-amber-400 w-4 h-4 transition-colors'
+            }
+          />
+        </button>
         <div className="ml-auto flex items-center gap-1.5 shrink-0">
           <UnitSwitcher />
           <WakeLockToggle />
