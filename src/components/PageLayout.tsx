@@ -1,9 +1,10 @@
-import { useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { ArrowLeft, Star } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
 import WakeLockToggle from './WakeLockToggle';
 import UnitSwitcher from './UnitSwitcher';
+import useFavorites from '@/hooks/useFavorites';
 
 interface PageLayoutProps {
   title: string;
@@ -16,6 +17,20 @@ interface PageLayoutProps {
 const PageLayout = ({ title, children, backRoute = '/', compactBottom = false }: PageLayoutProps) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const location = useLocation();
+  const { addFavorite, removeFavorite, isFavorite, favorites } = useFavorites();
+
+  const path = location.pathname;
+  const favorited = isFavorite(path);
+
+  const toggleFavorite = () => {
+    if (favorited) {
+      const existing = favorites.find((f) => f.path === path);
+      if (existing) removeFavorite(existing.id);
+    } else {
+      addFavorite({ id: path.replace(/^\//, '').replace(/\//g, '-') || 'home', title, path });
+    }
+  };
 
   return (
     <div
