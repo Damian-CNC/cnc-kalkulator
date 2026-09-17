@@ -71,26 +71,26 @@ const Index = () => {
       className="min-h-screen bg-zinc-950 p-4 pb-safe overflow-x-hidden flex flex-col items-center"
       style={{ paddingTop: 'max(2rem, env(safe-area-inset-top))' }}
     >
-      <div className="w-full max-w-4xl flex justify-end items-center gap-1.5 mb-2">
-        <WakeLockToggle />
-      </div>
-
-
-      <motion.h1
-        className="text-2xl md:text-4xl font-black tracking-wide mb-8 text-zinc-100 select-none text-center"
-        initial={{ rotate: -360, scale: 0.5, opacity: 0 }}
-        animate={{ rotate: 0, scale: [1, 1.05, 1], opacity: 1 }}
-        transition={{
-          rotate: { duration: 0.8, ease: 'easeOut' },
-          scale: { duration: 2, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut', delay: 0.8 },
-          opacity: { duration: 0.4 },
-        }}
-        style={{
-          textShadow: '0 0 20px rgba(6,182,212,0.4), 0 0 40px rgba(6,182,212,0.2)',
-        }}
-      >
-        ⚙️ {t('nav.appTitle')}
-      </motion.h1>
+      <header className="w-full max-w-4xl flex items-center justify-between gap-3 mb-8">
+        <motion.h1
+          className="text-2xl md:text-4xl font-black tracking-wide text-zinc-100 select-none text-center flex-1"
+          initial={{ rotate: -360, scale: 0.5, opacity: 0 }}
+          animate={{ rotate: 0, scale: [1, 1.05, 1], opacity: 1 }}
+          transition={{
+            rotate: { duration: 0.8, ease: 'easeOut' },
+            scale: { duration: 2, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut', delay: 0.8 },
+            opacity: { duration: 0.4 },
+          }}
+          style={{
+            textShadow: '0 0 20px rgba(6,182,212,0.4), 0 0 40px rgba(6,182,212,0.2)',
+          }}
+        >
+          ⚙️ {t('nav.appTitle')}
+        </motion.h1>
+        <div className="md:hidden">
+          <WakeLockToggle />
+        </div>
+      </header>
 
       <div className="w-full max-w-4xl flex flex-col gap-8">
         {sections.map((section) => (
