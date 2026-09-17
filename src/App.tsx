@@ -9,6 +9,7 @@ import AppErrorBoundary from "./components/AppErrorBoundary";
 import { UnitProvider } from "./contexts/UnitContext";
 import OnboardingController from "./components/OnboardingController";
 import PwaInstallBanner from "./components/PwaInstallBanner";
+import DesktopFavoritesBar from "./components/layout/DesktopFavoritesBar";
 
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
           <Sonner />
           <OnboardingController />
           <HashRouter>
+            <DesktopFavoritesBar />
             <Suspense fallback={<AppFallback />}>
               <AnimatedRoutes />
             </Suspense>
