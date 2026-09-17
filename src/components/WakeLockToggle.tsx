@@ -22,10 +22,10 @@ const WakeLockToggle = ({ className = '' }: { className?: string }) => {
       aria-pressed={active}
       aria-label={t('common.wakeLock')}
       title={t('common.wakeLock')}
-      className={`p-2 rounded-xl border transition-colors active:scale-95 ${
+      className={`flex items-center justify-center w-9 h-9 rounded-xl border transition-all active:scale-95 ${
         active
-          ? 'border-cyan-500/50 bg-cyan-500/10 text-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.25)]'
-          : 'border-zinc-800 bg-zinc-900/70 text-zinc-500 hover:text-zinc-300'
+          ? 'border-cyan-500/50 bg-cyan-500/10 text-cyan-400 shadow-[0_0_8px_rgba(6,182,212,0.3)]'
+          : 'border-zinc-800 bg-zinc-900/90 text-zinc-400 hover:text-zinc-200'
       } ${className}`}
     >
       {active ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
