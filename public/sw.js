@@ -2,7 +2,7 @@ const CACHE_PREFIX = 'cnc-calculator-';
 const CACHE_NAME = `${CACHE_PREFIX}v8`;
 const PRECACHE_URLS = [
   './', './index.html', './manifest.json', './favicon.png', './icon-192.png', './icon-512.png',
-  './din509/form-e.svg', './din509/form-f.svg', './din509/form-g.svg', './din509/form-h.svg',
+  './din509/form-e.jpg', './din509/form-f.jpg', './din509/form-g.jpg', './din509/form-h.jpg',
 ];
 
 self.addEventListener('install', (event) => {
