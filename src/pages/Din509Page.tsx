@@ -13,7 +13,7 @@ import {
 
 const TYPES: Din509Type[] = ['E', 'F', 'G', 'H'];
 
-const imageForType = (type: Din509Type) => `${import.meta.env.BASE_URL}din509/form-${type.toLowerCase()}.svg`;
+const imageForType = (type: Din509Type) => `${import.meta.env.BASE_URL}din509/form-${type.toLowerCase()}.jpg`;
 
 const Din509Page = () => {
   const { t } = useTranslation(['din509', 'translation']);
@@ -78,11 +78,11 @@ const Din509Page = () => {
           </div>
         </div>
 
-        <div className="bg-zinc-950/70 border border-zinc-800 rounded-xl p-3 flex items-center justify-center min-h-[200px]">
+        <div className="w-full flex items-center justify-center p-4 bg-zinc-950/80 border border-zinc-800 rounded-xl min-h-[220px]">
           <img
             src={imageForType(type)}
             alt={t('din509:drawingAlt', { type })}
-            className="max-h-52 w-auto max-w-full object-contain"
+            className="max-h-56 w-auto max-w-full object-contain rounded-lg"
           />
         </div>
 
