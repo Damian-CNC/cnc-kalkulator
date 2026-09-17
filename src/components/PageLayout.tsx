@@ -62,7 +62,9 @@ const PageLayout = ({ title, children, backRoute = '/', compactBottom = false }:
         </button>
         <div className="ml-auto flex items-center gap-1.5 shrink-0">
           <UnitSwitcher />
-          <WakeLockToggle />
+          <div className="md:hidden">
+            <WakeLockToggle />
+          </div>
           <LanguageSwitcher />
         </div>
       </header>
