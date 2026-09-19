@@ -90,7 +90,7 @@ const Din509Page = () => {
         <div className="bg-zinc-900 border border-zinc-800/80 rounded-2xl p-4 sm:p-6 space-y-4">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider">
+              <label className="block text-xs font-semibold tracking-wider text-zinc-500 mb-2">
                 {t('din509:radiusR')}
               </label>
               <select
@@ -106,7 +106,7 @@ const Din509Page = () => {
               </select>
             </div>
             <div>
-              <label className="block text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider">
+              <label className="block text-xs font-semibold tracking-wider text-zinc-500 mb-2">
                 {t('din509:depthT1')}
               </label>
               <select
@@ -188,7 +188,7 @@ const Din509Page = () => {
 
 const ResultCard = ({ label, value, note }: { label: string; value: string; note: string }) => (
   <div className="bg-zinc-900 border border-zinc-800/80 rounded-2xl p-4 text-center" title={note}>
-    <p className="text-xs uppercase tracking-wider text-zinc-500 mb-1">{label}</p>
+    <p className="text-xs font-semibold tracking-wider text-zinc-500 mb-1">{label}</p>
     <p className="text-cyan-400 font-bold text-xl">{value}</p>
     <p className="text-[10px] leading-snug text-zinc-600 mt-1">{note}</p>
   </div>
