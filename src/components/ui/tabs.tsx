@@ -1,9 +1,27 @@
 import * as React from "react";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
+import useQueryState from "@/hooks/useQueryState";
 
 import { cn } from "@/lib/utils";
 
-const Tabs = TabsPrimitive.Root;
+const THREAD_TABS = ["external", "internal"] as const;
+
+const Tabs = ({ defaultValue, value, onValueChange, ...props }: React.ComponentPropsWithoutRef<typeof TabsPrimitive.Root>) => {
+  const fallback = defaultValue === "internal" ? "internal" : "external";
+  const [routeTab, setRouteTab] = useQueryState("tab", fallback, THREAD_TABS);
+  const controlledValue = value ?? routeTab;
+
+  return (
+    <TabsPrimitive.Root
+      {...props}
+      value={controlledValue}
+      onValueChange={(nextValue) => {
+        setRouteTab(nextValue as (typeof THREAD_TABS)[number]);
+        onValueChange?.(nextValue);
+      }}
+    />
+  );
+};
 
 const TabsList = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,

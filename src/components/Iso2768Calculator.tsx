@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Check, Copy } from 'lucide-react';
 import ClearFab from '@/components/ClearFab';
 import useHaptics from '@/hooks/useHaptics';
+import useQueryState from '@/hooks/useQueryState';
 import { parseDecimal, sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
 import {
   chamferTolerances,
@@ -23,7 +24,7 @@ const Iso2768Calculator = () => {
 
   const [nominal, setNominal] = useState('');
   const [cls, setCls] = useState<Iso2768Class>('m');
-  const [type, setType] = useState<'linear' | 'chamfer'>('linear');
+  const [type, setType] = useQueryState('type', 'linear', ['linear', 'chamfer'] as const);
   const [copied, setCopied] = useState(false);
 
   const rows = type === 'linear' ? linearTolerances : chamferTolerances;

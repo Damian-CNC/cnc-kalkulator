@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import PageLayout from '@/components/PageLayout';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
+import useQueryState from '@/hooks/useQueryState';
 
 const round = (v: number, n = 3) => Number.isFinite(v) ? Number(v.toFixed(n)) : null;
 
@@ -15,6 +16,7 @@ const getCrestClearance = (P: number): number => {
 const TrapezoidalThreadPage = () => {
   const [dInput, setDInput] = useState('');
   const [pInput, setPInput] = useState('');
+  const [threadTab, setThreadTab] = useQueryState('tab', 'external', ['external', 'internal'] as const);
 
   const parsedD = useMemo(() => {
     const v = parseFloat(dInput.replace(',', '.'));
@@ -93,7 +95,7 @@ const TrapezoidalThreadPage = () => {
         )}
 
         {nominal && (
-          <Tabs defaultValue="external" className="w-full">
+          <Tabs value={threadTab} onValueChange={(value) => setThreadTab(value as 'external' | 'internal')} className="w-full">
             <TabsList className="w-full bg-zinc-900 border border-zinc-800">
               <TabsTrigger value="external" className="flex-1 data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50">
                 🔩 Śruba (Czop)

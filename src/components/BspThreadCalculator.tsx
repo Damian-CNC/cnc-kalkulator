@@ -3,9 +3,11 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { bspThreads, bspSizes } from '@/data/bspThreadsData';
 import type { ThreadLimits } from '@/data/bspThreadsData';
+import useQueryState from '@/hooks/useQueryState';
 
 const BspThreadCalculator = () => {
   const [selectedSize, setSelectedSize] = useState<string>('');
+  const [threadTab, setThreadTab] = useQueryState('tab', 'external', ['external', 'internal'] as const);
 
   const thread = useMemo(() => {
     if (!selectedSize) return null;
@@ -38,7 +40,7 @@ const BspThreadCalculator = () => {
             </span>
           </div>
 
-          <Tabs defaultValue="external" className="w-full">
+          <Tabs value={threadTab} onValueChange={(value) => setThreadTab(value as 'external' | 'internal')} className="w-full">
             <TabsList className="w-full bg-zinc-900 border border-zinc-800">
               <TabsTrigger value="external" className="flex-1 data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50">
                 🔩 Czop

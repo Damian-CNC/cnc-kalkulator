@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import PageLayout from '@/components/PageLayout';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
+import useQueryState from '@/hooks/useQueryState';
 
 interface NptData {
   tpi: number;
@@ -29,6 +30,7 @@ const round = (v: number, n = 3) => Number(v.toFixed(n));
 
 const NptThreadCalculator = () => {
   const [selectedSize, setSelectedSize] = useState<string>('');
+  const [threadTab, setThreadTab] = useQueryState('tab', 'external', ['external', 'internal'] as const);
 
   const result = useMemo(() => {
     if (!selectedSize) return null;
@@ -74,7 +76,7 @@ const NptThreadCalculator = () => {
               </span>
             </div>
 
-            <Tabs defaultValue="external" className="w-full">
+            <Tabs value={threadTab} onValueChange={(value) => setThreadTab(value as 'external' | 'internal')} className="w-full">
               <TabsList className="w-full bg-zinc-900 border border-zinc-800">
                 <TabsTrigger value="external" className="flex-1 data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50">
                   🔩 Czop (Zewnętrzny)

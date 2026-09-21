@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import type { ThreadLimits } from '@/data/bspThreadsData';
+import useQueryState from '@/hooks/useQueryState';
 
 interface ThreadData {
   tpi: number;
@@ -22,6 +23,7 @@ interface WhitworthThreadCalculatorProps {
 const WhitworthThreadCalculator = ({ threads, sizes, standardLabel, emptyMessage }: WhitworthThreadCalculatorProps) => {
   const { t } = useTranslation('threadsCalc');
   const [selectedSize, setSelectedSize] = useState<string>('');
+  const [threadTab, setThreadTab] = useQueryState('tab', 'external', ['external', 'internal'] as const);
 
   const thread = useMemo(() => {
     if (!selectedSize) return null;
@@ -54,7 +56,7 @@ const WhitworthThreadCalculator = ({ threads, sizes, standardLabel, emptyMessage
             </span>
           </div>
 
-          <Tabs defaultValue="external" className="w-full">
+          <Tabs value={threadTab} onValueChange={(value) => setThreadTab(value as 'external' | 'internal')} className="w-full">
             <TabsList className="w-full bg-zinc-900 border border-zinc-800">
               <TabsTrigger value="external" className="flex-1 data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50">
                 {t('whitworth.tabExternal')}
