@@ -4,6 +4,7 @@ import PageLayout from '@/components/PageLayout';
 import ClearFab from '@/components/ClearFab';
 import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
 import FormulaHelper from '@/components/FormulaHelper';
+import useQueryState from '@/hooks/useQueryState';
 
 const RADII = [0.1, 0.2, 0.4, 0.8, 1.2, 1.6, 2.4];
 
@@ -33,7 +34,7 @@ const isoClassFor = (ra: number) => isoClasses.find((c) => ra <= c.ra)?.n ?? '> 
 const RoughnessPage = () => {
   const { t } = useTranslation(['roughness', 'translation']);
   const { t: th } = useTranslation('app');
-  const [mode, setMode] = useState<'forward' | 'reverse'>('forward');
+  const [mode, setMode] = useQueryState('mode', 'forward', ['forward', 'reverse'] as const);
   const [radius, setRadius] = useState('0.4');
   const [feed, setFeed] = useState('');
   const [targetRa, setTargetRa] = useState('');

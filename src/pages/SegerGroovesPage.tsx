@@ -4,11 +4,12 @@ import ClearFab from '@/components/ClearFab';
 import { Centerline, Dimension, EngineeringDrawing, Witness } from '@/components/EngineeringDrawing';
 import { din471, din472, it11, it13, type SegerRow } from '@/data/segerData';
 import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
+import useQueryState from '@/hooks/useQueryState';
 
 type SegerDimension = 'd1' | 'd2' | 'm' | 'n' | null;
 
 const SegerGroovesPage = () => {
-  const [type, setType] = useState<'shaft' | 'bore'>('shaft');
+  const [type, setType] = useQueryState('type', 'shaft', ['shaft', 'bore'] as const);
   const [query, setQuery] = useState('');
   const [activeDimension, setActiveDimension] = useState<SegerDimension>(null);
 

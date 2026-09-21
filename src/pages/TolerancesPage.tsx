@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import PageLayout from '@/components/PageLayout';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
+import useQueryState from '@/hooks/useQueryState';
 import {
   calculateTolerance,
   HOLE_LETTERS,
@@ -13,7 +14,8 @@ import {
 const TolerancesPage = () => {
   const { t } = useTranslation(['tolerances', 'translation']);
   const [nominalInput, setNominalInput] = useState('');
-  const [isHole, setIsHole] = useState(false);
+  const [fitType, setFitType] = useQueryState('type', 'shaft', ['shaft', 'hole'] as const);
+  const isHole = fitType === 'hole';
   const [selectedLetter, setSelectedLetter] = useState('h');
   const [selectedIT, setSelectedIT] = useState('7');
 
@@ -30,7 +32,7 @@ const TolerancesPage = () => {
   }, [parsedNominal, isHole, selectedLetter, selectedIT]);
 
   const handleTypeChange = (hole: boolean) => {
-    setIsHole(hole);
+    setFitType(hole ? 'hole' : 'shaft');
     setSelectedLetter(hole ? 'H' : 'h');
     setSelectedIT('7');
   };

@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import PageLayout from '@/components/PageLayout';
 import FormulaHelper from '@/components/FormulaHelper';
+import useQueryState from '@/hooks/useQueryState';
 import {
   DIN509_TYPES,
   findDin509,
@@ -18,7 +19,7 @@ const imageForType = (type: Din509Type) => `${import.meta.env.BASE_URL}din509/fo
 const Din509Page = () => {
   const { t } = useTranslation(['din509', 'translation']);
   const { t: th } = useTranslation('app');
-  const [type, setType] = useState<Din509Type>('E');
+  const [type, setType] = useQueryState<Din509Type>('type', 'E', TYPES);
   const [rValue, setRValue] = useState<string>('');
   const [t1Value, setT1Value] = useState<string>('');
 
@@ -35,7 +36,7 @@ const Din509Page = () => {
   const t1Options = !isNaN(r) ? t1OptionsForRadius(type, r) : [];
 
   return (
-    <PageLayout title={t('translation:pages.din509')}>
+    <PageLayout title={t('translation:pages.din509')} favoriteTitle={`${t('translation:pages.din509')} — ${t('din509:type', { type })}`}>
       <div className="space-y-4">
         {/* Type tabs */}
         <div className="grid grid-cols-4 gap-2">
