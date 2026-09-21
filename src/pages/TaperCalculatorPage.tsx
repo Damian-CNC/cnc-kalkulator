@@ -1,8 +1,8 @@
 import { useState, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, RotateCcw } from 'lucide-react';
+import { RotateCcw } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
+import PageLayout from '@/components/PageLayout';
 
 const parse = (v: string) => {
   const n = parseFloat(v.replace(',', '.'));
@@ -21,7 +21,6 @@ type SolvedField = 'd1' | 'd2' | 'l' | 'halfAngle' | null;
 const TaperCalculatorPage = () => {
   const { t } = useTranslation('taper');
   const { t: tCommon } = useTranslation();
-  const navigate = useNavigate();
   const [d1Input, setD1Input] = useState('');
   const [d2Input, setD2Input] = useState('');
   const [lInput, setLInput] = useState('');
@@ -85,22 +84,8 @@ const TaperCalculatorPage = () => {
   const accent = 'border-cyan-500 ring-2 ring-cyan-500/30';
 
   return (
-    <div
-      className="min-h-screen bg-zinc-950 text-zinc-100 overflow-x-hidden pb-safe"
-      style={{ paddingTop: 'max(0.5rem, env(safe-area-inset-top))' }}
-    >
-      <header className="flex items-center gap-4 mb-6 sm:mb-8 mt-2 p-4 sm:p-6 pb-0 max-w-2xl mx-auto w-full">
-        <button
-          onClick={() => navigate('/')}
-          className="p-2 -ml-2 rounded-xl text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800 transition-colors"
-          aria-label={tCommon('common.back')}
-        >
-          <ArrowLeft className="w-5 h-5" />
-        </button>
-        <h1 className="text-lg sm:text-xl font-bold tracking-wide">{tCommon('pages.taper')}</h1>
-      </header>
-
-      <main className="w-full max-w-2xl mx-auto px-4 sm:px-6 space-y-5">
+    <PageLayout title={tCommon('pages.taper')}>
+      <div className="space-y-5">
         <span className="text-xs font-semibold text-zinc-500 uppercase tracking-widest block mb-2">{t('toolHint')}</span>
         {/* SVG — half-view of shaft chamfer (lathe view) */}
         <div className="rounded-xl border border-zinc-800 bg-zinc-900/30 p-4 flex justify-center">
@@ -199,8 +184,8 @@ const TaperCalculatorPage = () => {
         {!solver && (
           <p className="text-center text-zinc-500 py-10">{t('hint')}</p>
         )}
-      </main>
-    </div>
+      </div>
+    </PageLayout>
   );
 };
 

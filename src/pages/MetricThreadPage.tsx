@@ -1,6 +1,4 @@
 import { useState, useMemo, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
@@ -8,6 +6,8 @@ import { calculateMetricThread } from '@/utils/threadMath';
 import threadsData from '@/data/metric_threads.json';
 import standardMetricPitches from '@/data/standardMetricPitches';
 import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
+import PageLayout from '@/components/PageLayout';
+import useQueryState from '@/hooks/useQueryState';
 
 interface ThreadEntry {
   designation: string;
@@ -29,12 +29,11 @@ interface ThreadEntry {
 const threads = threadsData as ThreadEntry[];
 
 const MetricThreadPage = () => {
-  const navigate = useNavigate();
   const { t } = useTranslation('threadsCalc');
   const [diameterInput, setDiameterInput] = useState<string>('');
   const [selectedP, setSelectedP] = useState<string>('');
   const [manualPitch, setManualPitch] = useState<string>('');
-  const [threadTab, setThreadTab] = useState<'external' | 'internal'>('external');
+  const [threadTab, setThreadTab] = useQueryState('tab', 'external', ['external', 'internal'] as const);
 
   const parsedD = useMemo(() => {
     const val = parseFloat(diameterInput.replace(',', '.'));
@@ -83,24 +82,7 @@ const MetricThreadPage = () => {
   }, [parsedD, effectivePitch, selectedThread]);
 
   return (
-    <div
-      className="min-h-screen bg-zinc-950 text-zinc-100 overflow-x-hidden pb-safe"
-      style={{ paddingTop: 'max(0.5rem, env(safe-area-inset-top))' }}
-    >
-      <header className="flex items-center gap-4 mb-6 sm:mb-8 mt-2 p-4 sm:p-6 pb-0 max-w-2xl mx-auto w-full">
-        <button
-          onClick={() => navigate('/gwinty')}
-          className="p-2 -ml-2 rounded-xl text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800 transition-colors"
-          aria-label={t('back')}
-        >
-          <ArrowLeft className="w-5 h-5" />
-        </button>
-        <h1 className="text-lg sm:text-xl font-bold tracking-wide">
-          {t('metric.title')}
-        </h1>
-      </header>
-
-      <main className="w-full max-w-2xl mx-auto px-4 sm:px-6">
+    <PageLayout title={t('metric.title')} backRoute="/gwinty">
         <div className="space-y-5">
           <div className="grid grid-cols-2 gap-3">
             <div className="flex flex-col">
@@ -200,8 +182,7 @@ const MetricThreadPage = () => {
             <p className="text-center text-zinc-500 py-10">{t('metric.emptyMessage')}</p>
           )}
         </div>
-      </main>
-    </div>
+    </PageLayout>
   );
 };
 
