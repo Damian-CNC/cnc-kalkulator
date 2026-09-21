@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 export function useQueryState<T extends string>(
@@ -9,6 +9,15 @@ export function useQueryState<T extends string>(
   const [searchParams, setSearchParams] = useSearchParams();
   const requested = searchParams.get(key) as T | null;
   const value = requested && allowedValues.includes(requested) ? requested : defaultValue;
+
+  useEffect(() => {
+    if (requested && allowedValues.includes(requested)) return;
+    setSearchParams((current) => {
+      const next = new URLSearchParams(current);
+      next.set(key, defaultValue);
+      return next;
+    }, { replace: true });
+  }, [allowedValues, defaultValue, key, requested, setSearchParams]);
 
   const setValue = useCallback((nextValue: T) => {
     setSearchParams((current) => {
