@@ -17,6 +17,7 @@ interface PageLayoutProps {
 
 const FAVORITE_VIEW_LABELS: Record<string, string> = {
   external: 'Zewnętrzny', internal: 'Wewnętrzny', shaft: 'Wałek', bore: 'Otwór',
+  hole: 'Otwór',
   forward: 'Ra / Rz', reverse: 'Posuw dla Ra', linear: 'Liniowe', chamfer: 'Fazy',
   radial: 'Promieniowe', axial: 'Osiowe', dynamic: 'Dynamiczne',
 };
