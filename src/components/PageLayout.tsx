@@ -49,8 +49,7 @@ const PageLayout = ({ title, children, backRoute = '/', compactBottom = false, f
 
   return (
     <div
-      className="min-h-screen flex flex-col bg-background text-zinc-100 overflow-x-hidden md:pt-12"
-      style={{ paddingTop: 'max(0.5rem, env(safe-area-inset-top))' }}
+      className="min-h-screen flex flex-col bg-background text-zinc-100 overflow-x-hidden pt-[calc(env(safe-area-inset-top,0px)+0.5rem)] pt-14 md:pt-12"
     >
       <header className="flex items-center gap-4 mb-6 sm:mb-8 mt-2 p-4 sm:p-6 pb-0 max-w-2xl mx-auto w-full">
         <button
