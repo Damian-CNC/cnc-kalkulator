@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
 import WakeLockToggle from './WakeLockToggle';
 import UnitSwitcher from './UnitSwitcher';
+import MobileFavoritesPopover from './MobileFavoritesPopover';
 import useFavorites from '@/hooks/useFavorites';
 
 interface PageLayoutProps {
