@@ -23,7 +23,7 @@ const Iso2768Calculator = () => {
   const { triggerSuccess, triggerLight } = useHaptics();
 
   const [nominal, setNominal] = useState('');
-  const [cls, setCls] = useState<Iso2768Class>('m');
+  const [cls, setCls] = useQueryState<Iso2768Class>('class', 'm', ['f', 'm', 'c', 'v']);
   const [type, setType] = useQueryState('type', 'linear', ['linear', 'chamfer'] as const);
   const [copied, setCopied] = useState(false);
 

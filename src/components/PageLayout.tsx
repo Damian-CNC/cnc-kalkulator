@@ -32,7 +32,9 @@ const PageLayout = ({ title, children, backRoute = '/', compactBottom = false, f
   const favorited = isFavorite(path);
   const activeView = new URLSearchParams(location.search).get('tab')
     ?? new URLSearchParams(location.search).get('type')
-    ?? new URLSearchParams(location.search).get('mode');
+    ?? new URLSearchParams(location.search).get('mode')
+    ?? new URLSearchParams(location.search).get('fit')
+    ?? new URLSearchParams(location.search).get('class');
   const resolvedFavoriteTitle = favoriteTitle
     ?? (activeView ? `${title} — ${FAVORITE_VIEW_LABELS[activeView] ?? activeView.toUpperCase()}` : title);
 
