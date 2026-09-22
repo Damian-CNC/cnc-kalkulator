@@ -67,11 +67,8 @@ const Index = () => {
   const { t } = useTranslation();
 
   return (
-    <div
-      className="min-h-screen bg-zinc-950 p-4 pb-safe overflow-x-hidden flex flex-col items-center"
-      style={{ paddingTop: 'max(2rem, env(safe-area-inset-top))' }}
-    >
-      <header className="w-full max-w-4xl flex items-center justify-between gap-3 mb-8">
+    <div className="min-h-screen bg-zinc-950 px-4 pb-safe overflow-x-hidden flex flex-col items-center">
+      <header className="w-full pt-[calc(env(safe-area-inset-top,0px)+1.25rem)] pt-14 md:pt-4 pb-3 px-0 flex items-center justify-between gap-3 mb-8 max-w-4xl relative">
         <motion.h1
           className="text-2xl md:text-4xl font-black tracking-wide text-zinc-100 select-none text-center flex-1"
           initial={{ rotate: -360, scale: 0.5, opacity: 0 }}
