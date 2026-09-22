@@ -17,6 +17,7 @@ interface PageLayoutProps {
 
 const FAVORITE_VIEW_LABELS: Record<string, string> = {
   external: 'Zewnętrzny', internal: 'Wewnętrzny', shaft: 'Wałek', bore: 'Otwór',
+  hole: 'Otwór',
   forward: 'Ra / Rz', reverse: 'Posuw dla Ra', linear: 'Liniowe', chamfer: 'Fazy',
   radial: 'Promieniowe', axial: 'Osiowe', dynamic: 'Dynamiczne',
 };
@@ -31,7 +32,9 @@ const PageLayout = ({ title, children, backRoute = '/', compactBottom = false, f
   const favorited = isFavorite(path);
   const activeView = new URLSearchParams(location.search).get('tab')
     ?? new URLSearchParams(location.search).get('type')
-    ?? new URLSearchParams(location.search).get('mode');
+    ?? new URLSearchParams(location.search).get('mode')
+    ?? new URLSearchParams(location.search).get('fit')
+    ?? new URLSearchParams(location.search).get('class');
   const resolvedFavoriteTitle = favoriteTitle
     ?? (activeView ? `${title} — ${FAVORITE_VIEW_LABELS[activeView] ?? activeView.toUpperCase()}` : title);
 

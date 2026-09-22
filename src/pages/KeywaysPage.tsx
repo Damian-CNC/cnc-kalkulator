@@ -4,6 +4,7 @@ import ClearFab from '@/components/ClearFab';
 import { Centerline, Dimension, EngineeringDrawing, Leader, Witness } from '@/components/EngineeringDrawing';
 import { findKeyway, keywayData, widthFits, widthLimits, type WidthFit } from '@/data/keywayData';
 import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
+import useQueryState from '@/hooks/useQueryState';
 
 const fmt = (v: number, d = 2) => v.toFixed(d);
 const sign = (v: number) => (v >= 0 ? `+${v.toFixed(3)}` : v.toFixed(3));
@@ -11,7 +12,7 @@ type KeywayDimension = 'd' | 'b' | 't1' | 'control' | null;
 
 const KeywaysPage = () => {
   const [diameter, setDiameter] = useState('');
-  const [fit, setFit] = useState<WidthFit['id']>('N9');
+  const [fit, setFit] = useQueryState<WidthFit['id']>('fit', 'N9', widthFits.map((item) => item.id));
   const [activeDimension, setActiveDimension] = useState<KeywayDimension>(null);
 
   const d = parseFloat(diameter.replace(',', '.'));

@@ -17,7 +17,7 @@ export function useQueryState<T extends string>(
       next.set(key, defaultValue);
       return next;
     }, { replace: true });
-  }, [allowedValues, defaultValue, key, requested, setSearchParams]);
+  }, [defaultValue, key, requested, setSearchParams, ...allowedValues]);
 
   const setValue = useCallback((nextValue: T) => {
     setSearchParams((current) => {
