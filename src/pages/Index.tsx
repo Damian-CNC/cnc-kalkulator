@@ -3,6 +3,7 @@ import { Settings, Scale, Triangle, Gem, Ruler, Cone, Hexagon, Bolt, Scissors, W
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import WakeLockToggle from '@/components/WakeLockToggle';
+import MobileFavoritesPopover from '@/components/layout/MobileFavoritesPopover';
 import AppFooter from '@/components/AppFooter';
 import useHaptics from '@/hooks/useHaptics';
 
@@ -84,7 +85,8 @@ const Index = () => {
         >
           ⚙️ {t('nav.appTitle')}
         </motion.h1>
-        <div className="md:hidden">
+        <div className="md:hidden flex items-center gap-1.5">
+          <MobileFavoritesPopover />
           <WakeLockToggle />
         </div>
       </header>
