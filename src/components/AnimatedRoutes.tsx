@@ -52,9 +52,9 @@ const pageVariants = {
     boxShadow: "none",
     zIndex: 2,
     transition: {
-      x: { type: "tween", ease: [0.32, 0.72, 0, 1], duration: 0.3 },
-      scale: { type: "tween", ease: [0.32, 0.72, 0, 1], duration: 0.3 },
-      opacity: { duration: 0.22, ease: "linear" },
+      x: { type: "tween" as const, ease: [0.32, 0.72, 0, 1] as const, duration: 0.3 },
+      scale: { type: "tween" as const, ease: [0.32, 0.72, 0, 1] as const, duration: 0.3 },
+      opacity: { duration: 0.22, ease: "linear" as const },
     },
   },
   exit: (direction: number) => ({
@@ -64,9 +64,9 @@ const pageVariants = {
     boxShadow: direction < 0 ? "-16px 0 36px rgba(0, 0, 0, 0.65)" : "none",
     zIndex: direction > 0 ? 1 : 3,
     transition: {
-      x: { type: "tween", ease: [0.32, 0.72, 0, 1], duration: 0.3 },
-      scale: { type: "tween", ease: [0.32, 0.72, 0, 1], duration: 0.3 },
-      opacity: { duration: 0.22, ease: "linear" },
+      x: { type: "tween" as const, ease: [0.32, 0.72, 0, 1] as const, duration: 0.3 },
+      scale: { type: "tween" as const, ease: [0.32, 0.72, 0, 1] as const, duration: 0.3 },
+      opacity: { duration: 0.22, ease: "linear" as const },
     },
   }),
 };
