@@ -37,36 +37,29 @@ const getPathDepth = (path: string): number => {
   return 1;
 };
 
+// Czyste animacje GPU Transform bez blokowania wątku przez cienie i skalowanie
 const pageVariants = {
   initial: (direction: number) => ({
     x: direction > 0 ? "100%" : "-25%",
-    opacity: direction > 0 ? 1 : 0.65,
-    scale: direction > 0 ? 1 : 0.98,
-    boxShadow: direction > 0 ? "-16px 0 36px rgba(0, 0, 0, 0.65)" : "none",
+    opacity: direction > 0 ? 1 : 0.75,
     zIndex: direction > 0 ? 2 : 1,
   }),
   animate: {
     x: "0%",
     opacity: 1,
-    scale: 1,
-    boxShadow: "none",
     zIndex: 2,
     transition: {
-      x: { type: "tween" as const, ease: [0.32, 0.72, 0, 1] as const, duration: 0.3 },
-      scale: { type: "tween" as const, ease: [0.32, 0.72, 0, 1] as const, duration: 0.3 },
-      opacity: { duration: 0.22, ease: "linear" as const },
+      x: { type: "tween" as const, ease: [0.25, 1, 0.5, 1] as const, duration: 0.28 },
+      opacity: { type: "tween" as const, ease: "linear" as const, duration: 0.18 },
     },
   },
   exit: (direction: number) => ({
     x: direction > 0 ? "-25%" : "100%",
-    opacity: direction > 0 ? 0.65 : 1,
-    scale: direction > 0 ? 0.98 : 1,
-    boxShadow: direction < 0 ? "-16px 0 36px rgba(0, 0, 0, 0.65)" : "none",
+    opacity: direction > 0 ? 0.75 : 1,
     zIndex: direction > 0 ? 1 : 3,
     transition: {
-      x: { type: "tween" as const, ease: [0.32, 0.72, 0, 1] as const, duration: 0.3 },
-      scale: { type: "tween" as const, ease: [0.32, 0.72, 0, 1] as const, duration: 0.3 },
-      opacity: { duration: 0.22, ease: "linear" as const },
+      x: { type: "tween" as const, ease: [0.25, 1, 0.5, 1] as const, duration: 0.28 },
+      opacity: { type: "tween" as const, ease: "linear" as const, duration: 0.18 },
     },
   }),
 };
@@ -119,7 +112,10 @@ export const AnimatedRoutes: React.FC = () => {
   const direction = navStateRef.current.direction;
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    const frame = requestAnimationFrame(() => {
+      window.scrollTo(0, 0);
+    });
+    return () => cancelAnimationFrame(frame);
   }, [currentPath]);
 
   return (
@@ -132,7 +128,9 @@ export const AnimatedRoutes: React.FC = () => {
           initial="initial"
           animate="animate"
           exit="exit"
-          className="min-h-screen w-full bg-background"
+          className={`min-h-screen w-full bg-background ${
+            direction > 0 ? "shadow-[-20px_0_35px_rgba(0,0,0,0.55)]" : ""
+          }`}
         >
           <Routes location={location}>
             <Route path="/" element={<Index />} />
