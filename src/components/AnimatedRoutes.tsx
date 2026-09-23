@@ -1,77 +1,126 @@
-import { Routes, Route, useLocation, useNavigationType } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
-import { useRef, useEffect, useState, Suspense } from 'react';
-import { lazyWithRetry } from '@/lib/lazyWithRetry';
+import React, { useRef, useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 
-const Index = lazyWithRetry(() => import('@/pages/Index'));
-const ParametersPage = lazyWithRetry(() => import('@/pages/ParametersPage'));
-const WeightPage = lazyWithRetry(() => import('@/pages/WeightPage'));
-const ConePage = lazyWithRetry(() => import('@/pages/ConePage'));
-const HardnessPage = lazyWithRetry(() => import('@/pages/HardnessPage'));
-const ThreadsMenuPage = lazyWithRetry(() => import('@/pages/ThreadsMenuPage'));
-const MetricThreadPage = lazyWithRetry(() => import('@/pages/MetricThreadPage'));
-const BspThreadPage = lazyWithRetry(() => import('@/pages/BspThreadPage'));
-const BswThreadPage = lazyWithRetry(() => import('@/pages/BswThreadPage'));
-const BsfThreadPage = lazyWithRetry(() => import('@/pages/BsfThreadPage'));
-const TrapezoidalThreadPage = lazyWithRetry(() => import('@/pages/TrapezoidalThreadPage'));
-const NptThreadPage = lazyWithRetry(() => import('@/pages/NptThreadCalculator'));
-const TolerancesPage = lazyWithRetry(() => import('@/pages/TolerancesPage'));
-const Iso2768Page = lazyWithRetry(() => import('@/pages/Iso2768Page'));
-const TaperCalculatorPage = lazyWithRetry(() => import('@/pages/TaperCalculatorPage'));
-const PolygonShaftPage = lazyWithRetry(() => import('@/pages/PolygonShaftPage'));
-const ThreadsSubmenuPage = lazyWithRetry(() => import('@/pages/ThreadsSubmenuPage'));
-const Din509Page = lazyWithRetry(() => import('@/pages/Din509Page'));
-const RoughnessPage = lazyWithRetry(() => import('@/pages/RoughnessPage'));
-const SegerGroovesPage = lazyWithRetry(() => import('@/pages/SegerGroovesPage'));
-const KeywaysPage = lazyWithRetry(() => import('@/pages/KeywaysPage'));
-const ORingGroovesPage = lazyWithRetry(() => import('@/pages/ORingGroovesPage'));
-const BoltCirclePage = lazyWithRetry(() => import('@/pages/BoltCirclePage'));
-const LinearHolesPage = lazyWithRetry(() => import('@/pages/LinearHolesPage'));
-const TruePositionPage = lazyWithRetry(() => import('@/pages/TruePositionPage'));
-const PrivacyPage = lazyWithRetry(() => import('@/pages/PrivacyPage'));
-const NotFound = lazyWithRetry(() => import('@/pages/NotFound'));
+import Index from "@/pages/Index";
+import ParametersPage from "@/pages/ParametersPage";
+import RoughnessPage from "@/pages/RoughnessPage";
+import TolerancesPage from "@/pages/TolerancesPage";
+import Iso2768Page from "@/pages/Iso2768Page";
+import Din509Page from "@/pages/Din509Page";
+import ORingGroovesPage from "@/pages/ORingGroovesPage";
+import SegerGroovesPage from "@/pages/SegerGroovesPage";
+import KeywaysPage from "@/pages/KeywaysPage";
+import WeightPage from "@/pages/WeightPage";
+import HardnessPage from "@/pages/HardnessPage";
+import ConePage from "@/pages/ConePage";
+import TaperCalculatorPage from "@/pages/TaperCalculatorPage";
+import PolygonShaftPage from "@/pages/PolygonShaftPage";
+import BoltCirclePage from "@/pages/BoltCirclePage";
+import LinearHolesPage from "@/pages/LinearHolesPage";
+import TruePositionPage from "@/pages/TruePositionPage";
+import ThreadsMenuPage from "@/pages/ThreadsMenuPage";
+import ThreadsSubmenuPage from "@/pages/ThreadsSubmenuPage";
+import MetricThreadPage from "@/pages/MetricThreadPage";
+import TrapezoidalThreadPage from "@/pages/TrapezoidalThreadPage";
+import BspThreadPage from "@/pages/BspThreadPage";
+import BswThreadPage from "@/pages/BswThreadPage";
+import BsfThreadPage from "@/pages/BsfThreadPage";
+import NptThreadCalculator from "@/pages/NptThreadCalculator";
+import PrivacyPage from "@/pages/PrivacyPage";
+import NotFound from "@/pages/NotFound";
 
-const AnimatedRoutes = () => {
+const getPathDepth = (path: string): number => {
+  if (path === "/" || path === "") return 0;
+  if (path === "/threads" || path === "/threads-menu") return 1;
+  if (path.startsWith("/threads/")) return 2;
+  return 1;
+};
+
+const pageVariants = {
+  initial: (direction: number) => ({
+    x: direction > 0 ? "100%" : "-25%",
+    opacity: direction > 0 ? 1 : 0.65,
+    scale: direction > 0 ? 1 : 0.98,
+    boxShadow: direction > 0 ? "-16px 0 36px rgba(0, 0, 0, 0.65)" : "none",
+    zIndex: direction > 0 ? 2 : 1,
+  }),
+  animate: {
+    x: "0%",
+    opacity: 1,
+    scale: 1,
+    boxShadow: "none",
+    zIndex: 2,
+    transition: {
+      x: { type: "tween" as const, ease: [0.32, 0.72, 0, 1] as const, duration: 0.3 },
+      scale: { type: "tween" as const, ease: [0.32, 0.72, 0, 1] as const, duration: 0.3 },
+      opacity: { duration: 0.22, ease: "linear" as const },
+    },
+  },
+  exit: (direction: number) => ({
+    x: direction > 0 ? "-25%" : "100%",
+    opacity: direction > 0 ? 0.65 : 1,
+    scale: direction > 0 ? 0.98 : 1,
+    boxShadow: direction < 0 ? "-16px 0 36px rgba(0, 0, 0, 0.65)" : "none",
+    zIndex: direction > 0 ? 1 : 3,
+    transition: {
+      x: { type: "tween" as const, ease: [0.32, 0.72, 0, 1] as const, duration: 0.3 },
+      scale: { type: "tween" as const, ease: [0.32, 0.72, 0, 1] as const, duration: 0.3 },
+      opacity: { duration: 0.22, ease: "linear" as const },
+    },
+  }),
+};
+
+export const AnimatedRoutes: React.FC = () => {
   const location = useLocation();
-  const navigationType = useNavigationType();
-  const prevPath = useRef(location.pathname);
-  const [direction, setDirection] = useState(1);
+  const currentPath = location.pathname;
+  const currentIdx = (window.history.state?.idx as number) ?? 0;
 
-  const isPopNavigation = navigationType === 'POP';
-  const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
+  const navStateRef = useRef({
+    path: currentPath,
+    idx: currentIdx,
+    direction: 1,
+  });
+
+  if (navStateRef.current.path !== currentPath) {
+    const prevPath = navStateRef.current.path;
+    const prevIdx = navStateRef.current.idx;
+
+    let dir = 1;
+
+    if (currentPath === "/") {
+      dir = -1;
+    } else if (prevPath === "/") {
+      dir = 1;
+    } else {
+      const prevDepth = getPathDepth(prevPath);
+      const currDepth = getPathDepth(currentPath);
+
+      if (currDepth < prevDepth) {
+        dir = -1;
+      } else if (currDepth > prevDepth) {
+        dir = 1;
+      } else {
+        if (typeof currentIdx === "number" && typeof prevIdx === "number" && currentIdx !== prevIdx) {
+          dir = currentIdx < prevIdx ? -1 : 1;
+        } else {
+          dir = 1;
+        }
+      }
+    }
+
+    navStateRef.current = {
+      path: currentPath,
+      idx: currentIdx,
+      direction: dir,
+    };
+  }
+
+  const direction = navStateRef.current.direction;
 
   useEffect(() => {
-    const isGoingHome = location.pathname === '/' || location.pathname === '/threads';
-    setDirection(isGoingHome ? -1 : 1);
-    prevPath.current = location.pathname;
-  }, [location.pathname]);
-
-  const getDuration = (mobileDur: number) => (!isMobile || isPopNavigation) ? 0 : mobileDur;
-
-  const pageVariants = {
-    initial: (dir: number) => ({
-      x: (isPopNavigation || !isMobile) ? 0 : (dir > 0 ? '100vw' : '-100vw'),
-      opacity: (isPopNavigation || !isMobile) ? 1 : 0,
-    }),
-    animate: {
-      x: 0,
-      opacity: 1,
-      transition: {
-        type: 'tween' as const,
-        ease: 'easeOut' as const,
-        duration: getDuration(0.25),
-      },
-    },
-    exit: (dir: number) => ({
-      x: (isPopNavigation || !isMobile) ? 0 : (dir > 0 ? '-100vw' : '100vw'),
-      opacity: (isPopNavigation || !isMobile) ? 1 : 0,
-      transition: {
-        type: 'tween' as const,
-        ease: 'easeIn' as const,
-        duration: getDuration(0.2),
-      },
-    }),
-  };
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, [currentPath]);
 
   return (
     <div className="relative min-h-screen w-full overflow-x-hidden bg-background touch-pan-y">
@@ -85,42 +134,40 @@ const AnimatedRoutes = () => {
           exit="exit"
           className="min-h-screen w-full bg-background"
         >
-          <Suspense fallback={<div className="min-h-[50vh]" aria-hidden />}>
           <Routes location={location}>
-              <Route path="/" element={<Index />} />
-              <Route path="/parametry" element={<ParametersPage />} />
-              <Route path="/waga" element={<WeightPage />} />
-              <Route path="/stozek" element={<ConePage />} />
-              <Route path="/twardosc" element={<HardnessPage />} />
-              <Route path="/threads" element={<ThreadsMenuPage />} />
-              <Route path="/threads/metric" element={<MetricThreadPage />} />
-              <Route path="/threads/bsp" element={<BspThreadPage />} />
-              <Route path="/threads/bsw" element={<BswThreadPage />} />
-              <Route path="/threads/bsf" element={<BsfThreadPage />} />
-              <Route path="/threads/trapezoidal" element={<TrapezoidalThreadPage />} />
-              <Route path="/threads/npt" element={<NptThreadPage />} />
-              <Route path="/tolerancje" element={<TolerancesPage />} />
-              <Route path="/tolerancje-iso-2768" element={<Iso2768Page />} />
-              <Route path="/iso-2768" element={<Iso2768Page />} />
-              <Route path="/kalkulator-stozkow" element={<TaperCalculatorPage />} />
-              <Route path="/przekatne" element={<PolygonShaftPage />} />
-              <Route path="/gwinty" element={<ThreadsSubmenuPage />} />
-              <Route path="/podciecia-din509" element={<Din509Page />} />
-              <Route path="/chropowatosc" element={<RoughnessPage />} />
-              <Route path="/rowki-segera" element={<SegerGroovesPage />} />
-              <Route path="/wpusty" element={<KeywaysPage />} />
-              <Route path="/rowki-oring" element={<ORingGroovesPage />} />
-              <Route path="/surface-roughness" element={<RoughnessPage />} />
-              <Route path="/seger" element={<SegerGroovesPage />} />
-              <Route path="/feather-keys" element={<KeywaysPage />} />
-              <Route path="/oring" element={<ORingGroovesPage />} />
-              <Route path="/pcd" element={<BoltCirclePage />} />
-              <Route path="/otwory-liniowe" element={<LinearHolesPage />} />
-              <Route path="/true-position" element={<TruePositionPage />} />
-              <Route path="/privacy" element={<PrivacyPage />} />
-              <Route path="*" element={<NotFound />} />
+            <Route path="/" element={<Index />} />
+            <Route path="/parametry" element={<ParametersPage />} />
+            <Route path="/waga" element={<WeightPage />} />
+            <Route path="/stozek" element={<ConePage />} />
+            <Route path="/twardosc" element={<HardnessPage />} />
+            <Route path="/threads" element={<ThreadsMenuPage />} />
+            <Route path="/threads/metric" element={<MetricThreadPage />} />
+            <Route path="/threads/bsp" element={<BspThreadPage />} />
+            <Route path="/threads/bsw" element={<BswThreadPage />} />
+            <Route path="/threads/bsf" element={<BsfThreadPage />} />
+            <Route path="/threads/trapezoidal" element={<TrapezoidalThreadPage />} />
+            <Route path="/threads/npt" element={<NptThreadCalculator />} />
+            <Route path="/tolerancje" element={<TolerancesPage />} />
+            <Route path="/tolerancje-iso-2768" element={<Iso2768Page />} />
+            <Route path="/iso-2768" element={<Iso2768Page />} />
+            <Route path="/kalkulator-stozkow" element={<TaperCalculatorPage />} />
+            <Route path="/przekatne" element={<PolygonShaftPage />} />
+            <Route path="/gwinty" element={<ThreadsSubmenuPage />} />
+            <Route path="/podciecia-din509" element={<Din509Page />} />
+            <Route path="/chropowatosc" element={<RoughnessPage />} />
+            <Route path="/rowki-segera" element={<SegerGroovesPage />} />
+            <Route path="/wpusty" element={<KeywaysPage />} />
+            <Route path="/rowki-oring" element={<ORingGroovesPage />} />
+            <Route path="/surface-roughness" element={<RoughnessPage />} />
+            <Route path="/seger" element={<SegerGroovesPage />} />
+            <Route path="/feather-keys" element={<KeywaysPage />} />
+            <Route path="/oring" element={<ORingGroovesPage />} />
+            <Route path="/pcd" element={<BoltCirclePage />} />
+            <Route path="/otwory-liniowe" element={<LinearHolesPage />} />
+            <Route path="/true-position" element={<TruePositionPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
-          </Suspense>
         </motion.div>
       </AnimatePresence>
     </div>
