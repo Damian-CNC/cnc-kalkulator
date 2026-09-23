@@ -85,7 +85,8 @@ const Index = () => {
         >
           ⚙️ {t('nav.appTitle')}
         </motion.h1>
-        <div className="md:hidden">
+        <div className="md:hidden flex items-center gap-1.5">
+          <MobileFavoritesPopover />
           <WakeLockToggle />
         </div>
       </header>
