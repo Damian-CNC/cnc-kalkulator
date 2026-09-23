@@ -65,7 +65,7 @@ const PageLayout = ({ title, children, backRoute = '/', compactBottom = false, f
           <button
             type="button"
             onClick={toggleFavorite}
-            className="hidden md:inline-flex items-center justify-center p-1 rounded-md text-zinc-400 hover:text-amber-400 transition-colors shrink-0"
+            className="inline-flex items-center justify-center p-1 rounded-md text-zinc-400 hover:text-amber-400 transition-colors shrink-0"
             title={favorited ? 'Usuń z ulubionych' : 'Dodaj do ulubionych (max 4)'}
             aria-label={favorited ? 'Usuń z ulubionych' : 'Dodaj do ulubionych (max 4)'}
             aria-pressed={favorited}
@@ -75,6 +75,7 @@ const PageLayout = ({ title, children, backRoute = '/', compactBottom = false, f
         </div>
         <div className="ml-auto flex items-center gap-1.5 shrink-0">
           <UnitSwitcher />
+          <MobileFavoritesPopover favoriteTitle={resolvedFavoriteTitle} />
           <div className="md:hidden">
             <WakeLockToggle />
           </div>
