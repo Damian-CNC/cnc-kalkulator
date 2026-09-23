@@ -37,29 +37,26 @@ const getPathDepth = (path: string): number => {
   return 1;
 };
 
-// Czyste animacje GPU Transform bez blokowania wątku przez cienie i skalowanie
+// Czyste przesunięcie X oparte wyłącznie o natywny kompozytor GPU (0 lagów przy montowaniu komponentów)
 const pageVariants = {
   initial: (direction: number) => ({
-    x: direction > 0 ? "100%" : "-25%",
-    opacity: direction > 0 ? 1 : 0.75,
+    transform: direction > 0 ? "translate3d(100%, 0, 0)" : "translate3d(-20%, 0, 0)",
     zIndex: direction > 0 ? 2 : 1,
   }),
   animate: {
-    x: "0%",
-    opacity: 1,
+    transform: "translate3d(0%, 0, 0)",
     zIndex: 2,
     transition: {
-      x: { type: "tween" as const, ease: [0.25, 1, 0.5, 1] as const, duration: 0.28 },
-      opacity: { type: "tween" as const, ease: "linear" as const, duration: 0.18 },
+      duration: 0.26,
+      ease: [0.32, 0.72, 0, 1],
     },
   },
   exit: (direction: number) => ({
-    x: direction > 0 ? "-25%" : "100%",
-    opacity: direction > 0 ? 0.75 : 1,
+    transform: direction > 0 ? "translate3d(-20%, 0, 0)" : "translate3d(100%, 0, 0)",
     zIndex: direction > 0 ? 1 : 3,
     transition: {
-      x: { type: "tween" as const, ease: [0.25, 1, 0.5, 1] as const, duration: 0.28 },
-      opacity: { type: "tween" as const, ease: "linear" as const, duration: 0.18 },
+      duration: 0.26,
+      ease: [0.32, 0.72, 0, 1],
     },
   }),
 };
@@ -112,10 +109,7 @@ export const AnimatedRoutes: React.FC = () => {
   const direction = navStateRef.current.direction;
 
   useEffect(() => {
-    const frame = requestAnimationFrame(() => {
-      window.scrollTo(0, 0);
-    });
-    return () => cancelAnimationFrame(frame);
+    window.scrollTo(0, 0);
   }, [currentPath]);
 
   return (
