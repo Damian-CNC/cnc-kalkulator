@@ -1,6 +1,6 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, Variants } from "framer-motion";
 
 import Index from "@/pages/Index";
 import ParametersPage from "@/pages/ParametersPage";
@@ -37,26 +37,29 @@ const getPathDepth = (path: string): number => {
   return 1;
 };
 
-// Czyste przesunięcie X oparte wyłącznie o natywny kompozytor GPU (0 lagów przy montowaniu komponentów)
-const pageVariants = {
+// Animacje wyłącznie na transform/opacity (GPU), bez cieni i skalowania
+const pageVariants: Variants = {
   initial: (direction: number) => ({
-    transform: direction > 0 ? "translate3d(100%, 0, 0)" : "translate3d(-20%, 0, 0)",
+    x: direction > 0 ? "100%" : "-25%",
+    opacity: direction > 0 ? 1 : 0.75,
     zIndex: direction > 0 ? 2 : 1,
   }),
   animate: {
-    transform: "translate3d(0%, 0, 0)",
+    x: "0%",
+    opacity: 1,
     zIndex: 2,
     transition: {
-      duration: 0.26,
-      ease: [0.32, 0.72, 0, 1],
+      x: { type: "tween", ease: [0.25, 1, 0.5, 1], duration: 0.28 },
+      opacity: { type: "tween", ease: "linear", duration: 0.18 },
     },
   },
   exit: (direction: number) => ({
-    transform: direction > 0 ? "translate3d(-20%, 0, 0)" : "translate3d(100%, 0, 0)",
+    x: direction > 0 ? "-25%" : "100%",
+    opacity: direction > 0 ? 0.75 : 1,
     zIndex: direction > 0 ? 1 : 3,
     transition: {
-      duration: 0.26,
-      ease: [0.32, 0.72, 0, 1],
+      x: { type: "tween", ease: [0.25, 1, 0.5, 1], duration: 0.28 },
+      opacity: { type: "tween", ease: "linear", duration: 0.18 },
     },
   }),
 };
@@ -91,7 +94,11 @@ export const AnimatedRoutes: React.FC = () => {
       } else if (currDepth > prevDepth) {
         dir = 1;
       } else {
-        if (typeof currentIdx === "number" && typeof prevIdx === "number" && currentIdx !== prevIdx) {
+        if (
+          typeof currentIdx === "number" &&
+          typeof prevIdx === "number" &&
+          currentIdx !== prevIdx
+        ) {
           dir = currentIdx < prevIdx ? -1 : 1;
         } else {
           dir = 1;
@@ -108,54 +115,55 @@ export const AnimatedRoutes: React.FC = () => {
 
   const direction = navStateRef.current.direction;
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [currentPath]);
-
   return (
-    <div className="relative min-h-screen w-full overflow-x-hidden bg-background touch-pan-y">
-      <AnimatePresence initial={false} custom={direction} mode="popLayout">
+    <div className="relative w-full min-h-screen overflow-x-hidden bg-background">
+      <AnimatePresence
+        mode="popLayout"
+        initial={false}
+        custom={direction}
+        onExitComplete={() => window.scrollTo(0, 0)}
+      >
         <motion.div
-          key={location.pathname}
+          key={currentPath}
           custom={direction}
           variants={pageVariants}
           initial="initial"
           animate="animate"
           exit="exit"
-          className={`min-h-screen w-full bg-background ${
-            direction > 0 ? "shadow-[-20px_0_35px_rgba(0,0,0,0.55)]" : ""
+          className={`relative w-full min-h-screen bg-background ${
+            direction > 0
+              ? "before:absolute before:inset-y-0 before:-left-5 before:w-5 before:pointer-events-none before:bg-gradient-to-r before:from-transparent before:to-black/40"
+              : ""
           }`}
         >
           <Routes location={location}>
             <Route path="/" element={<Index />} />
-            <Route path="/parametry" element={<ParametersPage />} />
-            <Route path="/waga" element={<WeightPage />} />
-            <Route path="/stozek" element={<ConePage />} />
-            <Route path="/twardosc" element={<HardnessPage />} />
+            <Route path="/parameters" element={<ParametersPage />} />
+            <Route path="/roughness" element={<RoughnessPage />} />
+            <Route path="/tolerances" element={<TolerancesPage />} />
+            <Route path="/tolerances/iso2768" element={<Iso2768Page />} />
+            <Route path="/iso2768" element={<Iso2768Page />} />
             <Route path="/threads" element={<ThreadsMenuPage />} />
+            <Route path="/threads/submenu" element={<ThreadsSubmenuPage />} />
+            <Route path="/threads-menu" element={<ThreadsSubmenuPage />} />
             <Route path="/threads/metric" element={<MetricThreadPage />} />
+            <Route path="/threads/trapezoidal" element={<TrapezoidalThreadPage />} />
             <Route path="/threads/bsp" element={<BspThreadPage />} />
             <Route path="/threads/bsw" element={<BswThreadPage />} />
             <Route path="/threads/bsf" element={<BsfThreadPage />} />
-            <Route path="/threads/trapezoidal" element={<TrapezoidalThreadPage />} />
             <Route path="/threads/npt" element={<NptThreadCalculator />} />
-            <Route path="/tolerancje" element={<TolerancesPage />} />
-            <Route path="/tolerancje-iso-2768" element={<Iso2768Page />} />
-            <Route path="/iso-2768" element={<Iso2768Page />} />
-            <Route path="/kalkulator-stozkow" element={<TaperCalculatorPage />} />
-            <Route path="/przekatne" element={<PolygonShaftPage />} />
-            <Route path="/gwinty" element={<ThreadsSubmenuPage />} />
-            <Route path="/podciecia-din509" element={<Din509Page />} />
-            <Route path="/chropowatosc" element={<RoughnessPage />} />
-            <Route path="/rowki-segera" element={<SegerGroovesPage />} />
-            <Route path="/wpusty" element={<KeywaysPage />} />
-            <Route path="/rowki-oring" element={<ORingGroovesPage />} />
-            <Route path="/surface-roughness" element={<RoughnessPage />} />
-            <Route path="/seger" element={<SegerGroovesPage />} />
-            <Route path="/feather-keys" element={<KeywaysPage />} />
+            <Route path="/din509" element={<Din509Page />} />
             <Route path="/oring" element={<ORingGroovesPage />} />
+            <Route path="/seger" element={<SegerGroovesPage />} />
+            <Route path="/keyways" element={<KeywaysPage />} />
+            <Route path="/weight" element={<WeightPage />} />
+            <Route path="/hardness" element={<HardnessPage />} />
+            <Route path="/cone" element={<ConePage />} />
+            <Route path="/taper-calculator" element={<TaperCalculatorPage />} />
+            <Route path="/polygon" element={<PolygonShaftPage />} />
             <Route path="/pcd" element={<BoltCirclePage />} />
-            <Route path="/otwory-liniowe" element={<LinearHolesPage />} />
+            <Route path="/bolt-circle" element={<BoltCirclePage />} />
+            <Route path="/linear-holes" element={<LinearHolesPage />} />
             <Route path="/true-position" element={<TruePositionPage />} />
             <Route path="/privacy" element={<PrivacyPage />} />
             <Route path="*" element={<NotFound />} />
