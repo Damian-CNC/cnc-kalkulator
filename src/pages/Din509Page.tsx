@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import PageLayout from '@/components/PageLayout';
 import FormulaHelper from '@/components/FormulaHelper';
@@ -11,6 +11,7 @@ import {
   t1OptionsForRadius,
   type Din509Type,
 } from '@/data/din509Data';
+import usePersistedState from '@/hooks/usePersistedState';
 
 const TYPES: Din509Type[] = ['E', 'F', 'G', 'H'];
 
@@ -19,9 +20,9 @@ const imageForType = (type: Din509Type) => `${import.meta.env.BASE_URL}din509/fo
 const Din509Page = () => {
   const { t } = useTranslation(['din509', 'translation']);
   const { t: th } = useTranslation('app');
-  const [type, setType] = useQueryState<Din509Type>('type', 'E', TYPES);
-  const [rValue, setRValue] = useState<string>('');
-  const [t1Value, setT1Value] = useState<string>('');
+  const [type, setType] = useQueryState<Din509Type>('type', 'E', TYPES, 'din509-type');
+  const [rValue, setRValue] = usePersistedState<string>('din509-r', '');
+  const [t1Value, setT1Value] = usePersistedState<string>('din509-t1', '');
 
   const r = parseFloat(rValue.replace(',', '.'));
   const t1 = parseFloat(t1Value.replace(',', '.'));

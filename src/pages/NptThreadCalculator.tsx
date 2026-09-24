@@ -1,8 +1,10 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import PageLayout from '@/components/PageLayout';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import useQueryState from '@/hooks/useQueryState';
+import usePersistedState from '@/hooks/usePersistedState';
+import CopyableValue from '@/components/CopyableValue';
 
 interface NptData {
   tpi: number;
@@ -29,8 +31,8 @@ const nptSizes = Object.keys(nptThreads);
 const round = (v: number, n = 3) => Number(v.toFixed(n));
 
 const NptThreadCalculator = () => {
-  const [selectedSize, setSelectedSize] = useState<string>('');
-  const [threadTab, setThreadTab] = useQueryState('tab', 'external', ['external', 'internal'] as const);
+  const [selectedSize, setSelectedSize] = usePersistedState<string>('npt-size', '');
+  const [threadTab, setThreadTab] = useQueryState('tab', 'external', ['external', 'internal'] as const, 'npt-tab');
 
   const result = useMemo(() => {
     if (!selectedSize) return null;
@@ -125,7 +127,7 @@ function NominalCard({ label, value }: { label: string; value: number }) {
     <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
       <p className="text-zinc-400 text-sm font-medium mb-2">{label}</p>
       <p className="text-2xl md:text-3xl font-bold text-zinc-100">
-        {value} <span className="text-base text-zinc-500 font-normal">mm</span>
+        <CopyableValue value={value}>{value}</CopyableValue> <span className="text-base text-zinc-500 font-normal">mm</span>
       </p>
       <p className="text-zinc-600 text-xs mt-1">Wymiar nominalny na płaszczyźnie bazowej</p>
     </div>
@@ -136,7 +138,7 @@ function CamCard({ label, value, note }: { label: string; value: number; note?: 
   return (
     <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4">
       <p className="text-cyan-300 text-sm font-medium mb-1">{label}</p>
-      <p className="text-2xl md:text-3xl font-bold text-cyan-400">{value} mm</p>
+      <p className="text-2xl md:text-3xl font-bold text-cyan-400"><CopyableValue value={value}>{value} mm</CopyableValue></p>
       {note && <p className="text-cyan-600 text-xs mt-1.5">({note})</p>}
     </div>
   );

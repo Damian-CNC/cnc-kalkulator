@@ -1,10 +1,11 @@
-import { useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import PageLayout from '@/components/PageLayout';
 import ClearFab from '@/components/ClearFab';
 import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
 import FormulaHelper from '@/components/FormulaHelper';
 import useQueryState from '@/hooks/useQueryState';
+import usePersistedState from '@/hooks/usePersistedState';
 
 const RADII = [0.1, 0.2, 0.4, 0.8, 1.2, 1.6, 2.4];
 
@@ -34,10 +35,10 @@ const isoClassFor = (ra: number) => isoClasses.find((c) => ra <= c.ra)?.n ?? '> 
 const RoughnessPage = () => {
   const { t } = useTranslation(['roughness', 'translation']);
   const { t: th } = useTranslation('app');
-  const [mode, setMode] = useQueryState('mode', 'forward', ['forward', 'reverse'] as const);
-  const [radius, setRadius] = useState('0.4');
-  const [feed, setFeed] = useState('');
-  const [targetRa, setTargetRa] = useState('');
+  const [mode, setMode] = useQueryState('mode', 'forward', ['forward', 'reverse'] as const, 'roughness-mode');
+  const [radius, setRadius] = usePersistedState<string>('roughness-radius', '0.4');
+  const [feed, setFeed] = usePersistedState<string>('roughness-feed', '');
+  const [targetRa, setTargetRa] = usePersistedState<string>('roughness-target-ra', '');
 
   const raLabel = (ra: number) => {
     if (ra <= 1.6) return t('finishing');

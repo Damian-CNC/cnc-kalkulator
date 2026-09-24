@@ -9,6 +9,7 @@ import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
 import PageLayout from '@/components/PageLayout';
 import useQueryState from '@/hooks/useQueryState';
 import usePersistedState from '@/hooks/usePersistedState';
+import CopyableValue from '@/components/CopyableValue';
 
 interface ThreadEntry {
   designation: string;
@@ -242,11 +243,11 @@ function DimensionCard({ label, nominal, max, min }: { label: string; nominal: n
         <div className="grid grid-cols-2 gap-3">
           <div className="text-center">
             <span className="text-xs text-zinc-500 uppercase tracking-wider">{t('metric.max', { defaultValue: 'Max' })}</span>
-            <p className="text-xl md:text-2xl font-bold text-emerald-400">{max ?? '—'}</p>
+            <p className="text-xl md:text-2xl font-bold text-emerald-400"><CopyableValue value={max}>{max ?? '—'}</CopyableValue></p>
           </div>
           <div className="text-center">
             <span className="text-xs text-zinc-500 uppercase tracking-wider">{t('metric.min', { defaultValue: 'Min' })}</span>
-            <p className="text-xl md:text-2xl font-bold text-amber-400">{min ?? '—'}</p>
+            <p className="text-xl md:text-2xl font-bold text-amber-400"><CopyableValue value={min}>{min ?? '—'}</CopyableValue></p>
           </div>
         </div>
       ) : (
@@ -264,11 +265,11 @@ function DrillCard({ tapDrill, formTapDrill }: { tapDrill: number; formTapDrill:
       <div className="grid grid-cols-2 gap-3">
         <div className="text-center">
           <span className="text-xs text-zinc-500">{t('metric.tapDrillLabel', { defaultValue: 'Gwintownik' })}</span>
-          <p className="text-xl md:text-2xl font-bold text-cyan-400">{tapDrill} mm</p>
+          <p className="text-xl md:text-2xl font-bold text-cyan-400"><CopyableValue value={tapDrill}>{tapDrill} mm</CopyableValue></p>
         </div>
         <div className="text-center">
           <span className="text-xs text-zinc-500">{t('metric.formTapDrillLabel', { defaultValue: 'Wygniatak' })}</span>
-          <p className="text-xl md:text-2xl font-bold text-violet-400">{formTapDrill} mm</p>
+          <p className="text-xl md:text-2xl font-bold text-violet-400"><CopyableValue value={formTapDrill}>{formTapDrill} mm</CopyableValue></p>
         </div>
       </div>
     </div>
@@ -279,7 +280,7 @@ function CamCard({ label, value, note }: { label: string; value: number; note?: 
   return (
     <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4">
       <p className="text-cyan-300 text-sm font-medium mb-1">{label}</p>
-      <p className="text-2xl md:text-3xl font-bold text-cyan-400">{value} mm</p>
+      <p className="text-2xl md:text-3xl font-bold text-cyan-400"><CopyableValue value={value}>{value} mm</CopyableValue></p>
       {note && <p className="text-cyan-600 text-xs mt-1.5">({note})</p>}
     </div>
   );

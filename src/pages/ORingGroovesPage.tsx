@@ -3,6 +3,7 @@ import PageLayout from '@/components/PageLayout';
 import ClearFab from '@/components/ClearFab';
 import { Centerline, Dimension, EngineeringDrawing, Leader, Witness } from '@/components/EngineeringDrawing';
 import useQueryState from '@/hooks/useQueryState';
+import usePersistedState from '@/hooks/usePersistedState';
 
 const CORDS = [1.5, 1.78, 2.0, 2.5, 2.62, 3.0, 3.53, 4.0, 5.0, 5.33, 7.0];
 
@@ -16,8 +17,8 @@ const modes: { id: Mode; label: string; squeeze: [number, number] }[] = [
 ];
 
 const ORingGroovesPage = () => {
-  const [cord, setCord] = useState(2.62);
-  const [mode, setMode] = useQueryState<Mode>('mode', 'radial', ['radial', 'axial', 'dynamic']);
+  const [cord, setCord] = usePersistedState<number>('oring-cord', 2.62);
+  const [mode, setMode] = useQueryState<Mode>('mode', 'radial', ['radial', 'axial', 'dynamic'], 'oring-mode');
   const [activeDimension, setActiveDimension] = useState<ORingDimension>(null);
 
   const data = useMemo(() => {

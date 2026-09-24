@@ -5,12 +5,13 @@ import { Centerline, Dimension, EngineeringDrawing, Witness } from '@/components
 import { din471, din472, it11, it13, type SegerRow } from '@/data/segerData';
 import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
 import useQueryState from '@/hooks/useQueryState';
+import usePersistedState from '@/hooks/usePersistedState';
 
 type SegerDimension = 'd1' | 'd2' | 'm' | 'n' | null;
 
 const SegerGroovesPage = () => {
-  const [type, setType] = useQueryState('type', 'shaft', ['shaft', 'bore'] as const);
-  const [query, setQuery] = useState('');
+  const [type, setType] = useQueryState('type', 'shaft', ['shaft', 'bore'] as const, 'seger-type');
+  const [query, setQuery] = usePersistedState<string>('seger-query', '');
   const [activeDimension, setActiveDimension] = useState<SegerDimension>(null);
 
   const table = type === 'shaft' ? din471 : din472;

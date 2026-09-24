@@ -10,6 +10,7 @@ const BsfThreadPage = () => {
       <WhitworthThreadCalculator
         threads={bsfThreads}
         sizes={bsfSizes}
+        storageKey="bsf"
         standardLabel={t('whitworth.bsf.footnote')}
         emptyMessage={t('whitworth.bsf.emptyMessage')}
       />

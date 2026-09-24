@@ -5,14 +5,15 @@ import { Centerline, Dimension, EngineeringDrawing, Leader, Witness } from '@/co
 import { findKeyway, keywayData, widthFits, widthLimits, type WidthFit } from '@/data/keywayData';
 import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
 import useQueryState from '@/hooks/useQueryState';
+import usePersistedState from '@/hooks/usePersistedState';
 
 const fmt = (v: number, d = 2) => v.toFixed(d);
 const sign = (v: number) => (v >= 0 ? `+${v.toFixed(3)}` : v.toFixed(3));
 type KeywayDimension = 'd' | 'b' | 't1' | 'control' | null;
 
 const KeywaysPage = () => {
-  const [diameter, setDiameter] = useState('');
-  const [fit, setFit] = useQueryState<WidthFit['id']>('fit', 'N9', widthFits.map((item) => item.id));
+  const [diameter, setDiameter] = usePersistedState<string>('keyway-diameter', '');
+  const [fit, setFit] = useQueryState<WidthFit['id']>('fit', 'N9', widthFits.map((item) => item.id), 'keyway-fit');
   const [activeDimension, setActiveDimension] = useState<KeywayDimension>(null);
 
   const d = parseFloat(diameter.replace(',', '.'));

@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import PageLayout from '@/components/PageLayout';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
@@ -10,14 +10,16 @@ import {
   SHAFT_LETTERS,
   IT_GRADES,
 } from '@/utils/isoMathCalculator';
+import usePersistedState from '@/hooks/usePersistedState';
+import CopyableValue from '@/components/CopyableValue';
 
 const TolerancesPage = () => {
   const { t } = useTranslation(['tolerances', 'translation']);
-  const [nominalInput, setNominalInput] = useState('');
-  const [fitType, setFitType] = useQueryState('type', 'shaft', ['shaft', 'hole'] as const);
+  const [nominalInput, setNominalInput] = usePersistedState<string>('tol-nominal', '');
+  const [fitType, setFitType] = useQueryState('type', 'shaft', ['shaft', 'hole'] as const, 'tol-type');
   const isHole = fitType === 'hole';
-  const [selectedLetter, setSelectedLetter] = useState('h');
-  const [selectedIT, setSelectedIT] = useState('7');
+  const [selectedLetter, setSelectedLetter] = usePersistedState<string>('tol-letter', 'h');
+  const [selectedIT, setSelectedIT] = usePersistedState<string>('tol-it', '7');
 
   const parsedNominal = useMemo(() => {
     const val = parseFloat(nominalInput.replace(',', '.'));
@@ -160,12 +162,12 @@ const TolerancesPage = () => {
               <div className="grid grid-cols-2 gap-3">
                 <div className="text-center">
                   <span className="text-xs text-zinc-500 uppercase tracking-wider">{t('max')}</span>
-                  <p className="text-2xl md:text-3xl font-bold text-emerald-400">{result.dimMax.toFixed(3)}</p>
+                  <p className="text-2xl md:text-3xl font-bold text-emerald-400"><CopyableValue value={result.dimMax.toFixed(3)}>{result.dimMax.toFixed(3)}</CopyableValue></p>
                   <span className="text-xs text-zinc-500">mm</span>
                 </div>
                 <div className="text-center">
                   <span className="text-xs text-zinc-500 uppercase tracking-wider">{t('min')}</span>
-                  <p className="text-2xl md:text-3xl font-bold text-amber-400">{result.dimMin.toFixed(3)}</p>
+                  <p className="text-2xl md:text-3xl font-bold text-amber-400"><CopyableValue value={result.dimMin.toFixed(3)}>{result.dimMin.toFixed(3)}</CopyableValue></p>
                   <span className="text-xs text-zinc-500">mm</span>
                 </div>
               </div>
@@ -173,7 +175,7 @@ const TolerancesPage = () => {
               <div className="border-t border-cyan-800/30 mt-4 pt-3">
                 <p className="text-xs text-zinc-500 text-center mb-1">{t('toleranceCenter')}</p>
                 <p className="text-3xl md:text-4xl font-black text-cyan-400 text-center">
-                  {((result.dimMax + result.dimMin) / 2).toFixed(3)} <span className="text-sm font-normal text-zinc-500">mm</span>
+                  <CopyableValue value={((result.dimMax + result.dimMin) / 2).toFixed(3)}>{((result.dimMax + result.dimMin) / 2).toFixed(3)}</CopyableValue> <span className="text-sm font-normal text-zinc-500">mm</span>
                 </p>
                 <div className="relative mt-3 h-2 rounded-full bg-zinc-700/50">
                   <div className="absolute inset-y-0 left-0 right-0 rounded-full bg-gradient-to-r from-amber-500/40 via-cyan-500/40 to-emerald-500/40" />

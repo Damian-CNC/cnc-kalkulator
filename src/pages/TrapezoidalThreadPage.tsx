@@ -1,8 +1,10 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import PageLayout from '@/components/PageLayout';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
 import useQueryState from '@/hooks/useQueryState';
+import usePersistedState from '@/hooks/usePersistedState';
+import CopyableValue from '@/components/CopyableValue';
 
 const round = (v: number, n = 3) => Number.isFinite(v) ? Number(v.toFixed(n)) : null;
 
@@ -14,9 +16,9 @@ const getCrestClearance = (P: number): number => {
 };
 
 const TrapezoidalThreadPage = () => {
-  const [dInput, setDInput] = useState('');
-  const [pInput, setPInput] = useState('');
-  const [threadTab, setThreadTab] = useQueryState('tab', 'external', ['external', 'internal'] as const);
+  const [dInput, setDInput] = usePersistedState<string>('trap-d', '');
+  const [pInput, setPInput] = usePersistedState<string>('trap-p', '');
+  const [threadTab, setThreadTab] = useQueryState('tab', 'external', ['external', 'internal'] as const, 'trap-tab');
 
   const parsedD = useMemo(() => {
     const v = parseFloat(dInput.replace(',', '.'));
@@ -143,7 +145,7 @@ function NominalCard({ label, value }: { label: string; value: number | null }) 
   return (
     <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
       <p className="text-zinc-400 text-sm font-medium mb-2">{label}</p>
-      <p className="text-2xl md:text-3xl font-bold text-zinc-100">{value ?? '—'} <span className="text-base text-zinc-500 font-normal">mm</span></p>
+      <p className="text-2xl md:text-3xl font-bold text-zinc-100"><CopyableValue value={value}>{value ?? '—'}</CopyableValue> <span className="text-base text-zinc-500 font-normal">mm</span></p>
       <p className="text-zinc-600 text-xs mt-1">Wymiar nominalny</p>
     </div>
   );
@@ -153,7 +155,7 @@ function CamCard({ label, value, note }: { label: string; value: number | null; 
   return (
     <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4">
       <p className="text-cyan-300 text-sm font-medium mb-1">{label}</p>
-      <p className="text-2xl md:text-3xl font-bold text-cyan-400">{value} mm</p>
+      <p className="text-2xl md:text-3xl font-bold text-cyan-400"><CopyableValue value={value}>{value} mm</CopyableValue></p>
       {note && <p className="text-cyan-600 text-xs mt-1.5">({note})</p>}
     </div>
   );

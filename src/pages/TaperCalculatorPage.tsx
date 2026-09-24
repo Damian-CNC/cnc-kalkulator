@@ -1,8 +1,9 @@
-import { useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import { RotateCcw } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
 import PageLayout from '@/components/PageLayout';
+import usePersistedState from '@/hooks/usePersistedState';
 
 const parse = (v: string) => {
   const n = parseFloat(v.replace(',', '.'));
@@ -21,10 +22,10 @@ type SolvedField = 'd1' | 'd2' | 'l' | 'halfAngle' | null;
 const TaperCalculatorPage = () => {
   const { t } = useTranslation('taper');
   const { t: tCommon } = useTranslation();
-  const [d1Input, setD1Input] = useState('');
-  const [d2Input, setD2Input] = useState('');
-  const [lInput, setLInput] = useState('');
-  const [halfAngleInput, setHalfAngleInput] = useState(''); // α/2 in degrees
+  const [d1Input, setD1Input] = usePersistedState<string>('taper-d1', '');
+  const [d2Input, setD2Input] = usePersistedState<string>('taper-d2', '');
+  const [lInput, setLInput] = usePersistedState<string>('taper-l', '');
+  const [halfAngleInput, setHalfAngleInput] = usePersistedState<string>('taper-half-angle', ''); // α/2 in degrees
 
   const clearAll = () => { setD1Input(''); setD2Input(''); setLInput(''); setHalfAngleInput(''); };
 
