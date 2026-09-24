@@ -1,9 +1,8 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, Star } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import LanguageSwitcher from './LanguageSwitcher';
 import WakeLockToggle from './WakeLockToggle';
-import UnitSwitcher from './UnitSwitcher';
+import AppFooter from './AppFooter';
 import useFavorites from '@/hooks/useFavorites';
 
 interface PageLayoutProps {
@@ -22,7 +21,7 @@ const FAVORITE_VIEW_LABELS: Record<string, string> = {
   radial: 'Promieniowe', axial: 'Osiowe', dynamic: 'Dynamiczne',
 };
 
-const PageLayout = ({ title, children, backRoute = '/', compactBottom = false, favoriteTitle }: PageLayoutProps) => {
+const PageLayout = ({ title, children, backRoute = '/', favoriteTitle }: PageLayoutProps) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const location = useLocation();
@@ -73,22 +72,15 @@ const PageLayout = ({ title, children, backRoute = '/', compactBottom = false, f
           </button>
         </div>
         <div className="ml-auto flex items-center gap-1.5 shrink-0">
-          <UnitSwitcher />
           <div className="md:hidden">
             <WakeLockToggle />
           </div>
-          <LanguageSwitcher />
         </div>
       </header>
 
-      <main
-        className={`flex-1 w-full max-w-4xl mx-auto px-4 pt-4 ${
-          compactBottom
-            ? 'pb-6'
-            : 'pb-[calc(6rem+env(safe-area-inset-bottom))] md:pb-6'
-        }`}
-      >
+      <main className="flex-1 w-full max-w-4xl mx-auto px-4 pt-4 pb-[calc(5rem+env(safe-area-inset-bottom))]">
         {children}
+        <AppFooter />
       </main>
     </div>
   );

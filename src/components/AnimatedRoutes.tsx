@@ -41,6 +41,7 @@ const BoltCirclePage = page(() => import("@/pages/BoltCirclePage"));
 const LinearHolesPage = page(() => import("@/pages/LinearHolesPage"));
 const TruePositionPage = page(() => import("@/pages/TruePositionPage"));
 const PrivacyPage = page(() => import("@/pages/PrivacyPage"));
+const MillChamferPage = page(() => import("@/pages/MillChamferPage"));
 const NotFound = page(() => import("@/pages/NotFound"));
 
 let preloadStarted = false;
@@ -199,6 +200,8 @@ const AnimatedRoutes = () => {
               <Route path="/pcd" element={<BoltCirclePage />} />
               <Route path="/otwory-liniowe" element={<LinearHolesPage />} />
               <Route path="/true-position" element={<TruePositionPage />} />
+              <Route path="/faza-frezem" element={<MillChamferPage />} />
+              <Route path="/mill-chamfer" element={<MillChamferPage />} />
               <Route path="/privacy" element={<PrivacyPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

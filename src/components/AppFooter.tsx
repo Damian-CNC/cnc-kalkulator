@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { History, MessageSquarePlus, ShieldCheck, RefreshCw } from 'lucide-react';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
@@ -69,9 +70,15 @@ const AppFooter = ({ className = '' }: { className?: string }) => {
         {t('footer.version')} • {t('footer.copyright')}
       </p>
 
-      <ChangelogModal open={open} onClose={() => setOpen(false)} />
-      <FeedbackModal open={feedbackOpen} onClose={() => setFeedbackOpen(false)} />
-      <LegalModal open={legalOpen} onClose={() => setLegalOpen(false)} />
+      {/* Modale przez portal: strona ma animację (transform), która psuje position: fixed */}
+      {createPortal(
+        <>
+          <ChangelogModal open={open} onClose={() => setOpen(false)} />
+          <FeedbackModal open={feedbackOpen} onClose={() => setFeedbackOpen(false)} />
+          <LegalModal open={legalOpen} onClose={() => setLegalOpen(false)} />
+        </>,
+        document.body,
+      )}
     </footer>
   );
 };
