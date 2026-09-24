@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Settings, Scale, Triangle, Gem, Ruler, Cone, Hexagon, Bolt, Scissors, Waves, Disc, RectangleHorizontal, LifeBuoy, CircleDot, MoveDiagonal2, Target } from 'lucide-react';
+import { Settings, Drill, Scale, Triangle, Gem, Ruler, Cone, Hexagon, Bolt, Scissors, Waves, Disc, RectangleHorizontal, LifeBuoy, CircleDot, MoveDiagonal2, Target } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import WakeLockToggle from '@/components/WakeLockToggle';
@@ -21,6 +21,7 @@ const sections: { titleKey: string; tiles: Tile[] }[] = [
     tiles: [
       { id: 'parameters', labelKey: 'tiles.parameters', icon: Settings, route: '/parametry' },
       { id: 'roughness', labelKey: 'tiles.roughness', icon: Waves, route: '/chropowatosc' },
+      { id: 'millChamfer', labelKey: 'chamfer:tile', icon: Drill, route: '/faza-frezem', isNew: true },
     ],
   },
   {
