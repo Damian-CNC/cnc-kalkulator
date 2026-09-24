@@ -1,0 +1,34 @@
+{
+  "tile": "Smusso a fresa",
+  "title": "Smusso in fresatura",
+  "inputs": {
+    "holeD": "Diametro del foro",
+    "chamfer": "Larghezza smusso (da disegno)",
+    "toolD": "Diametro della fresa per smussi",
+    "angle": "Angolo utensile (rispetto all'asse)",
+    "angleHint": "Metà dell'angolo al vertice: 30° = utensile 60°, 45° = 90°, 60° = 120°.",
+    "safety": "Margine di sicurezza"
+  },
+  "results": {
+    "title": "Risultati",
+    "depth": "Discesa Z (punta utensile)",
+    "depthNote": "Profondità smusso {{h}} + margine {{s}}",
+    "offset": "Scostamento dall'asse del foro",
+    "offsetNote": "Raggio della traiettoria del centro utensile. Diametro traiettoria: {{d}}",
+    "topDia": "Diametro del foro dopo lo smusso",
+    "chamferDepth": "Profondità smusso",
+    "reqTool": "Diametro di lavoro richiesto dell'utensile"
+  },
+  "warnings": {
+    "toolTooSmall": "La fresa per smussi è troppo piccola. Per questo smusso serve un diametro di lavoro di almeno {{required}}, l'utensile ha {{tool}}. Smusso massimo per questo utensile: {{max}}.",
+    "safetyTooBig": "Il margine di sicurezza è troppo grande per questo foro (max {{max}}). Riducilo.",
+    "invalidAngle": "L'angolo utensile deve essere compreso tra 1° e 89°."
+  },
+  "status": {
+    "toolOk": "L'utensile è sufficiente (usa {{used}} su {{tool}} di diametro).",
+    "toolMissing": "Inserisci il diametro della fresa per verificare se è sufficiente."
+  },
+  "empty": "Inserisci diametro del foro e larghezza dello smusso per vedere i risultati.",
+  "diagramTitle": "Sezione",
+  "note": "Si assume punta utensile affilata e zero Z sulla punta. Per fori ciechi verifica che il foro sia più profondo di Z."
+}
