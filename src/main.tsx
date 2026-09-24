@@ -1,7 +1,7 @@
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
-import "./i18n";
+import { i18nReady } from "./i18n";
 
 declare global {
   interface Window {
@@ -49,5 +49,10 @@ if (!rootElement) {
   throw new Error("Root element is missing");
 }
 
-createRoot(rootElement).render(<App />);
-window.__removeCncPreloader?.();
+// Render dopiero po załadowaniu tłumaczeń (aktywny język + zapasowy)
+i18nReady
+  .catch((e) => console.error('i18n load failed', e))
+  .then(() => {
+    createRoot(rootElement).render(<App />);
+    window.__removeCncPreloader?.();
+  });
