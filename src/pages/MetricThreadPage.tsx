@@ -240,7 +240,9 @@ function DimensionCard({
     <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
       <p className="text-zinc-400 text-sm font-medium mb-2">{label}</p>
       {nominal !== null && (
-        <p className="text-zinc-500 text-xs mb-2">{t('bsp.nominal', { value: toDisplay(nominal) })}</p>
+        <p className="text-zinc-500 text-xs mb-2">
+          {t('metric.nominalLabel', { defaultValue: 'Nominalna' })}: {toDisplay(nominal)}
+        </p>
       )}
       {(max !== null || min !== null) ? (
         <div className="grid grid-cols-2 gap-3">

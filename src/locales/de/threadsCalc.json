@@ -22,7 +22,8 @@
     "intProfileHeight": "Profilhöhe (H1)",
     "footnoteWithData": "Toleranzen nach ISO 965-1 · Höhen für 60°-ISO-Profil",
     "footnoteNoData": "Nennmaße berechnet nach Formeln · Keine Toleranzdaten vorhanden",
-    "emptyMessage": "Durchmesser eingeben und Steigung wählen, um die Gewindemaße anzuzeigen."
+    "emptyMessage": "Durchmesser eingeben und Steigung wählen, um die Gewindemaße anzuzeigen.",
+    "nominalLabel": "Nennmaß"
   },
   "trapezoidal": {
     "title": "Trapezgewinde (Tr)",

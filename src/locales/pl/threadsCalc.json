@@ -22,7 +22,8 @@
     "intProfileHeight": "Wysokość profilu (H1)",
     "footnoteWithData": "Tolerancje wg ISO 965-1 · Wysokości dla profilu ISO 60°",
     "footnoteNoData": "Wymiary nominalne obliczone ze wzorów · Brak tolerancji w bazie",
-    "emptyMessage": "Wpisz średnicę i wybierz skok, aby zobaczyć wymiary gwintu."
+    "emptyMessage": "Wpisz średnicę i wybierz skok, aby zobaczyć wymiary gwintu.",
+    "nominalLabel": "Nominalna"
   },
   "trapezoidal": {
     "title": "Gwinty Trapezowe (Tr)",

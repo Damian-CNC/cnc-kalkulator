@@ -22,7 +22,8 @@
     "intProfileHeight": "Altezza del profilo (H1)",
     "footnoteWithData": "Tolleranze secondo ISO 965-1 · Altezze per profilo ISO 60°",
     "footnoteNoData": "Dimensioni nominali calcolate dalle formule · Nessun dato di tolleranza disponibile",
-    "emptyMessage": "Inserisci il diametro e seleziona il passo per visualizzare le dimensioni della filettatura."
+    "emptyMessage": "Inserisci il diametro e seleziona il passo per visualizzare le dimensioni della filettatura.",
+    "nominalLabel": "Nominale"
   },
   "trapezoidal": {
     "title": "Filettature Trapezoidali (Tr)",
