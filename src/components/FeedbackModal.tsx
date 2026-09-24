@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Bug, Lightbulb, Loader2, MessageSquarePlus, X } from 'lucide-react';
 import { toast } from 'sonner';
-import { supabase } from '@/integrations/supabase/client';
 import useHaptics from '@/hooks/useHaptics';
 
 const APP_VERSION = 'v2.6.0';
@@ -34,6 +33,8 @@ const FeedbackModal = ({ open, onClose }: { open: boolean; onClose: () => void }
 
     setLoading(true);
     try {
+      // Klient Supabase ładujemy dopiero przy wysyłce (nie w paczce startowej)
+      const { supabase } = await import('@/integrations/supabase/client');
       const { data, error } = await supabase.functions.invoke('send-feedback', {
         body: {
           type,
