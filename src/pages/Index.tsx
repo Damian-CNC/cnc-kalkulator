@@ -73,10 +73,10 @@ const Index = () => {
         <motion.h1
           className="text-xl min-[400px]:text-2xl md:text-4xl font-black tracking-wide text-zinc-100 select-none text-center"
           initial={{ rotate: -360, scale: 0.5, opacity: 0 }}
-          animate={{ rotate: 0, scale: [1, 1.05, 1], opacity: 1 }}
+          animate={{ rotate: 0, scale: 1, opacity: 1 }}
           transition={{
             rotate: { duration: 0.8, ease: 'easeOut' },
-            scale: { duration: 2, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut', delay: 0.8 },
+            scale: { duration: 0.8, ease: 'easeOut' },
             opacity: { duration: 0.4 },
           }}
           style={{
