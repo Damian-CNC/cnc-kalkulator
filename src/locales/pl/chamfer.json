@@ -1,0 +1,34 @@
+{
+  "tile": "Faza frezem",
+  "title": "Faza na frezarce",
+  "inputs": {
+    "holeD": "Średnica otworu",
+    "chamfer": "Szerokość fazy (z rysunku)",
+    "toolD": "Średnica fazownika",
+    "angle": "Kąt narzędzia (od osi)",
+    "angleHint": "Połowa kąta wierzchołkowego: 30° = fazownik 60°, 45° = 90°, 60° = 120°.",
+    "safety": "Zapas bezpieczeństwa"
+  },
+  "results": {
+    "title": "Wyniki",
+    "depth": "Zejście w Z (czubek narzędzia)",
+    "depthNote": "Głębokość fazy {{h}} + zapas {{s}}",
+    "offset": "Odsunięcie od osi otworu",
+    "offsetNote": "Promień toru środka narzędzia. Średnica toru: {{d}}",
+    "topDia": "Średnica otworu po fazie",
+    "chamferDepth": "Głębokość fazy",
+    "reqTool": "Wymagana średnica robocza narzędzia"
+  },
+  "warnings": {
+    "toolTooSmall": "Fazownik jest za mały. Do tej fazy potrzeba średnicy roboczej min. {{required}}, a narzędzie ma {{tool}}. Największa faza dla tego narzędzia: {{max}}.",
+    "safetyTooBig": "Zapas bezpieczeństwa jest za duży dla tego otworu (maks. {{max}}). Zmniejsz zapas.",
+    "invalidAngle": "Kąt narzędzia musi być w zakresie 1–89°."
+  },
+  "status": {
+    "toolOk": "Narzędzie wystarcza (wykorzystuje {{used}} z {{tool}} średnicy).",
+    "toolMissing": "Podaj średnicę fazownika, aby sprawdzić, czy wystarczy."
+  },
+  "empty": "Wpisz średnicę otworu i szerokość fazy, aby zobaczyć wyniki.",
+  "diagramTitle": "Przekrój",
+  "note": "Zakładam ostry czubek narzędzia i zero Z na czubku. Przy otworze nieprzelotowym upewnij się, że jego głębokość jest większa niż Z."
+}
