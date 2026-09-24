@@ -1,0 +1,34 @@
+{
+  "tile": "Fase fräsen",
+  "title": "Fase an der Fräsmaschine",
+  "inputs": {
+    "holeD": "Bohrungsdurchmesser",
+    "chamfer": "Fasenbreite (laut Zeichnung)",
+    "toolD": "Durchmesser des Fasenfräsers",
+    "angle": "Werkzeugwinkel (zur Achse)",
+    "angleHint": "Halber Spitzenwinkel: 30° = 60°-Fräser, 45° = 90°, 60° = 120°.",
+    "safety": "Sicherheitszugabe"
+  },
+  "results": {
+    "title": "Ergebnisse",
+    "depth": "Eintauchtiefe Z (Werkzeugspitze)",
+    "depthNote": "Fasentiefe {{h}} + Zugabe {{s}}",
+    "offset": "Versatz zur Bohrungsachse",
+    "offsetNote": "Radius der Werkzeugmittelpunktbahn. Bahndurchmesser: {{d}}",
+    "topDia": "Bohrungsdurchmesser nach der Fase",
+    "chamferDepth": "Fasentiefe",
+    "reqTool": "Erforderlicher Arbeitsdurchmesser des Werkzeugs"
+  },
+  "warnings": {
+    "toolTooSmall": "Der Fasenfräser ist zu klein. Für diese Fase ist ein Arbeitsdurchmesser von mindestens {{required}} nötig, das Werkzeug hat {{tool}}. Größte Fase für dieses Werkzeug: {{max}}.",
+    "safetyTooBig": "Die Sicherheitszugabe ist für diese Bohrung zu groß (max. {{max}}). Bitte verringern.",
+    "invalidAngle": "Der Werkzeugwinkel muss zwischen 1° und 89° liegen."
+  },
+  "status": {
+    "toolOk": "Das Werkzeug reicht aus (nutzt {{used}} von {{tool}} Durchmesser).",
+    "toolMissing": "Durchmesser des Fasenfräsers eingeben, um zu prüfen, ob er ausreicht."
+  },
+  "empty": "Bohrungsdurchmesser und Fasenbreite eingeben, um die Ergebnisse zu sehen.",
+  "diagramTitle": "Schnitt",
+  "note": "Annahme: scharfe Werkzeugspitze, Z-Nullpunkt an der Spitze. Bei Sacklöchern muss die Bohrung tiefer als Z sein."
+}
