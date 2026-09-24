@@ -22,7 +22,8 @@
     "intProfileHeight": "Profile height (H1)",
     "footnoteWithData": "Tolerances per ISO 965-1 · Heights for 60° ISO profile",
     "footnoteNoData": "Nominal dimensions calculated from formulas · No tolerance data available",
-    "emptyMessage": "Enter the diameter and select the pitch to view thread dimensions."
+    "emptyMessage": "Enter the diameter and select the pitch to view thread dimensions.",
+    "nominalLabel": "Nominal"
   },
   "trapezoidal": {
     "title": "Trapezoidal Threads (Tr)",
