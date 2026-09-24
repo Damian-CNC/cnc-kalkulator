@@ -3,7 +3,6 @@ import { Settings, Scale, Triangle, Gem, Ruler, Cone, Hexagon, Bolt, Scissors, W
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import WakeLockToggle from '@/components/WakeLockToggle';
-import MobileFavoritesPopover from '@/components/layout/MobileFavoritesPopover';
 import AppFooter from '@/components/AppFooter';
 import useHaptics from '@/hooks/useHaptics';
 
@@ -69,9 +68,10 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-zinc-950 px-4 pb-safe overflow-x-hidden flex flex-col items-center">
-      <header className="w-full pt-[calc(env(safe-area-inset-top,0px)+1.25rem)] pt-14 md:pt-4 pb-3 px-0 flex items-center justify-between gap-3 mb-8 max-w-4xl relative">
+      <header className="w-full pt-[calc(env(safe-area-inset-top,0px)+1.25rem)] pt-14 md:pt-4 pb-3 mb-8 max-w-4xl grid grid-cols-[2.25rem_1fr_2.25rem] items-center gap-2">
+        <span aria-hidden />
         <motion.h1
-          className="text-2xl md:text-4xl font-black tracking-wide text-zinc-100 select-none text-center flex-1"
+          className="text-xl min-[400px]:text-2xl md:text-4xl font-black tracking-wide text-zinc-100 select-none text-center"
           initial={{ rotate: -360, scale: 0.5, opacity: 0 }}
           animate={{ rotate: 0, scale: [1, 1.05, 1], opacity: 1 }}
           transition={{
@@ -85,8 +85,7 @@ const Index = () => {
         >
           ⚙️ {t('nav.appTitle')}
         </motion.h1>
-        <div className="md:hidden flex items-center gap-1.5">
-          <MobileFavoritesPopover />
+        <div className="md:hidden flex justify-end">
           <WakeLockToggle />
         </div>
       </header>
