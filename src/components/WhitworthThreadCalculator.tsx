@@ -1,9 +1,11 @@
-import { useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import type { ThreadLimits } from '@/data/bspThreadsData';
 import useQueryState from '@/hooks/useQueryState';
+import usePersistedState from '@/hooks/usePersistedState';
+import CopyableValue from '@/components/CopyableValue';
 
 interface ThreadData {
   tpi: number;
@@ -18,12 +20,14 @@ interface WhitworthThreadCalculatorProps {
   sizes: string[];
   standardLabel: string;
   emptyMessage?: string;
+  /** Unikalna nazwa do zapamiętywania wyboru (osobna dla BSW i BSF). */
+  storageKey?: string;
 }
 
-const WhitworthThreadCalculator = ({ threads, sizes, standardLabel, emptyMessage }: WhitworthThreadCalculatorProps) => {
+const WhitworthThreadCalculator = ({ threads, sizes, standardLabel, emptyMessage, storageKey = 'whitworth' }: WhitworthThreadCalculatorProps) => {
   const { t } = useTranslation('threadsCalc');
-  const [selectedSize, setSelectedSize] = useState<string>('');
-  const [threadTab, setThreadTab] = useQueryState('tab', 'external', ['external', 'internal'] as const);
+  const [selectedSize, setSelectedSize] = usePersistedState<string>(`${storageKey}-size`, '');
+  const [threadTab, setThreadTab] = useQueryState('tab', 'external', ['external', 'internal'] as const, `${storageKey}-tab`);
 
   const thread = useMemo(() => {
     if (!selectedSize) return null;
@@ -111,16 +115,16 @@ function DimensionCard({ label, limits }: { label: string; limits: ThreadLimits 
       <div className="grid grid-cols-2 gap-3 mb-3">
         <div className="text-center">
           <span className="text-xs text-zinc-500 uppercase tracking-wider">Max</span>
-          <p className="text-xl md:text-2xl font-bold text-emerald-400">{limits.max}</p>
+          <p className="text-xl md:text-2xl font-bold text-emerald-400"><CopyableValue value={limits.max}>{limits.max}</CopyableValue></p>
         </div>
         <div className="text-center">
           <span className="text-xs text-zinc-500 uppercase tracking-wider">Min</span>
-          <p className="text-xl md:text-2xl font-bold text-amber-400">{limits.min}</p>
+          <p className="text-xl md:text-2xl font-bold text-amber-400"><CopyableValue value={limits.min}>{limits.min}</CopyableValue></p>
         </div>
       </div>
       <div className="border-t border-zinc-700/50 pt-3">
         <p className="text-xs text-zinc-500 text-center mb-1">{t('whitworth.toleranceMid')}</p>
-        <p className="text-2xl md:text-3xl font-black text-cyan-400 text-center">{mid} <span className="text-sm font-normal text-zinc-500">mm</span></p>
+        <p className="text-2xl md:text-3xl font-black text-cyan-400 text-center"><CopyableValue value={mid}>{mid}</CopyableValue> <span className="text-sm font-normal text-zinc-500">mm</span></p>
         <div className="relative mt-3 h-2 rounded-full bg-zinc-700/50">
           <div className="absolute inset-y-0 left-0 right-0 rounded-full bg-gradient-to-r from-amber-500/40 via-cyan-500/40 to-emerald-500/40" />
           <div className="absolute top-1/2 -translate-y-1/2 left-0 w-2.5 h-2.5 rounded-full bg-amber-400 border border-zinc-900" />
@@ -142,7 +146,7 @@ function CamCard({ label, value }: { label: string; value: number }) {
   return (
     <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4">
       <p className="text-cyan-300 text-sm font-medium mb-1">{label}</p>
-      <p className="text-2xl md:text-3xl font-bold text-cyan-400">{value} mm</p>
+      <p className="text-2xl md:text-3xl font-bold text-cyan-400"><CopyableValue value={value}>{value} mm</CopyableValue></p>
       <p className="text-cyan-600 text-xs mt-1.5">{t('whitworth.profileHeightNote')}</p>
     </div>
   );
@@ -154,7 +158,7 @@ function DrillCard({ tapDrill }: { tapDrill: number }) {
     <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
       <p className="text-zinc-400 text-sm font-medium mb-3">{t('whitworth.tapDrill')}</p>
       <div className="text-center">
-        <p className="text-xl md:text-2xl font-bold text-cyan-400">ø{tapDrill} <span className="text-sm font-normal text-zinc-500">mm</span></p>
+        <p className="text-xl md:text-2xl font-bold text-cyan-400"><CopyableValue value={tapDrill}>ø{tapDrill}</CopyableValue> <span className="text-sm font-normal text-zinc-500">mm</span></p>
       </div>
     </div>
   );

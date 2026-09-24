@@ -1,12 +1,12 @@
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import InputField from './InputField';
 import ResultDisplay from './ResultDisplay';
+import usePersistedState from '@/hooks/usePersistedState';
 
 const DrillConeCalculator = () => {
   const { t } = useTranslation();
-  const [diameter, setDiameter] = useState('');
-  const [angle, setAngle] = useState('');
+  const [diameter, setDiameter] = usePersistedState<string>('cone-diameter', '');
+  const [angle, setAngle] = usePersistedState<string>('cone-angle', '');
 
   const calculateConeHeight = () => {
     const D = parseFloat(diameter);

@@ -1,14 +1,14 @@
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import InputField from './InputField';
 import SelectField from './SelectField';
 import ResultDisplay from './ResultDisplay';
 import { convertHardness, ConversionDirection } from '@/utils/isoHardnessConversion';
+import usePersistedState from '@/hooks/usePersistedState';
 
 const HardnessConverter = () => {
   const { t } = useTranslation();
-  const [direction, setDirection] = useState<ConversionDirection>('hb-to-hrc');
-  const [inputValue, setInputValue] = useState('');
+  const [direction, setDirection] = usePersistedState<ConversionDirection>('hardness-direction', 'hb-to-hrc');
+  const [inputValue, setInputValue] = usePersistedState<string>('hardness-input', '');
 
   const directionOptions = [
     { value: 'hb-to-hrc', label: 'HB → HRC' },

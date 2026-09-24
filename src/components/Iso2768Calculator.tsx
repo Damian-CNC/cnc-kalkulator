@@ -12,6 +12,7 @@ import {
   type Iso2768Class,
   type Iso2768Row,
 } from '@/data/iso2768Data';
+import usePersistedState from '@/hooks/usePersistedState';
 
 const CLASSES: Iso2768Class[] = ['f', 'm', 'c', 'v'];
 
@@ -22,9 +23,9 @@ const Iso2768Calculator = () => {
   const { t } = useTranslation('iso2768');
   const { triggerSuccess, triggerLight } = useHaptics();
 
-  const [nominal, setNominal] = useState('');
-  const [cls, setCls] = useQueryState<Iso2768Class>('class', 'm', ['f', 'm', 'c', 'v']);
-  const [type, setType] = useQueryState('type', 'linear', ['linear', 'chamfer'] as const);
+  const [nominal, setNominal] = usePersistedState<string>('iso2768-nominal', '');
+  const [cls, setCls] = useQueryState<Iso2768Class>('class', 'm', ['f', 'm', 'c', 'v'], 'iso2768-class');
+  const [type, setType] = useQueryState('type', 'linear', ['linear', 'chamfer'] as const, 'iso2768-type');
   const [copied, setCopied] = useState(false);
 
   const rows = type === 'linear' ? linearTolerances : chamferTolerances;

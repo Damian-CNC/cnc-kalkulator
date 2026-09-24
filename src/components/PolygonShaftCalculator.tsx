@@ -1,6 +1,7 @@
-import { useState, ChangeEvent } from 'react';
+import { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import InputField from './InputField';
+import usePersistedState from '@/hooks/usePersistedState';
 
 type Shape = 'hex' | 'square';
 type Field = 'S' | 'D';
@@ -9,9 +10,9 @@ const round3 = (v: number) => parseFloat(v.toFixed(3)).toString();
 
 const PolygonShaftCalculator = () => {
   const { t } = useTranslation('polygon');
-  const [shape, setShape] = useState<Shape>('hex');
-  const [values, setValues] = useState<{ S: string; D: string }>({ S: '', D: '' });
-  const [computed, setComputed] = useState<Field | null>(null);
+  const [shape, setShape] = usePersistedState<Shape>('polygon-shape', 'hex');
+  const [values, setValues] = usePersistedState<{ S: string; D: string }>('polygon-values', { S: '', D: '' });
+  const [computed, setComputed] = usePersistedState<Field | null>('polygon-computed', null);
 
   const factor = (sh: Shape) => (sh === 'hex' ? 2 / Math.sqrt(3) : Math.sqrt(2));
 
