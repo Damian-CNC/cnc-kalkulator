@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
 import WakeLockToggle from './WakeLockToggle';
 import UnitSwitcher from './UnitSwitcher';
-import MobileFavoritesPopover from './layout/MobileFavoritesPopover';
 import useFavorites from '@/hooks/useFavorites';
 
 interface PageLayoutProps {
@@ -75,7 +74,6 @@ const PageLayout = ({ title, children, backRoute = '/', compactBottom = false, f
         </div>
         <div className="ml-auto flex items-center gap-1.5 shrink-0">
           <UnitSwitcher />
-          <MobileFavoritesPopover favoriteTitle={resolvedFavoriteTitle} />
           <div className="md:hidden">
             <WakeLockToggle />
           </div>
