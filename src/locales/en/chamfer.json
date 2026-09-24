@@ -1,0 +1,34 @@
+{
+  "tile": "Milled chamfer",
+  "title": "Chamfer on a Milling Machine",
+  "inputs": {
+    "holeD": "Hole diameter",
+    "chamfer": "Chamfer width (from drawing)",
+    "toolD": "Chamfer mill diameter",
+    "angle": "Tool angle (from axis)",
+    "angleHint": "Half of the included angle: 30° = 60° tool, 45° = 90°, 60° = 120°.",
+    "safety": "Safety allowance"
+  },
+  "results": {
+    "title": "Results",
+    "depth": "Plunge depth Z (tool tip)",
+    "depthNote": "Chamfer depth {{h}} + allowance {{s}}",
+    "offset": "Offset from hole axis",
+    "offsetNote": "Radius of the tool centre path. Path diameter: {{d}}",
+    "topDia": "Hole diameter after chamfer",
+    "chamferDepth": "Chamfer depth",
+    "reqTool": "Required tool working diameter"
+  },
+  "warnings": {
+    "toolTooSmall": "The chamfer mill is too small. This chamfer needs a working diameter of at least {{required}}, the tool has {{tool}}. Largest chamfer for this tool: {{max}}.",
+    "safetyTooBig": "The safety allowance is too large for this hole (max {{max}}). Reduce it.",
+    "invalidAngle": "Tool angle must be between 1° and 89°."
+  },
+  "status": {
+    "toolOk": "The tool is sufficient (uses {{used}} of {{tool}} diameter).",
+    "toolMissing": "Enter the chamfer mill diameter to check whether it is large enough."
+  },
+  "empty": "Enter the hole diameter and chamfer width to see the results.",
+  "diagramTitle": "Cross-section",
+  "note": "Assumes a sharp tool tip and Z zero at the tip. For blind holes make sure the hole is deeper than Z."
+}
