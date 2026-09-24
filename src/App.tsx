@@ -1,7 +1,6 @@
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HashRouter } from "react-router-dom";
 import { Suspense } from "react";
 import AnimatedRoutes from "./components/AnimatedRoutes";
@@ -11,9 +10,6 @@ import OnboardingController from "./components/OnboardingController";
 import PwaInstallBanner from "./components/PwaInstallBanner";
 import FavoritesFab from "./components/layout/FavoritesFab";
 
-
-const queryClient = new QueryClient();
-
 const AppFallback = () => (
   <div className="min-h-screen bg-zinc-950 flex items-center justify-center text-zinc-500">
     Loading...
@@ -22,24 +18,21 @@ const AppFallback = () => (
 
 const App = () => (
   <AppErrorBoundary>
-    <QueryClientProvider client={queryClient}>
-      <UnitProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <OnboardingController />
-          <HashRouter>
-            <FavoritesFab />
-            <Suspense fallback={<AppFallback />}>
-              <AnimatedRoutes />
-            </Suspense>
-          </HashRouter>
-          <PwaInstallBanner />
-        </TooltipProvider>
-      </UnitProvider>
-    </QueryClientProvider>
+    <UnitProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <OnboardingController />
+        <HashRouter>
+          <FavoritesFab />
+          <Suspense fallback={<AppFallback />}>
+            <AnimatedRoutes />
+          </Suspense>
+        </HashRouter>
+        <PwaInstallBanner />
+      </TooltipProvider>
+    </UnitProvider>
   </AppErrorBoundary>
-
 );
 
 export default App;
