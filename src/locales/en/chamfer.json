@@ -17,12 +17,21 @@
     "offsetNote": "Radius of the tool centre path. Path diameter: {{d}}",
     "topDia": "Hole diameter after chamfer",
     "chamferDepth": "Chamfer depth",
-    "reqTool": "Required tool working diameter"
+    "reqTool": "Required tool working diameter",
+    "activeRadius": "Required active tool radius",
+    "activeRadiusNote": "This is what the active correction (table + DR/offset) must show. Diameter: {{d}}",
+    "contourRadius": "Contour radius to program",
+    "contourRadiusNote": "This is the hole edge — turn on compensation and make sure the active tool radius equals the value above.",
+    "drLabel": "Radius correction (DR / wear / OFFN)",
+    "drNote": "Table radius: {{r0}}. Enter this correction in your control's field (DR on Heidenhain, radius/wear offset on Haas/Fanuc, OFFN on Sinumerik).",
+    "drMissing": "Enter the diameter registered in the table to calculate the correction.",
+    "chamferNoDr": "Dedicated chamfer tool: set the table radius to {{e}}. No extra correction is needed."
   },
   "warnings": {
     "toolTooSmall": "The chamfer mill is too small. This chamfer needs a working diameter of at least {{required}}, the tool has {{tool}}. Largest chamfer for this tool: {{max}}.",
     "safetyTooBig": "The safety allowance is too large for this hole (max {{max}}). Reduce it.",
-    "invalidAngle": "Tool angle must be between 1° and 89°."
+    "invalidAngle": "Tool angle must be between 1° and 89°.",
+    "drPositive": "The correction is positive — it increases the radius beyond the table value. This is unusual, double-check before running."
   },
   "status": {
     "toolOk": "The tool is sufficient (uses {{used}} of {{tool}} diameter).",
@@ -30,5 +39,23 @@
   },
   "empty": "Enter the hole diameter and chamfer width to see the results.",
   "diagramTitle": "Cross-section",
-  "note": "Assumes a sharp tool tip and Z zero at the tip. For blind holes make sure the hole is deeper than Z."
+  "note": "Assumes a sharp tool tip and Z zero at the tip. For blind holes make sure the hole is deeper than Z.",
+  "program": {
+    "title": "Programming method",
+    "toolModeLabel": "How the tool is described",
+    "toolModeChamfer": "Chamfer tool (own geometry in table)",
+    "toolModeEndmill": "End mill (nominal diameter in table)",
+    "toolModeInfoTitle": "Chamfer tool or end mill?",
+    "toolModeInfoChamfer": "Chamfer tool: the control knows the tool's angle and geometry (a dedicated table entry). The table radius can be set directly to the calculated value — no extra correction needed.",
+    "toolModeInfoEndmill": "End mill: the chamfer tool is registered in the table like a plain end mill, e.g. \"End mill 8\" = 4 mm radius. The real working radius differs from the table value, so a correction is needed (Heidenhain: DR; Haas/Fanuc: radius/wear offset; Sinumerik: OFFN; Mazatrol: usually just a different radius in the tool data).",
+    "toolModeIrrelevant": "In \"Center (no compensation)\" mode this choice doesn't change the result — it only matters with radius compensation.",
+    "tableDia": "Diameter registered in the table (e.g. \"End mill 8\")",
+    "pathModeLabel": "Tool path in the program",
+    "pathModeCenter": "Center — no radius compensation",
+    "pathModeComp": "Radius compensation (RL/RR, G41/G42)",
+    "pathModeInfoTitle": "Tool center or compensation?",
+    "pathModeInfoCenter": "Center (no compensation): the program gives the tool centre path radius directly. Compensation is off (G40).",
+    "pathModeInfoComp": "Compensation: the program gives the hole edge contour itself, and the control offsets the tool by its active radius. Heidenhain: RL/RR + DR. Haas/Fanuc: G41/G42 + radius offset (D). Sinumerik: G41/G42 + OFFN. Mazatrol: usually just enter the tool radius in the tool data."
+  },
+  "verifyNote": "Before running at full feed, verify the position in single block / simulation."
 }
