@@ -1,0 +1,61 @@
+{
+  "tile": "Faza frezem",
+  "title": "Faza na frezarce",
+  "inputs": {
+    "holeD": "Średnica otworu",
+    "chamfer": "Szerokość fazy (z rysunku)",
+    "toolD": "Średnica fazownika",
+    "angle": "Kąt narzędzia (od osi)",
+    "angleHint": "Połowa kąta wierzchołkowego: 30° = fazownik 60°, 45° = 90°, 60° = 120°.",
+    "safety": "Zapas bezpieczeństwa"
+  },
+  "results": {
+    "title": "Wyniki",
+    "depth": "Zejście w Z (czubek narzędzia)",
+    "depthNote": "Głębokość fazy {{h}} + zapas {{s}}",
+    "offset": "Odsunięcie od osi otworu",
+    "offsetNote": "Promień toru środka narzędzia. Średnica toru: {{d}}",
+    "topDia": "Średnica otworu po fazie",
+    "chamferDepth": "Głębokość fazy",
+    "reqTool": "Wymagana średnica robocza narzędzia",
+    "activeRadius": "Wymagany aktywny promień narzędzia",
+    "activeRadiusNote": "To ma pokazywać aktywna korekcja (tabela + DR/offset). Średnica: {{d}}",
+    "contourRadius": "Promień konturu do zaprogramowania",
+    "contourRadiusNote": "To krawędź otworu — włącz kompensację i zadbaj, by aktywny promień narzędzia wynosił dokładnie tyle, co powyżej.",
+    "drLabel": "Korekta promienia (DR / zużycie / OFFN)",
+    "drNote": "Promień w tabeli: {{r0}}. Wpisz tę korektę w polu Twojego sterowania (DR w Heidenhain, korekta/zużycie w Haas/Fanuc, OFFN w Sinumeriku).",
+    "drMissing": "Podaj średnicę zarejestrowaną w tabeli, aby wyliczyć korektę.",
+    "chamferNoDr": "Fazownik z własną geometrią: ustaw promień narzędzia w tabeli na {{e}}. Dodatkowa korekta nie jest potrzebna."
+  },
+  "warnings": {
+    "toolTooSmall": "Fazownik jest za mały. Do tej fazy potrzeba średnicy roboczej min. {{required}}, a narzędzie ma {{tool}}. Największa faza dla tego narzędzia: {{max}}.",
+    "safetyTooBig": "Zapas bezpieczeństwa jest za duży dla tego otworu (maks. {{max}}). Zmniejsz zapas.",
+    "invalidAngle": "Kąt narzędzia musi być w zakresie 1–89°.",
+    "drPositive": "Korekta jest dodatnia — zwiększa promień ponad wartość z tabeli. To rzadka sytuacja, sprawdź dwa razy przed uruchomieniem."
+  },
+  "status": {
+    "toolOk": "Narzędzie wystarcza (wykorzystuje {{used}} z {{tool}} średnicy).",
+    "toolMissing": "Podaj średnicę fazownika, aby sprawdzić, czy wystarczy."
+  },
+  "empty": "Wpisz średnicę otworu i szerokość fazy, aby zobaczyć wyniki.",
+  "diagramTitle": "Przekrój",
+  "note": "Zakładam ostry czubek narzędzia i zero Z na czubku. Przy otworze nieprzelotowym upewnij się, że jego głębokość jest większa niż Z.",
+  "program": {
+    "title": "Sposób programowania",
+    "toolModeLabel": "Opis narzędzia w sterowaniu",
+    "toolModeChamfer": "Fazownik (własna geometria w tabeli)",
+    "toolModeEndmill": "Frez (nominalna średnica w tabeli)",
+    "toolModeInfoTitle": "Fazownik czy frez?",
+    "toolModeInfoChamfer": "Fazownik: sterowanie zna kąt i geometrię narzędzia (osobny typ w tabeli). Promień w tabeli można ustawić wprost na wyliczoną wartość — bez dodatkowej korekty.",
+    "toolModeInfoEndmill": "Frez: fazownik jest zapisany w tabeli jak zwykły frez, np. „Frez 8” = promień 4 mm. Realny promień pracy jest inny niż w tabeli, więc potrzebna jest korekta (na Heidenhain: DR, na Haas/Fanuc: korekta promienia/zużycie, na Sinumerik: OFFN, na Mazatrolu zwykle po prostu inny promień w danych narzędzia).",
+    "toolModeIrrelevant": "W trybie „Środek (bez korekcji)” ten wybór nie zmienia wyniku — liczy się tylko przy kompensacji promienia.",
+    "tableDia": "Średnica zarejestrowana w tabeli (np. „Frez 8”)",
+    "pathModeLabel": "Tor narzędzia w programie",
+    "pathModeCenter": "Środek — bez korekcji promienia",
+    "pathModeComp": "Kompensacja promienia (RL/RR, G41/G42)",
+    "pathModeInfoTitle": "Środek narzędzia czy kompensacja?",
+    "pathModeInfoCenter": "Środek (bez korekcji): w programie podajesz wprost promień toru osi narzędzia. Kompensacja jest wyłączona (G40).",
+    "pathModeInfoComp": "Kompensacja: w programie podajesz kontur samej krawędzi otworu, a sterowanie samo odsuwa narzędzie o jego aktywny promień. Heidenhain: RL/RR + DR. Haas/Fanuc: G41/G42 + korekta promienia (D). Sinumerik: G41/G42 + OFFN. Mazatrol: zwykle wystarczy wpisać promień narzędzia w danych narzędzia."
+  },
+  "verifyNote": "Przed uruchomieniem na pełnym posuwie sprawdź pozycję na pojedynczym bloku (single block) / w symulacji."
+}
