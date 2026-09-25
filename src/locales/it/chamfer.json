@@ -17,12 +17,21 @@
     "offsetNote": "Raggio della traiettoria del centro utensile. Diametro traiettoria: {{d}}",
     "topDia": "Diametro del foro dopo lo smusso",
     "chamferDepth": "Profondità smusso",
-    "reqTool": "Diametro di lavoro richiesto dell'utensile"
+    "reqTool": "Diametro di lavoro richiesto dell'utensile",
+    "activeRadius": "Raggio utensile attivo richiesto",
+    "activeRadiusNote": "È il valore che deve risultare dalla correzione attiva (tabella + DR/offset). Diametro: {{d}}",
+    "contourRadius": "Raggio del contorno da programmare",
+    "contourRadiusNote": "È il bordo del foro: attiva la compensazione e assicurati che il raggio utensile attivo sia esattamente quello sopra.",
+    "drLabel": "Correzione raggio (DR / usura / OFFN)",
+    "drNote": "Raggio in tabella: {{r0}}. Inserisci questa correzione nel campo del tuo controllo (DR su Heidenhain, correzione raggio/usura su Haas/Fanuc, OFFN su Sinumerik).",
+    "drMissing": "Inserisci il diametro registrato in tabella per calcolare la correzione.",
+    "chamferNoDr": "Fresa per smussi con geometria propria: imposta il raggio in tabella a {{e}}. Non serve alcuna correzione aggiuntiva."
   },
   "warnings": {
     "toolTooSmall": "La fresa per smussi è troppo piccola. Per questo smusso serve un diametro di lavoro di almeno {{required}}, l'utensile ha {{tool}}. Smusso massimo per questo utensile: {{max}}.",
     "safetyTooBig": "Il margine di sicurezza è troppo grande per questo foro (max {{max}}). Riducilo.",
-    "invalidAngle": "L'angolo utensile deve essere compreso tra 1° e 89°."
+    "invalidAngle": "L'angolo utensile deve essere compreso tra 1° e 89°.",
+    "drPositive": "La correzione è positiva: aumenta il raggio oltre il valore in tabella. È una situazione rara, verifica bene prima di avviare."
   },
   "status": {
     "toolOk": "L'utensile è sufficiente (usa {{used}} su {{tool}} di diametro).",
@@ -30,5 +39,23 @@
   },
   "empty": "Inserisci diametro del foro e larghezza dello smusso per vedere i risultati.",
   "diagramTitle": "Sezione",
-  "note": "Si assume punta utensile affilata e zero Z sulla punta. Per fori ciechi verifica che il foro sia più profondo di Z."
+  "note": "Si assume punta utensile affilata e zero Z sulla punta. Per fori ciechi verifica che il foro sia più profondo di Z.",
+  "program": {
+    "title": "Metodo di programmazione",
+    "toolModeLabel": "Come è descritto l'utensile nel controllo",
+    "toolModeChamfer": "Fresa per smussi (geometria propria in tabella)",
+    "toolModeEndmill": "Fresa (diametro nominale in tabella)",
+    "toolModeInfoTitle": "Fresa per smussi o fresa normale?",
+    "toolModeInfoChamfer": "Fresa per smussi: il controllo conosce l'angolo e la geometria dell'utensile (voce dedicata in tabella). Il raggio in tabella può essere impostato direttamente al valore calcolato, senza correzioni aggiuntive.",
+    "toolModeInfoEndmill": "Fresa normale: la fresa per smussi è registrata in tabella come una fresa qualsiasi, es. \"Fresa 8\" = raggio 4 mm. Il raggio di lavoro reale differisce da quello in tabella, quindi serve una correzione (Heidenhain: DR; Haas/Fanuc: correzione raggio/usura; Sinumerik: OFFN; Mazatrol: di solito basta un raggio diverso nei dati utensile).",
+    "toolModeIrrelevant": "In modalità \"Centro (senza compensazione)\" questa scelta non cambia il risultato: conta solo con la compensazione raggio.",
+    "tableDia": "Diametro registrato in tabella (es. \"Fresa 8\")",
+    "pathModeLabel": "Traiettoria utensile nel programma",
+    "pathModeCenter": "Centro — senza compensazione raggio",
+    "pathModeComp": "Compensazione raggio (RL/RR, G41/G42)",
+    "pathModeInfoTitle": "Centro utensile o compensazione?",
+    "pathModeInfoCenter": "Centro (senza compensazione): nel programma si indica direttamente il raggio della traiettoria del centro utensile. La compensazione è disattivata (G40).",
+    "pathModeInfoComp": "Compensazione: nel programma si indica il contorno del bordo del foro, e il controllo scosta l'utensile del suo raggio attivo. Heidenhain: RL/RR + DR. Haas/Fanuc: G41/G42 + correzione raggio (D). Sinumerik: G41/G42 + OFFN. Mazatrol: di solito basta inserire il raggio utensile nei dati utensile."
+  },
+  "verifyNote": "Prima di lanciare a piena velocità, verifica la posizione in blocco singolo / simulazione."
 }
