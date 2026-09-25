@@ -17,12 +17,21 @@
     "offsetNote": "Radius der Werkzeugmittelpunktbahn. Bahndurchmesser: {{d}}",
     "topDia": "Bohrungsdurchmesser nach der Fase",
     "chamferDepth": "Fasentiefe",
-    "reqTool": "Erforderlicher Arbeitsdurchmesser des Werkzeugs"
+    "reqTool": "Erforderlicher Arbeitsdurchmesser des Werkzeugs",
+    "activeRadius": "Erforderlicher aktiver Werkzeugradius",
+    "activeRadiusNote": "Das muss die aktive Korrektur (Tabelle + DR/Offset) ergeben. Durchmesser: {{d}}",
+    "contourRadius": "Zu programmierender Konturradius",
+    "contourRadiusNote": "Das ist die Bohrungskante — Korrektur einschalten und sicherstellen, dass der aktive Werkzeugradius genau dem obigen Wert entspricht.",
+    "drLabel": "Radiuskorrektur (DR / Verschleiß / OFFN)",
+    "drNote": "Tabellenradius: {{r0}}. Diese Korrektur im entsprechenden Feld der Steuerung eintragen (DR bei Heidenhain, Radius-/Verschleißkorrektur bei Haas/Fanuc, OFFN bei Sinumerik).",
+    "drMissing": "Den in der Tabelle eingetragenen Durchmesser angeben, um die Korrektur zu berechnen.",
+    "chamferNoDr": "Fasenfräser mit eigener Geometrie: Tabellenradius auf {{e}} setzen. Keine zusätzliche Korrektur nötig."
   },
   "warnings": {
     "toolTooSmall": "Der Fasenfräser ist zu klein. Für diese Fase ist ein Arbeitsdurchmesser von mindestens {{required}} nötig, das Werkzeug hat {{tool}}. Größte Fase für dieses Werkzeug: {{max}}.",
     "safetyTooBig": "Die Sicherheitszugabe ist für diese Bohrung zu groß (max. {{max}}). Bitte verringern.",
-    "invalidAngle": "Der Werkzeugwinkel muss zwischen 1° und 89° liegen."
+    "invalidAngle": "Der Werkzeugwinkel muss zwischen 1° und 89° liegen.",
+    "drPositive": "Die Korrektur ist positiv — sie vergrößert den Radius über den Tabellenwert hinaus. Das ist ungewöhnlich, vor dem Start nochmals prüfen."
   },
   "status": {
     "toolOk": "Das Werkzeug reicht aus (nutzt {{used}} von {{tool}} Durchmesser).",
@@ -30,5 +39,23 @@
   },
   "empty": "Bohrungsdurchmesser und Fasenbreite eingeben, um die Ergebnisse zu sehen.",
   "diagramTitle": "Schnitt",
-  "note": "Annahme: scharfe Werkzeugspitze, Z-Nullpunkt an der Spitze. Bei Sacklöchern muss die Bohrung tiefer als Z sein."
+  "note": "Annahme: scharfe Werkzeugspitze, Z-Nullpunkt an der Spitze. Bei Sacklöchern muss die Bohrung tiefer als Z sein.",
+  "program": {
+    "title": "Programmiermethode",
+    "toolModeLabel": "Werkzeugbeschreibung in der Steuerung",
+    "toolModeChamfer": "Fasenfräser (eigene Geometrie in der Tabelle)",
+    "toolModeEndmill": "Fräser (Nenndurchmesser in der Tabelle)",
+    "toolModeInfoTitle": "Fasenfräser oder Fräser?",
+    "toolModeInfoChamfer": "Fasenfräser: Die Steuerung kennt Winkel und Geometrie des Werkzeugs (eigener Tabellentyp). Der Tabellenradius kann direkt auf den berechneten Wert gesetzt werden — keine zusätzliche Korrektur nötig.",
+    "toolModeInfoEndmill": "Fräser: Der Fasenfräser ist in der Tabelle wie ein normaler Fräser eingetragen, z. B. „Fräser 8“ = 4 mm Radius. Der tatsächliche Arbeitsradius weicht vom Tabellenwert ab, daher ist eine Korrektur nötig (Heidenhain: DR; Haas/Fanuc: Radius-/Verschleißkorrektur; Sinumerik: OFFN; Mazatrol: meist einfach ein anderer Radius in den Werkzeugdaten).",
+    "toolModeIrrelevant": "Im Modus „Mitte (ohne Korrektur)“ ändert diese Wahl das Ergebnis nicht — sie zählt nur bei Radiuskorrektur.",
+    "tableDia": "In der Tabelle eingetragener Durchmesser (z. B. „Fräser 8“)",
+    "pathModeLabel": "Werkzeugbahn im Programm",
+    "pathModeCenter": "Mitte — ohne Radiuskorrektur",
+    "pathModeComp": "Radiuskorrektur (RL/RR, G41/G42)",
+    "pathModeInfoTitle": "Werkzeugmitte oder Korrektur?",
+    "pathModeInfoCenter": "Mitte (ohne Korrektur): Im Programm wird der Radius der Werkzeugmittelpunktbahn direkt angegeben. Die Korrektur ist ausgeschaltet (G40).",
+    "pathModeInfoComp": "Korrektur: Im Programm wird die Bohrungskante selbst angegeben, die Steuerung versetzt das Werkzeug um seinen aktiven Radius. Heidenhain: RL/RR + DR. Haas/Fanuc: G41/G42 + Radiuskorrektur (D). Sinumerik: G41/G42 + OFFN. Mazatrol: meist genügt der Werkzeugradius in den Werkzeugdaten."
+  },
+  "verifyNote": "Vor dem Lauf mit vollem Vorschub die Position im Einzelsatz / in der Simulation prüfen."
 }
