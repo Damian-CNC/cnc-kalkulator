@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AlertTriangle, CheckCircle2, Info } from 'lucide-react';
 import InputField from '@/components/InputField';
@@ -41,6 +41,57 @@ const ANGLE_PRESETS = [30, 45, 60];
 
 const fmt = (n: number) => n.toFixed(3);
 const fmtSigned = (n: number) => `${n >= 0 ? '+' : ''}${n.toFixed(3)}`;
+
+
+/** Jedna spójna karta wyniku (wszystkie w tym samym kolorze). */
+const ResultCard = ({
+  badge,
+  title,
+  note,
+  children,
+}: {
+  badge: string;
+  title: string;
+  note?: ReactNode;
+  children: ReactNode;
+}) => (
+  <div className="rounded-xl border border-cyan-700/40 bg-cyan-950/30 p-4">
+    <div className="mb-2 flex items-center gap-2">
+      <span className="inline-flex h-7 min-w-7 items-center justify-center rounded-md bg-cyan-400/15 px-1.5 text-sm font-bold text-cyan-300">
+        {badge}
+      </span>
+      <p className="text-sm font-semibold text-cyan-200">{title}</p>
+    </div>
+    {children}
+    {note && <p className="mt-2 text-xs leading-relaxed text-zinc-400">{note}</p>}
+  </div>
+);
+
+/** Duża wartość z jednostką. */
+const Value = ({
+  text,
+  copy,
+  unit,
+  size = 'lg',
+}: {
+  text: string;
+  copy: string;
+  unit: string;
+  size?: 'lg' | 'md';
+}) => (
+  <span className={`${size === 'lg' ? 'text-3xl' : 'text-2xl'} font-black tabular-nums text-cyan-400`}>
+    <CopyableValue value={copy}>{text}</CopyableValue>
+    <span className="ml-1.5 text-sm font-normal text-zinc-400">{unit}</span>
+  </span>
+);
+
+/** Wartość w nawiasie, np. (Ø 1.000 mm). */
+const Secondary = ({ symbol, value, unit }: { symbol: string; value: string; unit: string }) => (
+  <span className="text-lg font-bold tabular-nums text-cyan-300">
+    ({symbol} <CopyableValue value={value}>{value}</CopyableValue>
+    <span className="ml-1 text-sm font-normal text-zinc-400">{unit}</span>)
+  </span>
+);
 
 const MillChamferCalculator = () => {
   const { t } = useTranslation('chamfer');
@@ -248,91 +299,116 @@ const MillChamferCalculator = () => {
           <div className="glass-module">
             <h2 className="mb-4 text-sm uppercase tracking-wider text-zinc-400">{t('results.title')}</h2>
 
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4">
-                <div className="mb-1 flex items-center gap-2">
-                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-amber-400/15 text-xs font-bold text-amber-300">Z</span>
-                  <p className="text-sm font-medium text-cyan-300">{t('results.depth')}</p>
-                </div>
-                <p className="text-3xl font-black text-cyan-400">
-                  <CopyableValue value={`-${fmt(calc.Z)}`}>−{fmt(calc.Z)}</CopyableValue>{' '}
-                  <span className="text-sm font-normal text-zinc-500">{unit}</span>
-                </p>
-                <p className="mt-1.5 text-xs text-cyan-600">
-                  {t('results.depthNote', { h: fmt(calc.h), s: fmt(calc.s) })}
-                </p>
-              </div>
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+              <ResultCard
+                badge="Z"
+                title={t('results.depth')}
+                note={t('results.depthNote', { h: fmt(calc.h), s: fmt(calc.s) })}
+              >
+                <Value text={`−${fmt(calc.Z)}`} copy={`-${fmt(calc.Z)}`} unit={unit} />
+              </ResultCard>
 
-              <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4">
-                <div className="mb-1 flex items-center gap-2">
-                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-amber-400/15 text-xs font-bold text-amber-300">e</span>
-                  <p className="text-sm font-medium text-cyan-300">
-                    {isComp ? t('results.activeRadius') : t('results.offset')}
-                  </p>
-                </div>
-                <p className="text-3xl font-black text-cyan-400">
-                  <CopyableValue value={fmt(isComp ? calc.activeRadius : calc.e)}>
-                    {fmt(isComp ? calc.activeRadius : calc.e)}
-                  </CopyableValue>{' '}
-                  <span className="text-sm font-normal text-zinc-500">{unit}</span>
-                </p>
-                <p className="mt-1.5 text-xs text-cyan-600">
-                  {isComp
-                    ? t('results.activeRadiusNote', { d: withUnit(calc.activeRadius * 2) })
-                    : t('results.offsetNote', { d: withUnit(calc.e * 2) })}
-                </p>
-              </div>
+              {isComp ? (
+                <>
+                  <ResultCard
+                    badge="R"
+                    title={t('results.activeRadius')}
+                    note={t('results.activeRadiusNote')}
+                  >
+                    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                      <Value text={fmt(calc.activeRadius)} copy={fmt(calc.activeRadius)} unit={unit} />
+                      <Secondary symbol="Ø" value={fmt(calc.activeRadius * 2)} unit={unit} />
+                    </div>
+                  </ResultCard>
+
+                  <ResultCard
+                    badge="Ø"
+                    title={t('results.contourDia')}
+                    note={t('results.contourDiaNote')}
+                  >
+                    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                      <Value text={fmt(calc.D)} copy={fmt(calc.D)} unit={unit} />
+                      <Secondary symbol="R" value={fmt(calc.R)} unit={unit} />
+                    </div>
+                  </ResultCard>
+
+                  {isEndmill && (
+                    <ResultCard
+                      badge="Δ"
+                      title={t('results.drLabel')}
+                      note={
+                        calc.dr !== null && calc.R0 !== null
+                          ? t('results.drNote', {
+                              r0: withUnit(calc.R0),
+                              d0: withUnit(calc.R0 * 2),
+                              ra: withUnit(calc.activeRadius),
+                              da: withUnit(calc.activeRadius * 2),
+                            })
+                          : undefined
+                      }
+                    >
+                      {calc.dr !== null ? (
+                        <div className="space-y-2">
+                          <div className="flex items-baseline justify-between gap-3">
+                            <span className="text-sm text-zinc-300">{t('results.drRadius')}</span>
+                            <Value text={fmtSigned(calc.dr)} copy={fmtSigned(calc.dr)} unit={unit} size="md" />
+                          </div>
+                          <div className="flex items-baseline justify-between gap-3 border-t border-cyan-900/60 pt-2">
+                            <span className="text-sm text-zinc-300">{t('results.drDiameter')}</span>
+                            <Value
+                              text={fmtSigned(calc.dr * 2)}
+                              copy={fmtSigned(calc.dr * 2)}
+                              unit={unit}
+                              size="md"
+                            />
+                          </div>
+                          {calc.dr > 0 && (
+                            <p className="flex items-start gap-2 pt-1 text-xs text-amber-400">
+                              <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
+                              {t('warnings.drPositive')}
+                            </p>
+                          )}
+                        </div>
+                      ) : (
+                        <p className="flex items-start gap-2 text-sm text-zinc-300">
+                          <Info className="mt-0.5 h-4 w-4 shrink-0 text-cyan-400" />
+                          {t('results.drMissing')}
+                        </p>
+                      )}
+                    </ResultCard>
+                  )}
+                </>
+              ) : (
+                <ResultCard
+                  badge="e"
+                  title={t('results.centerDia')}
+                  note={t('results.centerDiaNote', { r: withUnit(calc.e) })}
+                >
+                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                    <Value text={fmt(calc.e * 2)} copy={fmt(calc.e * 2)} unit={unit} />
+                    <Secondary symbol="R" value={fmt(calc.e)} unit={unit} />
+                  </div>
+                </ResultCard>
+              )}
             </div>
 
-            {isComp && (
-              <div className="mt-3 rounded-xl border border-zinc-800 bg-zinc-900/50 p-4">
-                <p className="text-sm font-medium text-zinc-200">{t('results.contourRadius')}</p>
-                <p className="mt-1 text-xl font-bold tabular-nums text-zinc-100">
-                  <CopyableValue value={fmt(calc.R)}>{fmt(calc.R)}</CopyableValue> {unit}
-                </p>
-                <p className="mt-1 text-xs text-zinc-500">{t('results.contourRadiusNote')}</p>
-
-                {isEndmill && (
-                  <div className="mt-3 border-t border-zinc-800 pt-3">
-                    {calc.dr !== null ? (
-                      <>
-                        <p className="text-sm font-medium text-zinc-200">{t('results.drLabel')}</p>
-                        <p
-                          className={`mt-1 text-xl font-bold tabular-nums ${
-                            calc.dr > 0 ? 'text-amber-400' : 'text-zinc-100'
-                          }`}
-                        >
-                          <CopyableValue value={fmtSigned(calc.dr)}>{fmtSigned(calc.dr)}</CopyableValue> {unit}
-                        </p>
-                        <p className="mt-1 text-xs text-zinc-500">
-                          {t('results.drNote', { r0: withUnit(calc.R0 ?? 0) })}
-                        </p>
-                        {calc.dr > 0 && (
-                          <p className="mt-2 flex items-start gap-2 text-xs text-amber-400">
-                            <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
-                            {t('warnings.drPositive')}
-                          </p>
-                        )}
-                      </>
-                    ) : (
-                      <p className="flex items-start gap-2 text-xs text-zinc-500">
-                        <Info className="mt-0.5 h-3.5 w-3.5 shrink-0" />
-                        {t('results.drMissing')}
-                      </p>
-                    )}
-                  </div>
-                )}
-
-                {!isEndmill && (
-                  <p className="mt-3 flex items-start gap-2 border-t border-zinc-800 pt-3 text-xs text-zinc-400">
-                    <Info className="mt-0.5 h-3.5 w-3.5 shrink-0" />
-                    {t('results.chamferNoDr')}
-                  </p>
-                )}
-              </div>
+            {isComp && !isEndmill && (
+              <p className="mt-3 flex items-start gap-2 text-xs leading-relaxed text-zinc-400">
+                <Info className="mt-0.5 h-3.5 w-3.5 shrink-0" />
+                {t('results.chamferNoDr')}
+              </p>
             )}
 
             <dl className="mt-4 divide-y divide-zinc-800 text-sm">
+              {isComp && (
+                <div className="flex items-center justify-between gap-3 py-2">
+                  <dt className="text-zinc-400">{t('results.axisPath')}</dt>
+                  <dd className="text-right font-bold tabular-nums text-zinc-100">
+                    Ø <CopyableValue value={fmt(calc.e * 2)}>{fmt(calc.e * 2)}</CopyableValue> {unit}{' '}
+                    <span className="font-normal text-zinc-400">(R {fmt(calc.e)} {unit})</span>
+                  </dd>
+                </div>
+              )}
               <div className="flex items-center justify-between py-2">
                 <dt className="text-zinc-400">{t('results.topDia')}</dt>
                 <dd className="font-bold tabular-nums text-zinc-100">

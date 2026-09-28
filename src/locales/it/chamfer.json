@@ -13,19 +13,22 @@
     "title": "Risultati",
     "depth": "Discesa Z (punta utensile)",
     "depthNote": "Profondità smusso {{h}} + margine {{s}}",
-    "offset": "Scostamento dall'asse del foro",
-    "offsetNote": "Raggio della traiettoria del centro utensile. Diametro traiettoria: {{d}}",
     "topDia": "Diametro del foro dopo lo smusso",
     "chamferDepth": "Profondità smusso",
     "reqTool": "Diametro di lavoro richiesto dell'utensile",
     "activeRadius": "Raggio utensile attivo richiesto",
-    "activeRadiusNote": "Correzione oltre il semplice scorrere sul bordo (margine × tan dell'angolo). Diametro: {{d}}",
-    "contourRadius": "Raggio del contorno da programmare",
-    "contourRadiusNote": "È il bordo del foro: attiva la compensazione e assicurati che il raggio utensile attivo sia esattamente quello sopra.",
-    "drLabel": "Correzione raggio (DR / usura / OFFN)",
-    "drNote": "Raggio in tabella: {{r0}}. Inserisci questa correzione nel campo del tuo controllo (DR su Heidenhain, correzione raggio/usura su Haas/Fanuc, OFFN su Sinumerik).",
+    "activeRadiusNote": "Raggio in tabella + correzione (DR / usura / OFFN) deve dare questo valore. Deriva da: margine × tan dell'angolo.",
+    "drLabel": "Correzione usura (DR / OFFN)",
+    "drNote": "Tabella: R {{r0}} (Ø {{d0}}) + correzione = R attivo {{ra}} (Ø {{da}}). Inserisci la correzione come raggio o come diametro, a seconda di come lavora il tuo controllo.",
     "drMissing": "Inserisci il diametro registrato in tabella per calcolare la correzione.",
-    "chamferNoDr": "Fresa per smussi con geometria propria: alcuni controlli calcolano l'impegno di questo tipo di utensile dal suo angolo, non da un semplice raggio. Considera il valore sopra come riferimento e verificalo con il ciclo/la documentazione di questo utensile."
+    "chamferNoDr": "Fresa per smussi con geometria propria: alcuni controlli calcolano l'impegno di questo tipo di utensile dal suo angolo, non da un semplice raggio. Considera il valore sopra come riferimento e verificalo con il ciclo/la documentazione di questo utensile.",
+    "contourDia": "Diametro da programmare",
+    "contourDiaNote": "È il diametro del foro (il suo bordo). Programma un contorno con questo diametro e attiva la compensazione raggio.",
+    "centerDia": "Diametro della traiettoria del centro utensile",
+    "centerDiaNote": "Programma la traiettoria dell'asse utensile con questo diametro (raggio {{r}} dall'asse del foro). Compensazione raggio disattivata (G40).",
+    "drRadius": "sul raggio",
+    "drDiameter": "sul diametro",
+    "axisPath": "Traiettoria asse utensile (dopo compensazione)"
   },
   "warnings": {
     "toolTooSmall": "La fresa per smussi è troppo piccola. Per questo smusso serve un diametro di lavoro di almeno {{required}}, l'utensile ha {{tool}}. Smusso massimo per questo utensile: {{max}}.",
@@ -46,8 +49,8 @@
     "toolModeChamfer": "Fresa per smussi (geometria propria in tabella)",
     "toolModeEndmill": "Fresa (diametro nominale in tabella)",
     "toolModeInfoTitle": "Fresa per smussi o fresa normale?",
-    "toolModeInfoChamfer": "Fresa per smussi: il controllo conosce l'angolo e la geometria dell'utensile (voce dedicata in tabella). Il raggio in tabella può essere impostato direttamente al valore calcolato, senza correzioni aggiuntive.",
-    "toolModeInfoEndmill": "Fresa normale: la fresa per smussi è registrata in tabella come una fresa qualsiasi, es. \"Fresa 8\" = raggio 4 mm. Il raggio di lavoro reale differisce da quello in tabella, quindi serve una correzione (Heidenhain: DR; Haas/Fanuc: correzione raggio/usura; Sinumerik: OFFN; Mazatrol: di solito basta un raggio diverso nei dati utensile).",
+    "toolModeInfoChamfer": "Fresa per smussi: il controllo conosce l'angolo e la geometria dell'utensile (voce dedicata in tabella). Di solito non serve una correzione DR manuale, ma verifica nella documentazione del controllo come tratta questo utensile.",
+    "toolModeInfoEndmill": "Fresa normale: la fresa per smussi è registrata in tabella come una fresa qualsiasi, es. \"Fresa 8\" = raggio 4 mm. Il raggio di lavoro reale differisce da quello in tabella, quindi serve una correzione (Heidenhain: DR; Haas/Fanuc: correzione raggio/usura; Sinumerik: OFFN; Mazatrol: di solito un diametro diverso nei dati utensile).",
     "toolModeIrrelevant": "In modalità \"Centro (senza compensazione)\" questa scelta non cambia il risultato: conta solo con la compensazione raggio.",
     "tableDia": "Diametro registrato in tabella (es. \"Fresa 8\")",
     "pathModeLabel": "Traiettoria utensile nel programma",
@@ -55,7 +58,7 @@
     "pathModeComp": "Compensazione raggio (RL/RR, G41/G42)",
     "pathModeInfoTitle": "Centro utensile o compensazione?",
     "pathModeInfoCenter": "Centro (senza compensazione): nel programma si indica direttamente il raggio della traiettoria del centro utensile. La compensazione è disattivata (G40).",
-    "pathModeInfoComp": "Compensazione: nel programma si indica il contorno del bordo del foro, e il controllo scosta l'utensile del suo raggio attivo. Heidenhain: RL/RR + DR. Haas/Fanuc: G41/G42 + correzione raggio (D). Sinumerik: G41/G42 + OFFN. Mazatrol: di solito basta inserire il raggio utensile nei dati utensile."
+    "pathModeInfoComp": "Compensazione: nel programma si indica il contorno del bordo del foro, e il controllo scosta l'utensile del suo raggio attivo. Heidenhain: RL/RR + DR. Haas/Fanuc: G41/G42 + correzione raggio (D). Sinumerik: G41/G42 + OFFN. Mazatrol: di solito basta inserire il diametro utensile nei dati utensile."
   },
   "verifyNote": "Prima di lanciare a piena velocità, verifica la posizione in blocco singolo / simulazione."
 }
