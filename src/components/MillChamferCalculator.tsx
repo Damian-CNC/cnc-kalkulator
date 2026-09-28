@@ -79,10 +79,12 @@ const MillChamferCalculator = () => {
     const toolTooSmall = toolD !== null && toolD > 0 && toolD + 1e-9 < requiredToolD;
     const safetyMax = R / tanA;
 
-    // Tabela narzędzia jako "frez": promień korekty (DR / offset / OFFN) = e - R0
+    // Kompensacja: kontur = krawędź otworu (R). Aktywny promień = R - e = s*tanA
+    // (dokładnie tyle, o ile trzeba dosunąć narzędzie ponad "jazdę po krawędzi").
+    const activeRadius = Math.max(0, R - e);
     const tableD = parseDecimal(inputs.tableDia);
     const R0 = tableD ? tableD / 2 : null;
-    const dr = R0 !== null ? e - R0 : null;
+    const dr = R0 !== null ? activeRadius - R0 : null;
 
     return {
       D, c, alpha, s, toolD, R, h, Z, e,
@@ -92,6 +94,7 @@ const MillChamferCalculator = () => {
       safetyTooBig: eRaw < 0,
       safetyMax,
       topDia: D + 2 * c,
+      activeRadius,
       R0,
       dr,
     };
@@ -268,12 +271,14 @@ const MillChamferCalculator = () => {
                   </p>
                 </div>
                 <p className="text-3xl font-black text-cyan-400">
-                  <CopyableValue value={fmt(calc.e)}>{fmt(calc.e)}</CopyableValue>{' '}
+                  <CopyableValue value={fmt(isComp ? calc.activeRadius : calc.e)}>
+                    {fmt(isComp ? calc.activeRadius : calc.e)}
+                  </CopyableValue>{' '}
                   <span className="text-sm font-normal text-zinc-500">{unit}</span>
                 </p>
                 <p className="mt-1.5 text-xs text-cyan-600">
                   {isComp
-                    ? t('results.activeRadiusNote', { d: withUnit(calc.e * 2) })
+                    ? t('results.activeRadiusNote', { d: withUnit(calc.activeRadius * 2) })
                     : t('results.offsetNote', { d: withUnit(calc.e * 2) })}
                 </p>
               </div>
@@ -321,7 +326,7 @@ const MillChamferCalculator = () => {
                 {!isEndmill && (
                   <p className="mt-3 flex items-start gap-2 border-t border-zinc-800 pt-3 text-xs text-zinc-400">
                     <Info className="mt-0.5 h-3.5 w-3.5 shrink-0" />
-                    {t('results.chamferNoDr', { e: withUnit(calc.e) })}
+                    {t('results.chamferNoDr')}
                   </p>
                 )}
               </div>

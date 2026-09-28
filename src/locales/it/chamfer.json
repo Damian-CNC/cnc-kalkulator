@@ -19,13 +19,13 @@
     "chamferDepth": "Profondità smusso",
     "reqTool": "Diametro di lavoro richiesto dell'utensile",
     "activeRadius": "Raggio utensile attivo richiesto",
-    "activeRadiusNote": "È il valore che deve risultare dalla correzione attiva (tabella + DR/offset). Diametro: {{d}}",
+    "activeRadiusNote": "Correzione oltre il semplice scorrere sul bordo (margine × tan dell'angolo). Diametro: {{d}}",
     "contourRadius": "Raggio del contorno da programmare",
     "contourRadiusNote": "È il bordo del foro: attiva la compensazione e assicurati che il raggio utensile attivo sia esattamente quello sopra.",
     "drLabel": "Correzione raggio (DR / usura / OFFN)",
     "drNote": "Raggio in tabella: {{r0}}. Inserisci questa correzione nel campo del tuo controllo (DR su Heidenhain, correzione raggio/usura su Haas/Fanuc, OFFN su Sinumerik).",
     "drMissing": "Inserisci il diametro registrato in tabella per calcolare la correzione.",
-    "chamferNoDr": "Fresa per smussi con geometria propria: imposta il raggio in tabella a {{e}}. Non serve alcuna correzione aggiuntiva."
+    "chamferNoDr": "Fresa per smussi con geometria propria: alcuni controlli calcolano l'impegno di questo tipo di utensile dal suo angolo, non da un semplice raggio. Considera il valore sopra come riferimento e verificalo con il ciclo/la documentazione di questo utensile."
   },
   "warnings": {
     "toolTooSmall": "La fresa per smussi è troppo piccola. Per questo smusso serve un diametro di lavoro di almeno {{required}}, l'utensile ha {{tool}}. Smusso massimo per questo utensile: {{max}}.",

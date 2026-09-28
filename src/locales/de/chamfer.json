@@ -19,13 +19,13 @@
     "chamferDepth": "Fasentiefe",
     "reqTool": "Erforderlicher Arbeitsdurchmesser des Werkzeugs",
     "activeRadius": "Erforderlicher aktiver Werkzeugradius",
-    "activeRadiusNote": "Das muss die aktive Korrektur (Tabelle + DR/Offset) ergeben. Durchmesser: {{d}}",
+    "activeRadiusNote": "Korrektur über das reine Fahren an der Kante hinaus (Zugabe × tan des Winkels). Durchmesser: {{d}}",
     "contourRadius": "Zu programmierender Konturradius",
     "contourRadiusNote": "Das ist die Bohrungskante — Korrektur einschalten und sicherstellen, dass der aktive Werkzeugradius genau dem obigen Wert entspricht.",
     "drLabel": "Radiuskorrektur (DR / Verschleiß / OFFN)",
     "drNote": "Tabellenradius: {{r0}}. Diese Korrektur im entsprechenden Feld der Steuerung eintragen (DR bei Heidenhain, Radius-/Verschleißkorrektur bei Haas/Fanuc, OFFN bei Sinumerik).",
     "drMissing": "Den in der Tabelle eingetragenen Durchmesser angeben, um die Korrektur zu berechnen.",
-    "chamferNoDr": "Fasenfräser mit eigener Geometrie: Tabellenradius auf {{e}} setzen. Keine zusätzliche Korrektur nötig."
+    "chamferNoDr": "Fasenfräser mit eigener Geometrie: Manche Steuerungen berechnen den Eingriff für diesen Werkzeugtyp aus seinem eigenen Winkel, nicht aus einem einfachen Radius. Den obigen Wert als Referenz betrachten und anhand des Zyklus/der Dokumentation für dieses Werkzeug prüfen."
   },
   "warnings": {
     "toolTooSmall": "Der Fasenfräser ist zu klein. Für diese Fase ist ein Arbeitsdurchmesser von mindestens {{required}} nötig, das Werkzeug hat {{tool}}. Größte Fase für dieses Werkzeug: {{max}}.",

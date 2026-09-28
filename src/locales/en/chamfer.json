@@ -19,13 +19,13 @@
     "chamferDepth": "Chamfer depth",
     "reqTool": "Required tool working diameter",
     "activeRadius": "Required active tool radius",
-    "activeRadiusNote": "This is what the active correction (table + DR/offset) must show. Diameter: {{d}}",
+    "activeRadiusNote": "Correction beyond riding right on the edge (allowance × tan of the angle). Diameter: {{d}}",
     "contourRadius": "Contour radius to program",
     "contourRadiusNote": "This is the hole edge — turn on compensation and make sure the active tool radius equals the value above.",
     "drLabel": "Radius correction (DR / wear / OFFN)",
     "drNote": "Table radius: {{r0}}. Enter this correction in your control's field (DR on Heidenhain, radius/wear offset on Haas/Fanuc, OFFN on Sinumerik).",
     "drMissing": "Enter the diameter registered in the table to calculate the correction.",
-    "chamferNoDr": "Dedicated chamfer tool: set the table radius to {{e}}. No extra correction is needed."
+    "chamferNoDr": "Dedicated chamfer tool: some controls compute engagement for this tool type from its own angle, not a simple radius. Treat the value above as a reference and check it against the cycle/documentation for this tool."
   },
   "warnings": {
     "toolTooSmall": "The chamfer mill is too small. This chamfer needs a working diameter of at least {{required}}, the tool has {{tool}}. Largest chamfer for this tool: {{max}}.",
