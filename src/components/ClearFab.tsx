@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import { createPortal } from 'react-dom';
+import { motion, useIsPresent } from 'framer-motion';
 import { RotateCcw } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import useHaptics from '@/hooks/useHaptics';
@@ -12,9 +13,18 @@ interface ClearFabProps {
 const ClearFab = ({ onClear, label }: ClearFabProps) => {
   const { t } = useTranslation();
   const { triggerWarning } = useHaptics();
+  // Strona wyjeżdżająca (AnimatePresence) zostaje w DOM do końca animacji.
+  // Portal jest poza nią, więc bez tego przycisk wisiałby nad wjeżdżającym menu
+  // i znikał dopiero po animacji (mrugnięcie ekranu).
+  const isPresent = useIsPresent();
   const text = label ?? t('common.clearAll');
 
   const button = (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.25, duration: 0.15 }}
+    >
     <button
       onClick={() => {
         triggerWarning();
@@ -26,7 +36,10 @@ const ClearFab = ({ onClear, label }: ClearFabProps) => {
       <RotateCcw className="w-5 h-5 sm:w-4 sm:h-4 text-cyan-400" />
       <span className="hidden sm:inline">{text}</span>
     </button>
+    </motion.div>
   );
+
+  if (!isPresent) return null;
 
   // Portal do <body>: animowana strona ma transform, który robi z niej
   // "kontener" dla position: fixed. Przycisk przypinałby się wtedy do dołu
