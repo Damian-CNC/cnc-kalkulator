@@ -16,8 +16,6 @@
     "topDia": "Hole diameter after chamfer",
     "chamferDepth": "Chamfer depth",
     "reqTool": "Required tool working diameter",
-    "activeRadius": "Required active tool radius",
-    "activeRadiusNote": "Table radius + correction (DR / wear / OFFN) must add up to this. Comes from: allowance × tan of the angle.",
     "drLabel": "Wear correction (DR / OFFN)",
     "drNote": "Table: R {{r0}} (Ø {{d0}}) + correction = active R {{ra}} (Ø {{da}}). Enter the correction as radius or as diameter, whichever your control works in.",
     "drMissing": "Enter the diameter registered in the table to calculate the correction.",
