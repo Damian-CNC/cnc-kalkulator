@@ -207,26 +207,10 @@ const PCD_HOLES: Array<[number, number]> = [0, 1, 2, 3, 4].map((i) => {
 
 export const PcdIcon = memo((p: CncIconProps) => (
   <Base {...p}>
-    <defs>
-      <mask id="pcd-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="64" height="64">
-        <rect width="64" height="64" fill="white" />
-        {PCD_HOLES.map(([x, y]) => (
-          <circle key={`m-${x}-${y}`} cx={x} cy={y} r="8" fill="black" />
-        ))}
-      </mask>
-    </defs>
     {/* obrys tarczy */}
     <circle cx="32" cy="32" r="29" strokeWidth={2} opacity={0.55} />
-    {/* okrąg konstrukcyjny (średnica podziałowa) */}
-    <circle
-      cx="32"
-      cy="32"
-      r="17"
-      strokeWidth={1.75}
-      strokeDasharray={AXIS}
-      strokeLinecap="butt"
-      mask="url(#pcd-mask)"
-    />
+    {/* okrąg konstrukcyjny (średnica podziałowa) — łuki między otworami */}
+    <path d="M38.09 16.13 A17 17 0 0 1 45.21 21.30 M48.98 32.89 A17 17 0 0 1 46.26 41.26 M36.40 48.42 A17 17 0 0 1 27.60 48.42 M17.74 41.26 A17 17 0 0 1 15.02 32.89 M18.79 21.30 A17 17 0 0 1 25.91 16.13" strokeWidth={1.75} strokeLinecap="butt" />
     {PCD_HOLES.map(([x, y]) => (
       <circle key={`${x}-${y}`} cx={x} cy={y} r="5.5" fill="currentColor" fillOpacity={0.25} />
     ))}
@@ -242,45 +226,16 @@ PcdIcon.displayName = 'PcdIcon';
 export const AngledHolesIcon = memo((p: CncIconProps) => (
   <Base {...p}>
     <g transform="translate(0 -3)">
-    <defs>
-      <mask id="angled-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="64" height="64">
-        <rect width="64" height="64" fill="white" />
-        {[18, 32, 46, 60].map((s) => (
-          <circle
-            key={`m-${s}`}
-            cx={Number((4 + s * 0.866).toFixed(2))}
-            cy={Number((52 - s * 0.5).toFixed(2))}
-            r="8"
-            fill="black"
-          />
-        ))}
-      </mask>
-    </defs>
     {/* linia odniesienia i kąt */}
     <path d="M4 52 H24" strokeWidth={1.75} opacity={0.75} />
     <path d="M14 52 A10 10 0 0 0 12.7 47" strokeWidth={1.75} />
-    {/* linia otworów (przerywana) */}
-    <line
-      x1="4"
-      y1="52"
-      x2="60"
-      y2="20"
-      strokeWidth={2}
-      strokeDasharray="6 4"
-      strokeLinecap="butt"
-      mask="url(#angled-mask)"
-    />
+    {/* linia otworów (odcinki między otworami) */}
+    <path d="M4.00 52.00 L10.93 48.00 M21.32 42.00 L23.92 40.50 M34.31 34.50 L36.91 33.00 M47.30 27.00 L49.90 25.50" strokeWidth={2} strokeLinecap="butt" />
     {/* otwory */}
-    {[18, 32, 46, 60].map((s) => (
-      <circle
-        key={s}
-        cx={Number((4 + s * 0.866).toFixed(2))}
-        cy={Number((52 - s * 0.5).toFixed(2))}
-        r="5.5"
-        fill="currentColor"
-        fillOpacity={0.25}
-      />
-    ))}
+    <circle cx="16.12" cy="45.00" r="4.6" fill="currentColor" fillOpacity={0.25} />
+    <circle cx="29.11" cy="37.50" r="4.6" fill="currentColor" fillOpacity={0.25} />
+    <circle cx="42.10" cy="30.00" r="4.6" fill="currentColor" fillOpacity={0.25} />
+    <circle cx="55.09" cy="22.50" r="4.6" fill="currentColor" fillOpacity={0.25} />
     </g>
   </Base>
 ));
