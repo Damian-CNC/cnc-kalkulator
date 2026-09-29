@@ -16,8 +16,6 @@
     "topDia": "Bohrungsdurchmesser nach der Fase",
     "chamferDepth": "Fasentiefe",
     "reqTool": "Erforderlicher Arbeitsdurchmesser des Werkzeugs",
-    "activeRadius": "Erforderlicher aktiver Werkzeugradius",
-    "activeRadiusNote": "Tabellenradius + Korrektur (DR / Verschleiß / OFFN) muss diesen Wert ergeben. Herleitung: Zugabe × tan des Winkels.",
     "drLabel": "Verschleißkorrektur (DR / OFFN)",
     "drNote": "Tabelle: R {{r0}} (Ø {{d0}}) + Korrektur = aktiver R {{ra}} (Ø {{da}}). Korrektur als Radius oder als Durchmesser eintragen, je nachdem, womit Ihre Steuerung arbeitet.",
     "drMissing": "Den in der Tabelle eingetragenen Durchmesser angeben, um die Korrektur zu berechnen.",
