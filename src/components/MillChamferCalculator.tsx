@@ -311,17 +311,6 @@ const MillChamferCalculator = () => {
               {isComp ? (
                 <>
                   <ResultCard
-                    badge="R"
-                    title={t('results.activeRadius')}
-                    note={t('results.activeRadiusNote')}
-                  >
-                    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                      <Value text={fmt(calc.activeRadius)} copy={fmt(calc.activeRadius)} unit={unit} />
-                      <Secondary symbol="Ø" value={fmt(calc.activeRadius * 2)} unit={unit} />
-                    </div>
-                  </ResultCard>
-
-                  <ResultCard
                     badge="Ø"
                     title={t('results.contourDia')}
                     note={t('results.contourDiaNote')}
