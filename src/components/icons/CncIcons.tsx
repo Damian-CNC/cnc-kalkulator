@@ -197,25 +197,13 @@ export const HexDiagonalIcon = memo((p: CncIconProps) => (
 HexDiagonalIcon.displayName = 'HexDiagonalIcon';
 
 /* ------------------------------------------------------------------ */
-/* 7. Podcięcia DIN 509 E — połówka wałka z podcięciem przy ramieniu   */
+/* 7. Podcięcia DIN 509 — połówka wałka z podcięciem przy ramieniu     */
 /* ------------------------------------------------------------------ */
 export const UndercutIcon = memo((p: CncIconProps) => (
   <Base {...p}>
     <path d="M4 56 V16 H27 V33 Q27 39 33 39 L44 29 H60 V56 Z" {...FILL} />
     <path d="M4 56 V16 H27 V33 Q27 39 33 39 L44 29 H60 V56" />
     <line x1="2" y1="56" x2="62" y2="56" {...axisProps} />
-    <text
-      x="61"
-      y="20"
-      textAnchor="end"
-      fontSize="19"
-      fontWeight="900"
-      fill="currentColor"
-      stroke="none"
-      fontFamily="Inter, system-ui, sans-serif"
-    >
-      E
-    </text>
   </Base>
 ));
 UndercutIcon.displayName = 'UndercutIcon';

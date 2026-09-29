@@ -30,6 +30,10 @@ type Tile = {
   isNew?: boolean;
 };
 
+// Ikony lucide rysowane są na siatce 24 px (własne na 64 px), więc ta sama
+// grubość linii na ekranie wymaga tu znacznie mniejszego strokeWidth.
+const LUCIDE_ICONS: unknown[] = [Settings, Waves, Ruler, Target, Scale, Gem];
+
 const sections: { titleKey: string; tiles: Tile[] }[] = [
   {
     titleKey: 'sections.machining',
@@ -53,7 +57,6 @@ const sections: { titleKey: string; tiles: Tile[] }[] = [
       { id: 'millChamfer', labelKey: 'chamfer:tile', icon: MillChamferIcon, route: '/faza-frezem', isNew: true },
       { id: 'cone', labelKey: 'tiles.cone', icon: DrillIcon, route: '/stozek' },
       { id: 'polygon', labelKey: 'tiles.polygon', icon: HexDiagonalIcon, route: '/przekatne' },
-      { id: 'din509', labelKey: 'tiles.din509', icon: UndercutIcon, route: '/podciecia-din509' },
       { id: 'pcd', labelKey: 'tiles.pcd', icon: PcdIcon, route: '/pcd', isNew: true },
       { id: 'linearHoles', labelKey: 'tiles.linearHoles', icon: AngledHolesIcon, route: '/otwory-liniowe', isNew: true },
       { id: 'truePosition', labelKey: 'tiles.truePosition', icon: Target, route: '/true-position', isNew: true },
@@ -65,6 +68,7 @@ const sections: { titleKey: string; tiles: Tile[] }[] = [
       { id: 'seger', labelKey: 'tiles.seger', icon: CirclipIcon, route: '/rowki-segera' },
       { id: 'keyways', labelKey: 'tiles.keyways', icon: KeywayIcon, route: '/wpusty' },
       { id: 'oring', labelKey: 'tiles.oring', icon: ORingIcon, route: '/rowki-oring' },
+      { id: 'din509', labelKey: 'tiles.din509', icon: UndercutIcon, route: '/podciecia-din509' },
     ],
   },
   {
@@ -129,7 +133,7 @@ const Index = () => {
                         {t('common.new')}
                       </span>
                     )}
-                    <Icon className="w-20 h-20 md:w-28 md:h-28 text-cyan-400" strokeWidth={2.25} />
+                    <Icon className="w-20 h-20 md:w-28 md:h-28 text-cyan-400" strokeWidth={LUCIDE_ICONS.includes(Icon) ? 0.85 : 2.25} />
                     <span className="text-sm sm:text-base font-semibold text-zinc-200 leading-tight">
                       {t(tile.labelKey)}
                     </span>
