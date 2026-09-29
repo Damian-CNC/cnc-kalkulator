@@ -16,8 +16,6 @@
     "topDia": "Średnica otworu po fazie",
     "chamferDepth": "Głębokość fazy",
     "reqTool": "Wymagana średnica robocza narzędzia",
-    "activeRadius": "Wymagany aktywny promień narzędzia",
-    "activeRadiusNote": "Tyle ma wynosić: promień w tabeli + korekta (DR / zużycie / OFFN). Wynika z: zapas × tan kąta.",
     "drLabel": "Korekta zużycia (DR / OFFN)",
     "drNote": "Tabela: R {{r0}} (Ø {{d0}}) + korekta = aktywny R {{ra}} (Ø {{da}}). Wpisz korektę w promieniu albo w średnicy — zależnie od tego, na czym pracuje Twoje sterowanie.",
     "drMissing": "Podaj średnicę zarejestrowaną w tabeli, aby wyliczyć korektę.",
