@@ -1,5 +1,5 @@
 import { useEffect, useRef, Suspense, type ComponentType } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigationType } from "react-router-dom";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { lazyWithRetry } from "@/lib/lazyWithRetry";
 
@@ -75,35 +75,53 @@ const getPathDepth = (path: string): number => {
   return 1;
 };
 
+// iOS przy cofnięciu (gest od krawędzi / przycisk wstecz przeglądarki) sam animuje
+// przejście na zrzucie poprzedniej strony. Gdyby aplikacja dodatkowo odtwarzała
+// własną animację, zakładka pojawiłaby się drugi raz (menu -> zakładka -> menu).
+// Dlatego przy nawigacji typu POP na iOS podmieniamy ekran natychmiast.
+// Przycisk strzałki w aplikacji używa navigate(), czyli PUSH, więc dalej się animuje.
+const IS_IOS =
+  typeof navigator !== "undefined" &&
+  (/iP(hone|ad|od)/.test(navigator.userAgent) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1));
+
+type PageCustom = { direction: number; instant: boolean };
+
+const slideTransition = {
+  x: { type: "tween", ease: [0.25, 1, 0.5, 1], duration: 0.28 },
+  opacity: { type: "tween", ease: "linear", duration: 0.18 },
+} as const;
+
 // Tylko transform i opacity, bez cieni i skalowania
 const pageVariants: Variants = {
-  initial: (direction: number) => ({
-    x: direction > 0 ? "100%" : "-25%",
-    opacity: direction > 0 ? 1 : 0.75,
-    zIndex: direction > 0 ? 2 : 1,
-  }),
-  animate: {
+  initial: ({ direction, instant }: PageCustom) =>
+    instant
+      ? { x: "0%", opacity: 1, zIndex: 2 }
+      : {
+          x: direction > 0 ? "100%" : "-25%",
+          opacity: direction > 0 ? 1 : 0.75,
+          zIndex: direction > 0 ? 2 : 1,
+        },
+  animate: ({ instant }: PageCustom) => ({
     x: "0%",
     opacity: 1,
     zIndex: 2,
-    transition: {
-      x: { type: "tween", ease: [0.25, 1, 0.5, 1], duration: 0.28 },
-      opacity: { type: "tween", ease: "linear", duration: 0.18 },
-    },
-  },
-  exit: (direction: number) => ({
-    x: direction > 0 ? "-25%" : "100%",
-    opacity: direction > 0 ? 0.75 : 1,
-    zIndex: direction > 0 ? 1 : 3,
-    transition: {
-      x: { type: "tween", ease: [0.25, 1, 0.5, 1], duration: 0.28 },
-      opacity: { type: "tween", ease: "linear", duration: 0.18 },
-    },
+    transition: instant ? { duration: 0 } : slideTransition,
   }),
+  exit: ({ direction, instant }: PageCustom) =>
+    instant
+      ? { opacity: 0, zIndex: 0, transition: { duration: 0 } }
+      : {
+          x: direction > 0 ? "-25%" : "100%",
+          opacity: direction > 0 ? 0.75 : 1,
+          zIndex: direction > 0 ? 1 : 3,
+          transition: slideTransition,
+        },
 };
 
 const AnimatedRoutes = () => {
   const location = useLocation();
+  const navigationType = useNavigationType();
   const currentPath = location.pathname;
   const currentIdx = (window.history.state?.idx as number) ?? 0;
 
@@ -111,6 +129,7 @@ const AnimatedRoutes = () => {
     path: currentPath,
     idx: currentIdx,
     direction: 1,
+    instant: false,
   });
 
   // Kierunek liczony synchronicznie w trakcie renderu (bez useState/useEffect),
@@ -138,10 +157,16 @@ const AnimatedRoutes = () => {
       }
     }
 
-    navStateRef.current = { path: currentPath, idx: currentIdx, direction: dir };
+    navStateRef.current = {
+      path: currentPath,
+      idx: currentIdx,
+      direction: dir,
+      instant: IS_IOS && navigationType === "POP",
+    };
   }
 
   const direction = navStateRef.current.direction;
+  const pageCustom: PageCustom = { direction, instant: navStateRef.current.instant };
 
   useEffect(() => {
     preloadAllPages();
@@ -152,12 +177,12 @@ const AnimatedRoutes = () => {
       <AnimatePresence
         mode="popLayout"
         initial={false}
-        custom={direction}
+        custom={pageCustom}
         onExitComplete={() => window.scrollTo(0, 0)}
       >
         <motion.div
           key={currentPath}
-          custom={direction}
+          custom={pageCustom}
           variants={pageVariants}
           initial="initial"
           animate="animate"
