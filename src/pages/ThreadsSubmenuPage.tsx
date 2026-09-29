@@ -41,7 +41,7 @@ const ThreadsSubmenuPage = () => {
                   {t('common.new')}
                 </span>
               )}
-              <ThreadIcon badge={tile.badge} className={`w-24 h-24 ${tile.color}`} strokeWidth={2.25} />
+              <ThreadIcon badge={tile.badge} className={`w-[72px] h-[72px] ${tile.color}`} strokeWidth={2.25} />
               <span className="text-sm sm:text-base font-semibold text-zinc-200 leading-tight">
                 {t(tile.labelKey)}
               </span>

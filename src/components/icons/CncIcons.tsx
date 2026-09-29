@@ -63,17 +63,6 @@ export const MillChamferIcon = memo((p: CncIconProps) => (
     <path d="M23 2 H41 V27 L32 36 L23 27 Z" fill="currentColor" fillOpacity={0.2} />
     {/* oś */}
     <line x1="32" y1="0" x2="32" y2="64" {...axisProps} />
-    <text
-      x="43.5"
-      y="31"
-      fontSize="9.5"
-      fontWeight="900"
-      fill="currentColor"
-      stroke="none"
-      fontFamily="Inter, system-ui, sans-serif"
-    >
-      90°
-    </text>
   </Base>
 ));
 MillChamferIcon.displayName = 'MillChamferIcon';

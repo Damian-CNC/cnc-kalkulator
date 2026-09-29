@@ -24,7 +24,7 @@ const ThreadsMenuPage = () => {
               onClick={() => navigate(tile.route)}
               className="aspect-square bg-zinc-900 border border-zinc-800/80 rounded-2xl flex flex-col items-center justify-center gap-3 p-4 text-center cursor-pointer transition-all hover:bg-zinc-800/80 hover:border-cyan-500/50 active:scale-95"
             >
-              <ThreadIcon badge={tile.badge} className={`w-24 h-24 ${tile.color}`} strokeWidth={2.25} />
+              <ThreadIcon badge={tile.badge} className={`w-[72px] h-[72px] ${tile.color}`} strokeWidth={2.25} />
               <span className="text-sm sm:text-base font-semibold text-zinc-200 leading-tight">
                 {t(`threadsCalc:menu.${tile.id}`)}
               </span>

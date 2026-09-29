@@ -133,7 +133,7 @@ const Index = () => {
                         {t('common.new')}
                       </span>
                     )}
-                    <Icon className="w-20 h-20 md:w-28 md:h-28 text-cyan-400" strokeWidth={LUCIDE_ICONS.includes(Icon) ? 0.85 : 2.25} />
+                    <Icon className="w-[60px] h-[60px] md:w-[84px] md:h-[84px] text-cyan-400" strokeWidth={LUCIDE_ICONS.includes(Icon) ? 0.85 : 2.25} />
                     <span className="text-sm sm:text-base font-semibold text-zinc-200 leading-tight">
                       {t(tile.labelKey)}
                     </span>
