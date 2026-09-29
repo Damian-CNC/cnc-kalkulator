@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, useIsPresent } from 'framer-motion';
 import { RotateCcw } from 'lucide-react';
@@ -17,13 +17,21 @@ const ClearFab = ({ onClear, label }: ClearFabProps) => {
   // Portal jest poza nią, więc bez tego przycisk wisiałby nad wjeżdżającym menu
   // i znikał dopiero po animacji (mrugnięcie ekranu).
   const isPresent = useIsPresent();
+  // Przycisk montujemy dopiero po wjeździe strony (animacja trwa 0,28 s), żeby nie
+  // obciążać jej renderowaniem i nie dokładać półprzezroczystego, rozmytego elementu
+  // na ruchomą warstwę (na iPhonie powodowało to przycinanie).
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    const id = window.setTimeout(() => setReady(true), 320);
+    return () => window.clearTimeout(id);
+  }, []);
   const text = label ?? t('common.clearAll');
 
   const button = (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ delay: 0.25, duration: 0.15 }}
+      transition={{ duration: 0.15 }}
     >
     <button
       onClick={() => {
@@ -31,7 +39,7 @@ const ClearFab = ({ onClear, label }: ClearFabProps) => {
         onClear();
       }}
       aria-label={text}
-      className="fixed right-4 sm:right-8 z-50 flex items-center justify-center gap-2 w-12 h-12 p-0 sm:w-auto sm:px-4 sm:py-2.5 rounded-full border border-zinc-700/60 bg-zinc-900/85 text-zinc-300 text-sm font-semibold tracking-wide shadow-xl backdrop-blur-md transition-all duration-200 active:scale-95 hover:text-red-400 bottom-[calc(1.5rem+env(safe-area-inset-bottom))] sm:bottom-[calc(2rem+env(safe-area-inset-bottom))]"
+      className="fixed right-4 sm:right-8 z-50 flex items-center justify-center gap-2 w-12 h-12 p-0 sm:w-auto sm:px-4 sm:py-2.5 rounded-full border border-zinc-700/60 bg-zinc-900/95 text-zinc-300 text-sm font-semibold tracking-wide shadow-xl transition-colors duration-200 active:scale-95 hover:text-red-400 bottom-[calc(1.5rem+env(safe-area-inset-bottom))] sm:bottom-[calc(2rem+env(safe-area-inset-bottom))]"
     >
       <RotateCcw className="w-5 h-5 sm:w-4 sm:h-4 text-cyan-400" />
       <span className="hidden sm:inline">{text}</span>
@@ -39,7 +47,7 @@ const ClearFab = ({ onClear, label }: ClearFabProps) => {
     </motion.div>
   );
 
-  if (!isPresent) return null;
+  if (!isPresent || !ready) return null;
 
   // Portal do <body>: animowana strona ma transform, który robi z niej
   // "kontener" dla position: fixed. Przycisk przypinałby się wtedy do dołu
