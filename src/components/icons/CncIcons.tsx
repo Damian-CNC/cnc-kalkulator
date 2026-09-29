@@ -146,15 +146,15 @@ CaliperIcon.displayName = 'CaliperIcon';
 /* ------------------------------------------------------------------ */
 export const LatheChamferIcon = memo((p: CncIconProps) => (
   <Base {...p}>
-    {/* połówka wałka z dużą fazą */}
-    <path d="M4 56 V43 L18 29 H58 V56 Z" {...FILL} />
-    <path d="M4 56 V43 L18 29 H58 V56" />
+    {/* połówka wałka z dużą fazą po prawej stronie */}
+    <path d="M4 58 V24 H26 L40 38 V58 Z" {...FILL} />
+    <path d="M4 58 V24 H26 L40 38 V58" />
     {/* oś */}
-    <line x1="1" y1="56" x2="63" y2="56" {...axisProps} />
-    {/* płytka DNMG (romb 55°) */}
-    <g transform="rotate(-35 45 15) translate(45 15) scale(1.15) translate(-45 -15)">
-      <path d="M32 15 L45 7.8 L58 15 L45 22.2 Z" fill="currentColor" fillOpacity={0.2} />
-      <circle cx="45" cy="15" r="2.4" strokeWidth={2} />
+    <line x1="1" y1="58" x2="48" y2="58" {...axisProps} />
+    {/* płytka DNMG (romb 55°) najeżdżająca na fazę od strony czoła */}
+    <g transform="translate(54 20) rotate(-45)">
+      <path d="M-11 0 L0 -5.7 L11 0 L0 5.7 Z" fill="currentColor" fillOpacity={0.2} />
+      <circle cx="0" cy="0" r="2" strokeWidth={2} />
     </g>
   </Base>
 ));
