@@ -1,5 +1,5 @@
-import { useEffect, useRef, Suspense, type ComponentType } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { useEffect, useMemo, useRef, Suspense, type ComponentType } from "react";
+import { Routes, Route, useLocation, useNavigationType, UNSAFE_LocationContext } from "react-router-dom";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { lazyWithRetry } from "@/lib/lazyWithRetry";
 
@@ -104,6 +104,17 @@ const pageVariants: Variants = {
 
 const AnimatedRoutes = () => {
   const location = useLocation();
+  const navigationType = useNavigationType();
+  // Zamrożona lokalizacja dla tego ekranu. AnimatePresence trzyma wyjeżdżający
+  // ekran w starej wersji elementu, ale hooki routera (useLocation, useSearchParams)
+  // czytają kontekst na żywo. Bez zamrożenia wychodząca zakładka widzi już adres
+  // menu i reaguje na niego (np. useQueryState przestawia adres), zamiast spokojnie
+  // dojechać animację.
+  const frozenLocation = useMemo(
+    () => ({ location, navigationType }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [location.key, location.pathname, location.search, location.hash, navigationType],
+  );
   const currentPath = location.pathname;
   const currentIdx = (window.history.state?.idx as number) ?? 0;
 
@@ -168,6 +179,7 @@ const AnimatedRoutes = () => {
               : ""
           }`}
         >
+          <UNSAFE_LocationContext.Provider value={frozenLocation}>
           <Suspense fallback={<div className="min-h-[50vh]" aria-hidden />}>
             <Routes location={location}>
               <Route path="/" element={<Index />} />
@@ -206,6 +218,7 @@ const AnimatedRoutes = () => {
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
+          </UNSAFE_LocationContext.Provider>
         </motion.div>
       </AnimatePresence>
     </div>
