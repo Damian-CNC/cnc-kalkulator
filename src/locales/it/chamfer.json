@@ -16,8 +16,6 @@
     "topDia": "Diametro del foro dopo lo smusso",
     "chamferDepth": "Profondità smusso",
     "reqTool": "Diametro di lavoro richiesto dell'utensile",
-    "activeRadius": "Raggio utensile attivo richiesto",
-    "activeRadiusNote": "Raggio in tabella + correzione (DR / usura / OFFN) deve dare questo valore. Deriva da: margine × tan dell'angolo.",
     "drLabel": "Correzione usura (DR / OFFN)",
     "drNote": "Tabella: R {{r0}} (Ø {{d0}}) + correzione = R attivo {{ra}} (Ø {{da}}). Inserisci la correzione come raggio o come diametro, a seconda di come lavora il tuo controllo.",
     "drMissing": "Inserisci il diametro registrato in tabella per calcolare la correzione.",
