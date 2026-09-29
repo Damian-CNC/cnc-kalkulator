@@ -1,5 +1,20 @@
 import { useNavigate } from 'react-router-dom';
-import { Settings, Drill, Scale, Triangle, Gem, Ruler, Cone, Hexagon, Bolt, Scissors, Waves, Disc, RectangleHorizontal, LifeBuoy, CircleDot, MoveDiagonal2, Target } from 'lucide-react';
+import { Settings, Scale, Gem, Ruler, Waves, Target } from 'lucide-react';
+import type { ComponentType } from 'react';
+import {
+  MillChamferIcon,
+  ThreadIcon,
+  CaliperIcon,
+  LatheChamferIcon,
+  DrillIcon,
+  HexDiagonalIcon,
+  UndercutIcon,
+  PcdIcon,
+  AngledHolesIcon,
+  CirclipIcon,
+  KeywayIcon,
+  ORingIcon,
+} from '@/components/icons/CncIcons';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import WakeLockToggle from '@/components/WakeLockToggle';
@@ -10,7 +25,7 @@ import useHaptics from '@/hooks/useHaptics';
 type Tile = {
   id: string;
   labelKey: string;
-  icon: typeof Settings;
+  icon: ComponentType<{ className?: string; strokeWidth?: number }>;
   route: string;
   isNew?: boolean;
 };
@@ -21,35 +36,35 @@ const sections: { titleKey: string; tiles: Tile[] }[] = [
     tiles: [
       { id: 'parameters', labelKey: 'tiles.parameters', icon: Settings, route: '/parametry' },
       { id: 'roughness', labelKey: 'tiles.roughness', icon: Waves, route: '/chropowatosc' },
-      { id: 'millChamfer', labelKey: 'chamfer:tile', icon: Drill, route: '/faza-frezem', isNew: true },
     ],
   },
   {
     titleKey: 'sections.threadsFits',
     tiles: [
       { id: 'tolerances', labelKey: 'tiles.tolerances', icon: Ruler, route: '/tolerancje' },
-      { id: 'threads', labelKey: 'tiles.threads', icon: Bolt, route: '/gwinty' },
-      { id: 'iso2768', labelKey: 'tiles.iso2768', icon: Scale, route: '/tolerancje-iso-2768' },
+      { id: 'threads', labelKey: 'tiles.threads', icon: ThreadIcon, route: '/gwinty' },
+      { id: 'iso2768', labelKey: 'tiles.iso2768', icon: CaliperIcon, route: '/tolerancje-iso-2768' },
     ],
   },
   {
     titleKey: 'sections.geometry',
     tiles: [
-      { id: 'taper', labelKey: 'tiles.taper', icon: Cone, route: '/kalkulator-stozkow' },
-      { id: 'cone', labelKey: 'tiles.cone', icon: Triangle, route: '/stozek' },
-      { id: 'polygon', labelKey: 'tiles.polygon', icon: Hexagon, route: '/przekatne' },
-      { id: 'din509', labelKey: 'tiles.din509', icon: Scissors, route: '/podciecia-din509' },
-      { id: 'pcd', labelKey: 'tiles.pcd', icon: CircleDot, route: '/pcd', isNew: true },
-      { id: 'linearHoles', labelKey: 'tiles.linearHoles', icon: MoveDiagonal2, route: '/otwory-liniowe', isNew: true },
+      { id: 'taper', labelKey: 'tiles.taper', icon: LatheChamferIcon, route: '/kalkulator-stozkow' },
+      { id: 'millChamfer', labelKey: 'chamfer:tile', icon: MillChamferIcon, route: '/faza-frezem', isNew: true },
+      { id: 'cone', labelKey: 'tiles.cone', icon: DrillIcon, route: '/stozek' },
+      { id: 'polygon', labelKey: 'tiles.polygon', icon: HexDiagonalIcon, route: '/przekatne' },
+      { id: 'din509', labelKey: 'tiles.din509', icon: UndercutIcon, route: '/podciecia-din509' },
+      { id: 'pcd', labelKey: 'tiles.pcd', icon: PcdIcon, route: '/pcd', isNew: true },
+      { id: 'linearHoles', labelKey: 'tiles.linearHoles', icon: AngledHolesIcon, route: '/otwory-liniowe', isNew: true },
       { id: 'truePosition', labelKey: 'tiles.truePosition', icon: Target, route: '/true-position', isNew: true },
     ],
   },
   {
     titleKey: 'sections.standardParts',
     tiles: [
-      { id: 'seger', labelKey: 'tiles.seger', icon: Disc, route: '/rowki-segera' },
-      { id: 'keyways', labelKey: 'tiles.keyways', icon: RectangleHorizontal, route: '/wpusty' },
-      { id: 'oring', labelKey: 'tiles.oring', icon: LifeBuoy, route: '/rowki-oring' },
+      { id: 'seger', labelKey: 'tiles.seger', icon: CirclipIcon, route: '/rowki-segera' },
+      { id: 'keyways', labelKey: 'tiles.keyways', icon: KeywayIcon, route: '/wpusty' },
+      { id: 'oring', labelKey: 'tiles.oring', icon: ORingIcon, route: '/rowki-oring' },
     ],
   },
   {
@@ -107,14 +122,14 @@ const Index = () => {
                       triggerLight();
                       navigate(tile.route);
                     }}
-                    className="relative aspect-square bg-zinc-900 border border-zinc-800 rounded-2xl flex flex-col items-center justify-center gap-3 p-4 text-center cursor-pointer transition-all hover:bg-zinc-800/80 hover:border-cyan-500/50 hover:shadow-[0_0_15px_rgba(6,182,212,0.15)] active:scale-95 md:w-[calc((100%-3rem)/4)]"
+                    className="relative aspect-square bg-zinc-900 border border-zinc-800 rounded-2xl flex flex-col items-center justify-center gap-2 p-3 text-center cursor-pointer transition-all hover:bg-zinc-800/80 hover:border-cyan-500/50 hover:shadow-[0_0_15px_rgba(6,182,212,0.15)] active:scale-95 md:w-[calc((100%-3rem)/4)]"
                   >
                     {tile.isNew && (
                       <span className="absolute top-2 right-2 text-[10px] font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-1.5 py-0.5 rounded uppercase tracking-wider">
                         {t('common.new')}
                       </span>
                     )}
-                    <Icon className="w-8 h-8 text-cyan-400" strokeWidth={2} />
+                    <Icon className="w-20 h-20 md:w-28 md:h-28 text-cyan-400" strokeWidth={2.25} />
                     <span className="text-sm sm:text-base font-semibold text-zinc-200 leading-tight">
                       {t(tile.labelKey)}
                     </span>

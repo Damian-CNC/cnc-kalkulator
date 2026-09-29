@@ -10,6 +10,7 @@ import PageLayout from '@/components/PageLayout';
 import useQueryState from '@/hooks/useQueryState';
 import usePersistedState from '@/hooks/usePersistedState';
 import CopyableValue from '@/components/CopyableValue';
+import ClearFab from '@/components/ClearFab';
 
 interface ThreadEntry {
   designation: string;
@@ -227,6 +228,7 @@ const MetricThreadPage = () => {
             <p className="text-center text-zinc-500 py-10">{t('metric.emptyMessage')}</p>
           )}
         </div>
+      <ClearFab onClear={() => setSaved((s) => ({ ...INITIAL_STATE, tab: s.tab }))} />
     </PageLayout>
   );
 };

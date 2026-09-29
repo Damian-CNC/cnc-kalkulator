@@ -1,24 +1,24 @@
 import { useNavigate } from 'react-router-dom';
-import { Wrench, CircleDot, Cog, Hexagon, ChevronsUpDown, Pipette } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import PageLayout from '@/components/PageLayout';
+import { ThreadIcon } from '@/components/icons/CncIcons';
 
 type Tile = {
   id: string;
   labelKey: string;
-  icon: typeof Wrench;
+  badge: string;
   route: string;
   color: string;
   isNew?: boolean;
 };
 
 const tiles: Tile[] = [
-  { id: 'metric', labelKey: 'threads.metric', icon: Wrench, route: '/threads/metric', color: 'text-cyan-400' },
-  { id: 'trapezoidal', labelKey: 'threads.trapezoidal', icon: ChevronsUpDown, route: '/threads/trapezoidal', color: 'text-sky-400' },
-  { id: 'bsp', labelKey: 'threads.bsp', icon: CircleDot, route: '/threads/bsp', color: 'text-emerald-400' },
-  { id: 'npt', labelKey: 'threads.npt', icon: Pipette, route: '/threads/npt', color: 'text-rose-400' },
-  { id: 'bsw', labelKey: 'threads.bsw', icon: Hexagon, route: '/threads/bsw', color: 'text-amber-400' },
-  { id: 'bsf', labelKey: 'threads.bsf', icon: Cog, route: '/threads/bsf', color: 'text-violet-400' },
+  { id: 'metric', labelKey: 'threads.metric', badge: 'M', route: '/threads/metric', color: 'text-cyan-400' },
+  { id: 'trapezoidal', labelKey: 'threads.trapezoidal', badge: 'Tr', route: '/threads/trapezoidal', color: 'text-sky-400' },
+  { id: 'bsp', labelKey: 'threads.bsp', badge: 'G', route: '/threads/bsp', color: 'text-emerald-400' },
+  { id: 'npt', labelKey: 'threads.npt', badge: 'NPT', route: '/threads/npt', color: 'text-rose-400' },
+  { id: 'bsw', labelKey: 'threads.bsw', badge: 'BSW', route: '/threads/bsw', color: 'text-amber-400' },
+  { id: 'bsf', labelKey: 'threads.bsf', badge: 'BSF', route: '/threads/bsf', color: 'text-violet-400' },
 ];
 
 const ThreadsSubmenuPage = () => {
@@ -29,7 +29,6 @@ const ThreadsSubmenuPage = () => {
     <PageLayout title={t('pages.threadsMenu')}>
       <div className="grid grid-cols-2 gap-4 sm:gap-6 w-full">
         {tiles.map((tile) => {
-          const Icon = tile.icon;
           return (
             <button
               key={tile.id}
@@ -42,7 +41,7 @@ const ThreadsSubmenuPage = () => {
                   {t('common.new')}
                 </span>
               )}
-              <Icon className={`w-10 h-10 ${tile.color}`} strokeWidth={2} />
+              <ThreadIcon badge={tile.badge} className={`w-24 h-24 ${tile.color}`} strokeWidth={2.25} />
               <span className="text-sm sm:text-base font-semibold text-zinc-200 leading-tight">
                 {t(tile.labelKey)}
               </span>

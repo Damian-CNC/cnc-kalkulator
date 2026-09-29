@@ -4,6 +4,7 @@ import SelectField from './SelectField';
 import ResultDisplay from './ResultDisplay';
 import { convertHardness, ConversionDirection } from '@/utils/isoHardnessConversion';
 import usePersistedState from '@/hooks/usePersistedState';
+import ClearFab from '@/components/ClearFab';
 
 const HardnessConverter = () => {
   const { t } = useTranslation();
@@ -25,6 +26,7 @@ const HardnessConverter = () => {
 
   const handleClear = () => {
     setInputValue('');
+    setDirection('hb-to-hrc');
   };
 
   const handleDirectionChange = (newDirection: ConversionDirection) => {
@@ -89,9 +91,7 @@ const HardnessConverter = () => {
         </div>
       </div>
 
-      <button onClick={handleClear} className="clear-btn mt-6">
-        {t('common.clear')}
-      </button>
+      <ClearFab onClear={handleClear} />
     </div>
   );
 };

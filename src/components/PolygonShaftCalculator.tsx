@@ -2,6 +2,7 @@ import { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import InputField from './InputField';
 import usePersistedState from '@/hooks/usePersistedState';
+import ClearFab from '@/components/ClearFab';
 
 type Shape = 'hex' | 'square';
 type Field = 'S' | 'D';
@@ -77,6 +78,12 @@ const PolygonShaftCalculator = () => {
   // Uproszczenie: pokazujemy poziomą linię S w środku figury.
   const sHexHalf = (R * Math.sqrt(3)) / 2;
   const sSqHalf = sqHalf;
+
+  const handleClear = () => {
+    setShape('hex');
+    setValues({ S: '', D: '' });
+    setComputed(null);
+  };
 
   return (
     <div className="glass-container p-4 sm:p-6 flex flex-col gap-6">
@@ -160,6 +167,7 @@ const PolygonShaftCalculator = () => {
           ? t('formula.hex')
           : t('formula.square')}
       </p>
+      <ClearFab onClear={handleClear} />
     </div>
   );
 };

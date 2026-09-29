@@ -12,6 +12,7 @@ import {
   type Din509Type,
 } from '@/data/din509Data';
 import usePersistedState from '@/hooks/usePersistedState';
+import ClearFab from '@/components/ClearFab';
 
 const TYPES: Din509Type[] = ['E', 'F', 'G', 'H'];
 
@@ -184,6 +185,7 @@ const Din509Page = () => {
           </div>
         </details>
       </div>
+      <ClearFab onClear={() => { setRValue(''); setT1Value(''); }} />
     </PageLayout>
   );
 };

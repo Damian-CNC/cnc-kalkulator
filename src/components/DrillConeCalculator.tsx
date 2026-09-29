@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import InputField from './InputField';
 import ResultDisplay from './ResultDisplay';
 import usePersistedState from '@/hooks/usePersistedState';
+import ClearFab from '@/components/ClearFab';
 
 const DrillConeCalculator = () => {
   const { t } = useTranslation();
@@ -72,9 +73,7 @@ const DrillConeCalculator = () => {
         </div>
       </div>
 
-      <button onClick={handleClear} className="clear-btn mt-6">
-        {t('common.clear')}
-      </button>
+      <ClearFab onClear={handleClear} />
     </div>
   );
 };

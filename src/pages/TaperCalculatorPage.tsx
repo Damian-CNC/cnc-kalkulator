@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
-import { RotateCcw } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
 import PageLayout from '@/components/PageLayout';
 import usePersistedState from '@/hooks/usePersistedState';
+import ClearFab from '@/components/ClearFab';
 
 const parse = (v: string) => {
   const n = parseFloat(v.replace(',', '.'));
@@ -146,10 +146,6 @@ const TaperCalculatorPage = () => {
             solved={solver?.solvedField === 'halfAngle'} solvedValue={solver?.halfDeg} unit="°" accentClass={accent} />
         </div>
 
-        <button onClick={clearAll} className="flex items-center gap-2 mx-auto px-4 py-2 rounded-xl border border-zinc-800 bg-zinc-900/50 text-zinc-500 hover:text-zinc-300 hover:border-zinc-600 transition-colors text-sm">
-          <RotateCcw className="w-4 h-4" /> {t('clearAll')}
-        </button>
-
         {/* Result cards */}
         {solver && (
           <div className="space-y-3">
@@ -186,6 +182,7 @@ const TaperCalculatorPage = () => {
           <p className="text-center text-zinc-500 py-10">{t('hint')}</p>
         )}
       </div>
+      <ClearFab onClear={clearAll} />
     </PageLayout>
   );
 };

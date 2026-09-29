@@ -12,6 +12,7 @@ import {
 } from '@/utils/isoMathCalculator';
 import usePersistedState from '@/hooks/usePersistedState';
 import CopyableValue from '@/components/CopyableValue';
+import ClearFab from '@/components/ClearFab';
 
 const TolerancesPage = () => {
   const { t } = useTranslation(['tolerances', 'translation']);
@@ -209,6 +210,7 @@ const TolerancesPage = () => {
           </p>
         )}
       </div>
+      <ClearFab onClear={() => { setNominalInput(''); setSelectedLetter('h'); setSelectedIT('7'); }} />
     </PageLayout>
   );
 };

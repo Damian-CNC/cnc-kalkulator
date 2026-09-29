@@ -5,6 +5,7 @@ import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
 import useQueryState from '@/hooks/useQueryState';
 import usePersistedState from '@/hooks/usePersistedState';
 import CopyableValue from '@/components/CopyableValue';
+import ClearFab from '@/components/ClearFab';
 
 const round = (v: number, n = 3) => Number.isFinite(v) ? Number(v.toFixed(n)) : null;
 
@@ -137,6 +138,7 @@ const TrapezoidalThreadPage = () => {
           </p>
         )}
       </div>
+      <ClearFab onClear={() => { setDInput(''); setPInput(''); }} />
     </PageLayout>
   );
 };

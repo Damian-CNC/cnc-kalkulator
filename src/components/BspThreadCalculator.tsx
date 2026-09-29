@@ -6,6 +6,7 @@ import type { ThreadLimits } from '@/data/bspThreadsData';
 import useQueryState from '@/hooks/useQueryState';
 import usePersistedState from '@/hooks/usePersistedState';
 import CopyableValue from '@/components/CopyableValue';
+import ClearFab from '@/components/ClearFab';
 
 const BspThreadCalculator = () => {
   const [selectedSize, setSelectedSize] = usePersistedState<string>('bsp-size', '');
@@ -81,6 +82,7 @@ const BspThreadCalculator = () => {
       {!thread && (
         <p className="text-center text-zinc-500 py-10">Wybierz rozmiar gwintu BSP z listy powyżej.</p>
       )}
+      <ClearFab onClear={() => setSelectedSize('')} />
     </div>
   );
 };

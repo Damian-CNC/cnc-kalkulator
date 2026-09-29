@@ -6,6 +6,7 @@ import type { ThreadLimits } from '@/data/bspThreadsData';
 import useQueryState from '@/hooks/useQueryState';
 import usePersistedState from '@/hooks/usePersistedState';
 import CopyableValue from '@/components/CopyableValue';
+import ClearFab from '@/components/ClearFab';
 
 interface ThreadData {
   tpi: number;
@@ -101,6 +102,7 @@ const WhitworthThreadCalculator = ({ threads, sizes, standardLabel, emptyMessage
           {emptyMessage ?? t('whitworth.defaultEmptyMessage')}
         </p>
       )}
+      <ClearFab onClear={() => setSelectedSize('')} />
     </div>
   );
 };

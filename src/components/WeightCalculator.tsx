@@ -9,6 +9,7 @@ import { parseDecimal } from '@/lib/numericInput';
 import usePersistedState from '@/hooks/usePersistedState';
 import useHaptics from '@/hooks/useHaptics';
 import { toast } from '@/hooks/use-toast';
+import ClearFab from '@/components/ClearFab';
 
 type MaterialId =
   | 'steel'
@@ -536,9 +537,7 @@ const WeightCalculator = () => {
         </div>
       </div>
 
-      <button onClick={resetForm} className="clear-btn">
-        {t('clear')}
-      </button>
+      <ClearFab onClear={resetForm} />
     </div>
   );
 };

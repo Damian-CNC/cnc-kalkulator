@@ -5,6 +5,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@
 import useQueryState from '@/hooks/useQueryState';
 import usePersistedState from '@/hooks/usePersistedState';
 import CopyableValue from '@/components/CopyableValue';
+import ClearFab from '@/components/ClearFab';
 
 interface NptData {
   tpi: number;
@@ -118,6 +119,7 @@ const NptThreadCalculator = () => {
           <p className="text-center text-zinc-500 py-10">Wybierz rozmiar gwintu NPT z listy powyżej.</p>
         )}
       </div>
+      <ClearFab onClear={() => setSelectedSize('')} />
     </PageLayout>
   );
 };
