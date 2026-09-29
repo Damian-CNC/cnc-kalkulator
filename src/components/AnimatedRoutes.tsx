@@ -1,5 +1,5 @@
 import { useEffect, useRef, Suspense, type ComponentType } from "react";
-import { Routes, Route, useLocation, useNavigationType } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { lazyWithRetry } from "@/lib/lazyWithRetry";
 
@@ -40,8 +40,8 @@ const ORingGroovesPage = page(() => import("@/pages/ORingGroovesPage"));
 const BoltCirclePage = page(() => import("@/pages/BoltCirclePage"));
 const LinearHolesPage = page(() => import("@/pages/LinearHolesPage"));
 const TruePositionPage = page(() => import("@/pages/TruePositionPage"));
-const PrivacyPage = page(() => import("@/pages/PrivacyPage"));
 const MillChamferPage = page(() => import("@/pages/MillChamferPage"));
+const PrivacyPage = page(() => import("@/pages/PrivacyPage"));
 const NotFound = page(() => import("@/pages/NotFound"));
 
 let preloadStarted = false;
@@ -75,55 +75,35 @@ const getPathDepth = (path: string): number => {
   return 1;
 };
 
-// iOS przy cofnięciu (gest przesunięcia od krawędzi / przycisk wstecz przeglądarki)
-// sam animuje przejście na zrzucie poprzedniej strony. Gdyby aplikacja dodatkowo
-// odtwarzała własną animację, zakładka pojawiłaby się drugi raz. Dlatego przy
-// nawigacji typu POP na iOS podmieniamy ekran natychmiast, bez animacji.
-const IS_IOS =
-  typeof navigator !== "undefined" &&
-  (/iP(hone|ad|od)/.test(navigator.userAgent) ||
-    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1));
-
-type PageCustom = { direction: number; instant: boolean };
-
 // Tylko transform i opacity, bez cieni i skalowania
 const pageVariants: Variants = {
-  initial: ({ direction, instant }: PageCustom) =>
-    instant
-      ? { x: "0%", opacity: 1, zIndex: 2 }
-      : {
-          x: direction > 0 ? "100%" : "-25%",
-          opacity: direction > 0 ? 1 : 0.75,
-          zIndex: direction > 0 ? 2 : 1,
-        },
-  animate: ({ instant }: PageCustom) => ({
+  initial: (direction: number) => ({
+    x: direction > 0 ? "100%" : "-25%",
+    opacity: direction > 0 ? 1 : 0.75,
+    zIndex: direction > 0 ? 2 : 1,
+  }),
+  animate: {
     x: "0%",
     opacity: 1,
     zIndex: 2,
-    transition: instant
-      ? { duration: 0 }
-      : {
-          x: { type: "tween", ease: [0.25, 1, 0.5, 1], duration: 0.28 },
-          opacity: { type: "tween", ease: "linear", duration: 0.18 },
-        },
+    transition: {
+      x: { type: "tween", ease: [0.25, 1, 0.5, 1], duration: 0.28 },
+      opacity: { type: "tween", ease: "linear", duration: 0.18 },
+    },
+  },
+  exit: (direction: number) => ({
+    x: direction > 0 ? "-25%" : "100%",
+    opacity: direction > 0 ? 0.75 : 1,
+    zIndex: direction > 0 ? 1 : 3,
+    transition: {
+      x: { type: "tween", ease: [0.25, 1, 0.5, 1], duration: 0.28 },
+      opacity: { type: "tween", ease: "linear", duration: 0.18 },
+    },
   }),
-  exit: ({ direction, instant }: PageCustom) =>
-    instant
-      ? { opacity: 0, zIndex: 1, transition: { duration: 0 } }
-      : {
-          x: direction > 0 ? "-25%" : "100%",
-          opacity: direction > 0 ? 0.75 : 1,
-          zIndex: direction > 0 ? 1 : 3,
-          transition: {
-            x: { type: "tween", ease: [0.25, 1, 0.5, 1], duration: 0.28 },
-            opacity: { type: "tween", ease: "linear", duration: 0.18 },
-          },
-        },
 };
 
 const AnimatedRoutes = () => {
   const location = useLocation();
-  const navigationType = useNavigationType();
   const currentPath = location.pathname;
   const currentIdx = (window.history.state?.idx as number) ?? 0;
 
@@ -131,7 +111,6 @@ const AnimatedRoutes = () => {
     path: currentPath,
     idx: currentIdx,
     direction: 1,
-    instant: false,
   });
 
   // Kierunek liczony synchronicznie w trakcie renderu (bez useState/useEffect),
@@ -159,16 +138,10 @@ const AnimatedRoutes = () => {
       }
     }
 
-    navStateRef.current = {
-      path: currentPath,
-      idx: currentIdx,
-      direction: dir,
-      instant: IS_IOS && navigationType === "POP",
-    };
+    navStateRef.current = { path: currentPath, idx: currentIdx, direction: dir };
   }
 
   const direction = navStateRef.current.direction;
-  const pageCustom: PageCustom = { direction, instant: navStateRef.current.instant };
 
   useEffect(() => {
     preloadAllPages();
@@ -179,12 +152,12 @@ const AnimatedRoutes = () => {
       <AnimatePresence
         mode="popLayout"
         initial={false}
-        custom={pageCustom}
+        custom={direction}
         onExitComplete={() => window.scrollTo(0, 0)}
       >
         <motion.div
           key={currentPath}
-          custom={pageCustom}
+          custom={direction}
           variants={pageVariants}
           initial="initial"
           animate="animate"
