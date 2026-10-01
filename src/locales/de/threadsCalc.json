@@ -15,7 +15,6 @@
     "extPitchDiameter": "Flankendurchmesser (d2)",
     "extCoreDiameter": "Kerndurchmesser (d3)",
     "extThreadHeight": "Gewindetiefe (h3)",
-    "extThreadHeightNote": "In Fusion 360 als Thread Depth verwenden",
     "intDiameter": "Kerndurchmesser (D1)",
     "intPitchDiameter": "Flankendurchmesser (D2)",
     "intExtDiameter": "Außendurchmesser (D)",

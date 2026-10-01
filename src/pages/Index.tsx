@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Settings, Scale, Gem, Ruler, Waves, Target, Triangle, SlidersHorizontal } from 'lucide-react';
+import { Settings, Scale, Gem, Ruler, Waves, Target, Triangle } from 'lucide-react';
 import type { ComponentType } from 'react';
 import {
   MillChamferIcon,
@@ -25,14 +25,14 @@ import useHaptics from '@/hooks/useHaptics';
 type Tile = {
   id: string;
   labelKey: string;
-  icon: ComponentType<{ className?: string; strokeWidth?: number | string }>;
+  icon: ComponentType<{ className?: string; strokeWidth?: number }>;
   route: string;
   isNew?: boolean;
 };
 
 // Ikony lucide rysowane są na siatce 24 px (własne na 64 px), więc ta sama
 // grubość linii na ekranie wymaga tu znacznie mniejszego strokeWidth.
-const LUCIDE_ICONS: unknown[] = [Settings, Waves, Ruler, Target, Scale, Gem, Triangle, SlidersHorizontal];
+const LUCIDE_ICONS: unknown[] = [Settings, Waves, Ruler, Target, Scale, Gem, Triangle];
 
 const sections: { titleKey: string; tiles: Tile[] }[] = [
   {
@@ -40,7 +40,6 @@ const sections: { titleKey: string; tiles: Tile[] }[] = [
     tiles: [
       { id: 'parameters', labelKey: 'tiles.parameters', icon: Settings, route: '/parametry' },
       { id: 'roughness', labelKey: 'tiles.roughness', icon: Waves, route: '/chropowatosc' },
-      { id: 'offsetComp', labelKey: 'tools:comp.tile', icon: SlidersHorizontal, route: '/kompensacja', isNew: true },
     ],
   },
   {
@@ -49,7 +48,6 @@ const sections: { titleKey: string; tiles: Tile[] }[] = [
       { id: 'tolerances', labelKey: 'tiles.tolerances', icon: Ruler, route: '/tolerancje' },
       { id: 'threads', labelKey: 'tiles.threads', icon: ThreadIcon, route: '/gwinty' },
       { id: 'iso2768', labelKey: 'tiles.iso2768', icon: CaliperIcon, route: '/tolerancje-iso-2768' },
-      { id: 'tapDrill', labelKey: 'tools:tapDrill.tile', icon: DrillIcon, route: '/otwor-pod-gwint', isNew: true },
     ],
   },
   {

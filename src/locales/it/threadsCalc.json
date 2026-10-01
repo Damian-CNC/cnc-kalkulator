@@ -15,7 +15,6 @@
     "extPitchDiameter": "Diametro medio (d2)",
     "extCoreDiameter": "Diametro del nocciolo (d3)",
     "extThreadHeight": "Altezza di filettatura (h3)",
-    "extThreadHeightNote": "Usare in Fusion 360 come Thread Depth",
     "intDiameter": "Diametro del nocciolo (D1)",
     "intPitchDiameter": "Diametro medio (D2)",
     "intExtDiameter": "Diametro esterno (D)",

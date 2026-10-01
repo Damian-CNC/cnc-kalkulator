@@ -30,6 +30,102 @@ const TABS: Tab[] = ['right', 'oblique', 'points', 'polar'];
 
 const ang = (v: number) => `${fmt(v, 4)}°`;
 
+type RightValues = {
+  a: number | null;
+  b: number | null;
+  c: number | null;
+  alpha: number | null;
+  beta: number | null;
+};
+
+/**
+ * Podgląd trójkąta prostokątnego. Proporcje rysunku odpowiadają wynikowi,
+ * a opisy pokazują wpisane (białe) i obliczone (turkusowe) wartości.
+ */
+const RightTriangleDiagram = ({
+  right,
+  values,
+  unitLabel,
+}: {
+  right: { a: number; b: number; c: number; alpha: number; beta: number } | null;
+  values: RightValues;
+  unitLabel: string;
+}) => {
+  const shown = right ?? values;
+  const has = (k: keyof RightValues) => shown[k] !== null && shown[k] !== undefined;
+
+  // Wymiary rysunku (skalowane do pola 150 x 90, z minimalnym rozmiarem)
+  const MAX_W = 150;
+  const MAX_H = 90;
+  const MIN = 20;
+  let dw = 150;
+  let dh = 75;
+  if (right) {
+    const scale = Math.min(MAX_W / right.b, MAX_H / right.a);
+    dw = Math.max(MIN, right.b * scale);
+    dh = Math.max(MIN, right.a * scale);
+  }
+
+  const x0 = 80;
+  const y0 = 120;
+  const A = { x: x0, y: y0 }; // wierzchołek przy α
+  const C = { x: x0 + dw, y: y0 }; // kąt prosty
+  const B = { x: x0 + dw, y: y0 - dh }; // wierzchołek przy β
+
+  const len = Math.hypot(dw, dh);
+  const nx = -dh / len;
+  const ny = -dw / len;
+  const mid = { x: (A.x + B.x) / 2 + nx * 8, y: (A.y + B.y) / 2 + ny * 8 };
+
+  const entered = (k: keyof RightValues) => values[k] !== null;
+  const fill = (k: keyof RightValues) => (entered(k) ? '#f4f4f5' : '#22d3ee');
+  const side = (name: string, k: 'a' | 'b' | 'c') =>
+    has(k) ? `${name} = ${fmt(shown[k] as number, 3)}` : name;
+  const angle = (name: string, k: 'alpha' | 'beta') =>
+    has(k) ? `${name} = ${fmt(shown[k] as number, 2)}°` : name;
+
+  return (
+    <div className="mt-4">
+      <svg viewBox="0 0 340 160" className="w-full max-w-[380px] mx-auto block" role="img">
+        <polygon
+          points={`${A.x},${A.y} ${C.x},${C.y} ${B.x},${B.y}`}
+          fill="rgba(6,182,212,0.08)"
+          stroke="#06b6d4"
+          strokeWidth="1.5"
+          strokeLinejoin="round"
+        />
+        <polyline
+          points={`${C.x - 9},${C.y} ${C.x - 9},${C.y - 9} ${C.x},${C.y - 9}`}
+          fill="none"
+          stroke="#71717a"
+          strokeWidth="1"
+        />
+        <text x={(A.x + C.x) / 2} y={A.y + 17} fill={fill('b')} fontSize="11" textAnchor="middle" fontWeight="600">
+          {side('b', 'b')}
+        </text>
+        <text x={C.x + 9} y={(B.y + C.y) / 2 + 4} fill={fill('a')} fontSize="11" textAnchor="start" fontWeight="600">
+          {side('a', 'a')}
+        </text>
+        <text x={mid.x} y={mid.y + 3} fill={fill('c')} fontSize="11" textAnchor="end" fontWeight="600">
+          {side('c', 'c')}
+        </text>
+        <text x={A.x - 8} y={A.y + 4} fill={fill('alpha')} fontSize="11" textAnchor="end" fontWeight="600">
+          {angle('α', 'alpha')}
+        </text>
+        <text x={B.x} y={B.y - 8} fill={fill('beta')} fontSize="11" textAnchor="end" fontWeight="600">
+          {angle('β', 'beta')}
+        </text>
+        <text x={C.x + 9} y={C.y + 4} fill="#71717a" fontSize="10" textAnchor="start">
+          C 90°
+        </text>
+      </svg>
+      <p className="text-[11px] text-zinc-500 text-center mt-1">
+        [{unitLabel}]
+      </p>
+    </div>
+  );
+};
+
 const TrigCalculator = () => {
   const { t } = useTranslation('tools');
   const { u } = useUnits();
@@ -110,14 +206,17 @@ const TrigCalculator = () => {
 
   return (
     <>
-      <div className="w-full max-w-[520px] mx-auto mb-2 grid grid-cols-2 sm:grid-cols-4 gap-1 rounded-2xl p-2 backdrop-blur-xl border-2 border-primary/15"
-           style={{ background: 'rgba(255, 255, 255, 0.08)' }}>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
         {TABS.map((tab) => (
           <button
             key={tab}
             type="button"
-            className={`nav-tab ${s.tab === tab ? 'active' : ''}`}
             onClick={() => setS((prev) => ({ ...prev, tab }))}
+            className={`py-3 rounded-xl font-bold text-sm transition-all border ${
+              s.tab === tab
+                ? 'bg-cyan-600 border-cyan-500 text-white'
+                : 'bg-zinc-900 border-zinc-800 text-zinc-400 hover:border-zinc-700'
+            }`}
           >
             {t(`trig.tabs.${tab}`)}
           </button>
@@ -137,15 +236,11 @@ const TrigCalculator = () => {
               <InputField label="β [°]" value={s.rBeta} onChange={set('rBeta')} />
             </div>
             <p className="text-xs text-zinc-500 mt-4 leading-relaxed">{t('trig.rightHint')}</p>
-            <svg viewBox="0 0 200 110" className="w-full max-w-[220px] mx-auto mt-4 block">
-              <polygon points="20,95 180,95 180,20" fill="none" stroke="#06b6d4" strokeWidth="1.5" />
-              <polyline points="170,95 170,85 180,85" fill="none" stroke="#71717a" strokeWidth="1" />
-              <text x="100" y="108" fill="#a1a1aa" fontSize="11" textAnchor="middle">b</text>
-              <text x="190" y="62" fill="#a1a1aa" fontSize="11" textAnchor="middle">a</text>
-              <text x="92" y="52" fill="#a1a1aa" fontSize="11" textAnchor="middle">c</text>
-              <text x="40" y="90" fill="#71717a" fontSize="10">α</text>
-              <text x="160" y="40" fill="#71717a" fontSize="10">β</text>
-            </svg>
+            <RightTriangleDiagram
+              right={right}
+              values={{ a: n('rA'), b: n('rB'), c: n('rC'), alpha: n('rAlpha'), beta: n('rBeta') }}
+              unitLabel={u.length}
+            />
           </div>
           {right ? (
             <div className="glass-module">
