@@ -15,7 +15,6 @@
     "extPitchDiameter": "Pitch diameter (d2)",
     "extCoreDiameter": "Minor diameter (d3)",
     "extThreadHeight": "Thread engagement height (h3)",
-    "extThreadHeightNote": "Use in Fusion 360 as Thread Depth",
     "intDiameter": "Minor diameter (D1)",
     "intPitchDiameter": "Pitch diameter (D2)",
     "intExtDiameter": "Major diameter (D)",

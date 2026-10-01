@@ -202,7 +202,7 @@ const MetricThreadPage = () => {
                   <DimensionCard label={t('metric.extDiameter')} nominal={nominal.nominalDiameter} max={selectedThread?.external_6g.d_max ?? null} min={selectedThread?.external_6g.d_min ?? null} />
                   <DimensionCard label={t('metric.extPitchDiameter')} nominal={nominal.pitchDiameter} max={selectedThread?.external_6g.d2_max ?? null} min={selectedThread?.external_6g.d2_min ?? null} />
                   <DimensionCard label={t('metric.extCoreDiameter')} nominal={nominal.externalMinorDiameter} max={selectedThread?.external_6g.d3_max ?? null} min={selectedThread?.external_6g.d3_min ?? null} />
-                  <CamCard label={t('metric.extThreadHeight')} value={nominal.externalThreadHeight} note={t('metric.extThreadHeightNote')} />
+                  <CamCard label={t('metric.extThreadHeight')} value={nominal.externalThreadHeight} />
                 </div>
               </TabsContent>
 

@@ -41,8 +41,6 @@ const BoltCirclePage = page(() => import("@/pages/BoltCirclePage"));
 const LinearHolesPage = page(() => import("@/pages/LinearHolesPage"));
 const TruePositionPage = page(() => import("@/pages/TruePositionPage"));
 const MillChamferPage = page(() => import("@/pages/MillChamferPage"));
-const TapDrillPage = page(() => import("@/pages/TapDrillPage"));
-const OffsetCompensationPage = page(() => import("@/pages/OffsetCompensationPage"));
 const TrigPage = page(() => import("@/pages/TrigPage"));
 const PrivacyPage = page(() => import("@/pages/PrivacyPage"));
 const NotFound = page(() => import("@/pages/NotFound"));
@@ -230,8 +228,6 @@ const AnimatedRoutes = () => {
               <Route path="/true-position" element={<TruePositionPage />} />
               <Route path="/faza-frezem" element={<MillChamferPage />} />
               <Route path="/mill-chamfer" element={<MillChamferPage />} />
-              <Route path="/otwor-pod-gwint" element={<TapDrillPage />} />
-              <Route path="/kompensacja" element={<OffsetCompensationPage />} />
               <Route path="/trygonometria" element={<TrigPage />} />
               <Route path="/privacy" element={<PrivacyPage />} />
               <Route path="*" element={<NotFound />} />

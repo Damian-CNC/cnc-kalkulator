@@ -122,6 +122,7 @@ const TrapezoidalThreadPage = () => {
                 <NominalCard label="Średnica wewnętrzna (D1)" value={nominal.D1} />
                 <NominalCard label="Średnica podziałowa (D2)" value={nominal.d2} />
                 <NominalCard label="Średnica zewn. w bruzdach (D4)" value={nominal.D4} />
+                <CamCard label="Wysokość profilu gwintu (H4)" value={nominal.h3} note="Głębokość nacinania" />
                 <CamCard label="Średnica wiercenia" value={nominal.D1} note="Równa D1" />
               </div>
             </TabsContent>
