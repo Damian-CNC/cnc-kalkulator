@@ -6,6 +6,15 @@ import useQueryState from '@/hooks/useQueryState';
 import usePersistedState from '@/hooks/usePersistedState';
 import CopyableValue from '@/components/CopyableValue';
 import ClearFab from '@/components/ClearFab';
+import {
+  BOLT_CLASSES,
+  NUT_CLASSES,
+  boltLimits,
+  nutLimits,
+  type BoltClass,
+  type Limits,
+  type NutClass,
+} from '@/lib/trapTolerance';
 
 const round = (v: number, n = 3) => Number.isFinite(v) ? Number(v.toFixed(n)) : null;
 
@@ -19,6 +28,8 @@ const getCrestClearance = (P: number): number => {
 const TrapezoidalThreadPage = () => {
   const [dInput, setDInput] = usePersistedState<string>('trap-d', '');
   const [pInput, setPInput] = usePersistedState<string>('trap-p', '');
+  const [boltCls, setBoltCls] = usePersistedState<BoltClass>('trap-bolt-class', '7e');
+  const [nutCls, setNutCls] = usePersistedState<NutClass>('trap-nut-class', '7H');
   const [threadTab, setThreadTab] = useQueryState('tab', 'external', ['external', 'internal'] as const, 'trap-tab');
 
   const parsedD = useMemo(() => {
@@ -51,6 +62,24 @@ const TrapezoidalThreadPage = () => {
       h3: round(h3),
     };
   }, [parsedD, parsedP]);
+
+  const bolt = useMemo(() => {
+    if (!nominal || parsedD === null || parsedP === null) return null;
+    return boltLimits(parsedD, parsedP, boltCls, {
+      d: nominal.d as number,
+      d2: nominal.d2 as number,
+      d3: nominal.d3 as number,
+    });
+  }, [nominal, parsedD, parsedP, boltCls]);
+
+  const nut = useMemo(() => {
+    if (!nominal || parsedD === null || parsedP === null) return null;
+    return nutLimits(parsedD, parsedP, nutCls, {
+      D1: nominal.D1 as number,
+      d2: nominal.d2 as number,
+      D4: nominal.D4 as number,
+    });
+  }, [nominal, parsedD, parsedP, nutCls]);
 
   const designation = parsedD !== null && parsedP !== null ? `Tr ${parsedD} × ${parsedP}` : null;
 
@@ -114,6 +143,25 @@ const TrapezoidalThreadPage = () => {
                 <NominalCard label="Średnica podziałowa (d2)" value={nominal.d2} />
                 <NominalCard label="Średnica rdzenia (d3)" value={nominal.d3} />
                 <CamCard label="Wysokość profilu gwintu (h3)" value={nominal.h3} note="Głębokość nacinania" />
+
+                <ClassPicker
+                  title="Klasa tolerancji śruby"
+                  options={BOLT_CLASSES}
+                  value={boltCls}
+                  onChange={(v) => setBoltCls(v as BoltClass)}
+                />
+                {bolt ? (
+                  <div className="space-y-3">
+                    <p className="text-center text-sm font-semibold text-emerald-400">
+                      Tr {parsedD} × {parsedP} – {bolt.cls}
+                    </p>
+                    <LimitCard label="Średnica zewnętrzna (d)" lim={bolt.d} />
+                    <LimitCard label="Średnica podziałowa (d2)" lim={bolt.d2} />
+                    <LimitCard label="Średnica rdzenia (d3)" lim={bolt.d3} />
+                  </div>
+                ) : (
+                  <ToleranceUnavailable />
+                )}
               </div>
             </TabsContent>
 
@@ -124,11 +172,40 @@ const TrapezoidalThreadPage = () => {
                 <NominalCard label="Średnica zewn. w bruzdach (D4)" value={nominal.D4} />
                 <CamCard label="Wysokość profilu gwintu (H4)" value={nominal.h3} note="Głębokość nacinania" />
                 <CamCard label="Średnica wiercenia" value={nominal.D1} note="Równa D1" />
+
+                <ClassPicker
+                  title="Klasa tolerancji nakrętki"
+                  options={NUT_CLASSES}
+                  value={nutCls}
+                  onChange={(v) => setNutCls(v as NutClass)}
+                />
+                {nut ? (
+                  <div className="space-y-3">
+                    <p className="text-center text-sm font-semibold text-emerald-400">
+                      Tr {parsedD} × {parsedP} – {nut.cls}
+                    </p>
+                    <LimitCard label="Średnica rdzenia (D1)" lim={nut.D1} />
+                    <LimitCard label="Średnica podziałowa (D2)" lim={nut.D2} />
+                    <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
+                      <p className="text-zinc-400 text-sm font-medium mb-1">Średnica zewn. w bruzdach (D4)</p>
+                      <p className="text-xl font-bold text-zinc-100">
+                        min <CopyableValue value={nut.D4min}>{fmt3(nut.D4min)}</CopyableValue> mm
+                      </p>
+                      <p className="text-zinc-600 text-xs mt-1">Norma nie podaje tolerancji D4</p>
+                    </div>
+                  </div>
+                ) : (
+                  <ToleranceUnavailable />
+                )}
               </div>
             </TabsContent>
 
             <p className="text-zinc-600 text-xs text-center mt-4">
-              Wymiary nominalne wg DIN 103 · Profil trapezowy symetryczny 30°
+              Wymiary nominalne wg DIN 103 · tolerancje wg ISO 2903 · Profil symetryczny 30°
+            </p>
+            <p className="text-zinc-600 text-[11px] text-center mt-1 leading-relaxed">
+              Tolerancje dla gwintów jednozwojnych, grupa długości zazwyczaj N (7H/7e). Przy gwincie
+              wielokrotnym tolerancje średnicy podziałowej trzeba zwiększyć wg normy.
             </p>
           </Tabs>
         )}
@@ -143,6 +220,74 @@ const TrapezoidalThreadPage = () => {
     </PageLayout>
   );
 };
+
+const fmt3 = (v: number) => v.toFixed(3);
+
+function ClassPicker({
+  title,
+  options,
+  value,
+  onChange,
+}: {
+  title: string;
+  options: readonly string[];
+  value: string;
+  onChange: (v: string) => void;
+}) {
+  return (
+    <div className="pt-2">
+      <p className="text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider">{title}</p>
+      <div className={`grid gap-2 ${options.length === 4 ? 'grid-cols-4' : 'grid-cols-3'}`}>
+        {options.map((o) => (
+          <button
+            key={o}
+            type="button"
+            onClick={() => onChange(o)}
+            className={`py-3 rounded-xl font-bold text-sm transition-all border ${
+              value === o
+                ? 'bg-cyan-600 border-cyan-500 text-white'
+                : 'bg-zinc-900 border-zinc-800 text-zinc-400 hover:border-zinc-700'
+            }`}
+          >
+            {o}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function LimitCard({ label, lim }: { label: string; lim: Limits }) {
+  return (
+    <div className="rounded-xl border border-emerald-800/40 bg-emerald-950/20 p-4">
+      <p className="text-emerald-300 text-sm font-medium mb-2">{label}</p>
+      <div className="grid grid-cols-2 gap-3">
+        <div>
+          <p className="text-zinc-500 text-xs uppercase tracking-wider">Max</p>
+          <p className="text-xl md:text-2xl font-bold text-emerald-400">
+            <CopyableValue value={Number(fmt3(lim.max))}>{fmt3(lim.max)}</CopyableValue>
+          </p>
+        </div>
+        <div>
+          <p className="text-zinc-500 text-xs uppercase tracking-wider">Min</p>
+          <p className="text-xl md:text-2xl font-bold text-emerald-400">
+            <CopyableValue value={Number(fmt3(lim.min))}>{fmt3(lim.min)}</CopyableValue>
+          </p>
+        </div>
+      </div>
+      <p className="text-emerald-700 text-xs mt-2">Tolerancja {fmt3(lim.tol)} mm</p>
+    </div>
+  );
+}
+
+function ToleranceUnavailable() {
+  return (
+    <p className="text-xs text-zinc-500 text-center py-3 leading-relaxed">
+      Tolerancje ISO 2903 dotyczą średnic 5,6–355 mm i znormalizowanych skoków
+      (1,5; 2; 3; 4; 5; 6; 7; 8; 9; 10; 12; 14; 16; 18; 20; 22; 24; 28; 32; 36; 40; 44 mm).
+    </p>
+  );
+}
 
 function NominalCard({ label, value }: { label: string; value: number | null }) {
   return (

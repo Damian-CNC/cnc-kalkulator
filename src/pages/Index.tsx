@@ -14,6 +14,7 @@ import {
   CirclipIcon,
   KeywayIcon,
   ORingIcon,
+  BoltHoleIcon,
 } from '@/components/icons/CncIcons';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
@@ -70,6 +71,7 @@ const sections: { titleKey: string; tiles: Tile[] }[] = [
       { id: 'keyways', labelKey: 'tiles.keyways', icon: KeywayIcon, route: '/wpusty' },
       { id: 'oring', labelKey: 'tiles.oring', icon: ORingIcon, route: '/rowki-oring' },
       { id: 'din509', labelKey: 'tiles.din509', icon: UndercutIcon, route: '/podciecia-din509' },
+      { id: 'boltHoles', labelKey: 'tools:holes.tile', icon: BoltHoleIcon, route: '/otwory-pod-sruby', isNew: true },
     ],
   },
   {

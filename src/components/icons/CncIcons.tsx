@@ -288,3 +288,15 @@ export const ORingIcon = memo((p: CncIconProps) => (
   </Base>
 ));
 ORingIcon.displayName = 'ORingIcon';
+
+/** Przekrój płyty z otworem przelotowym i wytoczeniem pod łeb śruby. */
+export const BoltHoleIcon = memo((p: CncIconProps) => (
+  <Base {...p}>
+    <path d="M6 18 H20 V30 H26 V54 H6 Z" fill="currentColor" fillOpacity={0.2} />
+    <path d="M58 18 H44 V30 H38 V54 H58 Z" fill="currentColor" fillOpacity={0.2} />
+    <path d="M32 8 V60" strokeDasharray={AXIS} strokeWidth={1.5} />
+    <path d="M20 12 H44" strokeWidth={1.5} />
+    <path d="M20 9 V15 M44 9 V15" strokeWidth={1.5} />
+  </Base>
+));
+
