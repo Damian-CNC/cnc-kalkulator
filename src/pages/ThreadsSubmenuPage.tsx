@@ -19,7 +19,8 @@ const tiles: Tile[] = [
   { id: 'npt', labelKey: 'threads.npt', badge: 'NPT', route: '/threads/npt', color: 'text-rose-400' },
   { id: 'bsw', labelKey: 'threads.bsw', badge: 'BSW', route: '/threads/bsw', color: 'text-amber-400' },
   { id: 'bsf', labelKey: 'threads.bsf', badge: 'BSF', route: '/threads/bsf', color: 'text-violet-400' },
-  { id: 'un', labelKey: 'tools:un.menu', badge: 'UN', route: '/threads/un', color: 'text-orange-400', isNew: true },
+  { id: 'un', labelKey: 'tools:un.menu', badge: 'UN', route: '/threads/un', color: 'text-orange-400' },
+  { id: 'acme', labelKey: 'tools:acme.menu', badge: 'Acme', route: '/threads/acme', color: 'text-pink-400', isNew: true },
 ];
 
 const ThreadsSubmenuPage = () => {
