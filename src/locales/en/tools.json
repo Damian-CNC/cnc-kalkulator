@@ -134,5 +134,38 @@
       "basic": "Basic",
       "advanced": "Advanced"
     }
+  },
+  "un": {
+    "menu": "UN threads (UNC/UNF)",
+    "title": "Unified inch threads (UNC / UNF / UNEF)",
+    "series": "Series",
+    "seriesNames": {
+      "UNC": "UNC (coarse)",
+      "UNF": "UNF (fine)",
+      "UNEF": "UNEF (extra fine)"
+    },
+    "size": "Size (threads/inch)",
+    "basicInfo": "d = {{d}} in ({{dmm}} mm) · pitch P = {{p}} in ({{pmm}} mm)",
+    "bolt": "Bolt",
+    "nut": "Nut",
+    "classBolt": "Bolt tolerance class",
+    "classNut": "Nut tolerance class",
+    "major": "Major diameter (d)",
+    "pitch": "Pitch diameter (d2)",
+    "minorRef": "Bolt minor diameter (ref.)",
+    "minorRefNote": "Root radius at least 0.1083·P (UNR)",
+    "depthExt": "Thread depth (bolt)",
+    "depthExtNote": "from max major diameter to root",
+    "depthInt": "Thread depth (nut)",
+    "depthNote": "radial",
+    "allowance": "Bolt allowance: {{a}} in ({{amm}} mm)",
+    "minorNut": "Nut minor diameter (D1)",
+    "minorNoMax": "For class 3B and 8 TPI or coarser the standard gives the maximum only in its table.",
+    "pitchNut": "Pitch diameter (D2)",
+    "majorNut": "Major diameter (D)",
+    "drill": "Drill diameter (mid D1)",
+    "drillNote": "drill within the D1 tolerance",
+    "tolerance": "Tolerance",
+    "footer": "Dimensions per ASME B1.1, calculated with the standard's formulas and checked against Table 2 (e.g. 1/4-20 UNC, 1/2-13, 1-8, 1/4-28, 1/4-32). Check the standard's table if the drawing requires it."
   }
 }
