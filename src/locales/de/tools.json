@@ -134,5 +134,38 @@
       "basic": "Einfach",
       "advanced": "Erweitert"
     }
+  },
+  "un": {
+    "menu": "UN-Gewinde (UNC/UNF)",
+    "title": "Zoll-Gewinde UN (UNC / UNF / UNEF)",
+    "series": "Reihe",
+    "seriesNames": {
+      "UNC": "UNC (Regel)",
+      "UNF": "UNF (Fein)",
+      "UNEF": "UNEF (Extrafein)"
+    },
+    "size": "Größe (Gänge/Zoll)",
+    "basicInfo": "d = {{d}} in ({{dmm}} mm) · Steigung P = {{p}} in ({{pmm}} mm)",
+    "bolt": "Schraube",
+    "nut": "Mutter",
+    "classBolt": "Toleranzklasse Schraube",
+    "classNut": "Toleranzklasse Mutter",
+    "major": "Außendurchmesser (d)",
+    "pitch": "Flankendurchmesser (d2)",
+    "minorRef": "Kerndurchmesser Schraube (Ref.)",
+    "minorRefNote": "Gewindegrund mit Radius min. 0,1083·P (UNR)",
+    "depthExt": "Gewindetiefe (Schraube)",
+    "depthExtNote": "vom max. Außendurchmesser bis zum Grund",
+    "depthInt": "Gewindetiefe (Mutter)",
+    "depthNote": "radial",
+    "allowance": "Schrauben-Abmaß: {{a}} in ({{amm}} mm)",
+    "minorNut": "Kerndurchmesser Mutter (D1)",
+    "minorNoMax": "Für Klasse 3B und 8 Gänge/Zoll oder gröber gibt die Norm das Höchstmaß nur in der Tabelle an.",
+    "pitchNut": "Flankendurchmesser (D2)",
+    "majorNut": "Außendurchmesser (D)",
+    "drill": "Bohrdurchmesser (Mitte D1)",
+    "drillNote": "Bohrer innerhalb der D1-Toleranz",
+    "tolerance": "Toleranz",
+    "footer": "Maße nach ASME B1.1, mit den Formeln der Norm berechnet und mit Tabelle 2 geprüft (z. B. 1/4-20 UNC, 1/2-13, 1-8, 1/4-28, 1/4-32). Bei Zeichnungsvorgaben die Normtabelle prüfen."
   }
 }

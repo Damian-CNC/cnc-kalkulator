@@ -134,5 +134,38 @@
       "basic": "Podstawowy",
       "advanced": "Zaawansowany"
     }
+  },
+  "un": {
+    "menu": "Gwinty UN (UNC/UNF)",
+    "title": "Gwinty calowe UN (UNC / UNF / UNEF)",
+    "series": "Seria",
+    "seriesNames": {
+      "UNC": "UNC (zwykły)",
+      "UNF": "UNF (drobny)",
+      "UNEF": "UNEF (b. drobny)"
+    },
+    "size": "Rozmiar (zwoje/cal)",
+    "basicInfo": "d = {{d}} in ({{dmm}} mm) · skok P = {{p}} in ({{pmm}} mm)",
+    "bolt": "Śruba",
+    "nut": "Nakrętka",
+    "classBolt": "Klasa tolerancji śruby",
+    "classNut": "Klasa tolerancji nakrętki",
+    "major": "Średnica zewnętrzna (d)",
+    "pitch": "Średnica podziałowa (d2)",
+    "minorRef": "Średnica rdzenia śruby (ref.)",
+    "minorRefNote": "Dno z promieniem min. 0,1083·P (UNR)",
+    "depthExt": "Głębokość nacinania (śruba)",
+    "depthExtNote": "od średnicy zewn. max do dna",
+    "depthInt": "Głębokość nacinania (nakrętka)",
+    "depthNote": "na promień",
+    "allowance": "Luz (naddatek) śruby: {{a}} in ({{amm}} mm)",
+    "minorNut": "Średnica rdzenia nakrętki (D1)",
+    "minorNoMax": "Dla tej klasy 3B i skoku 8 gw/cal i grubszego norma podaje wartość max tylko w tabeli.",
+    "pitchNut": "Średnica podziałowa (D2)",
+    "majorNut": "Średnica zewnętrzna (D)",
+    "drill": "Średnica wiercenia (środek D1)",
+    "drillNote": "wiertło w zakresie tolerancji D1",
+    "tolerance": "Tolerancja",
+    "footer": "Wymiary wg ASME B1.1, obliczone wzorami normy i sprawdzone z tabelą 2 (np. 1/4-20 UNC, 1/2-13, 1-8, 1/4-28, 1/4-32). Przy wymaganiach rysunkowych sprawdź tabelę normy."
   }
 }

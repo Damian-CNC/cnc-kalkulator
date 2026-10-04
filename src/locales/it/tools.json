@@ -134,5 +134,38 @@
       "basic": "Base",
       "advanced": "Avanzato"
     }
+  },
+  "un": {
+    "menu": "Filetti UN (UNC/UNF)",
+    "title": "Filettature in pollici UN (UNC / UNF / UNEF)",
+    "series": "Serie",
+    "seriesNames": {
+      "UNC": "UNC (grossa)",
+      "UNF": "UNF (fine)",
+      "UNEF": "UNEF (extra fine)"
+    },
+    "size": "Misura (filetti/pollice)",
+    "basicInfo": "d = {{d}} in ({{dmm}} mm) · passo P = {{p}} in ({{pmm}} mm)",
+    "bolt": "Vite",
+    "nut": "Dado",
+    "classBolt": "Classe di tolleranza vite",
+    "classNut": "Classe di tolleranza dado",
+    "major": "Diametro esterno (d)",
+    "pitch": "Diametro medio (d2)",
+    "minorRef": "Diametro di nocciolo vite (rif.)",
+    "minorRefNote": "Raggio di fondo almeno 0,1083·P (UNR)",
+    "depthExt": "Profondità filetto (vite)",
+    "depthExtNote": "dal diametro esterno max al fondo",
+    "depthInt": "Profondità filetto (dado)",
+    "depthNote": "radiale",
+    "allowance": "Gioco della vite: {{a}} in ({{amm}} mm)",
+    "minorNut": "Diametro di nocciolo dado (D1)",
+    "minorNoMax": "Per la classe 3B e 8 filetti/pollice o più grossi la norma indica il massimo solo in tabella.",
+    "pitchNut": "Diametro medio (D2)",
+    "majorNut": "Diametro esterno (D)",
+    "drill": "Diametro punta (centro D1)",
+    "drillNote": "punta entro la tolleranza D1",
+    "tolerance": "Tolleranza",
+    "footer": "Dimensioni secondo ASME B1.1, calcolate con le formule della norma e verificate con la tabella 2 (es. 1/4-20 UNC, 1/2-13, 1-8, 1/4-28, 1/4-32). Se il disegno lo richiede, controlla la tabella della norma."
   }
 }
