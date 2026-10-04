@@ -129,6 +129,10 @@
       "platePierced": "Wytoczenie jest głębsze niż grubość płyty.",
       "plateThin": "Pod wytoczeniem zostaje bardzo cienka warstwa materiału."
     },
-    "footer": "Otwory wg ISO 273 (tolerancje H12/H13/H14), wymiary łbów wg norm wyrobu. Wytoczenia liczone z luzem, zbliżone do DIN 974-1. Przy wymaganiach rysunkowych sprawdź normę."
+    "footer": "Otwory wg ISO 273 (tolerancje H12/H13/H14), wymiary łbów wg norm wyrobu. Wytoczenia liczone z luzem, zbliżone do DIN 974-1. Przy wymaganiach rysunkowych sprawdź normę.",
+    "tabs": {
+      "basic": "Podstawowy",
+      "advanced": "Zaawansowany"
+    }
   }
 }

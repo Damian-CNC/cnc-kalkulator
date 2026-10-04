@@ -129,6 +129,10 @@
       "platePierced": "Die Senkung ist tiefer als die Bauteildicke.",
       "plateThin": "Unter der Senkung bleibt nur eine sehr dünne Schicht."
     },
-    "footer": "Löcher nach ISO 273 (Toleranzen H12/H13/H14), Kopfmaße nach Produktnormen. Senkungen mit Spiel gerechnet, ähnlich DIN 974-1. Bei Zeichnungsvorgaben die Norm prüfen."
+    "footer": "Löcher nach ISO 273 (Toleranzen H12/H13/H14), Kopfmaße nach Produktnormen. Senkungen mit Spiel gerechnet, ähnlich DIN 974-1. Bei Zeichnungsvorgaben die Norm prüfen.",
+    "tabs": {
+      "basic": "Einfach",
+      "advanced": "Erweitert"
+    }
   }
 }

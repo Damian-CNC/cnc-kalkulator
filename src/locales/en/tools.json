@@ -129,6 +129,10 @@
       "platePierced": "The counterbore is deeper than the plate thickness.",
       "plateThin": "Only a very thin layer of material remains under the counterbore."
     },
-    "footer": "Holes per ISO 273 (H12/H13/H14 tolerances), head dimensions per product standards. Counterbores include clearance, close to DIN 974-1. Check the standard if the drawing requires it."
+    "footer": "Holes per ISO 273 (H12/H13/H14 tolerances), head dimensions per product standards. Counterbores include clearance, close to DIN 974-1. Check the standard if the drawing requires it.",
+    "tabs": {
+      "basic": "Basic",
+      "advanced": "Advanced"
+    }
   }
 }
