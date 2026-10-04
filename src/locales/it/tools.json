@@ -129,6 +129,10 @@
       "platePierced": "La lamatura è più profonda dello spessore della piastra.",
       "plateThin": "Sotto la lamatura resta uno strato di materiale molto sottile."
     },
-    "footer": "Fori secondo ISO 273 (tolleranze H12/H13/H14), dimensioni teste da norme di prodotto. Lamature calcolate con gioco, vicine a DIN 974-1. Se il disegno lo richiede, verifica la norma."
+    "footer": "Fori secondo ISO 273 (tolleranze H12/H13/H14), dimensioni teste da norme di prodotto. Lamature calcolate con gioco, vicine a DIN 974-1. Se il disegno lo richiede, verifica la norma.",
+    "tabs": {
+      "basic": "Base",
+      "advanced": "Avanzato"
+    }
   }
 }

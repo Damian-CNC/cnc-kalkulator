@@ -20,6 +20,7 @@ import {
 } from '@/lib/boltHoles';
 
 type State = {
+  tab: 'basic' | 'advanced';
   size: string;
   head: HeadId;
   series: Series;
@@ -39,6 +40,7 @@ type State = {
 };
 
 const INITIAL: State = {
+  tab: 'basic',
   size: '6',
   head: 'socket',
   series: 'medium',
@@ -129,16 +131,34 @@ const BoltHolesCalculator = () => {
     (e: { target: { value: string } }) =>
       setS((p) => ({ ...p, [k]: e.target.value as State[K] }));
 
-  const available = headAvailable(s.head, s.size);
+  const adv = s.tab === 'advanced';
+  // W trybie podstawowym: bez własnych wymiarów, luz normalny, wytoczenie bez podkładki
+  const head: HeadId = !adv && s.head === 'custom' ? 'socket' : s.head;
+  const available = headAvailable(head, s.size);
 
   const res = useMemo(() => {
     if (!available) return null;
+    if (!adv) {
+      return calcHoles({
+        size: s.size,
+        head,
+        series: s.series,
+        fit: 'normal',
+        mode: 'cbore',
+        washer: 'none',
+        customShape: 'round',
+        recess: 0,
+        spotDepth: 0,
+        angle: 90,
+        material: 'steel',
+      });
+    }
     return calcHoles({
       size: s.size,
-      head: s.head,
+      head,
       series: s.series,
       fit: s.fit,
-      mode: s.head === 'csk' ? 'cbore' : s.mode,
+      mode: head === 'csk' ? 'cbore' : s.mode,
       washer: s.washer,
       washerOd: num(s.washerOd),
       washerTh: num(s.washerTh),
@@ -151,14 +171,31 @@ const BoltHolesCalculator = () => {
       plate: num(s.plate),
       material: s.material,
     });
-  }, [s, available]);
+  }, [s, available, adv, head]);
 
-  const isCsk = s.head === 'csk';
-  const isNut = s.head === 'nut';
+  const isCsk = head === 'csk';
+  const isNut = head === 'nut';
   const headName = (id: HeadId) => t(`holes.heads.${id}`);
 
   return (
     <div className="space-y-6">
+      <div className="grid grid-cols-2 gap-2">
+        {(['basic', 'advanced'] as const).map((tab) => (
+          <button
+            key={tab}
+            type="button"
+            onClick={() => setS((p) => ({ ...p, tab }))}
+            className={`py-3 rounded-xl font-bold text-sm transition-all border ${
+              s.tab === tab
+                ? 'bg-cyan-600 border-cyan-500 text-white'
+                : 'bg-zinc-900 border-zinc-800 text-zinc-400 hover:border-zinc-700'
+            }`}
+          >
+            {t(`holes.tabs.${tab}`)}
+          </button>
+        ))}
+      </div>
+
       <div className="glass-module">
         <SectionTitle>{t('holes.screwTitle')}</SectionTitle>
         <div className="grid grid-cols-2 gap-4">
@@ -181,9 +218,9 @@ const BoltHolesCalculator = () => {
         <div className="mt-4">
           <SelectField
             label={t('holes.head')}
-            value={s.head}
+            value={head}
             onChange={set('head')}
-            options={HEAD_IDS.map((id) => ({
+            options={HEAD_IDS.filter((id) => adv || id !== 'custom').map((id) => ({
               value: id,
               label: headName(id),
             }))}
@@ -191,10 +228,10 @@ const BoltHolesCalculator = () => {
         </div>
         {!available && (
           <div className="mt-4">
-            <Banner tone="warn">{t('holes.noHeadSize', { head: headName(s.head), size: `M${s.size}` })}</Banner>
+            <Banner tone="warn">{t('holes.noHeadSize', { head: headName(head), size: `M${s.size}` })}</Banner>
           </div>
         )}
-        {s.head === 'custom' && (
+        {adv && head === 'custom' && (
           <div className="grid grid-cols-3 gap-3 mt-4">
             <SelectField
               label={t('holes.shape')}
@@ -216,6 +253,7 @@ const BoltHolesCalculator = () => {
         )}
       </div>
 
+      {adv && (
       <div className="glass-module">
         <SectionTitle>{t('holes.machiningTitle')}</SectionTitle>
         <div className="grid grid-cols-2 gap-4">
@@ -289,7 +327,9 @@ const BoltHolesCalculator = () => {
           </div>
         )}
       </div>
+      )}
 
+      {adv && (
       <div className="glass-module">
         <SectionTitle>{t('holes.plateTitle')}</SectionTitle>
         <div className="grid grid-cols-2 gap-4">
@@ -309,6 +349,7 @@ const BoltHolesCalculator = () => {
         </div>
         <p className="text-xs text-zinc-500 mt-3 leading-relaxed">{t('holes.plateHint')}</p>
       </div>
+      )}
 
       {res && (
         <>
@@ -366,6 +407,7 @@ const BoltHolesCalculator = () => {
             </div>
           )}
 
+          {adv && (
           <div className="glass-module">
             <SectionTitle>{t('holes.headDims')}</SectionTitle>
             <ResultRow
@@ -389,8 +431,9 @@ const BoltHolesCalculator = () => {
               />
             )}
           </div>
+          )}
 
-          {(res.remaining !== null || res.length) && (
+          {adv && (res.remaining !== null || res.length) && (
             <div className="glass-module">
               <SectionTitle>{t('holes.plateResult')}</SectionTitle>
               {res.remaining !== null && (
