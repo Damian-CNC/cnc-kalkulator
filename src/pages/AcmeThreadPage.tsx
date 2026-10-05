@@ -7,6 +7,7 @@ import ClearFab from '@/components/ClearFab';
 import CopyableValue from '@/components/CopyableValue';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import usePersistedState from '@/hooks/usePersistedState';
+import useLength from '@/hooks/useLength';
 import useQueryState from '@/hooks/useQueryState';
 import { parseDecimal } from '@/lib/numericInput';
 import {
@@ -18,6 +19,8 @@ import {
   type Lim,
 } from '@/lib/acmeThread';
 
+type Range = Lim;
+
 type State = {
   size: string; // id z serii albo 'custom'
   cls: AcmeClass;
@@ -27,11 +30,10 @@ type State = {
 };
 const INITIAL: State = { size: '1/2', cls: '2G', starts: '1', customD: '', customN: '' };
 
-const inch = (v: number, d = 4) => v.toFixed(d);
-const mm = (v: number, d = 3) => (v * MM).toFixed(d);
 
 const AcmeThreadPage = () => {
   const { t } = useTranslation('tools');
+  const L = useLength('in');
   const [s, setS, reset] = usePersistedState<State>('acme-thread', INITIAL);
   const [tab, setTab] = useQueryState('tab', 'external', ['external', 'internal'] as const, 'acme-tab');
 
@@ -97,13 +99,7 @@ const AcmeThreadPage = () => {
                 {res.D.toFixed(3)}-{res.n}-ACME-{s.cls}
               </span>
               <p className="text-zinc-500 text-xs mt-2">
-                {t('acme.basicInfo', {
-                  p: inch(res.P),
-                  pmm: mm(res.P, 3),
-                  lead: inch(res.lead),
-                  leadmm: mm(res.lead, 3),
-                  angle: res.leadAngle.toFixed(2),
-                })}
+                {t('acme.basicInfo', { p: L.fmt(res.P), lead: L.fmt(res.lead), angle: res.leadAngle.toFixed(2) })}
               </p>
               {!res.inRange && (
                 <p className="text-amber-500/80 text-xs mt-2">{t('acme.outOfRange')}</p>
@@ -131,9 +127,9 @@ const AcmeThreadPage = () => {
 
               <TabsContent value="external">
                 <div className="space-y-3 mt-3">
-                  <LimitCard label={t('acme.major')} lim={res.bolt.major} />
-                  <LimitCard label={t('acme.pitch')} lim={res.bolt.pitch} />
-                  <LimitCard label={t('acme.minor')} lim={res.bolt.minor} />
+                  <LimitCard label={t('acme.major')} lim={res.bolt.major} tolLabel={t('acme.tolerance')} />
+                  <LimitCard label={t('acme.pitch')} lim={res.bolt.pitch} tolLabel={t('acme.tolerance')} />
+                  <LimitCard label={t('acme.minor')} lim={res.bolt.minor} tolLabel={t('acme.tolerance')} />
                   <CamCard label={t('acme.depthBolt')} inches={res.depth} note={`${t('acme.depthNote')} · ${t('acme.depthFrom')}`} />
                   <ValueCard
                     label={t('acme.rootFlat')}
@@ -143,22 +139,23 @@ const AcmeThreadPage = () => {
                   />
                   <ValueCard label={t('acme.crestFlat')} inches={res.bolt.crestFlat} digits={4} />
                   <p className="text-xs text-zinc-500 text-center">
-                    {t('acme.allowance', { a: inch(res.pitchAllowance), amm: mm(res.pitchAllowance, 3) })}
+                    {t('acme.allowance', { a: L.fmt(res.pitchAllowance) })}
                   </p>
                 </div>
               </TabsContent>
 
               <TabsContent value="internal">
                 <div className="space-y-3 mt-3">
-                  <LimitCard label={t('acme.majorNut')} lim={res.nut.major} />
-                  <LimitCard label={t('acme.pitchNut')} lim={res.nut.pitch} />
-                  <LimitCard label={t('acme.minorNut')} lim={res.nut.minor} />
+                  <LimitCard label={t('acme.majorNut')} lim={res.nut.major} tolLabel={t('acme.tolerance')} />
+                  <LimitCard label={t('acme.pitchNut')} lim={res.nut.pitch} tolLabel={t('acme.tolerance')} />
+                  <LimitCard label={t('acme.minorNut')} lim={res.nut.minor} tolLabel={t('acme.tolerance')} />
                   <CamCard label={t('acme.depthNut')} inches={res.depth} note={`${t('acme.depthNote')} · ${t('acme.depthFromNut')}`} />
                   <DrillCard
                     label={t('acme.drill')}
                     min={res.nut.minor.min}
                     max={res.nut.minor.max}
                     note={t('acme.drillNote')}
+                    digits={4}
                   />
                   <ValueCard
                     label={t('acme.rootFlatNut')}
@@ -212,26 +209,52 @@ function ClassPicker({
   );
 }
 
-function LimitCard({ label, lim }: { label: string; lim: Lim }) {
-  const { t } = useTranslation('tools');
+function LimitCard({
+  label,
+  lim,
+  tolLabel,
+  fallback,
+  fallbackNote,
+  digits = 4,
+}: {
+  label: string;
+  lim: Range | null;
+  tolLabel: string;
+  fallback?: number;
+  fallbackNote?: string;
+  digits?: number;
+}) {
+  const L = useLength('in');
   return (
     <div className="rounded-xl border border-emerald-800/40 bg-emerald-950/20 p-4">
       <p className="text-emerald-300 text-sm font-medium mb-2">{label}</p>
-      <div className="grid grid-cols-2 gap-3">
-        {(['max', 'min'] as const).map((k) => (
-          <div key={k}>
-            <p className="text-zinc-500 text-xs uppercase tracking-wider">{k}</p>
-            <p className="text-xl md:text-2xl font-bold text-emerald-400">
-              <CopyableValue value={lim[k]}>{inch(lim[k])}</CopyableValue>
-              <span className="text-xs text-zinc-500 font-normal ml-1">in</span>
-            </p>
-            <p className="text-xs text-zinc-500">{mm(lim[k])} mm</p>
+      {lim ? (
+        <>
+          <div className="grid grid-cols-2 gap-3">
+            {(['max', 'min'] as const).map((k) => (
+              <div key={k}>
+                <p className="text-zinc-500 text-xs uppercase tracking-wider">{k}</p>
+                <p className="text-xl md:text-2xl font-bold text-emerald-400">
+                  <CopyableValue value={L.raw(lim[k], digits)}>{L.val(lim[k], digits)}</CopyableValue>
+                  <span className="text-xs text-zinc-500 font-normal ml-1">{L.unit}</span>
+                </p>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      <p className="text-emerald-700 text-xs mt-2">
-        {t('acme.tolerance')} {inch(lim.tol)} in · {mm(lim.tol)} mm
-      </p>
+          <p className="text-emerald-700 text-xs mt-2">
+            {tolLabel} {L.fmt(lim.tol, digits)}
+          </p>
+        </>
+      ) : (
+        <div>
+          <p className="text-zinc-500 text-xs uppercase tracking-wider">min</p>
+          <p className="text-xl md:text-2xl font-bold text-emerald-400">
+            {fallback !== undefined ? L.val(fallback, digits) : '—'}
+            <span className="text-xs text-zinc-500 font-normal ml-1">{L.unit}</span>
+          </p>
+          {fallbackNote && <p className="text-amber-500/80 text-xs mt-2">{fallbackNote}</p>}
+        </div>
+      )}
     </div>
   );
 }
@@ -240,20 +263,23 @@ function ValueCard({
   label,
   inches,
   note,
+  prefix,
   digits = 4,
 }: {
   label: string;
   inches: number;
   note?: string;
+  prefix?: string;
   digits?: number;
 }) {
+  const L = useLength('in');
   return (
     <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
       <p className="text-zinc-400 text-sm font-medium mb-1">{label}</p>
       <p className="text-xl font-bold text-zinc-100">
-        <CopyableValue value={inches}>{inch(inches, digits)}</CopyableValue>
-        <span className="text-sm text-zinc-500 font-normal ml-1">in</span>
-        <span className="text-sm text-zinc-500 font-normal ml-3">{mm(inches)} mm</span>
+        {prefix ? `${prefix} ` : ''}
+        <CopyableValue value={L.raw(inches, digits)}>{L.val(inches, digits)}</CopyableValue>
+        <span className="text-sm text-zinc-500 font-normal ml-1">{L.unit}</span>
       </p>
       {note && <p className="text-zinc-600 text-xs mt-1">{note}</p>}
     </div>
@@ -261,14 +287,14 @@ function ValueCard({
 }
 
 function CamCard({ label, inches, note }: { label: string; inches: number; note?: string }) {
+  const L = useLength('in');
   return (
     <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4">
       <p className="text-cyan-300 text-sm font-medium mb-1">{label}</p>
       <p className="text-2xl md:text-3xl font-bold text-cyan-400">
-        <CopyableValue value={inches}>{inch(inches)}</CopyableValue>
-        <span className="text-base text-cyan-600 font-normal ml-1">in</span>
+        <CopyableValue value={L.raw(inches)}>{L.val(inches)}</CopyableValue>
+        <span className="text-base text-cyan-600 font-normal ml-1">{L.unit}</span>
       </p>
-      <p className="text-cyan-500 text-sm">{mm(inches)} mm</p>
       {note && <p className="text-cyan-600 text-xs mt-1.5">({note})</p>}
     </div>
   );
@@ -279,30 +305,35 @@ function DrillCard({
   min,
   max,
   note,
+  digits = 3,
 }: {
   label: string;
   min: number;
-  max: number;
+  max: number | null;
   note: string;
+  digits?: number;
 }) {
-  const mid = (min + max) / 2;
+  const L = useLength('in');
+  const mid = max !== null ? (min + max) / 2 : min;
+  // najbliższe wiertło metryczne co 0,1 mm mieszczące się w tolerancji D1
   let metric: number | null = null;
-  for (let d = Math.ceil(min * MM * 10) / 10; d <= max * MM + 1e-9; d += 0.1) {
-    if (metric === null || Math.abs(d - mid * MM) < Math.abs(metric - mid * MM)) {
-      metric = Math.round(d * 10) / 10;
+  if (max !== null) {
+    for (let d = Math.ceil(min * MM * 10) / 10; d <= max * MM + 1e-9; d += 0.1) {
+      if (metric === null || Math.abs(d - mid * MM) < Math.abs(metric - mid * MM)) {
+        metric = Math.round(d * 10) / 10;
+      }
     }
   }
   return (
     <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4">
       <p className="text-cyan-300 text-sm font-medium mb-1">{label}</p>
       <p className="text-2xl md:text-3xl font-bold text-cyan-400">
-        <CopyableValue value={Number(mid.toFixed(4))}>{mid.toFixed(4)}</CopyableValue>
-        <span className="text-base text-cyan-600 font-normal ml-1">in</span>
+        <CopyableValue value={L.raw(mid, digits, 2)}>{L.val(mid, digits, 2)}</CopyableValue>
+        <span className="text-base text-cyan-600 font-normal ml-1">{L.unit}</span>
       </p>
-      <p className="text-cyan-500 text-sm">
-        {(mid * MM).toFixed(2)} mm
-        {metric !== null && ` · Ø${metric.toFixed(1)} mm`}
-      </p>
+      {!L.isImperial && metric !== null && (
+        <p className="text-cyan-500 text-sm">Ø{metric.toFixed(1)} mm</p>
+      )}
       <p className="text-cyan-600 text-xs mt-1.5">({note})</p>
     </div>
   );

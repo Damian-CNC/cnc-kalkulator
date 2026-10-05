@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Changelog",
-    "version": "v2.7.7",
+    "version": "v2.8.1",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Settings",
     "feedback": "Report bug / Suggestion",
@@ -65,6 +65,25 @@
       "Weight calculator: stacked +/- stepper buttons for quantity",
       "Weight calculator: full-width material list with bold category names",
       "Adding to inventory now keeps the selected shape and material"
+    ],
+    "v281": [
+      "New threads in the Threads menu: UN (UNC/UNF/UNEF per ASME B1.1), Acme (ASME B1.5, classes 2G/3G/4G) and round Rd (DIN 405)",
+      "Inch thread dimensions are shown in mm when metric units are selected (in inches with imperial units)",
+      "The \"new\" badge now stays only on the newest calculators"
+    ],
+    "v280": [
+      "Trapezoidal thread Tr: tolerance classes per ISO 2903 (bolt 7e/8e/8c/9c, nut 7H/8H/9H) with limit dimensions",
+      "Trapezoidal thread: thread depth is now also given for the nut",
+      "Metric threads: removed the Fusion 360 Thread Depth note"
+    ],
+    "v279": [
+      "New \"Bolt holes\" calculator: clearance hole per ISO 273, counterbore or countersink for the head and washer, basic and advanced mode",
+      "New trigonometry calculator: right and oblique triangles, two points, polar coordinates; the triangle preview follows the entered values"
+    ],
+    "v278": [
+      "Desktop main menu scaled to about 80% so more tiles fit on screen",
+      "Mill chamfer: removed the required tool radius card",
+      "iPhone: fixed the double animation when going back with a gesture or the back button"
     ]
   },
   "pwa": {
