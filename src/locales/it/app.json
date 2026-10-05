@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Cronologia modifiche",
-    "version": "v2.7.7",
+    "version": "v2.8.1",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Impostazioni",
     "feedback": "Segnala bug / Suggerimento",
@@ -65,6 +65,25 @@
       "Calcolatore peso: pulsanti +/- verticali (stepper) per la quantità",
       "Calcolatore peso: elenco materiali a larghezza piena con categorie in grassetto",
       "L'aggiunta all'inventario mantiene forma e materiale selezionati"
+    ],
+    "v281": [
+      "Nuovi filetti nel menu Filetti: UN (UNC/UNF/UNEF secondo ASME B1.1), Acme (ASME B1.5, classi 2G/3G/4G) e tondo Rd (DIN 405)",
+      "Le dimensioni dei filetti in pollici sono mostrate in mm con le unità metriche (in pollici con le unità imperiali)",
+      "Il contrassegno «nuovo» resta solo sui calcolatori più recenti"
+    ],
+    "v280": [
+      "Filetto trapezoidale Tr: classi di tolleranza secondo ISO 2903 (vite 7e/8e/8c/9c, dado 7H/8H/9H) con dimensioni limite",
+      "Filetto trapezoidale: profondità del filetto indicata anche per il dado",
+      "Filetti metrici: rimossa la nota su Thread Depth di Fusion 360"
+    ],
+    "v279": [
+      "Nuovo calcolatore «Fori per viti»: foro passante secondo ISO 273, lamatura o svasatura per testa e rondella, modalità base e avanzata",
+      "Nuovo calcolatore di trigonometria: triangolo rettangolo e qualunque, due punti, coordinate polari; l'anteprima del triangolo segue i valori inseriti"
+    ],
+    "v278": [
+      "Menu principale su computer ridotto a circa l'80%, più tasselli sullo schermo",
+      "Smusso con fresa: rimossa la scheda del raggio utensile richiesto",
+      "iPhone: corretta la doppia animazione quando si torna indietro con gesto o tasto indietro"
     ]
   },
   "pwa": {

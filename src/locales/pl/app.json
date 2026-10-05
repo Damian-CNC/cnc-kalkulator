@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Historia zmian",
-    "version": "v2.7.7",
+    "version": "v2.8.1",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Ustawienia",
     "feedback": "Zgłoś błąd / Sugestia",
@@ -65,6 +65,25 @@
       "Kalkulator wagi: pionowe przyciski +/- (stepper) przy wyborze ilości sztuk",
       "Kalkulator wagi: pełna szerokość i pogrubione nazwy kategorii na liście materiałów",
       "Dodawanie do inwentaryzacji zachowuje wybrany kształt i materiał"
+    ],
+    "v281": [
+      "Nowe gwinty w menu Gwinty: UN (UNC/UNF/UNEF wg ASME B1.1), Acme (ASME B1.5, klasy 2G/3G/4G) oraz okrągły Rd (DIN 405)",
+      "Wymiary gwintów calowych są podawane w mm, gdy w aplikacji wybrano jednostki metryczne (w calach przy jednostkach calowych)",
+      "Oznaczenie „nowe” zostaje tylko przy najnowszych kalkulatorach"
+    ],
+    "v280": [
+      "Gwint trapezowy Tr: klasy tolerancji wg ISO 2903 (śruba 7e/8e/8c/9c, nakrętka 7H/8H/9H) z wymiarami granicznymi",
+      "Gwint trapezowy: głębokość nacinania podana także dla nakrętki",
+      "Gwinty metryczne: usunięto uwagę o Thread Depth z Fusion 360"
+    ],
+    "v279": [
+      "Nowy kalkulator „Otwory pod śruby”: otwór przelotowy wg ISO 273, wytoczenie lub pogłębienie pod łeb i podkładkę, tryb podstawowy i zaawansowany",
+      "Nowy kalkulator trygonometrii: trójkąt prostokątny i dowolny, dwa punkty, współrzędne biegunowe; podgląd trójkąta reaguje na wpisane wartości"
+    ],
+    "v278": [
+      "Menu główne na komputerze zmniejszone do ok. 80%, więcej kafelków mieści się na ekranie",
+      "Faza frezem: usunięto kartę z wymaganym promieniem narzędzia",
+      "iPhone: naprawiono podwójną animację przy cofaniu gestem lub przyciskiem „wstecz”"
     ]
   },
   "pwa": {
