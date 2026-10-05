@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
 import PageLayout from '@/components/PageLayout';
+import useLength from '@/hooks/useLength';
 import usePersistedState from '@/hooks/usePersistedState';
 import ClearFab from '@/components/ClearFab';
 
@@ -22,6 +23,7 @@ type SolvedField = 'd1' | 'd2' | 'l' | 'halfAngle' | null;
 const TaperCalculatorPage = () => {
   const { t } = useTranslation('taper');
   const { t: tCommon } = useTranslation();
+  const Lu = useLength('mm');
   const [d1Input, setD1Input] = usePersistedState<string>('taper-d1', '');
   const [d2Input, setD2Input] = usePersistedState<string>('taper-d2', '');
   const [lInput, setLInput] = usePersistedState<string>('taper-l', '');
@@ -137,11 +139,11 @@ const TaperCalculatorPage = () => {
         {/* 4 Input fields */}
         <div className="grid grid-cols-2 gap-3">
           <Field label={t('fields.d1')} value={d1Input} onChange={setD1Input} color="text-emerald-400"
-            solved={solver?.solvedField === 'd1'} solvedValue={solver?.d1} unit="mm" accentClass={accent} />
+            solved={solver?.solvedField === 'd1'} solvedValue={solver?.d1} unit={Lu.unit} accentClass={accent} />
           <Field label={t('fields.d2')} value={d2Input} onChange={setD2Input} color="text-amber-400"
-            solved={solver?.solvedField === 'd2'} solvedValue={solver?.d2} unit="mm" accentClass={accent} />
+            solved={solver?.solvedField === 'd2'} solvedValue={solver?.d2} unit={Lu.unit} accentClass={accent} />
           <Field label={t('fields.l')} value={lInput} onChange={setLInput} color="text-zinc-300"
-            solved={solver?.solvedField === 'l'} solvedValue={solver?.l} unit="mm" accentClass={accent} />
+            solved={solver?.solvedField === 'l'} solvedValue={solver?.l} unit={Lu.unit} accentClass={accent} />
           <Field label={t('fields.halfAngle')} value={halfAngleInput} onChange={setHalfAngleInput} color="text-pink-400"
             solved={solver?.solvedField === 'halfAngle'} solvedValue={solver?.halfDeg} unit="°" accentClass={accent} />
         </div>
@@ -173,7 +175,7 @@ const TaperCalculatorPage = () => {
               <p className="text-2xl md:text-3xl font-bold text-cyan-400 text-center">
                 {solver.C > 0 ? `1 : ${solver.taperRatio.toFixed(2)}` : '—'}
               </p>
-              <p className="text-zinc-600 text-xs text-center mt-1.5">C = {solver.C.toFixed(4)} mm/mm</p>
+              <p className="text-zinc-600 text-xs text-center mt-1.5">C = {solver.C.toFixed(4)} {Lu.unit}/{Lu.unit}</p>
             </div>
           </div>
         )}

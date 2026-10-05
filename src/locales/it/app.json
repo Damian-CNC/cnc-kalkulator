@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Cronologia modifiche",
-    "version": "v2.8.2",
+    "version": "v2.8.3",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Impostazioni",
     "feedback": "Segnala bug / Suggerimento",
@@ -88,6 +88,11 @@
     "v282": [
       "Nuovi filetti: conico per tubi R/Rc (BSPT, ISO 7-1) con diametri sul piano di misura, all'estremità piccola e alla fine del filetto utile",
       "Nuovo filetto a dente di sega S (DIN 513) con profondità del filetto per vite e dado"
+    ],
+    "v283": [
+      "Il cambio delle unità ora funziona in tutta l'app: filetti (metrici, Tr, BSP, NPT, BSW, BSF), ISO 2768, tolleranze ISO 286, rugosità, sedi per anelli elastici, linguette, O-ring, DIN 509, punta e conicità",
+      "Fori per viti: ingressi e risultati nelle unità scelte, le dimensioni inserite si convertono passando da mm a pollici",
+      "In modalità pollici le tolleranze sono in pollici o µin e la rugosità in µin"
     ]
   },
   "pwa": {

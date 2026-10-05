@@ -39,7 +39,8 @@ const AcmeThreadPage = () => {
 
   const isCustom = s.size === 'custom';
   const std = ACME_SIZES.find((z) => z.id === s.size);
-  const D = isCustom ? parseDecimal(s.customD) : std?.D ?? null;
+  const customDv = parseDecimal(s.customD);
+  const D = isCustom ? (customDv === null ? null : L.isImperial ? customDv : customDv / 25.4) : std?.D ?? null;
   const n = isCustom ? parseDecimal(s.customN) : std?.n ?? null;
   const starts = Math.min(6, Math.max(1, Math.round(parseDecimal(s.starts) ?? 1)));
 
@@ -71,7 +72,7 @@ const AcmeThreadPage = () => {
         {isCustom && (
           <div className="grid grid-cols-2 gap-3">
             <InputField
-              label={t('acme.customD')}
+              label={t('acme.customD').replace('[in]', `[${L.unit}]`)}
               value={s.customD}
               onChange={(e) => setS((p) => ({ ...p, customD: e.target.value }))}
               inputMode="decimal"

@@ -13,9 +13,16 @@ import {
 import usePersistedState from '@/hooks/usePersistedState';
 import CopyableValue from '@/components/CopyableValue';
 import ClearFab from '@/components/ClearFab';
+import useLength from '@/hooks/useLength';
 
 const TolerancesPage = () => {
   const { t } = useTranslation(['tolerances', 'translation']);
+  const L = useLength('mm');
+  const MM = 25.4;
+  // ISO 286 liczy w mm; w systemie calowym wpis i wyniki są w calach (odchyłki w µin)
+  const mmOut = (mm: number, d = 3) => (L.isImperial ? (mm / MM).toFixed(5) : mm.toFixed(d));
+  const umOut = (um: number) => (L.isImperial ? String(Math.round(um * 39.3701 * 10) / 10) : String(um));
+  const umUnit = L.isImperial ? 'µin' : 'μm';
   const [nominalInput, setNominalInput] = usePersistedState<string>('tol-nominal', '');
   const [fitType, setFitType] = useQueryState('type', 'shaft', ['shaft', 'hole'] as const, 'tol-type');
   const isHole = fitType === 'hole';
@@ -24,8 +31,8 @@ const TolerancesPage = () => {
 
   const parsedNominal = useMemo(() => {
     const val = parseFloat(nominalInput.replace(',', '.'));
-    return isNaN(val) || val <= 0 ? null : val;
-  }, [nominalInput]);
+    return isNaN(val) || val <= 0 ? null : L.isImperial ? val * MM : val;
+  }, [nominalInput, L.isImperial]);
 
   const letters = isHole ? HOLE_LETTERS : SHAFT_LETTERS;
 
@@ -45,7 +52,7 @@ const TolerancesPage = () => {
       <div className="space-y-5">
         {/* Nominal dimension input */}
         <div className="flex flex-col">
-          <label className="block text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider">{t('nominalDimension')}</label>
+          <label className="block text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider">{t('nominalDimension').replace('(mm)', `(${L.unit})`)}</label>
           <input
             type="text"
             inputMode="decimal"
@@ -139,19 +146,19 @@ const TolerancesPage = () => {
                 <div className="text-center">
                   <span className="text-xs text-zinc-500 uppercase tracking-wider">{t('upperDeviation')}</span>
                   <p className="text-2xl font-bold text-emerald-400">
-                    {result.upperDeviation_um > 0 ? '+' : ''}{result.upperDeviation_um} <span className="text-sm text-zinc-500">μm</span>
+                    {result.upperDeviation_um > 0 ? '+' : ''}{umOut(result.upperDeviation_um)} <span className="text-sm text-zinc-500">{umUnit}</span>
                   </p>
                   <p className="text-xs text-zinc-600 mt-0.5">
-                    {result.upperDeviation_mm > 0 ? '+' : ''}{result.upperDeviation_mm.toFixed(3)} mm
+                    {result.upperDeviation_mm > 0 ? '+' : ''}{mmOut(result.upperDeviation_mm)} {L.unit}
                   </p>
                 </div>
                 <div className="text-center">
                   <span className="text-xs text-zinc-500 uppercase tracking-wider">{t('lowerDeviation')}</span>
                   <p className="text-2xl font-bold text-amber-400">
-                    {result.lowerDeviation_um > 0 ? '+' : ''}{result.lowerDeviation_um} <span className="text-sm text-zinc-500">μm</span>
+                    {result.lowerDeviation_um > 0 ? '+' : ''}{umOut(result.lowerDeviation_um)} <span className="text-sm text-zinc-500">{umUnit}</span>
                   </p>
                   <p className="text-xs text-zinc-600 mt-0.5">
-                    {result.lowerDeviation_mm > 0 ? '+' : ''}{result.lowerDeviation_mm.toFixed(3)} mm
+                    {result.lowerDeviation_mm > 0 ? '+' : ''}{mmOut(result.lowerDeviation_mm)} {L.unit}
                   </p>
                 </div>
               </div>
@@ -163,20 +170,20 @@ const TolerancesPage = () => {
               <div className="grid grid-cols-2 gap-3">
                 <div className="text-center">
                   <span className="text-xs text-zinc-500 uppercase tracking-wider">{t('max')}</span>
-                  <p className="text-2xl md:text-3xl font-bold text-emerald-400"><CopyableValue value={result.dimMax.toFixed(3)}>{result.dimMax.toFixed(3)}</CopyableValue></p>
-                  <span className="text-xs text-zinc-500">mm</span>
+                  <p className="text-2xl md:text-3xl font-bold text-emerald-400"><CopyableValue value={mmOut(result.dimMax)}>{mmOut(result.dimMax)}</CopyableValue></p>
+                  <span className="text-xs text-zinc-500">{L.unit}</span>
                 </div>
                 <div className="text-center">
                   <span className="text-xs text-zinc-500 uppercase tracking-wider">{t('min')}</span>
-                  <p className="text-2xl md:text-3xl font-bold text-amber-400"><CopyableValue value={result.dimMin.toFixed(3)}>{result.dimMin.toFixed(3)}</CopyableValue></p>
-                  <span className="text-xs text-zinc-500">mm</span>
+                  <p className="text-2xl md:text-3xl font-bold text-amber-400"><CopyableValue value={mmOut(result.dimMin)}>{mmOut(result.dimMin)}</CopyableValue></p>
+                  <span className="text-xs text-zinc-500">{L.unit}</span>
                 </div>
               </div>
               {/* Środek tolerancji */}
               <div className="border-t border-cyan-800/30 mt-4 pt-3">
                 <p className="text-xs text-zinc-500 text-center mb-1">{t('toleranceCenter')}</p>
                 <p className="text-3xl md:text-4xl font-black text-cyan-400 text-center">
-                  <CopyableValue value={((result.dimMax + result.dimMin) / 2).toFixed(3)}>{((result.dimMax + result.dimMin) / 2).toFixed(3)}</CopyableValue> <span className="text-sm font-normal text-zinc-500">mm</span>
+                  <CopyableValue value={mmOut((result.dimMax + result.dimMin) / 2)}>{mmOut((result.dimMax + result.dimMin) / 2)}</CopyableValue> <span className="text-sm font-normal text-zinc-500">{L.unit}</span>
                 </p>
                 <div className="relative mt-3 h-2 rounded-full bg-zinc-700/50">
                   <div className="absolute inset-y-0 left-0 right-0 rounded-full bg-gradient-to-r from-amber-500/40 via-cyan-500/40 to-emerald-500/40" />

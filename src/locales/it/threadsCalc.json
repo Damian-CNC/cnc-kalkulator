@@ -81,7 +81,7 @@
     "tapDrill": "Punta per maschiatura",
     "footnote": "Tolleranze secondo ISO 228-1 · Classe di tolleranza A · Profilo Whitworth 55°",
     "emptyMessage": "Seleziona una dimensione di filettatura BSP dall'elenco sopra.",
-    "nominal": "Nominale: {{value}} mm",
+    "nominal": "Nominale: {{value}}",
     "toleranceMid": "Centro tolleranza (Ideale)",
     "targetHint": "↑ Punta qui"
   },
@@ -99,7 +99,7 @@
     "intPitchDiameter": "Diametro medio (D2)",
     "intCoreDiameter": "Diametro interno (D1)",
     "tapDrill": "Punta per maschiatura",
-    "nominal": "Nominale: {{value}} mm",
+    "nominal": "Nominale: {{value}}",
     "toleranceMid": "Centro tolleranza (Ideale)",
     "targetHint": "↑ Punta qui",
     "bsw": {

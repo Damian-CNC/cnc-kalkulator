@@ -3,9 +3,11 @@ import InputField from './InputField';
 import ResultDisplay from './ResultDisplay';
 import usePersistedState from '@/hooks/usePersistedState';
 import ClearFab from '@/components/ClearFab';
+import useLength from '@/hooks/useLength';
 
 const DrillConeCalculator = () => {
   const { t } = useTranslation();
+  const L = useLength('mm');
   const [diameter, setDiameter] = usePersistedState<string>('cone-diameter', '');
   const [angle, setAngle] = usePersistedState<string>('cone-angle', '');
 
@@ -36,7 +38,7 @@ const DrillConeCalculator = () => {
 
         <div className="flex flex-col gap-4">
           <InputField
-            label={t('cone.drillDiameter')}
+            label={t('cone.drillDiameter').replace('[mm]', `[${L.unit}]`)}
             type="number"
             step="0.1"
             value={diameter}
@@ -58,7 +60,7 @@ const DrillConeCalculator = () => {
                   {t('cone.resultLabel')}
                 </div>
                 <div className="text-2xl font-bold text-foreground mb-2">
-                  🔺 {result.toFixed(3)} mm
+                  🔺 {result.toFixed(L.isImperial ? 4 : 3)} {L.unit}
                 </div>
                 <div className="text-xs text-muted-foreground mt-2 px-2">
                   {t('cone.hint')}

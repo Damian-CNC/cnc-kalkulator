@@ -6,10 +6,14 @@ import { din471, din472, it11, it13, type SegerRow } from '@/data/segerData';
 import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
 import useQueryState from '@/hooks/useQueryState';
 import usePersistedState from '@/hooks/usePersistedState';
+import useLength from '@/hooks/useLength';
 
 type SegerDimension = 'd1' | 'd2' | 'm' | 'n' | null;
 
 const SegerGroovesPage = () => {
+  const L = useLength('mm');
+  // wymiary normy są w mm; w systemie calowym wyniki są w calach (średnica nominalna d₁ to oznaczenie w mm)
+  const o = (v: number, d = 2) => (L.isImperial ? (v / 25.4).toFixed(4) : v.toFixed(d));
   const [type, setType] = useQueryState('type', 'shaft', ['shaft', 'bore'] as const, 'seger-type');
   const [query, setQuery] = usePersistedState<string>('seger-query', '');
   const [activeDimension, setActiveDimension] = useState<SegerDimension>(null);
@@ -59,7 +63,7 @@ const SegerGroovesPage = () => {
         </div>
 
         <label className="block text-xs uppercase tracking-wider text-zinc-400 mb-2">
-          Średnica nominalna d₁ [mm]
+          Średnica nominalna d₁ [mm] (oznaczenie normy)
         </label>
         <input
           type="text"
@@ -102,20 +106,20 @@ const SegerGroovesPage = () => {
                 <div className="text-xs uppercase tracking-wider text-zinc-500 mb-1">
                   Dno rowka d₂ ({type === 'shaft' ? 'h11' : 'H11'})
                 </div>
-                <div className="text-2xl font-bold text-cyan-400">{row.d2.toFixed(2)}</div>
+                <div className="text-2xl font-bold text-cyan-400">{o(row.d2)}</div>
                 <div className="text-xs text-zinc-500 mt-1">
                   {type === 'shaft'
-                    ? `${(row.d2 - tolD2).toFixed(2)} … ${row.d2.toFixed(2)} mm`
-                    : `${row.d2.toFixed(2)} … ${(row.d2 + tolD2).toFixed(2)} mm`}
+                    ? `${o(row.d2 - tolD2)} … ${o(row.d2)} ${L.unit}`
+                    : `${o(row.d2)} … ${o(row.d2 + tolD2)} ${L.unit}`}
                 </div>
               </div>
               <div tabIndex={0} onFocus={() => setActiveDimension('m')} onBlur={() => setActiveDimension(null)} onClick={() => setActiveDimension('m')} className="bg-zinc-900/60 border border-zinc-800 rounded-xl p-4 focus:outline-none focus:border-cyan-500/60">
                 <div className="text-xs uppercase tracking-wider text-zinc-500 mb-1">
                   Szerokość m (H13)
                 </div>
-                <div className="text-2xl font-bold text-cyan-400">{row.m.toFixed(2)}</div>
+                <div className="text-2xl font-bold text-cyan-400">{o(row.m)}</div>
                 <div className="text-xs text-zinc-500 mt-1">
-                  {row.m.toFixed(2)} … {(row.m + tolM).toFixed(2)} mm
+                  {o(row.m)} … {o(row.m + tolM)} {L.unit}
                 </div>
               </div>
             </div>
@@ -128,11 +132,11 @@ const SegerGroovesPage = () => {
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
                 <span className="text-zinc-500">Grubość pierścienia s</span>
-                <span className="text-cyan-400 font-bold">{row.s.toFixed(2)} mm</span>
+                <span className="text-cyan-400 font-bold">{o(row.s)} {L.unit}</span>
               </div>
               <div tabIndex={0} onFocus={() => setActiveDimension('n')} onBlur={() => setActiveDimension(null)} onClick={() => setActiveDimension('n')} className="flex justify-between rounded focus:outline-none focus:ring-1 focus:ring-cyan-500/60">
                 <span className="text-zinc-500">Min. odległość od krawędzi n</span>
-                <span className="text-cyan-400 font-bold">{row.n.toFixed(1)} mm</span>
+                <span className="text-cyan-400 font-bold">{o(row.n, 1)} {L.unit}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-zinc-500">Obciążenie rowka F_R (orient.)</span>
@@ -141,7 +145,7 @@ const SegerGroovesPage = () => {
               <div className="flex justify-between">
                 <span className="text-zinc-500">Głębokość rowka</span>
                 <span className="text-cyan-400 font-bold">
-                  {(Math.abs(row.d1 - row.d2) / 2).toFixed(2)} mm
+                  {o(Math.abs(row.d1 - row.d2) / 2)} {L.unit}
                 </span>
               </div>
             </div>

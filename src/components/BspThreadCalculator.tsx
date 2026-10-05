@@ -6,9 +6,11 @@ import type { ThreadLimits } from '@/data/bspThreadsData';
 import useQueryState from '@/hooks/useQueryState';
 import usePersistedState from '@/hooks/usePersistedState';
 import CopyableValue from '@/components/CopyableValue';
+import useLength from '@/hooks/useLength';
 import ClearFab from '@/components/ClearFab';
 
 const BspThreadCalculator = () => {
+  const L = useLength('mm');
   const [selectedSize, setSelectedSize] = usePersistedState<string>('bsp-size', '');
   const [threadTab, setThreadTab] = useQueryState('tab', 'external', ['external', 'internal'] as const, 'bsp-tab');
 
@@ -39,7 +41,7 @@ const BspThreadCalculator = () => {
         <>
           <div className="text-center">
             <span className="inline-block px-4 py-1.5 rounded-full bg-emerald-500/15 text-emerald-400 font-bold text-lg tracking-wide border border-emerald-500/30">
-              {selectedSize} — {thread.tpi} TPI / {thread.pitch} mm
+              {selectedSize} — {thread.tpi} TPI / {L.disp(thread.pitch, 4)} {L.unit}
             </span>
           </div>
 
@@ -88,27 +90,31 @@ const BspThreadCalculator = () => {
 };
 
 function DimensionCard({ label, limits }: { label: string; limits: ThreadLimits }) {
-  const mid = ((limits.max + limits.min) / 2).toFixed(3);
+  const L = useLength('mm');
+  const midMm = (limits.max + limits.min) / 2;
+  const mid = L.isImperial ? L.disp(midMm, 5) : midMm.toFixed(3);
+  const maxS = L.disp(limits.max);
+  const minS = L.disp(limits.min);
   const range = limits.max - limits.min;
   const midPct = range > 0 ? 50 : 50;
   return (
     <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
       <p className="text-zinc-400 text-sm font-medium mb-2">{label}</p>
-      <p className="text-zinc-500 text-xs mb-2">Nominalna: {limits.nom} mm</p>
+      <p className="text-zinc-500 text-xs mb-2">Nominalna: {L.disp(limits.nom)} {L.unit}</p>
       <div className="grid grid-cols-2 gap-3 mb-3">
         <div className="text-center">
           <span className="text-xs text-zinc-500 uppercase tracking-wider">Max</span>
-          <p className="text-xl md:text-2xl font-bold text-emerald-400"><CopyableValue value={limits.max}>{limits.max}</CopyableValue></p>
+          <p className="text-xl md:text-2xl font-bold text-emerald-400"><CopyableValue value={maxS}>{maxS}</CopyableValue></p>
         </div>
         <div className="text-center">
           <span className="text-xs text-zinc-500 uppercase tracking-wider">Min</span>
-          <p className="text-xl md:text-2xl font-bold text-amber-400"><CopyableValue value={limits.min}>{limits.min}</CopyableValue></p>
+          <p className="text-xl md:text-2xl font-bold text-amber-400"><CopyableValue value={minS}>{minS}</CopyableValue></p>
         </div>
       </div>
       {/* Środek tolerancji */}
       <div className="border-t border-zinc-700/50 pt-3">
         <p className="text-xs text-zinc-500 text-center mb-1">Środek tolerancji (Idealny)</p>
-        <p className="text-2xl md:text-3xl font-black text-cyan-400 text-center"><CopyableValue value={mid}>{mid}</CopyableValue> <span className="text-sm font-normal text-zinc-500">mm</span></p>
+        <p className="text-2xl md:text-3xl font-black text-cyan-400 text-center"><CopyableValue value={mid}>{mid}</CopyableValue> <span className="text-sm font-normal text-zinc-500">{L.unit}</span></p>
         {/* Wizualny pasek */}
         <div className="relative mt-3 h-2 rounded-full bg-zinc-700/50">
           <div className="absolute inset-y-0 left-0 right-0 rounded-full bg-gradient-to-r from-amber-500/40 via-cyan-500/40 to-emerald-500/40" />
@@ -127,21 +133,23 @@ function DimensionCard({ label, limits }: { label: string; limits: ThreadLimits 
 }
 
 function CamCard({ label, value }: { label: string; value: number }) {
+  const L = useLength('mm');
   return (
     <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4">
       <p className="text-cyan-300 text-sm font-medium mb-1">{label}</p>
-      <p className="text-2xl md:text-3xl font-bold text-cyan-400"><CopyableValue value={value}>{value} mm</CopyableValue></p>
+      <p className="text-2xl md:text-3xl font-bold text-cyan-400"><CopyableValue value={L.disp(value)}>{L.disp(value)} {L.unit}</CopyableValue></p>
       <p className="text-cyan-600 text-xs mt-1.5">(Radialna głębokość profilu gwintu)</p>
     </div>
   );
 }
 
 function DrillCard({ tapDrill }: { tapDrill: number }) {
+  const L = useLength('mm');
   return (
     <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
       <p className="text-zinc-400 text-sm font-medium mb-3">Wiertło pod gwintownik</p>
       <div className="text-center">
-        <p className="text-xl md:text-2xl font-bold text-cyan-400"><CopyableValue value={tapDrill}>ø{tapDrill}</CopyableValue> <span className="text-sm font-normal text-zinc-500">mm</span></p>
+        <p className="text-xl md:text-2xl font-bold text-cyan-400"><CopyableValue value={L.disp(tapDrill, 4)}>ø{L.disp(tapDrill, 4)}</CopyableValue> <span className="text-sm font-normal text-zinc-500">{L.unit}</span></p>
       </div>
     </div>
   );

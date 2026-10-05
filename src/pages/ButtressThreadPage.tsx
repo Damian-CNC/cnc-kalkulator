@@ -45,13 +45,15 @@ const Card = ({
 
 const ButtressThreadPage = () => {
   const { t } = useTranslation('tools');
+  const Lx = useLength('mm');
   const [s, setS, reset] = usePersistedState<State>('buttress-thread', INITIAL);
   const [tab, setTab] = useQueryState('tab', 'external', ['external', 'internal'] as const, 'buttress-tab');
 
   const custom = s.size === 'custom';
   const std = BUTTRESS_SIZES.find((z) => `${z.d}x${z.P}` === s.size);
-  const d = custom ? parseDecimal(s.customD) : std?.d ?? null;
-  const P = custom ? parseDecimal(s.customP) : std?.P ?? null;
+  const toMm = (v: number | null) => (v === null ? null : Lx.isImperial ? v * 25.4 : v);
+  const d = custom ? toMm(parseDecimal(s.customD)) : std?.d ?? null;
+  const P = custom ? toMm(parseDecimal(s.customP)) : std?.P ?? null;
   const res = useMemo(() => (d !== null && P !== null ? calcButtress(d, P) : null), [d, P]);
 
   return (
@@ -69,13 +71,13 @@ const ButtressThreadPage = () => {
         {custom && (
           <div className="grid grid-cols-2 gap-3">
             <InputField
-              label={t('buttress.customD')}
+              label={t('buttress.customD').replace('[mm]', `[${Lx.unit}]`)}
               value={s.customD}
               onChange={(e) => setS((p) => ({ ...p, customD: e.target.value }))}
               inputMode="decimal"
             />
             <InputField
-              label={t('buttress.customP')}
+              label={t('buttress.customP').replace('[mm]', `[${Lx.unit}]`)}
               value={s.customP}
               onChange={(e) => setS((p) => ({ ...p, customP: e.target.value }))}
               inputMode="decimal"

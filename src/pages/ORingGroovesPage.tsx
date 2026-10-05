@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import PageLayout from '@/components/PageLayout';
 import ClearFab from '@/components/ClearFab';
+import useLength from '@/hooks/useLength';
 import { Centerline, Dimension, EngineeringDrawing, Leader, Witness } from '@/components/EngineeringDrawing';
 import useQueryState from '@/hooks/useQueryState';
 import usePersistedState from '@/hooks/usePersistedState';
@@ -17,6 +18,9 @@ const modes: { id: Mode; label: string; squeeze: [number, number] }[] = [
 ];
 
 const ORingGroovesPage = () => {
+  const L = useLength('mm');
+  // wymiary normy w mm; w systemie calowym wyniki w calach (grubość sznura d₂ to oznaczenie w mm)
+  const o = (v: number) => (L.isImperial ? (v / 25.4).toFixed(4) : v.toFixed(2));
   const [cord, setCord] = usePersistedState<number>('oring-cord', 2.62);
   const [mode, setMode] = useQueryState<Mode>('mode', 'radial', ['radial', 'axial', 'dynamic'], 'oring-mode');
   const [activeDimension, setActiveDimension] = useState<ORingDimension>(null);
@@ -45,7 +49,7 @@ const ORingGroovesPage = () => {
     };
   }, [cord, mode]);
 
-  const Cell = ({ label, value, unit = 'mm', dimension }: { label: string; value: string; unit?: string; dimension?: ORingDimension }) => (
+  const Cell = ({ label, value, unit = L.unit, dimension }: { label: string; value: string; unit?: string; dimension?: ORingDimension }) => (
     <div tabIndex={dimension ? 0 : undefined} onFocus={() => dimension && setActiveDimension(dimension)} onBlur={() => setActiveDimension(null)} onClick={() => dimension && setActiveDimension(dimension)} className="bg-zinc-900/60 border border-zinc-800 rounded-xl p-4 focus:outline-none focus:border-cyan-500/60">
       <div className="text-xs uppercase tracking-wider text-zinc-500 mb-1">{label}</div>
       <div className="text-xl font-bold text-cyan-400">
@@ -58,7 +62,7 @@ const ORingGroovesPage = () => {
     <PageLayout title="Rowki O-ring (ISO 3601)">
       <div className="glass-module">
         <label className="block text-xs uppercase tracking-wider text-zinc-400 mb-2">
-          Grubość sznura d₂ [mm]
+          Grubość sznura d₂ [mm] (oznaczenie normy)
         </label>
         <div className="flex flex-wrap gap-2 mb-6">
           {CORDS.map((c) => (
@@ -99,18 +103,18 @@ const ORingGroovesPage = () => {
       <div className="glass-module">
         <h2 className="text-sm uppercase tracking-wider text-zinc-400 mb-4">Wymiary rowka</h2>
         <div className="grid grid-cols-2 gap-4">
-          <Cell label="Głębokość t" value={data.t.toFixed(2)} dimension="t" />
+          <Cell label="Głębokość t" value={o(data.t)} dimension="t" />
           <Cell
             label="Zakres t"
-            value={`${data.tMin.toFixed(2)}–${data.tMax.toFixed(2)}`}
+            value={`${o(data.tMin)}–${o(data.tMax)}`}
           />
-          <Cell label="Szerokość b (bez podparcia)" value={data.b0.toFixed(2)} dimension="b" />
-          <Cell label="b — 1 pierścień podpierający" value={data.b1.toFixed(2)} />
-          <Cell label="b — 2 pierścienie" value={data.b2.toFixed(2)} />
+          <Cell label="Szerokość b (bez podparcia)" value={o(data.b0)} dimension="b" />
+          <Cell label="b — 1 pierścień podpierający" value={o(data.b1)} />
+          <Cell label="b — 2 pierścienie" value={o(data.b2)} />
           <Cell label="Ścisk" value={`${data.squeezePct[0].toFixed(0)}–${data.squeezePct[1].toFixed(0)}`} unit="%" />
-          <Cell label="Promień dna r₁" value={data.r1.toFixed(2)} dimension="r1" />
-          <Cell label="Promień krawędzi r₂" value={data.r2.toFixed(2)} dimension="r2" />
-          <Cell label="Skos montażowy 15°, dł." value={data.chamfer.toFixed(2)} />
+          <Cell label="Promień dna r₁" value={o(data.r1)} dimension="r1" />
+          <Cell label="Promień krawędzi r₂" value={o(data.r2)} dimension="r2" />
+          <Cell label="Skos montażowy 15°, dł." value={o(data.chamfer)} />
           <Cell label="Wypełnienie rowka" value={data.fill.toFixed(0)} unit="%" />
         </div>
       </div>

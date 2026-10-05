@@ -18,8 +18,10 @@ const useLength = (src: 'in' | 'mm') => {
   const val = (v: number, inDigits = 4, mmDigits = 3) =>
     toShown(v).toFixed(isImperial ? inDigits : mmDigits);
   const raw = (v: number, inDigits = 4, mmDigits = 3) => Number(val(v, inDigits, mmDigits));
+  /** Zapis „jak dotąd” w mm (bez zmiany liczby miejsc), w calach inDigits miejsc. */
+  const disp = (v: number, inDigits = 5) => (isImperial ? toShown(v).toFixed(inDigits) : String(v));
   const fmt = (v: number, inDigits = 4, mmDigits = 3) => `${val(v, inDigits, mmDigits)} ${unit}`;
-  return { isImperial, unit, val, raw, fmt, toShown };
+  return { isImperial, unit, val, raw, disp, fmt, toShown };
 };
 
 export default useLength;

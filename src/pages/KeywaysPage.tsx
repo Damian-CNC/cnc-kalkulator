@@ -6,12 +6,17 @@ import { findKeyway, keywayData, widthFits, widthLimits, type WidthFit } from '@
 import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
 import useQueryState from '@/hooks/useQueryState';
 import usePersistedState from '@/hooks/usePersistedState';
+import useLength from '@/hooks/useLength';
 
 const fmt = (v: number, d = 2) => v.toFixed(d);
 const sign = (v: number) => (v >= 0 ? `+${v.toFixed(3)}` : v.toFixed(3));
 type KeywayDimension = 'd' | 'b' | 't1' | 'control' | null;
 
 const KeywaysPage = () => {
+  const L = useLength('mm');
+  // wymiary normy w mm; w systemie calowym wyniki w calach (średnica d to oznaczenie w mm)
+  const o = (v: number, d = 2) => (L.isImperial ? (v / 25.4).toFixed(4) : v.toFixed(d));
+  const oSign = (v: number) => (L.isImperial ? ((v / 25.4) >= 0 ? '+' : '') + (v / 25.4).toFixed(5) : sign(v));
   const [diameter, setDiameter] = usePersistedState<string>('keyway-diameter', '');
   const [fit, setFit] = useQueryState<WidthFit['id']>('fit', 'N9', widthFits.map((item) => item.id), 'keyway-fit');
   const [activeDimension, setActiveDimension] = useState<KeywayDimension>(null);
@@ -26,7 +31,7 @@ const KeywaysPage = () => {
     <PageLayout title="Wpusty pryzmowe (DIN 6885)">
       <div className="glass-module">
         <label className="block text-xs uppercase tracking-wider text-zinc-400 mb-2">
-          Średnica wału / otworu d [mm]
+          Średnica wału / otworu d [mm] (oznaczenie normy)
         </label>
         <input
           type="text"
@@ -71,10 +76,10 @@ const KeywaysPage = () => {
           <div className="glass-module">
             <h2 className="text-sm uppercase tracking-wider text-zinc-400 mb-4">Wpust b × h</h2>
             <div tabIndex={0} onFocus={() => setActiveDimension('b')} onBlur={() => setActiveDimension(null)} onClick={() => setActiveDimension('b')} className="result-box text-2xl focus:outline-none focus:ring-1 focus:ring-cyan-500/60">
-              {row.b} × {row.h} mm
+              {L.isImperial ? `${o(row.b)} × ${o(row.h)}` : `${row.b} × ${row.h}`} {L.unit}
             </div>
             <div className="mt-3 text-center text-sm text-zinc-400">
-              {limits && <>Szerokość rowka {fit}: {row.b} mm ({sign(limits.upper)} / {sign(limits.lower)})</>}
+              {limits && <>Szerokość rowka {fit}: {L.isImperial ? o(row.b) : row.b} {L.unit} ({oSign(limits.upper)} / {oSign(limits.lower)})</>}
             </div>
           </div>
 
@@ -85,12 +90,12 @@ const KeywaysPage = () => {
                 <div tabIndex={0} onFocus={() => setActiveDimension('t1')} onBlur={() => setActiveDimension(null)} onClick={() => setActiveDimension('t1')} className="flex justify-between rounded focus:outline-none focus:ring-1 focus:ring-cyan-500/60">
                   <span className="text-zinc-500">Głębokość t₁</span>
                   <span className="text-cyan-400 font-bold">
-                    {fmt(row.t1, 1)} <span className="text-zinc-500">+{row.t1Tol}</span>
+                    {o(row.t1, 1)} <span className="text-zinc-500">+{L.isImperial ? o(row.t1Tol, 1) : row.t1Tol}</span>
                   </span>
                 </div>
                 <div tabIndex={0} onFocus={() => setActiveDimension('control')} onBlur={() => setActiveDimension(null)} onClick={() => setActiveDimension('control')} className="flex justify-between rounded focus:outline-none focus:ring-1 focus:ring-cyan-500/60">
                   <span className="text-zinc-500">Wymiar kontrolny d − t₁</span>
-                  <span className="text-cyan-400 font-bold">{fmt(d - row.t1)} mm</span>
+                  <span className="text-cyan-400 font-bold">{o(d - row.t1)} {L.unit}</span>
                 </div>
               </div>
             </div>
@@ -101,12 +106,12 @@ const KeywaysPage = () => {
                 <div className="flex justify-between">
                   <span className="text-zinc-500">Głębokość t₂</span>
                   <span className="text-cyan-400 font-bold">
-                    {fmt(row.t2, 1)} <span className="text-zinc-500">+{row.t2Tol}</span>
+                    {o(row.t2, 1)} <span className="text-zinc-500">+{L.isImperial ? o(row.t2Tol, 1) : row.t2Tol}</span>
                   </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-zinc-500">Wymiar kontrolny d + t₂</span>
-                  <span className="text-cyan-400 font-bold">{fmt(d + row.t2)} mm</span>
+                  <span className="text-cyan-400 font-bold">{o(d + row.t2)} {L.unit}</span>
                 </div>
               </div>
             </div>
@@ -142,7 +147,7 @@ const KeywaysPage = () => {
           <table className="w-full text-sm">
             <thead>
               <tr className="text-zinc-500 text-xs uppercase">
-                <th className="text-left py-2">d [mm]</th>
+                <th className="text-left py-2">d [{L.unit}]</th>
                 <th className="text-right">b × h</th>
                 <th className="text-right">t₁</th>
                 <th className="text-right">t₂</th>
@@ -156,10 +161,10 @@ const KeywaysPage = () => {
                     row === r ? 'text-cyan-400' : 'text-zinc-300'
                   }`}
                 >
-                  <td className="py-2">&gt;{r.dMin}–{r.dMax}</td>
-                  <td className="text-right">{r.b} × {r.h}</td>
-                  <td className="text-right">{r.t1.toFixed(1)}</td>
-                  <td className="text-right">{r.t2.toFixed(1)}</td>
+                  <td className="py-2">&gt;{L.isImperial ? o(r.dMin, 3) : r.dMin}–{L.isImperial ? o(r.dMax, 3) : r.dMax}</td>
+                  <td className="text-right">{L.isImperial ? `${o(r.b)} × ${o(r.h)}` : `${r.b} × ${r.h}`}</td>
+                  <td className="text-right">{o(r.t1, 1)}</td>
+                  <td className="text-right">{o(r.t2, 1)}</td>
                 </tr>
               ))}
             </tbody>

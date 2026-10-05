@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import InputField from './InputField';
 import usePersistedState from '@/hooks/usePersistedState';
 import ClearFab from '@/components/ClearFab';
+import useLength from '@/hooks/useLength';
 
 type Shape = 'hex' | 'square';
 type Field = 'S' | 'D';
@@ -11,6 +12,7 @@ const round3 = (v: number) => parseFloat(v.toFixed(3)).toString();
 
 const PolygonShaftCalculator = () => {
   const { t } = useTranslation('polygon');
+  const L = useLength('mm');
   const [shape, setShape] = usePersistedState<Shape>('polygon-shape', 'hex');
   const [values, setValues] = usePersistedState<{ S: string; D: string }>('polygon-values', { S: '', D: '' });
   const [computed, setComputed] = usePersistedState<Field | null>('polygon-computed', null);
@@ -143,7 +145,7 @@ const PolygonShaftCalculator = () => {
       {/* Pola */}
       <div className="flex flex-col gap-4">
         <InputField
-          label={t('fields.s')}
+          label={t('fields.s').replace('[mm]', `[${L.unit}]`)}
           type="number"
           step="0.001"
           inputMode="decimal"
@@ -152,7 +154,7 @@ const PolygonShaftCalculator = () => {
           computed={computed === 'S'}
         />
         <InputField
-          label={t('fields.d')}
+          label={t('fields.d').replace('[mm]', `[${L.unit}]`)}
           type="number"
           step="0.001"
           inputMode="decimal"
