@@ -1,1 +1,0 @@
-import{I as u}from"./index-Ct6b99IS.js";const c=25.4,w=m=>{const{isImperial:n}=u(),e=n?"in":"mm",i=t=>m==="in"?n?t:t*c:n?t/c:t,r=(t,o=4,s=3)=>i(t).toFixed(n?o:s);return{isImperial:n,unit:e,val:r,raw:(t,o=4,s=3)=>Number(r(t,o,s)),fmt:(t,o=4,s=3)=>`${r(t,o,s)} ${e}`,toShown:i}};export{w as u};
