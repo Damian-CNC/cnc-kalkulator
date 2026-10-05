@@ -11,6 +11,7 @@ import useQueryState from '@/hooks/useQueryState';
 import usePersistedState from '@/hooks/usePersistedState';
 import CopyableValue from '@/components/CopyableValue';
 import ClearFab from '@/components/ClearFab';
+import useLength from '@/hooks/useLength';
 
 interface ThreadEntry {
   designation: string;
@@ -237,19 +238,22 @@ const MetricThreadPage = () => {
 
 function DimensionCard({ label, nominal, max, min }: { label: string; nominal: number | null; max: number | null; min: number | null }) {
   const { t } = useTranslation('threadsCalc');
+  const L = useLength('mm');
+  const maxS = max === null ? null : L.disp(max);
+  const minS = min === null ? null : L.disp(min);
   return (
     <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
       <p className="text-zinc-400 text-sm font-medium mb-2">{label}</p>
-      {nominal !== null && <p className="text-zinc-500 text-xs mb-2">{t('bsp.nominal', { value: nominal })}</p>}
+      {nominal !== null && <p className="text-zinc-500 text-xs mb-2">{t('bsp.nominal', { value: `${L.disp(nominal)} ${L.unit}` })}</p>}
       {(max !== null || min !== null) ? (
         <div className="grid grid-cols-2 gap-3">
           <div className="text-center">
             <span className="text-xs text-zinc-500 uppercase tracking-wider">{t('metric.max', { defaultValue: 'Max' })}</span>
-            <p className="text-xl md:text-2xl font-bold text-emerald-400"><CopyableValue value={max}>{max ?? '—'}</CopyableValue></p>
+            <p className="text-xl md:text-2xl font-bold text-emerald-400"><CopyableValue value={maxS}>{maxS ?? '—'}</CopyableValue></p>
           </div>
           <div className="text-center">
             <span className="text-xs text-zinc-500 uppercase tracking-wider">{t('metric.min', { defaultValue: 'Min' })}</span>
-            <p className="text-xl md:text-2xl font-bold text-amber-400"><CopyableValue value={min}>{min ?? '—'}</CopyableValue></p>
+            <p className="text-xl md:text-2xl font-bold text-amber-400"><CopyableValue value={minS}>{minS ?? '—'}</CopyableValue></p>
           </div>
         </div>
       ) : (
@@ -261,17 +265,18 @@ function DimensionCard({ label, nominal, max, min }: { label: string; nominal: n
 
 function DrillCard({ tapDrill, formTapDrill }: { tapDrill: number; formTapDrill: number }) {
   const { t } = useTranslation('threadsCalc');
+  const L = useLength('mm');
   return (
     <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
       <p className="text-zinc-400 text-sm font-medium mb-3">{t('metric.tapDrills', { defaultValue: 'Wiertła' })}</p>
       <div className="grid grid-cols-2 gap-3">
         <div className="text-center">
           <span className="text-xs text-zinc-500">{t('metric.tapDrillLabel', { defaultValue: 'Gwintownik' })}</span>
-          <p className="text-xl md:text-2xl font-bold text-cyan-400"><CopyableValue value={tapDrill}>{tapDrill} mm</CopyableValue></p>
+          <p className="text-xl md:text-2xl font-bold text-cyan-400"><CopyableValue value={L.disp(tapDrill, 4)}>{L.disp(tapDrill, 4)} {L.unit}</CopyableValue></p>
         </div>
         <div className="text-center">
           <span className="text-xs text-zinc-500">{t('metric.formTapDrillLabel', { defaultValue: 'Wygniatak' })}</span>
-          <p className="text-xl md:text-2xl font-bold text-violet-400"><CopyableValue value={formTapDrill}>{formTapDrill} mm</CopyableValue></p>
+          <p className="text-xl md:text-2xl font-bold text-violet-400"><CopyableValue value={L.disp(formTapDrill, 4)}>{L.disp(formTapDrill, 4)} {L.unit}</CopyableValue></p>
         </div>
       </div>
     </div>
@@ -279,10 +284,11 @@ function DrillCard({ tapDrill, formTapDrill }: { tapDrill: number; formTapDrill:
 }
 
 function CamCard({ label, value, note }: { label: string; value: number; note?: string }) {
+  const L = useLength('mm');
   return (
     <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4">
       <p className="text-cyan-300 text-sm font-medium mb-1">{label}</p>
-      <p className="text-2xl md:text-3xl font-bold text-cyan-400"><CopyableValue value={value}>{value} mm</CopyableValue></p>
+      <p className="text-2xl md:text-3xl font-bold text-cyan-400"><CopyableValue value={L.disp(value)}>{L.disp(value)} {L.unit}</CopyableValue></p>
       {note && <p className="text-cyan-600 text-xs mt-1.5">({note})</p>}
     </div>
   );

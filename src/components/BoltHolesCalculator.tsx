@@ -1,9 +1,10 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import InputField from '@/components/InputField';
 import SelectField from '@/components/SelectField';
 import ClearFab from '@/components/ClearFab';
 import usePersistedState from '@/hooks/usePersistedState';
+import useLength from '@/hooks/useLength';
 import { parseDecimal } from '@/lib/numericInput';
 import { Banner, ResultRow, SectionTitle, fmt } from '@/components/ToolsUi';
 import {
@@ -21,6 +22,7 @@ import {
 
 type State = {
   tab: 'basic' | 'advanced';
+  unit: 'mm' | 'in';
   size: string;
   head: HeadId;
   series: Series;
@@ -41,6 +43,7 @@ type State = {
 
 const INITIAL: State = {
   tab: 'basic',
+  unit: 'mm',
   size: '6',
   head: 'socket',
   series: 'medium',
@@ -66,6 +69,8 @@ const num = (v: string): number | undefined => {
 
 /** Przekrój schematyczny: proporcje poziome według wyniku, głębokość ograniczona do rysunku. */
 const CrossSection = ({ r }: { r: HolesResult }) => {
+  const Lc = useLength('mm');
+  const fmtL = (v: number, d = 2) => (Lc.isImperial ? fmt(v / 25.4, 4) : fmt(v, d));
   const cx = 170;
   const top = 52;
   const bottom = 150;
@@ -103,19 +108,19 @@ const CrossSection = ({ r }: { r: HolesResult }) => {
         <>
           <line x1={cx - cw} y1={top - 8} x2={cx + cw} y2={top - 8} stroke="#a1a1aa" strokeWidth="1" />
           <text x={cx} y={top - 13} fill="#22d3ee" fontSize="11" textAnchor="middle" fontWeight="600">
-            Ø{fmt(r.big?.dia ?? r.csk?.dia ?? 0, 2)}
+            Ø{fmtL(r.big?.dia ?? r.csk?.dia ?? 0, 2)}
           </text>
         </>
       )}
       <line x1={cx - hw} y1={bottom + 12} x2={cx + hw} y2={bottom + 12} stroke="#a1a1aa" strokeWidth="1" />
       <text x={cx} y={bottom + 27} fill="#f4f4f5" fontSize="11" textAnchor="middle" fontWeight="600">
-        Ø{fmt(r.hole.nominal, 2)}
+        Ø{fmtL(r.hole.nominal, 2)}
       </text>
       {r.kind !== 'none' && depthMm > 0 && (
         <>
           <line x1={cx + cw + 12} y1={top} x2={cx + cw + 12} y2={top + dpx} stroke="#a1a1aa" strokeWidth="1" />
           <text x={cx + cw + 18} y={top + dpx / 2 + 4} fill="#22d3ee" fontSize="11" fontWeight="600">
-            {fmt(depthMm, 2)}
+            {fmtL(depthMm, 2)}
           </text>
         </>
       )}
@@ -125,7 +130,32 @@ const CrossSection = ({ r }: { r: HolesResult }) => {
 
 const BoltHolesCalculator = () => {
   const { t } = useTranslation('tools');
+  const L = useLength('mm');
   const [s, setS, reset] = usePersistedState<State>('bolt-holes', INITIAL);
+  const fmtL = (v: number, d = 2) => (L.isImperial ? fmt(v / 25.4, 4) : fmt(v, d));
+  const u = (txt: string) => txt.replace(/\[mm\]/g, `[${L.unit}]`);
+
+  // po zmianie systemu jednostek przeliczamy wpisane wymiary (mm <-> in)
+  useEffect(() => {
+    const target: 'mm' | 'in' = L.isImperial ? 'in' : 'mm';
+    if (s.unit === target) return;
+    const k = target === 'in' ? 1 / 25.4 : 25.4;
+    const conv = (v: string) => {
+      const n = parseDecimal(v);
+      return n === null ? v : String(Math.round(n * k * 10000) / 10000);
+    };
+    setS((p) => ({
+      ...p,
+      unit: target,
+      customA: conv(p.customA),
+      customK: conv(p.customK),
+      washerOd: conv(p.washerOd),
+      washerTh: conv(p.washerTh),
+      recess: conv(p.recess),
+      spotDepth: conv(p.spotDepth),
+      plate: conv(p.plate),
+    }));
+  }, [L.isImperial, s.unit, setS]);
   const set =
     <K extends keyof State>(k: K) =>
     (e: { target: { value: string } }) =>
@@ -135,6 +165,11 @@ const BoltHolesCalculator = () => {
   // W trybie podstawowym: bez własnych wymiarów, luz normalny, wytoczenie bez podkładki
   const head: HeadId = !adv && s.head === 'custom' ? 'socket' : s.head;
   const available = headAvailable(head, s.size);
+  const imp = L.isImperial;
+  const numMm = (v: string) => {
+    const n = num(v);
+    return n === undefined ? undefined : imp ? n * 25.4 : n;
+  };
 
   const res = useMemo(() => {
     if (!available) return null;
@@ -160,18 +195,18 @@ const BoltHolesCalculator = () => {
       fit: s.fit,
       mode: head === 'csk' ? 'cbore' : s.mode,
       washer: s.washer,
-      washerOd: num(s.washerOd),
-      washerTh: num(s.washerTh),
+      washerOd: numMm(s.washerOd),
+      washerTh: numMm(s.washerTh),
       customShape: s.customShape,
-      customA: num(s.customA),
-      customK: num(s.customK),
-      recess: num(s.recess) ?? 0,
-      spotDepth: num(s.spotDepth) ?? 0,
+      customA: numMm(s.customA),
+      customK: numMm(s.customK),
+      recess: numMm(s.recess) ?? 0,
+      spotDepth: numMm(s.spotDepth) ?? 0,
       angle: Number(s.angle),
-      plate: num(s.plate),
+      plate: numMm(s.plate),
       material: s.material,
     });
-  }, [s, available, adv, head]);
+  }, [s, available, adv, head, imp]);
 
   const isCsk = head === 'csk';
   const isNut = head === 'nut';
@@ -243,12 +278,12 @@ const BoltHolesCalculator = () => {
               ]}
             />
             <InputField
-              label={`${s.customShape === 'hex' ? 's' : 'Ø'} [mm]`}
+              label={`${s.customShape === 'hex' ? 's' : 'Ø'} [${L.unit}]`}
               value={s.customA}
               onChange={set('customA')}
               inputMode="decimal"
             />
-            <InputField label="k [mm]" value={s.customK} onChange={set('customK')} inputMode="decimal" />
+            <InputField label={`k [${L.unit}]`} value={s.customK} onChange={set('customK')} inputMode="decimal" />
           </div>
         )}
       </div>
@@ -305,7 +340,7 @@ const BoltHolesCalculator = () => {
           )}
           {(isCsk || s.mode === 'cbore') && (
             <InputField
-              label={t('holes.recess')}
+              label={u(t('holes.recess'))}
               value={s.recess}
               onChange={set('recess')}
               inputMode="decimal"
@@ -313,7 +348,7 @@ const BoltHolesCalculator = () => {
           )}
           {!isCsk && s.mode === 'spot' && (
             <InputField
-              label={t('holes.spotDepth')}
+              label={u(t('holes.spotDepth'))}
               value={s.spotDepth}
               onChange={set('spotDepth')}
               inputMode="decimal"
@@ -322,8 +357,8 @@ const BoltHolesCalculator = () => {
         </div>
         {!isCsk && s.mode !== 'none' && s.washer === 'custom' && (
           <div className="grid grid-cols-2 gap-4 mt-4">
-            <InputField label={t('holes.washerOd')} value={s.washerOd} onChange={set('washerOd')} inputMode="decimal" />
-            <InputField label={t('holes.washerTh')} value={s.washerTh} onChange={set('washerTh')} inputMode="decimal" />
+            <InputField label={u(t('holes.washerOd'))} value={s.washerOd} onChange={set('washerOd')} inputMode="decimal" />
+            <InputField label={u(t('holes.washerTh'))} value={s.washerTh} onChange={set('washerTh')} inputMode="decimal" />
           </div>
         )}
       </div>
@@ -333,7 +368,7 @@ const BoltHolesCalculator = () => {
       <div className="glass-module">
         <SectionTitle>{t('holes.plateTitle')}</SectionTitle>
         <div className="grid grid-cols-2 gap-4">
-          <InputField label={t('holes.plate')} value={s.plate} onChange={set('plate')} inputMode="decimal" />
+          <InputField label={u(t('holes.plate'))} value={s.plate} onChange={set('plate')} inputMode="decimal" />
           {!isNut && (
             <SelectField
               label={t('holes.material')}
@@ -362,29 +397,29 @@ const BoltHolesCalculator = () => {
             <SectionTitle>{t('holes.holeTitle')}</SectionTitle>
             <ResultRow
               label={t('holes.holeNominal', { series: t(`holes.seriesNames.${s.series}`) })}
-              value={fmt(res.hole.nominal, 2)}
-              unit="mm"
+              value={fmtL(res.hole.nominal, 2)}
+              unit={L.unit}
               strong
             />
             <ResultRow
               label={t('holes.tolerance', { grade: res.hole.grade })}
-              value={`+${fmt(res.hole.tolUm / 1000, 3)} / 0`}
-              unit="mm"
+              value={`+${fmtL(res.hole.tolUm / 1000, 3)} / 0`}
+              unit={L.unit}
             />
             <ResultRow
               label={t('holes.limits')}
-              value={`${fmt(res.hole.min, 2)} … ${fmt(res.hole.max, 3)}`}
-              copy={fmt(res.hole.nominal, 2)}
-              unit="mm"
+              value={`${fmtL(res.hole.min, 2)} … ${fmtL(res.hole.max, 3)}`}
+              copy={fmtL(res.hole.nominal, 2)}
+              unit={L.unit}
             />
           </div>
 
           {res.kind === 'csk' && res.csk && (
             <div className="glass-module">
               <SectionTitle>{t('holes.cskTitle')}</SectionTitle>
-              <ResultRow label={t('holes.cskDia')} value={fmt(res.csk.dia, 2)} unit="mm" strong />
+              <ResultRow label={t('holes.cskDia')} value={fmtL(res.csk.dia, 2)} unit={L.unit} strong />
               <ResultRow label={t('holes.cskAngle')} value={`${res.csk.angle}`} unit="°" />
-              <ResultRow label={t('holes.cskDepth')} value={fmt(res.csk.depth, 2)} unit="mm" strong />
+              <ResultRow label={t('holes.cskDepth')} value={fmtL(res.csk.depth, 2)} unit={L.unit} strong />
               <p className="text-xs text-zinc-500 mt-3 leading-relaxed">{t('holes.cskNote')}</p>
             </div>
           )}
@@ -394,13 +429,13 @@ const BoltHolesCalculator = () => {
               <SectionTitle>
                 {res.kind === 'cbore' ? t('holes.cboreTitle') : t('holes.spotTitle')}
               </SectionTitle>
-              <ResultRow label={t('holes.bigDia')} value={fmt(res.big.dia, 1)} unit="mm" strong />
+              <ResultRow label={t('holes.bigDia')} value={fmtL(res.big.dia, 1)} unit={L.unit} strong />
               <ResultRow
                 label={t('holes.tolerance', { grade: 'H13' })}
-                value={`+${fmt(res.big.tolUm / 1000, 3)} / 0`}
-                unit="mm"
+                value={`+${fmtL(res.big.tolUm / 1000, 3)} / 0`}
+                unit={L.unit}
               />
-              <ResultRow label={t('holes.bigDepth')} value={fmt(res.big.depth, 2)} unit="mm" strong />
+              <ResultRow label={t('holes.bigDepth')} value={fmtL(res.big.depth, 2)} unit={L.unit} strong />
               {res.headShape === 'hex' && (
                 <p className="text-xs text-zinc-500 mt-3 leading-relaxed">{t('holes.hexNote')}</p>
               )}
@@ -412,22 +447,22 @@ const BoltHolesCalculator = () => {
             <SectionTitle>{t('holes.headDims')}</SectionTitle>
             <ResultRow
               label={res.headShape === 'hex' ? t('holes.acrossFlats') : t('holes.headDia')}
-              value={fmt(res.headA, 2)}
-              unit="mm"
+              value={fmtL(res.headA, 2)}
+              unit={L.unit}
             />
             {res.headShape === 'hex' && (
-              <ResultRow label={t('holes.acrossCorners')} value={fmt(res.headEff, 2)} unit="mm" />
+              <ResultRow label={t('holes.acrossCorners')} value={fmtL(res.headEff, 2)} unit={L.unit} />
             )}
             <ResultRow
               label={isNut ? t('holes.nutHeight') : t('holes.headHeight')}
-              value={fmt(res.headK, 2)}
-              unit="mm"
+              value={fmtL(res.headK, 2)}
+              unit={L.unit}
             />
             {res.washer && (
               <ResultRow
                 label={t('holes.washerDims')}
-                value={`Ø${fmt(res.washer.od, 1)} × ${fmt(res.washer.th, 1)}`}
-                unit="mm"
+                value={`Ø${fmtL(res.washer.od, 1)} × ${fmtL(res.washer.th, 1)}`}
+                unit={L.unit}
               />
             )}
           </div>
@@ -437,16 +472,16 @@ const BoltHolesCalculator = () => {
             <div className="glass-module">
               <SectionTitle>{t('holes.plateResult')}</SectionTitle>
               {res.remaining !== null && (
-                <ResultRow label={t('holes.remaining')} value={fmt(res.remaining, 2)} unit="mm" strong />
+                <ResultRow label={t('holes.remaining')} value={fmtL(res.remaining, 2)} unit={L.unit} strong />
               )}
               {res.length && (
                 <>
-                  <ResultRow label={t('holes.engagement')} value={fmt(res.length.engagement, 1)} unit="mm" />
-                  <ResultRow label={t('holes.lengthMin')} value={fmt(res.length.min, 1)} unit="mm" />
+                  <ResultRow label={t('holes.engagement')} value={fmtL(res.length.engagement, 1)} unit={L.unit} />
+                  <ResultRow label={t('holes.lengthMin')} value={fmtL(res.length.min, 1)} unit={L.unit} />
                   <ResultRow
                     label={t('holes.lengthStd')}
                     value={res.length.std !== null ? `${res.length.std}` : '—'}
-                    unit="mm"
+                    unit={L.unit}
                     strong
                   />
                   <p className="text-xs text-zinc-500 mt-3 leading-relaxed">

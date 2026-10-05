@@ -81,7 +81,7 @@
     "tapDrill": "Wiertło pod gwintownik",
     "footnote": "Tolerancje wg ISO 228-1 · Klasa dokładności A · Profil Whitworth 55°",
     "emptyMessage": "Wybierz rozmiar gwintu BSP z listy powyżej.",
-    "nominal": "Nominalna: {{value}} mm",
+    "nominal": "Nominalna: {{value}}",
     "toleranceMid": "Środek tolerancji (Idealny)",
     "targetHint": "↑ Celuj tutaj"
   },
@@ -99,7 +99,7 @@
     "intPitchDiameter": "Średnica podziałowa (D2)",
     "intCoreDiameter": "Średnica wewnętrzna (D1)",
     "tapDrill": "Wiertło pod gwintownik",
-    "nominal": "Nominalna: {{value}} mm",
+    "nominal": "Nominalna: {{value}}",
     "toleranceMid": "Środek tolerancji (Idealny)",
     "targetHint": "↑ Celuj tutaj",
     "bsw": {

@@ -5,6 +5,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@
 import useQueryState from '@/hooks/useQueryState';
 import usePersistedState from '@/hooks/usePersistedState';
 import CopyableValue from '@/components/CopyableValue';
+import useLength from '@/hooks/useLength';
 import ClearFab from '@/components/ClearFab';
 
 interface NptData {
@@ -32,6 +33,7 @@ const nptSizes = Object.keys(nptThreads);
 const round = (v: number, n = 3) => Number(v.toFixed(n));
 
 const NptThreadCalculator = () => {
+  const L = useLength('mm');
   const [selectedSize, setSelectedSize] = usePersistedState<string>('npt-size', '');
   const [threadTab, setThreadTab] = useQueryState('tab', 'external', ['external', 'internal'] as const, 'npt-tab');
 
@@ -75,7 +77,7 @@ const NptThreadCalculator = () => {
           <>
             <div className="text-center">
               <span className="inline-block px-4 py-1.5 rounded-full bg-emerald-500/15 text-emerald-400 font-bold text-lg tracking-wide border border-emerald-500/30">
-                NPT {selectedSize} — {result.tpi} TPI / {result.pitch} mm
+                NPT {selectedSize} — {result.tpi} TPI / {L.disp(result.pitch, 4)} {L.unit}
               </span>
             </div>
 
@@ -125,11 +127,12 @@ const NptThreadCalculator = () => {
 };
 
 function NominalCard({ label, value }: { label: string; value: number }) {
+  const L = useLength('mm');
   return (
     <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
       <p className="text-zinc-400 text-sm font-medium mb-2">{label}</p>
       <p className="text-2xl md:text-3xl font-bold text-zinc-100">
-        <CopyableValue value={value}>{value}</CopyableValue> <span className="text-base text-zinc-500 font-normal">mm</span>
+        <CopyableValue value={L.disp(value)}>{L.disp(value)}</CopyableValue> <span className="text-base text-zinc-500 font-normal">{L.unit}</span>
       </p>
       <p className="text-zinc-600 text-xs mt-1">Wymiar nominalny na płaszczyźnie bazowej</p>
     </div>
@@ -137,10 +140,11 @@ function NominalCard({ label, value }: { label: string; value: number }) {
 }
 
 function CamCard({ label, value, note }: { label: string; value: number; note?: string }) {
+  const L = useLength('mm');
   return (
     <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4">
       <p className="text-cyan-300 text-sm font-medium mb-1">{label}</p>
-      <p className="text-2xl md:text-3xl font-bold text-cyan-400"><CopyableValue value={value}>{value} mm</CopyableValue></p>
+      <p className="text-2xl md:text-3xl font-bold text-cyan-400"><CopyableValue value={L.disp(value)}>{L.disp(value)} {L.unit}</CopyableValue></p>
       {note && <p className="text-cyan-600 text-xs mt-1.5">({note})</p>}
     </div>
   );

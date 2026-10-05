@@ -13,12 +13,14 @@ import {
 } from '@/data/din509Data';
 import usePersistedState from '@/hooks/usePersistedState';
 import ClearFab from '@/components/ClearFab';
+import useLength from '@/hooks/useLength';
 
 const TYPES: Din509Type[] = ['E', 'F', 'G', 'H'];
 
 const imageForType = (type: Din509Type) => `${import.meta.env.BASE_URL}din509/form-${type.toLowerCase()}.jpg`;
 
 const Din509Page = () => {
+  const L = useLength('mm');
   const { t } = useTranslation(['din509', 'translation']);
   const { t: th } = useTranslation('app');
   const [type, setType] = useQueryState<Din509Type>('type', 'E', TYPES, 'din509-type');
@@ -133,9 +135,9 @@ const Din509Page = () => {
           <div className="space-y-3">
             <p className="text-xs uppercase tracking-widest text-zinc-500">{t('din509:dimensionsTitle')}</p>
             <div className="grid grid-cols-2 gap-3">
-              <ResultCard label={t('din509:widthF')} value={`${result.f} mm`} note={t('din509:widthFTolerance')} />
-              {result.g !== null && <ResultCard label={t('din509:offsetG')} value={`${result.g} mm`} note={t('din509:offsetGNote')} />}
-              {result.t2 !== null && <ResultCard label={t('din509:depthT2')} value={`${result.t2} mm`} note={t('din509:depthT2Tolerance')} />}
+              <ResultCard label={t('din509:widthF')} value={`${L.disp(result.f, 4)} ${L.unit}`} note={t('din509:widthFTolerance')} />
+              {result.g !== null && <ResultCard label={t('din509:offsetG')} value={`${L.disp(result.g, 4)} ${L.unit}`} note={t('din509:offsetGNote')} />}
+              {result.t2 !== null && <ResultCard label={t('din509:depthT2')} value={`${L.disp(result.t2, 4)} ${L.unit}`} note={t('din509:depthT2Tolerance')} />}
               <ResultCard label={t('din509:diameterD1')} value={result.dRange} note={`${t('din509:diameterNote')} · ${t(`din509:loads.${result.load}`)}`} />
             </div>
             <div className="bg-zinc-900 border border-zinc-800/80 rounded-2xl p-4">

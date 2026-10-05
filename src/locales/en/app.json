@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Changelog",
-    "version": "v2.8.2",
+    "version": "v2.8.3",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Settings",
     "feedback": "Report bug / Suggestion",
@@ -88,6 +88,11 @@
     "v282": [
       "New threads: taper pipe thread R/Rc (BSPT, ISO 7-1) with diameters at the gauge plane, at the small end and at the end of the useful thread",
       "New buttress thread S (DIN 513) with thread depth for bolt and nut"
+    ],
+    "v283": [
+      "The unit switch now works across the whole app: threads (metric, Tr, BSP, NPT, BSW, BSF), ISO 2768, ISO 286 tolerances, roughness, circlip grooves, keyways, O-rings, DIN 509, drill cone and taper calculators",
+      "Bolt holes: inputs and results use the selected units, and entered dimensions convert when switching mm/inch",
+      "In inch mode tolerances are shown in inches or µin and roughness in µin"
     ]
   },
   "pwa": {

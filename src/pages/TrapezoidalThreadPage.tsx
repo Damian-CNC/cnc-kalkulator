@@ -6,6 +6,7 @@ import useQueryState from '@/hooks/useQueryState';
 import usePersistedState from '@/hooks/usePersistedState';
 import CopyableValue from '@/components/CopyableValue';
 import ClearFab from '@/components/ClearFab';
+import useLength from '@/hooks/useLength';
 import {
   BOLT_CLASSES,
   NUT_CLASSES,
@@ -28,6 +29,7 @@ const getCrestClearance = (P: number): number => {
 const TrapezoidalThreadPage = () => {
   const [dInput, setDInput] = usePersistedState<string>('trap-d', '');
   const [pInput, setPInput] = usePersistedState<string>('trap-p', '');
+  const L = useLength('mm');
   const [boltCls, setBoltCls] = usePersistedState<BoltClass>('trap-bolt-class', '7e');
   const [nutCls, setNutCls] = usePersistedState<NutClass>('trap-nut-class', '7H');
   const [threadTab, setThreadTab] = useQueryState('tab', 'external', ['external', 'internal'] as const, 'trap-tab');
@@ -122,7 +124,7 @@ const TrapezoidalThreadPage = () => {
             <span className="inline-block px-4 py-1.5 rounded-full bg-emerald-500/15 text-emerald-400 font-bold text-lg tracking-wide border border-emerald-500/30">
               {designation}
             </span>
-            <p className="text-zinc-500 text-xs mt-2">Luz wierzchołkowy ac = {nominal.ac} mm</p>
+            <p className="text-zinc-500 text-xs mt-2">Luz wierzchołkowy ac = {L.disp(nominal.ac as number)} {L.unit}</p>
           </div>
         )}
 
@@ -189,7 +191,7 @@ const TrapezoidalThreadPage = () => {
                     <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
                       <p className="text-zinc-400 text-sm font-medium mb-1">Średnica zewn. w bruzdach (D4)</p>
                       <p className="text-xl font-bold text-zinc-100">
-                        min <CopyableValue value={nut.D4min}>{fmt3(nut.D4min)}</CopyableValue> mm
+                        min <CopyableValue value={L.disp(nut.D4min, 5)}>{L.isImperial ? L.disp(nut.D4min, 5) : fmt3(nut.D4min)}</CopyableValue> {L.unit}
                       </p>
                       <p className="text-zinc-600 text-xs mt-1">Norma nie podaje tolerancji D4</p>
                     </div>
@@ -258,6 +260,8 @@ function ClassPicker({
 }
 
 function LimitCard({ label, lim }: { label: string; lim: Limits }) {
+  const L = useLength('mm');
+  const f = (v: number) => (L.isImperial ? L.disp(v, 5) : fmt3(v));
   return (
     <div className="rounded-xl border border-emerald-800/40 bg-emerald-950/20 p-4">
       <p className="text-emerald-300 text-sm font-medium mb-2">{label}</p>
@@ -265,17 +269,17 @@ function LimitCard({ label, lim }: { label: string; lim: Limits }) {
         <div>
           <p className="text-zinc-500 text-xs uppercase tracking-wider">Max</p>
           <p className="text-xl md:text-2xl font-bold text-emerald-400">
-            <CopyableValue value={Number(fmt3(lim.max))}>{fmt3(lim.max)}</CopyableValue>
+            <CopyableValue value={Number(f(lim.max))}>{f(lim.max)}</CopyableValue>
           </p>
         </div>
         <div>
           <p className="text-zinc-500 text-xs uppercase tracking-wider">Min</p>
           <p className="text-xl md:text-2xl font-bold text-emerald-400">
-            <CopyableValue value={Number(fmt3(lim.min))}>{fmt3(lim.min)}</CopyableValue>
+            <CopyableValue value={Number(f(lim.min))}>{f(lim.min)}</CopyableValue>
           </p>
         </div>
       </div>
-      <p className="text-emerald-700 text-xs mt-2">Tolerancja {fmt3(lim.tol)} mm</p>
+      <p className="text-emerald-700 text-xs mt-2">Tolerancja {f(lim.tol)} {L.unit}</p>
     </div>
   );
 }
@@ -290,20 +294,24 @@ function ToleranceUnavailable() {
 }
 
 function NominalCard({ label, value }: { label: string; value: number | null }) {
+  const L = useLength('mm');
+  const shown = value === null ? null : L.disp(value);
   return (
     <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
       <p className="text-zinc-400 text-sm font-medium mb-2">{label}</p>
-      <p className="text-2xl md:text-3xl font-bold text-zinc-100"><CopyableValue value={value}>{value ?? '—'}</CopyableValue> <span className="text-base text-zinc-500 font-normal">mm</span></p>
+      <p className="text-2xl md:text-3xl font-bold text-zinc-100"><CopyableValue value={shown}>{shown ?? '—'}</CopyableValue> <span className="text-base text-zinc-500 font-normal">{L.unit}</span></p>
       <p className="text-zinc-600 text-xs mt-1">Wymiar nominalny</p>
     </div>
   );
 }
 
 function CamCard({ label, value, note }: { label: string; value: number | null; note?: string }) {
+  const L = useLength('mm');
+  const shown = value === null ? '—' : L.disp(value);
   return (
     <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4">
       <p className="text-cyan-300 text-sm font-medium mb-1">{label}</p>
-      <p className="text-2xl md:text-3xl font-bold text-cyan-400"><CopyableValue value={value}>{value} mm</CopyableValue></p>
+      <p className="text-2xl md:text-3xl font-bold text-cyan-400"><CopyableValue value={shown}>{shown} {L.unit}</CopyableValue></p>
       {note && <p className="text-cyan-600 text-xs mt-1.5">({note})</p>}
     </div>
   );

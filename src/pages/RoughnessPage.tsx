@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import PageLayout from '@/components/PageLayout';
 import ClearFab from '@/components/ClearFab';
+import useLength from '@/hooks/useLength';
 import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
 import FormulaHelper from '@/components/FormulaHelper';
 import useQueryState from '@/hooks/useQueryState';
@@ -36,7 +37,14 @@ const RoughnessPage = () => {
   const { t } = useTranslation(['roughness', 'translation']);
   const { t: th } = useTranslation('app');
   const [mode, setMode] = useQueryState('mode', 'forward', ['forward', 'reverse'] as const, 'roughness-mode');
-  const [radius, setRadius] = usePersistedState<string>('roughness-radius', '0.4');
+  const L = useLength('mm');
+  const imp = L.isImperial;
+  const UIN = 39.3701; // µin w 1 µm
+  const [radiusMm, setRadiusMm] = usePersistedState<string>('roughness-radius', '0.4');
+  const [radiusIn, setRadiusIn] = usePersistedState<string>('roughness-radius-in', '0.0157');
+  const radius = imp ? radiusIn : radiusMm;
+  const setRadius = imp ? setRadiusIn : setRadiusMm;
+  const unitLabel = (txt: string) => txt.replace(/\bmm\b/g, 'in').replace(/µm/g, 'µin');
   const [feed, setFeed] = usePersistedState<string>('roughness-feed', '');
   const [targetRa, setTargetRa] = usePersistedState<string>('roughness-target-ra', '');
 
@@ -46,9 +54,11 @@ const RoughnessPage = () => {
     return t('rough');
   };
 
-  const r = parseFloat(radius.replace(',', '.'));
-  const f = parseFloat(feed.replace(',', '.'));
-  const raT = parseFloat(targetRa.replace(',', '.'));
+  // obliczenia w mm i µm; w systemie calowym wpisy są w calach i µin
+  const r = parseFloat(radius.replace(',', '.')) * (imp ? 25.4 : 1);
+  const f = parseFloat(feed.replace(',', '.')) * (imp ? 25.4 : 1);
+  const raT = parseFloat(targetRa.replace(',', '.')) / (imp ? UIN : 1);
+  const showRa = (um: number) => (imp ? (um * UIN).toFixed(1) : um.toFixed(2));
 
   const result = useMemo(() => {
     if (!r || r <= 0) return null;
@@ -73,7 +83,8 @@ const RoughnessPage = () => {
   const clear = () => {
     setFeed('');
     setTargetRa('');
-    setRadius('0.4');
+    setRadiusMm('0.4');
+    setRadiusIn('0.0157');
   };
 
   return (
@@ -111,20 +122,20 @@ const RoughnessPage = () => {
         </div>
 
         <label className="block text-xs uppercase tracking-wider text-zinc-400 mb-2">
-          {t('cornerRadius')}
+          {unitLabel(t('cornerRadius'))}
         </label>
         <div className="flex flex-wrap gap-2 mb-3">
           {RADII.map((v) => (
             <button
               key={v}
-              onClick={() => setRadius(String(v))}
+              onClick={() => setRadius(imp ? (v / 25.4).toFixed(4) : String(v))}
               className={`px-3 py-2 rounded-lg text-sm font-semibold border transition-all ${
-                parseFloat(radius) === v
+                (imp ? Math.abs(parseFloat(radius) - v / 25.4) < 0.00006 : parseFloat(radius) === v)
                   ? 'bg-cyan-500/10 border-cyan-500/50 text-cyan-400'
                   : 'bg-zinc-900/50 border-zinc-800 text-zinc-400 hover:text-zinc-200'
               }`}
             >
-              {v.toFixed(1)}
+              {imp ? (v / 25.4).toFixed(4) : v.toFixed(1)}
             </button>
           ))}
         </div>
@@ -141,7 +152,7 @@ const RoughnessPage = () => {
         {mode === 'forward' ? (
           <>
             <label className="block text-xs uppercase tracking-wider text-zinc-400 mb-2">
-              {t('feed')}
+              {unitLabel(t('feed'))}
             </label>
             <input
               type="text"
@@ -156,7 +167,7 @@ const RoughnessPage = () => {
         ) : (
           <>
             <label className="block text-xs uppercase tracking-wider text-zinc-400 mb-2">
-              {t('targetRa')}
+              {unitLabel(t('targetRa'))}
             </label>
             <input
               type="text"
@@ -181,16 +192,16 @@ const RoughnessPage = () => {
             <div className="bg-zinc-900/60 border border-zinc-800 rounded-xl p-4 text-center">
               <div className="text-xs uppercase tracking-wider text-zinc-500 mb-1">Ra</div>
               <div className={`text-3xl font-bold ${raColor(result.ra)}`}>
-                {result.ra.toFixed(2)}
+                {showRa(result.ra)}
               </div>
-              <div className="text-xs text-zinc-500 mt-1">µm · {isoClassFor(result.ra)}</div>
+              <div className="text-xs text-zinc-500 mt-1">{imp ? 'µin' : 'µm'} · {isoClassFor(result.ra)}</div>
             </div>
             <div className="bg-zinc-900/60 border border-zinc-800 rounded-xl p-4 text-center">
               <div className="text-xs uppercase tracking-wider text-zinc-500 mb-1">Rz ≈ Rt</div>
               <div className={`text-3xl font-bold ${raColor(result.ra)}`}>
-                {result.rz.toFixed(2)}
+                {showRa(result.rz)}
               </div>
-              <div className="text-xs text-zinc-500 mt-1">µm</div>
+              <div className="text-xs text-zinc-500 mt-1">{imp ? 'µin' : 'µm'}</div>
             </div>
           </div>
 
@@ -200,7 +211,7 @@ const RoughnessPage = () => {
 
           {result.fmax !== null && (
             <div className="result-box mt-4 text-2xl">
-              f max = {result.fmax.toFixed(3)} mm/{t('perRev')}
+              f max = {imp ? (result.fmax / 25.4).toFixed(4) : result.fmax.toFixed(3)} {L.unit}/{t('perRev')}
             </div>
           )}
         </div>
@@ -215,7 +226,7 @@ const RoughnessPage = () => {
               className="bg-zinc-900/60 border border-zinc-800 rounded-lg px-2 py-2 text-center"
             >
               <div className="text-cyan-400 font-bold text-sm">{c.n}</div>
-              <div className="text-xs text-zinc-500">Ra {c.ra} µm</div>
+              <div className="text-xs text-zinc-500">Ra {imp ? Math.round(c.ra * UIN) : c.ra} {imp ? 'µin' : 'µm'}</div>
             </div>
           ))}
         </div>

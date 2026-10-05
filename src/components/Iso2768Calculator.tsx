@@ -13,15 +13,21 @@ import {
   type Iso2768Row,
 } from '@/data/iso2768Data';
 import usePersistedState from '@/hooks/usePersistedState';
+import useLength from '@/hooks/useLength';
 
 const CLASSES: Iso2768Class[] = ['f', 'm', 'c', 'v'];
 
 const fmt = (v: number) => v.toFixed(3);
 const fmtDev = (v: number) => v.toFixed(v < 1 ? 2 : 1);
+const MM = 25.4;
 
 const Iso2768Calculator = () => {
   const { t } = useTranslation('iso2768');
   const { triggerSuccess, triggerLight } = useHaptics();
+  const L = useLength('mm');
+  // wartości liczone w mm; w systemie calowym wpis i wyniki są w calach
+  const fmtV = (mm: number) => (L.isImperial ? (mm / MM).toFixed(4) : fmt(mm));
+  const fmtD = (mm: number) => (L.isImperial ? (mm / MM).toFixed(4) : fmtDev(mm));
 
   const [nominal, setNominal] = usePersistedState<string>('iso2768-nominal', '');
   const [cls, setCls] = useQueryState<Iso2768Class>('class', 'm', ['f', 'm', 'c', 'v'], 'iso2768-class');
@@ -29,7 +35,8 @@ const Iso2768Calculator = () => {
   const [copied, setCopied] = useState(false);
 
   const rows = type === 'linear' ? linearTolerances : chamferTolerances;
-  const value = parseDecimal(nominal);
+  const typed = parseDecimal(nominal);
+  const value = typed === null ? null : L.isImperial ? typed * MM : typed; // mm
 
   const activeRow: Iso2768Row | null = useMemo(
     () => (value !== null && value > 0 ? findRow(rows, value) : null),
@@ -40,7 +47,7 @@ const Iso2768Calculator = () => {
 
   const shopText =
     value !== null && deviation !== null
-      ? `${value} ±${fmtDev(deviation)} mm (${fmt(value - deviation)} – ${fmt(value + deviation)} mm)`
+      ? `${typed} ±${fmtD(deviation)} ${L.unit} (${fmtV(value - deviation)} – ${fmtV(value + deviation)} ${L.unit})`
       : '';
 
   const handleCopy = async () => {
@@ -69,7 +76,7 @@ const Iso2768Calculator = () => {
 
         <div className="flex flex-col mb-5">
           <label className="block text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider">
-            {t('nominal')}
+            {t('nominal').replace('(mm)', `(${L.unit})`)}
           </label>
           <input
             type="text"
@@ -151,7 +158,7 @@ const Iso2768Calculator = () => {
                 <span className="text-xs uppercase tracking-wider text-zinc-500">
                   {t('deviation')}
                 </span>
-                <span className="text-2xl font-bold text-cyan-400">±{fmtDev(deviation)} mm</span>
+                <span className="text-2xl font-bold text-cyan-400">±{fmtD(deviation)} {L.unit}</span>
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div className="rounded-xl border border-zinc-800 bg-zinc-950/60 p-3">
@@ -159,7 +166,7 @@ const Iso2768Calculator = () => {
                     {t('maxDim')}
                   </span>
                   <span className="text-lg font-bold text-cyan-400">
-                    {fmt(value + deviation)} mm
+                    {fmtV(value + deviation)} {L.unit}
                   </span>
                 </div>
                 <div className="rounded-xl border border-zinc-800 bg-zinc-950/60 p-3">
@@ -167,7 +174,7 @@ const Iso2768Calculator = () => {
                     {t('minDim')}
                   </span>
                   <span className="text-lg font-bold text-cyan-400">
-                    {fmt(value - deviation)} mm
+                    {fmtV(value - deviation)} {L.unit}
                   </span>
                 </div>
               </div>
@@ -229,7 +236,11 @@ const Iso2768Calculator = () => {
                           : 'border-zinc-800 text-zinc-300'
                       }`}
                     >
-                      {t(`ranges.${row.labelKey}`)}
+                      {L.isImperial
+                        ? Number.isFinite(row.max)
+                          ? `${(row.min / MM).toFixed(3)} – ${(row.max / MM).toFixed(3)}`
+                          : `> ${(row.min / MM).toFixed(3)}`
+                        : t(`ranges.${row.labelKey}`)}
                     </td>
                     {CLASSES.map((c, i) => (
                       <td
@@ -242,7 +253,7 @@ const Iso2768Calculator = () => {
                             : `border-zinc-800 ${c === cls ? 'text-zinc-200 font-semibold' : 'text-zinc-500'}`
                         }`}
                       >
-                        {row[c] === null ? '–' : `±${fmtDev(row[c] as number)}`}
+                        {row[c] === null ? '–' : `±${fmtD(row[c] as number)}`}
                       </td>
                     ))}
                   </tr>

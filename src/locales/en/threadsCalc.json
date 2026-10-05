@@ -81,7 +81,7 @@
     "tapDrill": "Tap drill",
     "footnote": "Tolerances per ISO 228-1 · Tolerance class A · 55° Whitworth profile",
     "emptyMessage": "Select a BSP thread size from the list above.",
-    "nominal": "Nominal: {{value}} mm",
+    "nominal": "Nominal: {{value}}",
     "toleranceMid": "Tolerance midpoint (Ideal)",
     "targetHint": "↑ Aim here"
   },
@@ -99,7 +99,7 @@
     "intPitchDiameter": "Pitch diameter (D2)",
     "intCoreDiameter": "Minor diameter (D1)",
     "tapDrill": "Tap drill",
-    "nominal": "Nominal: {{value}} mm",
+    "nominal": "Nominal: {{value}}",
     "toleranceMid": "Tolerance midpoint (Ideal)",
     "targetHint": "↑ Aim here",
     "bsw": {

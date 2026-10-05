@@ -81,7 +81,7 @@
     "tapDrill": "Gewindebohrer-Bohrung",
     "footnote": "Toleranzen nach ISO 228-1 · Toleranzklasse A · 55°-Whitworth-Profil",
     "emptyMessage": "Wählen Sie eine BSP-Gewindegröße aus der Liste oben.",
-    "nominal": "Nennmaß: {{value}} mm",
+    "nominal": "Nennmaß: {{value}}",
     "toleranceMid": "Toleranzmitte (Ideal)",
     "targetHint": "↑ Hier anzielen"
   },
@@ -99,7 +99,7 @@
     "intPitchDiameter": "Flankendurchmesser (D2)",
     "intCoreDiameter": "Kerndurchmesser (D1)",
     "tapDrill": "Gewindebohrer-Bohrung",
-    "nominal": "Nennmaß: {{value}} mm",
+    "nominal": "Nennmaß: {{value}}",
     "toleranceMid": "Toleranzmitte (Ideal)",
     "targetHint": "↑ Hier anzielen",
     "bsw": {
