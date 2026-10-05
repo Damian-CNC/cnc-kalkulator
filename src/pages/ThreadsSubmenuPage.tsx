@@ -22,6 +22,8 @@ const tiles: Tile[] = [
   { id: 'un', labelKey: 'tools:un.menu', badge: 'UN', route: '/threads/un', color: 'text-orange-400' },
   { id: 'acme', labelKey: 'tools:acme.menu', badge: 'Acme', route: '/threads/acme', color: 'text-pink-400', isNew: true },
   { id: 'rd', labelKey: 'tools:rd.menu', badge: 'Rd', route: '/threads/rd', color: 'text-teal-400', isNew: true },
+  { id: 'bspt', labelKey: 'tools:bspt.menu', badge: 'R', route: '/threads/bspt', color: 'text-sky-400', isNew: true },
+  { id: 'buttress', labelKey: 'tools:buttress.menu', badge: 'S', route: '/threads/buttress', color: 'text-amber-400', isNew: true },
 ];
 
 const ThreadsSubmenuPage = () => {

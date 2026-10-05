@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Cronologia modifiche",
-    "version": "v2.8.1",
+    "version": "v2.8.2",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Impostazioni",
     "feedback": "Segnala bug / Suggerimento",
@@ -84,6 +84,10 @@
       "Menu principale su computer ridotto a circa l'80%, più tasselli sullo schermo",
       "Smusso con fresa: rimossa la scheda del raggio utensile richiesto",
       "iPhone: corretta la doppia animazione quando si torna indietro con gesto o tasto indietro"
+    ],
+    "v282": [
+      "Nuovi filetti: conico per tubi R/Rc (BSPT, ISO 7-1) con diametri sul piano di misura, all'estremità piccola e alla fine del filetto utile",
+      "Nuovo filetto a dente di sega S (DIN 513) con profondità del filetto per vite e dado"
     ]
   },
   "pwa": {
