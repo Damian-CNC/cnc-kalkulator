@@ -26,20 +26,26 @@ import useHaptics from '@/hooks/useHaptics';
 type Tile = {
   id: string;
   labelKey: string;
-  icon: ComponentType<{ className?: string; strokeWidth?: number | string }>;
+  icon: ComponentType<{ className?: string; strokeWidth?: number }>;
   route: string;
   isNew?: boolean;
 };
 
 // Ikony lucide rysowane są na siatce 24 px (własne na 64 px), więc ta sama
 // grubość linii na ekranie wymaga tu znacznie mniejszego strokeWidth.
-const LUCIDE_ICONS: unknown[] = [Settings, Waves, Ruler, Target, Scale, Gem, Triangle];
+const LUCIDE_ICONS: unknown[] = [Settings, Waves, Ruler, Target, Scale, Gem, Triangle, Calculator];
 
 const sections: { titleKey: string; tiles: Tile[] }[] = [
   {
-    titleKey: 'sections.machining',
+    titleKey: 'sections.basic',
     tiles: [
       { id: 'parameters', labelKey: 'tiles.parameters', icon: Settings, route: '/parametry' },
+      { id: 'calc', labelKey: 'tools:calc.tile', icon: Calculator, route: '/kalkulator', isNew: true },
+    ],
+  },
+  {
+    titleKey: 'sections.machining',
+    tiles: [
       { id: 'roughness', labelKey: 'tiles.roughness', icon: Waves, route: '/chropowatosc' },
     ],
   },
@@ -62,7 +68,6 @@ const sections: { titleKey: string; tiles: Tile[] }[] = [
       { id: 'linearHoles', labelKey: 'tiles.linearHoles', icon: AngledHolesIcon, route: '/otwory-liniowe' },
       { id: 'truePosition', labelKey: 'tiles.truePosition', icon: Target, route: '/true-position' },
       { id: 'trig', labelKey: 'tools:trig.tile', icon: Triangle, route: '/trygonometria', isNew: true },
-      { id: 'calc', labelKey: 'tools:calc.tile', icon: Calculator, route: '/kalkulator', isNew: true },
     ],
   },
   {

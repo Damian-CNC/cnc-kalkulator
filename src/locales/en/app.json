@@ -97,7 +97,8 @@
     "v284": [
       "New standard calculator with parentheses and percent, styled like the iPhone calculator",
       "The last three results sit at the top: tap to insert one into the current calculation, hold to copy it to the clipboard",
-      "Tapping the result copies it; the keyboard also works on desktop"
+      "Tapping the result copies it; the keyboard also works on desktop",
+      "Main menu: a \"Basics\" section with Parameters and Calculator now sits at the very top; calculator keys are larger and sit at the bottom of the screen"
     ]
   },
   "pwa": {

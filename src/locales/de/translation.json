@@ -26,7 +26,8 @@
     "threadsFits": "Gewinde & Passungen",
     "geometry": "Geometrie",
     "standardParts": "Normteile",
-    "materials": "Werkstoffe"
+    "materials": "Werkstoffe",
+    "basic": "Grundlagen"
   },
   "tiles": {
     "parameters": "Schnittdaten",
