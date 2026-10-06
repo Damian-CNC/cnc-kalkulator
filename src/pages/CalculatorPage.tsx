@@ -141,16 +141,16 @@ const CalculatorPage = () => {
         triggerLight();
         onPress();
       }}
-      className={`h-14 sm:h-16 rounded-full flex items-center justify-center text-2xl font-medium select-none transition-transform active:scale-95 ${
+      className={`h-14 sm:h-16 rounded-2xl flex items-center justify-center text-2xl font-semibold select-none border transition-all active:scale-95 ${
         wide ? 'col-span-3' : ''
       } ${
         kind === 'op'
           ? active
-            ? 'bg-white text-[#f09a37]'
-            : 'bg-[#f09a37] text-white active:bg-[#f7b366]'
+            ? 'bg-cyan-100 border-cyan-200 text-cyan-700'
+            : 'bg-cyan-600 border-cyan-500 text-white active:bg-cyan-500'
           : kind === 'fn'
-            ? 'bg-[#636363] text-white active:bg-[#7a7a7a]'
-            : 'bg-[#333333] text-white active:bg-[#4d4d4d]'
+            ? 'bg-zinc-800 border-zinc-700 text-cyan-300 active:bg-zinc-700'
+            : 'bg-zinc-900 border-zinc-800 text-zinc-100 active:bg-zinc-800'
       }`}
     >
       {label}
@@ -234,7 +234,7 @@ const CalculatorPage = () => {
           <Key label="%" kind="fn" onPress={percent} />
           <Key label="+" kind="op" onPress={() => operator('+')} active={!s.done && lastOp === '+'} />
 
-          <Key label="+/−" kind="fn" onPress={toggleSign} aria={t('calc.sign')} />
+          <Key label="±" kind="fn" onPress={toggleSign} aria={t('calc.sign')} />
           <Key label="=" kind="op" wide onPress={equals} />
         </div>
       </div>
