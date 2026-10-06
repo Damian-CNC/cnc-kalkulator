@@ -26,7 +26,7 @@ import useHaptics from '@/hooks/useHaptics';
 type Tile = {
   id: string;
   labelKey: string;
-  icon: ComponentType<{ className?: string; strokeWidth?: number }>;
+  icon: ComponentType<{ className?: string; strokeWidth?: number | string }>;
   route: string;
   isNew?: boolean;
 };
