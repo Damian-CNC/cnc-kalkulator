@@ -26,7 +26,8 @@
     "threadsFits": "Gwinty i Pasowania",
     "geometry": "Geometria",
     "standardParts": "Elementy Znormalizowane",
-    "materials": "Materiały"
+    "materials": "Materiały",
+    "basic": "Podstawowe"
   },
   "tiles": {
     "parameters": "Parametry",

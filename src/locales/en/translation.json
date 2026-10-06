@@ -26,7 +26,8 @@
     "threadsFits": "Threads & Fits",
     "geometry": "Geometry",
     "standardParts": "Standard Parts",
-    "materials": "Materials"
+    "materials": "Materials",
+    "basic": "Basics"
   },
   "tiles": {
     "parameters": "Cutting Data",

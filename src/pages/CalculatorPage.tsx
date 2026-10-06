@@ -141,7 +141,7 @@ const CalculatorPage = () => {
         triggerLight();
         onPress();
       }}
-      className={`h-14 sm:h-16 rounded-2xl flex items-center justify-center text-2xl font-semibold select-none border transition-all active:scale-95 ${
+      className={`h-[4.5rem] rounded-2xl flex items-center justify-center text-3xl font-semibold select-none border transition-all active:scale-95 ${
         wide ? 'col-span-3' : ''
       } ${
         kind === 'op'
@@ -159,7 +159,7 @@ const CalculatorPage = () => {
 
   return (
     <PageLayout title={t('calc.title')}>
-      <div className="max-w-sm mx-auto">
+      <div className="max-w-sm mx-auto flex flex-col min-h-[calc(100dvh-8.5rem)] pb-2">
         {/* trzy ostatnie wyniki */}
         <div className="flex gap-2 mb-2 min-h-[2.25rem]" aria-label={t('calc.history')}>
           {s.history.map((h, i) => (
@@ -193,7 +193,8 @@ const CalculatorPage = () => {
         </div>
         <p className="text-[11px] text-zinc-600 mb-3 text-right">{t('calc.hint')}</p>
 
-        {/* wyrażenie i wynik */}
+        {/* dolna część: wyrażenie, wynik i klawiatura przy dole ekranu */}
+        <div className="mt-auto" />
         <div className="px-2 pb-4 text-right">
           <div className="min-h-[1.75rem] text-lg text-zinc-400 overflow-x-auto whitespace-nowrap [scrollbar-width:none]">
             {s.expr && (hasStructure || s.done) ? `${showExpr(s.expr)}${s.done ? ' =' : ''}` : '\u00A0'}
@@ -208,9 +209,9 @@ const CalculatorPage = () => {
         </div>
 
         {/* klawiatura */}
-        <div className="grid grid-cols-4 gap-2.5">
+        <div className="grid grid-cols-4 gap-3 pb-[env(safe-area-inset-bottom,0px)]">
           <Key label="AC" kind="fn" onPress={clear} aria="AC" />
-          <Key label={<BackspaceIcon size={26} />} kind="fn" onPress={backspace} aria="Backspace" />
+          <Key label={<BackspaceIcon size={30} />} kind="fn" onPress={backspace} aria="Backspace" />
           <Key label="(" kind="fn" onPress={() => paren('(')} />
           <Key label=")" kind="fn" onPress={() => paren(')')} />
 

@@ -26,7 +26,8 @@
     "threadsFits": "Filettature e Tolleranze",
     "geometry": "Geometria",
     "standardParts": "Elementi Normalizzati",
-    "materials": "Materiali"
+    "materials": "Materiali",
+    "basic": "Base"
   },
   "tiles": {
     "parameters": "Parametri di Taglio",

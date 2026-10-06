@@ -97,7 +97,8 @@
     "v284": [
       "Nowy zwykły kalkulator z nawiasami i procentami, w stylu kalkulatora iPhone",
       "Trzy ostatnie wyniki u góry: dotknięcie wstawia wynik do bieżącego działania, przytrzymanie kopiuje go do schowka",
-      "Dotknięcie wyniku kopiuje go, na komputerze działa też klawiatura"
+      "Dotknięcie wyniku kopiuje go, na komputerze działa też klawiatura",
+      "Menu główne: na samej górze sekcja „Podstawowe” z Parametrami i Kalkulatorem; klawisze kalkulatora są większe i leżą przy dole ekranu"
     ]
   },
   "pwa": {
