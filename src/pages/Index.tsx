@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Settings, Scale, Gem, Ruler, Waves, Target, Triangle } from 'lucide-react';
+import { Settings, Scale, Gem, Ruler, Waves, Target, Triangle, Calculator } from 'lucide-react';
 import type { ComponentType } from 'react';
 import {
   MillChamferIcon,
@@ -62,6 +62,7 @@ const sections: { titleKey: string; tiles: Tile[] }[] = [
       { id: 'linearHoles', labelKey: 'tiles.linearHoles', icon: AngledHolesIcon, route: '/otwory-liniowe' },
       { id: 'truePosition', labelKey: 'tiles.truePosition', icon: Target, route: '/true-position' },
       { id: 'trig', labelKey: 'tools:trig.tile', icon: Triangle, route: '/trygonometria', isNew: true },
+      { id: 'calc', labelKey: 'tools:calc.tile', icon: Calculator, route: '/kalkulator', isNew: true },
     ],
   },
   {

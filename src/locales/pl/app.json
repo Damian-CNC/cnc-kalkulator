@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Historia zmian",
-    "version": "v2.8.3",
+    "version": "v2.8.4",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Ustawienia",
     "feedback": "Zgłoś błąd / Sugestia",
@@ -93,6 +93,11 @@
       "Przełącznik jednostek działa teraz w całej aplikacji: gwinty (metryczne, Tr, BSP, NPT, BSW, BSF), ISO 2768, tolerancje ISO 286, chropowatość, rowki Segera, wpusty, O-ringi, DIN 509, kalkulator stożka wiertła i stożków",
       "Otwory pod śruby: wpisy i wyniki w wybranych jednostkach, wpisane wymiary przeliczają się przy zmianie mm/cale",
       "W trybie calowym tolerancje podawane są w calach lub µin, a chropowatość w µin"
+    ],
+    "v284": [
+      "Nowy zwykły kalkulator z nawiasami i procentami, w stylu kalkulatora iPhone",
+      "Trzy ostatnie wyniki u góry: dotknięcie wstawia wynik do bieżącego działania, przytrzymanie kopiuje go do schowka",
+      "Dotknięcie wyniku kopiuje go, na komputerze działa też klawiatura"
     ]
   },
   "pwa": {

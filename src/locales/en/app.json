@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Changelog",
-    "version": "v2.8.3",
+    "version": "v2.8.4",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Settings",
     "feedback": "Report bug / Suggestion",
@@ -93,6 +93,11 @@
       "The unit switch now works across the whole app: threads (metric, Tr, BSP, NPT, BSW, BSF), ISO 2768, ISO 286 tolerances, roughness, circlip grooves, keyways, O-rings, DIN 509, drill cone and taper calculators",
       "Bolt holes: inputs and results use the selected units, and entered dimensions convert when switching mm/inch",
       "In inch mode tolerances are shown in inches or µin and roughness in µin"
+    ],
+    "v284": [
+      "New standard calculator with parentheses and percent, styled like the iPhone calculator",
+      "The last three results sit at the top: tap to insert one into the current calculation, hold to copy it to the clipboard",
+      "Tapping the result copies it; the keyboard also works on desktop"
     ]
   },
   "pwa": {

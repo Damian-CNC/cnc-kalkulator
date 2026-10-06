@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Änderungsverlauf",
-    "version": "v2.8.3",
+    "version": "v2.8.4",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Einstellungen",
     "feedback": "Fehler / Vorschlag melden",
@@ -93,6 +93,11 @@
       "Die Einheitenumschaltung wirkt jetzt in der ganzen App: Gewinde (metrisch, Tr, BSP, NPT, BSW, BSF), ISO 2768, ISO-286-Toleranzen, Rauheit, Sicherungsringnuten, Passfedern, O-Ringe, DIN 509, Bohrerspitze und Kegelrechner",
       "Schraubenlöcher: Eingaben und Ergebnisse in den gewählten Einheiten, eingegebene Maße werden beim Umschalten mm/Zoll umgerechnet",
       "Im Zollmodus werden Toleranzen in Zoll oder µin und die Rauheit in µin angezeigt"
+    ],
+    "v284": [
+      "Neuer Taschenrechner mit Klammern und Prozent im Stil des iPhone-Rechners",
+      "Die letzten drei Ergebnisse stehen oben: Antippen fügt sie in die Rechnung ein, gedrückt halten kopiert sie",
+      "Antippen des Ergebnisses kopiert es; am Computer funktioniert auch die Tastatur"
     ]
   },
   "pwa": {
