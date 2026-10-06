@@ -270,5 +270,13 @@
     "minorNut": "Kerndurchmesser (D1)",
     "drillNote": "Bohrdurchmesser",
     "footer": "Nennmaße nach DIN 513 (h3 = 0,86777·P, H1 = 0,75·P, R = 0,12427·P). Werte können um 0,001 von den Tabellen abweichen. Toleranzklassen (7H…9c) aus DIN 513 Teil 3 werden nicht berechnet, Norm prüfen."
+  },
+  "calc": {
+    "tile": "Taschenrechner",
+    "title": "Taschenrechner",
+    "history": "Letzte Ergebnisse",
+    "hint": "Ergebnis oben antippen zum Einfügen · gedrückt halten zum Kopieren",
+    "error": "Fehler",
+    "sign": "Vorzeichen wechseln"
   }
 }

@@ -270,5 +270,13 @@
     "minorNut": "Minor diameter (D1)",
     "drillNote": "drill diameter",
     "footer": "Basic dimensions per DIN 513 (h3 = 0.86777·P, H1 = 0.75·P, R = 0.12427·P). Values may differ by 0.001 from the tables. Tolerance classes (7H…9c) from DIN 513 part 3 are not calculated, check the standard."
+  },
+  "calc": {
+    "tile": "Calculator",
+    "title": "Calculator",
+    "history": "Recent results",
+    "hint": "Tap a result above to insert it · hold to copy",
+    "error": "Error",
+    "sign": "Change sign"
   }
 }

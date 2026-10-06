@@ -48,6 +48,7 @@ const TruePositionPage = page(() => import("@/pages/TruePositionPage"));
 const MillChamferPage = page(() => import("@/pages/MillChamferPage"));
 const TrigPage = page(() => import("@/pages/TrigPage"));
 const BoltHolesPage = page(() => import("@/pages/BoltHolesPage"));
+const CalculatorPage = page(() => import("@/pages/CalculatorPage"));
 const PrivacyPage = page(() => import("@/pages/PrivacyPage"));
 const NotFound = page(() => import("@/pages/NotFound"));
 
@@ -241,6 +242,7 @@ const AnimatedRoutes = () => {
               <Route path="/mill-chamfer" element={<MillChamferPage />} />
               <Route path="/trygonometria" element={<TrigPage />} />
               <Route path="/otwory-pod-sruby" element={<BoltHolesPage />} />
+              <Route path="/kalkulator" element={<CalculatorPage />} />
               <Route path="/privacy" element={<PrivacyPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

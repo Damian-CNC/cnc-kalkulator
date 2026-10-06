@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Cronologia modifiche",
-    "version": "v2.8.3",
+    "version": "v2.8.4",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Impostazioni",
     "feedback": "Segnala bug / Suggerimento",
@@ -93,6 +93,11 @@
       "Il cambio delle unità ora funziona in tutta l'app: filetti (metrici, Tr, BSP, NPT, BSW, BSF), ISO 2768, tolleranze ISO 286, rugosità, sedi per anelli elastici, linguette, O-ring, DIN 509, punta e conicità",
       "Fori per viti: ingressi e risultati nelle unità scelte, le dimensioni inserite si convertono passando da mm a pollici",
       "In modalità pollici le tolleranze sono in pollici o µin e la rugosità in µin"
+    ],
+    "v284": [
+      "Nuova calcolatrice con parentesi e percentuale, nello stile di quella dell'iPhone",
+      "Gli ultimi tre risultati sono in alto: tocca per inserirne uno nel calcolo, tieni premuto per copiarlo",
+      "Toccando il risultato lo copi; su computer funziona anche la tastiera"
     ]
   },
   "pwa": {

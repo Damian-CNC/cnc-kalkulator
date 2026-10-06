@@ -270,5 +270,13 @@
     "minorNut": "Średnica rdzenia (D1)",
     "drillNote": "średnica wiercenia",
     "footer": "Wymiary nominalne wg DIN 513 (h3 = 0,86777·P, H1 = 0,75·P, R = 0,12427·P). Wartości mogą różnić się o 0,001 od tabel. Klasy tolerancji (7H…9c) wg DIN 513 cz. 3 nie są liczone, sprawdź normę."
+  },
+  "calc": {
+    "tile": "Kalkulator",
+    "title": "Kalkulator",
+    "history": "Ostatnie wyniki",
+    "hint": "Dotknij wyniku u góry, by wstawić · przytrzymaj, by skopiować",
+    "error": "Błąd",
+    "sign": "Zmień znak"
   }
 }

@@ -270,5 +270,13 @@
     "minorNut": "Diametro di nocciolo (D1)",
     "drillNote": "diametro punta",
     "footer": "Dimensioni nominali secondo DIN 513 (h3 = 0,86777·P, H1 = 0,75·P, R = 0,12427·P). I valori possono differire di 0,001 dalle tabelle. Le classi di tolleranza (7H…9c) della DIN 513 parte 3 non sono calcolate, verifica la norma."
+  },
+  "calc": {
+    "tile": "Calcolatrice",
+    "title": "Calcolatrice",
+    "history": "Ultimi risultati",
+    "hint": "Tocca un risultato in alto per inserirlo · tieni premuto per copiare",
+    "error": "Errore",
+    "sign": "Cambia segno"
   }
 }
