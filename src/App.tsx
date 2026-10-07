@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { HashRouter } from "react-router-dom";
 import { Suspense } from "react";
+import { LazyMotion, domAnimation } from "framer-motion";
 import AnimatedRoutes from "./components/AnimatedRoutes";
 import AppErrorBoundary from "./components/AppErrorBoundary";
 import { UnitProvider } from "./contexts/UnitContext";
@@ -18,6 +19,7 @@ const AppFallback = () => (
 
 const App = () => (
   <AppErrorBoundary>
+    <LazyMotion features={domAnimation} strict>
     <UnitProvider>
       <TooltipProvider>
         <Toaster />
@@ -32,6 +34,7 @@ const App = () => (
         <PwaInstallBanner />
       </TooltipProvider>
     </UnitProvider>
+    </LazyMotion>
   </AppErrorBoundary>
 );
 

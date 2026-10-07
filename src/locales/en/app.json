@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Changelog",
-    "version": "v2.8.4",
+    "version": "v2.8.5",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Settings",
     "feedback": "Report bug / Suggestion",
@@ -99,6 +99,11 @@
       "The last three results sit at the top: tap to insert one into the current calculation, hold to copy it to the clipboard",
       "Tapping the result copies it; the keyboard also works on desktop",
       "Main menu: a \"Basics\" section with Parameters and Calculator now sits at the very top; calculator keys are larger and sit at the bottom of the screen"
+    ],
+    "v285": [
+      "Faster start from the home screen: the page and app files load straight from the phone's storage while updates download in the background (a new version appears on the next launch)",
+      "The font no longer blocks the first screen, the main menu is part of the main bundle, and the changelog and feedback windows load only when opened",
+      "Lighter animations and faster translation loading"
     ]
   },
   "pwa": {

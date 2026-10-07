@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Cronologia modifiche",
-    "version": "v2.8.4",
+    "version": "v2.8.5",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Impostazioni",
     "feedback": "Segnala bug / Suggerimento",
@@ -99,6 +99,11 @@
       "Gli ultimi tre risultati sono in alto: tocca per inserirne uno nel calcolo, tieni premuto per copiarlo",
       "Toccando il risultato lo copi; su computer funziona anche la tastiera",
       "Menu principale: in cima la sezione «Base» con Parametri e Calcolatrice; i tasti della calcolatrice sono più grandi e stanno in basso sullo schermo"
+    ],
+    "v285": [
+      "Avvio più rapido dalla schermata Home: la pagina e i file dell'app si caricano subito dalla memoria del telefono mentre gli aggiornamenti si scaricano in background (la nuova versione appare al lancio successivo)",
+      "Il font non blocca più la prima schermata, il menu principale fa parte del pacchetto principale e le finestre di cronologia e segnalazioni si caricano solo all'apertura",
+      "Animazioni più leggere e caricamento delle traduzioni più rapido"
     ]
   },
   "pwa": {
