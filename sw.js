@@ -1,5 +1,5 @@
 const CACHE_PREFIX = 'cnc-calculator-';
-const CACHE_NAME = `${CACHE_PREFIX}v8`;
+const CACHE_NAME = `${CACHE_PREFIX}v9`;
 const PRECACHE_URLS = [
   './', './index.html', './manifest.json', './favicon.png', './icon-192.png', './icon-512.png',
   './din509/form-e.jpg', './din509/form-f.jpg', './din509/form-g.jpg', './din509/form-h.jpg',
@@ -42,8 +42,9 @@ self.addEventListener('fetch', (event) => {
     req.mode === 'navigate' ||
     (req.headers.get('accept') || '').includes('text/html');
 
-  // Hashed static assets — cache-first for instant subsequent loads.
-  const isHashedAsset = /\/assets\/.+\.[a-f0-9]{6,}\.(js|css|woff2?|ttf|otf|png|jpg|jpeg|svg|webp)$/i.test(url.pathname);
+  // Pliki z katalogu /assets/ mają hash w nazwie (Vite: nazwa-HASH.js) — są niezmienne,
+  // więc serwujemy je z cache od razu (start aplikacji bez czekania na sieć).
+  const isHashedAsset = /\/assets\/[^/]+$/i.test(url.pathname) && !isHTML;
 
   if (isHashedAsset) {
     event.respondWith(
@@ -84,9 +85,39 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // HTML & everything else — network-first with cache fallback (offline).
+  // HTML — od razu z cache, a w tle pobieramy świeżą wersję (stale-while-revalidate).
+  // Dzięki temu start aplikacji z ekranu głównego nie czeka na sieć; nowa wersja
+  // pojawia się przy kolejnym uruchomieniu.
+  if (isHTML) {
+    const indexUrl = self.registration.scope + 'index.html';
+    event.respondWith(
+      caches.match(req, { ignoreSearch: true }).then((hit) => hit || caches.match(indexUrl)).then((cached) => {
+        const update = fetch(req, { cache: 'no-store' })
+          .then((response) => {
+            if (response && response.status === 200) {
+              const copy1 = response.clone();
+              const copy2 = response.clone();
+              caches.open(CACHE_NAME).then((cache) => {
+                cache.put(req, copy1);
+                cache.put(indexUrl, copy2);
+              });
+            }
+            return response;
+          })
+          .catch(() => null);
+        if (cached) {
+          event.waitUntil(update);
+          return cached;
+        }
+        return update.then((response) => response || Response.error());
+      }),
+    );
+    return;
+  }
+
+  // Pozostałe żądania — sieć najpierw, cache jako zapas (offline).
   event.respondWith(
-    fetch(req, isHTML ? { cache: 'no-store' } : undefined)
+    fetch(req)
       .then((response) => {
         if (response && response.status === 200) {
           const clone = response.clone();
@@ -94,6 +125,6 @@ self.addEventListener('fetch', (event) => {
         }
         return response;
       })
-      .catch(() => caches.match(req).then((cached) => cached || (isHTML ? caches.match('./index.html') : undefined)))
+      .catch(() => caches.match(req))
   );
 });
