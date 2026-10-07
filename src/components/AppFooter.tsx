@@ -1,11 +1,11 @@
-import { lazy, Suspense, useState } from 'react';
+import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { History, MessageSquarePlus, ShieldCheck, RefreshCw } from 'lucide-react';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import UnitSwitcher from '@/components/UnitSwitcher';
-const ChangelogModal = lazy(() => import('@/components/ChangelogModal'));
-const FeedbackModal = lazy(() => import('@/components/FeedbackModal'));
+import ChangelogModal from '@/components/ChangelogModal';
+import FeedbackModal from '@/components/FeedbackModal';
 import { LegalModal } from '@/components/DisclaimerGateModal';
 
 /** Unified footer control surface + typography. */
@@ -18,9 +18,6 @@ const AppFooter = ({ className = '' }: { className?: string }) => {
   const { t } = useTranslation('app');
   const [open, setOpen] = useState(false);
   const [feedbackOpen, setFeedbackOpen] = useState(false);
-  // modale montujemy dopiero po pierwszym otwarciu (mniej kodu na starcie)
-  const [changelogMounted, setChangelogMounted] = useState(false);
-  const [feedbackMounted, setFeedbackMounted] = useState(false);
   const [legalOpen, setLegalOpen] = useState(false);
 
   const handleForceUpdate = async () => {
@@ -55,17 +52,11 @@ const AppFooter = ({ className = '' }: { className?: string }) => {
           <RefreshCw className={ICON} />
           {t('common.forceUpdate', { defaultValue: 'Wymuś aktualizację' })}
         </button>
-        <button type="button" onClick={() => {
-            setChangelogMounted(true);
-            setOpen(true);
-          }} className={`${BTN} ${TXT}`}>
+        <button type="button" onClick={() => setOpen(true)} className={`${BTN} ${TXT}`}>
           <History className={ICON} />
           {t('footer.changelog')}
         </button>
-        <button type="button" onClick={() => {
-            setFeedbackMounted(true);
-            setFeedbackOpen(true);
-          }} className={`${BTN} ${TXT}`}>
+        <button type="button" onClick={() => setFeedbackOpen(true)} className={`${BTN} ${TXT}`}>
           <MessageSquarePlus className={ICON} />
           {t('footer.feedback')}
         </button>
@@ -82,10 +73,8 @@ const AppFooter = ({ className = '' }: { className?: string }) => {
       {/* Modale przez portal: strona ma animację (transform), która psuje position: fixed */}
       {createPortal(
         <>
-          <Suspense fallback={null}>
-            {changelogMounted && <ChangelogModal open={open} onClose={() => setOpen(false)} />}
-            {feedbackMounted && <FeedbackModal open={feedbackOpen} onClose={() => setFeedbackOpen(false)} />}
-          </Suspense>
+          <ChangelogModal open={open} onClose={() => setOpen(false)} />
+          <FeedbackModal open={feedbackOpen} onClose={() => setFeedbackOpen(false)} />
           <LegalModal open={legalOpen} onClose={() => setLegalOpen(false)} />
         </>,
         document.body,

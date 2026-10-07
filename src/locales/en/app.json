@@ -102,8 +102,8 @@
     ],
     "v285": [
       "Faster start from the home screen: the page and app files load straight from the phone's storage while updates download in the background (a new version appears on the next launch)",
-      "The font no longer blocks the first screen, the main menu is part of the main bundle, and the changelog and feedback windows load only when opened",
-      "Background page preloading now pauses during screen transitions, and translations load faster"
+      "The font no longer blocks the first screen",
+      "Background page preloading now pauses during screen transitions"
     ]
   },
   "pwa": {

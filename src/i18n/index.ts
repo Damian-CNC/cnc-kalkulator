@@ -91,15 +91,11 @@ i18n.changeLanguage = async (lng, callback) => {
   return originalChangeLanguage(lng, callback);
 };
 
-/** Aplikacja renderuje się po załadowaniu aktywnego języka; język zapasowy dociąga się w tle. */
-export const i18nReady: Promise<unknown> = Promise.all([initPromise, loadLanguage(initialLanguage)]);
-
-if (initialLanguage !== FALLBACK_LANGUAGE) {
-  i18nReady
-    .then(() => loadLanguage(FALLBACK_LANGUAGE))
-    // odśwież teksty, jeśli któryś klucz był tylko w języku zapasowym
-    .then(() => i18n.emit('languageChanged', i18n.language))
-    .catch(() => undefined);
-}
+/** Aplikacja renderuje się dopiero po załadowaniu aktywnego i zapasowego języka. */
+export const i18nReady: Promise<unknown> = Promise.all([
+  initPromise,
+  loadLanguage(initialLanguage),
+  loadLanguage(FALLBACK_LANGUAGE),
+]);
 
 export default i18n;
