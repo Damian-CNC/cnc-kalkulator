@@ -1,0 +1,1 @@
+import{I as u}from"./index-DJU5e_jL.js";const c=25.4,w=m=>{const{isImperial:s}=u(),e=s?"in":"mm",r=t=>m==="in"?s?t:t*c:s?t/c:t,i=(t,n=4,o=3)=>r(t).toFixed(s?n:o);return{isImperial:s,unit:e,val:i,raw:(t,n=4,o=3)=>Number(i(t,n,o)),disp:(t,n=5)=>s?r(t).toFixed(n):String(t),fmt:(t,n=4,o=3)=>`${i(t,n,o)} ${e}`,toShown:r}};export{w as u};
