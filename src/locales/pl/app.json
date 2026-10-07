@@ -103,7 +103,7 @@
     "v285": [
       "Szybszy start aplikacji z ekranu głównego: strona i pliki aplikacji ładują się od razu z pamięci telefonu, a aktualizacja pobiera się w tle (nowa wersja pojawia się przy kolejnym uruchomieniu)",
       "Czcionka nie blokuje już wyświetlenia ekranu, menu główne jest częścią głównego pliku, a okna historii zmian i zgłoszeń ładują się dopiero po otwarciu",
-      "Lżejsze animacje i szybsze ładowanie tłumaczeń"
+      "Wstępne ładowanie stron w tle robi przerwę podczas przejść między ekranami, a tłumaczenia ładują się szybciej"
     ]
   },
   "pwa": {

@@ -16,7 +16,7 @@ import {
   ORingIcon,
   BoltHoleIcon,
 } from '@/components/icons/CncIcons';
-import { m } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import WakeLockToggle from '@/components/WakeLockToggle';
 import AppFooter from '@/components/AppFooter';
@@ -26,7 +26,7 @@ import useHaptics from '@/hooks/useHaptics';
 type Tile = {
   id: string;
   labelKey: string;
-  icon: ComponentType<{ className?: string; strokeWidth?: number | string }>;
+  icon: ComponentType<{ className?: string; strokeWidth?: number }>;
   route: string;
   isNew?: boolean;
 };
@@ -99,7 +99,7 @@ const Index = () => {
     <div className="min-h-screen bg-zinc-950 px-4 pb-safe overflow-x-hidden flex flex-col items-center">
       <header className="w-full pt-[calc(env(safe-area-inset-top,0px)+1.25rem)] pt-14 md:pt-3 pb-3 mb-8 md:mb-6 max-w-4xl md:max-w-[44.8rem] grid grid-cols-[2.25rem_1fr_2.25rem] items-center gap-2">
         <span aria-hidden />
-        <m.h1
+        <motion.h1
           className="text-xl min-[400px]:text-2xl md:text-3xl font-black tracking-wide text-zinc-100 select-none text-center"
           initial={{ rotate: -360, scale: 0.5, opacity: 0 }}
           animate={{ rotate: 0, scale: 1, opacity: 1 }}
@@ -113,7 +113,7 @@ const Index = () => {
           }}
         >
           ⚙️ {t('nav.appTitle')}
-        </m.h1>
+        </motion.h1>
         <div className="md:hidden flex justify-end">
           <WakeLockToggle />
         </div>

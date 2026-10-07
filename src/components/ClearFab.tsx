@@ -1,6 +1,6 @@
 import { memo, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { m, useIsPresent } from 'framer-motion';
+import { motion, useIsPresent } from 'framer-motion';
 import { RotateCcw } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import useHaptics from '@/hooks/useHaptics';
@@ -28,7 +28,7 @@ const ClearFab = ({ onClear, label }: ClearFabProps) => {
   const text = label ?? t('common.clearAll');
 
   const button = (
-    <m.div
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.15 }}
@@ -44,7 +44,7 @@ const ClearFab = ({ onClear, label }: ClearFabProps) => {
       <RotateCcw className="w-5 h-5 sm:w-4 sm:h-4 text-cyan-400" />
       <span className="hidden sm:inline">{text}</span>
     </button>
-    </m.div>
+    </motion.div>
   );
 
   if (!isPresent || !ready) return null;
