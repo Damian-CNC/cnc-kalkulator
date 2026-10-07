@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Historia zmian",
-    "version": "v2.8.4",
+    "version": "v2.8.5",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Ustawienia",
     "feedback": "Zgłoś błąd / Sugestia",
@@ -99,6 +99,11 @@
       "Trzy ostatnie wyniki u góry: dotknięcie wstawia wynik do bieżącego działania, przytrzymanie kopiuje go do schowka",
       "Dotknięcie wyniku kopiuje go, na komputerze działa też klawiatura",
       "Menu główne: na samej górze sekcja „Podstawowe” z Parametrami i Kalkulatorem; klawisze kalkulatora są większe i leżą przy dole ekranu"
+    ],
+    "v285": [
+      "Szybszy start aplikacji z ekranu głównego: strona i pliki aplikacji ładują się od razu z pamięci telefonu, a aktualizacja pobiera się w tle (nowa wersja pojawia się przy kolejnym uruchomieniu)",
+      "Czcionka nie blokuje już wyświetlenia ekranu, menu główne jest częścią głównego pliku, a okna historii zmian i zgłoszeń ładują się dopiero po otwarciu",
+      "Lżejsze animacje i szybsze ładowanie tłumaczeń"
     ]
   },
   "pwa": {

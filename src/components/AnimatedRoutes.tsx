@@ -1,7 +1,8 @@
 import { useEffect, useRef, Suspense, type ComponentType } from "react";
 import { Routes, Route, useLocation, useNavigationType } from "react-router-dom";
-import { AnimatePresence, motion, type Variants } from "framer-motion";
+import { AnimatePresence, m, type Variants } from "framer-motion";
 import { lazyWithRetry } from "@/lib/lazyWithRetry";
+import Index from "@/pages/Index";
 
 // Każda strona jest ładowana leniwie, ale zapamiętujemy loadery,
 // żeby po starcie aplikacji pobrać wszystkie chunki w tle.
@@ -15,7 +16,6 @@ const page = <T extends ComponentType<unknown>>(
   return lazyWithRetry(load);
 };
 
-const Index = page(() => import("@/pages/Index"));
 const ParametersPage = page(() => import("@/pages/ParametersPage"));
 const WeightPage = page(() => import("@/pages/WeightPage"));
 const ConePage = page(() => import("@/pages/ConePage"));
@@ -188,7 +188,7 @@ const AnimatedRoutes = () => {
         custom={pageCustom}
         onExitComplete={() => window.scrollTo(0, 0)}
       >
-        <motion.div
+        <m.div
           key={currentPath}
           custom={pageCustom}
           variants={pageVariants}
@@ -247,7 +247,7 @@ const AnimatedRoutes = () => {
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
-        </motion.div>
+        </m.div>
       </AnimatePresence>
     </div>
   );

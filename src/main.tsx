@@ -23,8 +23,11 @@ if ('serviceWorker' in navigator && !isInIframe && !isPreviewHost) {
     navigator.serviceWorker.register(swPath).then((reg) => {
       console.log('SW registered');
       reg.waiting?.postMessage({ type: 'SKIP_WAITING' });
-      // Check for updates every 60 seconds
-      setInterval(() => reg.update(), 60 * 1000);
+      // Sprawdzaj aktualizacje po powrocie do aplikacji i co 10 minut (zamiast co minutę)
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') reg.update().catch(() => undefined);
+      });
+      setInterval(() => reg.update().catch(() => undefined), 10 * 60 * 1000);
 
       reg.addEventListener('updatefound', () => {
         const newWorker = reg.installing;
