@@ -1,6 +1,6 @@
 import { useEffect, useRef, Suspense, type ComponentType } from "react";
 import { Routes, Route, useLocation, useNavigationType } from "react-router-dom";
-import { AnimatePresence, m, type Variants } from "framer-motion";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { lazyWithRetry } from "@/lib/lazyWithRetry";
 import Index from "@/pages/Index";
 
@@ -53,18 +53,33 @@ const PrivacyPage = page(() => import("@/pages/PrivacyPage"));
 const NotFound = page(() => import("@/pages/NotFound"));
 
 let preloadStarted = false;
+let lastNavigationAt = 0;
+
+// Wywoływane przy każdej zmianie ekranu: ładowanie stron w tle robi wtedy przerwę,
+// żeby nie zabierać czasu procesora animacji przejścia.
+const markNavigation = () => {
+  lastNavigationAt = performance.now();
+};
 
 const preloadAllPages = () => {
   if (preloadStarted) return;
   preloadStarted = true;
 
   const queue = [...preloaders];
-  const idle =
-    (window as Window & {
-      requestIdleCallback?: (cb: () => void) => number;
-    }).requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 200));
+  const idle = (cb: () => void) => {
+    const ric = (window as Window & {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+    }).requestIdleCallback;
+    if (ric) ric(cb, { timeout: 2000 });
+    else window.setTimeout(cb, 350);
+  };
 
   const next = () => {
+    // przerwa w czasie przejścia i krótko po nim
+    if (performance.now() - lastNavigationAt < 1200) {
+      window.setTimeout(() => idle(next), 400);
+      return;
+    }
     const load = queue.shift();
     if (!load) return;
     load()
@@ -72,7 +87,8 @@ const preloadAllPages = () => {
       .finally(() => idle(next));
   };
 
-  idle(next);
+  // start dopiero po pierwszych sekundach, gdy ekran jest już gotowy do użycia
+  window.setTimeout(() => idle(next), 1500);
 };
 
 // Głębokość ekranu: 0 = menu główne, 1 = moduł lub podmenu, 2 = podstrona gwintów
@@ -180,6 +196,10 @@ const AnimatedRoutes = () => {
     preloadAllPages();
   }, []);
 
+  useEffect(() => {
+    markNavigation();
+  }, [currentPath]);
+
   return (
     <div className="relative min-h-screen w-full overflow-x-hidden bg-background touch-pan-y">
       <AnimatePresence
@@ -188,7 +208,7 @@ const AnimatedRoutes = () => {
         custom={pageCustom}
         onExitComplete={() => window.scrollTo(0, 0)}
       >
-        <m.div
+        <motion.div
           key={currentPath}
           custom={pageCustom}
           variants={pageVariants}
@@ -247,7 +267,7 @@ const AnimatedRoutes = () => {
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
-        </m.div>
+        </motion.div>
       </AnimatePresence>
     </div>
   );

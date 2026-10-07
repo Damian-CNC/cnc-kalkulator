@@ -103,7 +103,7 @@
     "v285": [
       "Avvio più rapido dalla schermata Home: la pagina e i file dell'app si caricano subito dalla memoria del telefono mentre gli aggiornamenti si scaricano in background (la nuova versione appare al lancio successivo)",
       "Il font non blocca più la prima schermata, il menu principale fa parte del pacchetto principale e le finestre di cronologia e segnalazioni si caricano solo all'apertura",
-      "Animazioni più leggere e caricamento delle traduzioni più rapido"
+      "Il precaricamento delle pagine in background si ferma durante le transizioni tra schermate e le traduzioni si caricano più rapidamente"
     ]
   },
   "pwa": {

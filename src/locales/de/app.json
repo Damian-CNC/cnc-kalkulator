@@ -103,7 +103,7 @@
     "v285": [
       "Schnellerer Start vom Homescreen: Seite und App-Dateien laden sofort aus dem Speicher des Telefons, Updates werden im Hintergrund geladen (die neue Version erscheint beim nächsten Start)",
       "Die Schriftart blockiert den ersten Bildschirm nicht mehr, das Hauptmenü gehört zum Hauptpaket, und die Fenster für Änderungsverlauf und Feedback laden erst beim Öffnen",
-      "Leichtere Animationen und schnelleres Laden der Übersetzungen"
+      "Das Vorladen der Seiten im Hintergrund pausiert während der Bildschirmübergänge, und die Übersetzungen laden schneller"
     ]
   },
   "pwa": {
