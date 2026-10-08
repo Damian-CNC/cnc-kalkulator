@@ -278,5 +278,29 @@
     "hint": "Ergebnis oben antippen zum Einfügen · gedrückt halten zum Kopieren",
     "error": "Fehler",
     "sign": "Vorzeichen wechseln"
+  },
+  "pg": {
+    "menu": "Stahlpanzerrohr-Gewinde Pg (DIN 40430)",
+    "title": "Stahlpanzerrohr-Gewinde Pg (DIN 40430)",
+    "size": "Pg-Größe (Gänge/Zoll)",
+    "basicInfo": "Steigung P = {{p}} ({{tpi}} Gänge/Zoll) · 80°-Profil",
+    "metric": "Metrischer Ersatz: {{m}}",
+    "bolt": "Schraube",
+    "nut": "Mutter",
+    "major": "Außendurchmesser (d)",
+    "pitch": "Flankendurchmesser (d2)",
+    "minor": "Kerndurchmesser (d1)",
+    "majorNut": "Außendurchmesser (D)",
+    "pitchNut": "Flankendurchmesser (D2)",
+    "minorNut": "Kerndurchmesser (D1)",
+    "depthBolt": "Gewindetiefe (Schraube)",
+    "depthNut": "Gewindetiefe (Mutter)",
+    "depthNote": "radial",
+    "radius": "Grundradius (R)",
+    "drill": "Bohrdurchmesser",
+    "drillNote": "D1 gerundet",
+    "hole": "Einbauloch im Gehäuse",
+    "holeNote": "Durchmesser d, Toleranz +0,2 / 0",
+    "footer": "Nennmaße nach DIN 40430 (ohne Toleranzen). Das Pg-Gewinde wurde 2000 zurückgezogen und durch das metrische 1,5-mm-Gewinde ersetzt. Pg 29–48 zeigen Nennwerte ohne metrische Entsprechungen."
   }
 }

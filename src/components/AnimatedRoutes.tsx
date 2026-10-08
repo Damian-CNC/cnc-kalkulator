@@ -30,6 +30,7 @@ const AcmeThreadPage = page(() => import("@/pages/AcmeThreadPage"));
 const RdThreadPage = page(() => import("@/pages/RdThreadPage"));
 const BsptThreadPage = page(() => import("@/pages/BsptThreadPage"));
 const ButtressThreadPage = page(() => import("@/pages/ButtressThreadPage"));
+const PgThreadPage = page(() => import("@/pages/PgThreadPage"));
 const TrapezoidalThreadPage = page(() => import("@/pages/TrapezoidalThreadPage"));
 const NptThreadPage = page(() => import("@/pages/NptThreadCalculator"));
 const TolerancesPage = page(() => import("@/pages/TolerancesPage"));
@@ -238,6 +239,7 @@ const AnimatedRoutes = () => {
               <Route path="/threads/rd" element={<RdThreadPage />} />
               <Route path="/threads/bspt" element={<BsptThreadPage />} />
               <Route path="/threads/buttress" element={<ButtressThreadPage />} />
+              <Route path="/threads/pg" element={<PgThreadPage />} />
               <Route path="/threads/trapezoidal" element={<TrapezoidalThreadPage />} />
               <Route path="/threads/npt" element={<NptThreadPage />} />
               <Route path="/tolerancje" element={<TolerancesPage />} />
