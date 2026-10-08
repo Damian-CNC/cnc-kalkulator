@@ -55,8 +55,8 @@ const NotFound = page(() => import("@/pages/NotFound"));
 let preloadStarted = false;
 let lastNavigationAt = 0;
 
-// Wywoływane przy każdej zmianie ekranu: ładowanie stron w tle robi wtedy przerwę,
-// żeby nie zabierać czasu procesora animacji przejścia.
+// Wywoływane przy każdej zmianie ekranu: ładowanie w tle robi bardzo krótką przerwę
+// na czas samej animacji, ale nie jest przez nią głodzone.
 const markNavigation = () => {
   lastNavigationAt = performance.now();
 };
@@ -70,14 +70,14 @@ const preloadAllPages = () => {
     const ric = (window as Window & {
       requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
     }).requestIdleCallback;
-    if (ric) ric(cb, { timeout: 2000 });
-    else window.setTimeout(cb, 350);
+    if (ric) ric(cb, { timeout: 1000 });
+    else window.setTimeout(cb, 150);
   };
 
   const next = () => {
-    // przerwa w czasie przejścia i krótko po nim
-    if (performance.now() - lastNavigationAt < 1200) {
-      window.setTimeout(() => idle(next), 400);
+    // tylko na czas animacji przejścia (ok. 0,3 s)
+    if (performance.now() - lastNavigationAt < 400) {
+      window.setTimeout(() => idle(next), 150);
       return;
     }
     const load = queue.shift();
@@ -87,8 +87,8 @@ const preloadAllPages = () => {
       .finally(() => idle(next));
   };
 
-  // start dopiero po pierwszych sekundach, gdy ekran jest już gotowy do użycia
-  window.setTimeout(() => idle(next), 1500);
+  // start od razu po pierwszym wyrenderowaniu, żeby strony były gotowe zanim klikniesz
+  idle(next);
 };
 
 // Głębokość ekranu: 0 = menu główne, 1 = moduł lub podmenu, 2 = podstrona gwintów
