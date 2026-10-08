@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Historia zmian",
-    "version": "v2.8.7",
+    "version": "v2.9.0",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Ustawienia",
     "feedback": "Zgłoś błąd / Sugestia",
@@ -110,6 +110,10 @@
     ],
     "v287": [
       "Gwinty Acme: dodany wariant Stub Acme (ASME B1.8, klasa 2G, wysokość zarysu 0,3·P) z przełącznikiem nad rozmiarem"
+    ],
+    "v290": [
+      "Nowe kalkulatory (wersja testowa): Frez kulisty (średnica efektywna, obroty, wysokość grzebienia), Trwałość narzędzia (wzór Taylora), I J K dla G2/G3 (z promienia lub ze środka), Korekcja temperaturowa (detal i przyrząd) oraz Baza materiałów (oznaczenia EN, odpowiedniki USA, gęstość i rozszerzalność)",
+      "Wszystkie nowe kalkulatory reagują na przełącznik mm/cale"
     ]
   },
   "pwa": {

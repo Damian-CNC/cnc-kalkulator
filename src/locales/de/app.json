@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Änderungsverlauf",
-    "version": "v2.8.7",
+    "version": "v2.9.0",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Einstellungen",
     "feedback": "Fehler / Vorschlag melden",
@@ -110,6 +110,10 @@
     ],
     "v287": [
       "Acme-Gewinde: Variante Stub Acme (ASME B1.8, Klasse 2G, Gewindehöhe 0,3·P) mit Umschalter über der Größe"
+    ],
+    "v290": [
+      "Neue Rechner (Testversion): Kugelfräser (wirksamer Durchmesser, Drehzahl, Kammhöhe), Standzeit (Taylor-Gleichung), I J K für G2/G3 (aus Radius oder Mittelpunkt), Temperaturkorrektur (Werkstück und Messmittel) und eine Werkstoffdatenbank (EN-Bezeichnungen, US-Entsprechungen, Dichte und Ausdehnung)",
+      "Alle neuen Rechner folgen der mm/Zoll-Umschaltung"
     ]
   },
   "pwa": {
