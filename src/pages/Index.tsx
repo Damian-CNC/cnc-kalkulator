@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Settings, Scale, Gem, Ruler, Waves, Target, Triangle, Calculator } from 'lucide-react';
+import { Settings, Scale, Gem, Ruler, Waves, Target, Triangle, Calculator, CircleDot, Timer, RotateCw, Thermometer, Database } from 'lucide-react';
 import type { ComponentType } from 'react';
 import {
   MillChamferIcon,
@@ -26,14 +26,14 @@ import useHaptics from '@/hooks/useHaptics';
 type Tile = {
   id: string;
   labelKey: string;
-  icon: ComponentType<{ className?: string; strokeWidth?: number | string }>;
+  icon: ComponentType<{ className?: string; strokeWidth?: number }>;
   route: string;
   isNew?: boolean;
 };
 
 // Ikony lucide rysowane są na siatce 24 px (własne na 64 px), więc ta sama
 // grubość linii na ekranie wymaga tu znacznie mniejszego strokeWidth.
-const LUCIDE_ICONS: unknown[] = [Settings, Waves, Ruler, Target, Scale, Gem, Triangle, Calculator];
+const LUCIDE_ICONS: unknown[] = [Settings, Waves, Ruler, Target, Scale, Gem, Triangle, Calculator, CircleDot, Timer, RotateCw, Thermometer, Database];
 
 const sections: { titleKey: string; tiles: Tile[] }[] = [
   {
@@ -47,6 +47,8 @@ const sections: { titleKey: string; tiles: Tile[] }[] = [
     titleKey: 'sections.machining',
     tiles: [
       { id: 'roughness', labelKey: 'tiles.roughness', icon: Waves, route: '/chropowatosc' },
+      { id: 'ballMill', labelKey: 'tools:ball.tile', icon: CircleDot, route: '/frez-kulisty', isNew: true },
+      { id: 'toolLife', labelKey: 'tools:life.tile', icon: Timer, route: '/trwalosc-narzedzia', isNew: true },
     ],
   },
   {
@@ -68,6 +70,7 @@ const sections: { titleKey: string; tiles: Tile[] }[] = [
       { id: 'linearHoles', labelKey: 'tiles.linearHoles', icon: AngledHolesIcon, route: '/otwory-liniowe' },
       { id: 'truePosition', labelKey: 'tiles.truePosition', icon: Target, route: '/true-position' },
       { id: 'trig', labelKey: 'tools:trig.tile', icon: Triangle, route: '/trygonometria', isNew: true },
+      { id: 'arcIjk', labelKey: 'tools:ijk.tile', icon: RotateCw, route: '/ijk-g2-g3', isNew: true },
     ],
   },
   {
@@ -85,6 +88,8 @@ const sections: { titleKey: string; tiles: Tile[] }[] = [
     tiles: [
       { id: 'weight', labelKey: 'tiles.weight', icon: Scale, route: '/waga' },
       { id: 'hardness', labelKey: 'tiles.hardness', icon: Gem, route: '/twardosc' },
+      { id: 'materialsDb', labelKey: 'tools:mat.tile', icon: Database, route: '/baza-materialow', isNew: true },
+      { id: 'thermal', labelKey: 'tools:thermal.tile', icon: Thermometer, route: '/korekcja-temperaturowa', isNew: true },
     ],
   },
 ];
