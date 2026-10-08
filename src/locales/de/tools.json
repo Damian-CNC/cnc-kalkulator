@@ -169,7 +169,7 @@
     "footer": "Maße nach ASME B1.1, mit den Formeln der Norm berechnet und mit Tabelle 2 geprüft (z. B. 1/4-20 UNC, 1/2-13, 1-8, 1/4-28, 1/4-32). Bei Zeichnungsvorgaben die Normtabelle prüfen."
   },
   "acme": {
-    "menu": "Acme-Gewinde (Zoll-Trapez)",
+    "menu": "Acme- und Stub-Acme-Gewinde",
     "title": "Acme-Gewinde (ASME B1.5)",
     "size": "Größe (Gänge/Zoll)",
     "custom": "Eigene",
@@ -202,7 +202,12 @@
     "drill": "Bohrdurchmesser (Mitte D1)",
     "drillNote": "Bohrer innerhalb der D1-Toleranz",
     "tolerance": "Toleranz",
-    "footer": "Acme-Gewinde für allgemeine Zwecke, 29°, Klassen 2G/3G/4G nach ASME B1.5, Einschraublänge bis 2D. Formeln aus der Norm; das Ergebnis für 1/2-10 2G stimmt mit ihrem Beispiel überein. Bei Zeichnungsvorgaben Tabelle 10 der Norm prüfen."
+    "footer": "Acme-Gewinde für allgemeine Zwecke, 29°, Klassen 2G/3G/4G nach ASME B1.5, Einschraublänge bis 2D. Formeln aus der Norm; das Ergebnis für 1/2-10 2G stimmt mit ihrem Beispiel überein. Bei Zeichnungsvorgaben Tabelle 10 der Norm prüfen.",
+    "formAcme": "Acme (voller Profil)",
+    "formStub": "Stub Acme (0,3·P)",
+    "titleStub": "Stub-Acme-Gewinde (ASME B1.8)",
+    "stubMajorNote": "Nenndurchmesser, in diesem Rechner ohne Toleranz",
+    "footerStub": "Stub Acme 29°, Gewindehöhe 0,3·P, Klasse 2G nach ASME B1.8, Einschraublänge bis 2D. Ergebnisse stimmen mit der Normtabelle überein (Flanken- und Kerndurchmesser, Größen 1/4–1 3/8 in); bei zwei kleinen Größen weicht der Kerndurchmesser um 0,0001 in ab. Toleranzen des Außendurchmessers werden nicht berechnet. Bei Zeichnungsvorgaben die Norm prüfen."
   },
   "rd": {
     "menu": "Rundgewinde Rd (DIN 405)",

@@ -169,7 +169,7 @@
     "footer": "Wymiary wg ASME B1.1, obliczone wzorami normy i sprawdzone z tabelą 2 (np. 1/4-20 UNC, 1/2-13, 1-8, 1/4-28, 1/4-32). Przy wymaganiach rysunkowych sprawdź tabelę normy."
   },
   "acme": {
-    "menu": "Gwinty Acme (calowe trapezowe)",
+    "menu": "Gwinty Acme i Stub Acme",
     "title": "Gwinty Acme (ASME B1.5)",
     "size": "Rozmiar (zwoje/cal)",
     "custom": "Własny",
@@ -202,7 +202,12 @@
     "drill": "Średnica wiercenia (środek D1)",
     "drillNote": "wiertło w zakresie tolerancji D1",
     "tolerance": "Tolerancja",
-    "footer": "Gwint Acme ogólnego przeznaczenia 29°, klasy 2G/3G/4G wg ASME B1.5, długość zazębienia do 2D. Wzory z normy, wynik 1/2-10 2G zgodny z jej przykładem. Przy wymaganiach rysunkowych sprawdź tabelę 10 normy."
+    "footer": "Gwint Acme ogólnego przeznaczenia 29°, klasy 2G/3G/4G wg ASME B1.5, długość zazębienia do 2D. Wzory z normy, wynik 1/2-10 2G zgodny z jej przykładem. Przy wymaganiach rysunkowych sprawdź tabelę 10 normy.",
+    "formAcme": "Acme (pełny zarys)",
+    "formStub": "Stub Acme (0,3·P)",
+    "titleStub": "Gwinty Stub Acme (ASME B1.8)",
+    "stubMajorNote": "średnica podstawowa, bez tolerancji w tym kalkulatorze",
+    "footerStub": "Stub Acme 29°, wysokość zarysu 0,3·P, klasa 2G wg ASME B1.8, długość zazębienia do 2D. Wyniki zgadzają się z tabelą normy (średnica podziałowa i rdzenia, rozmiary 1/4–1 3/8″), w dwóch małych rozmiarach średnica rdzenia różni się o 0,0001″. Tolerancje średnicy zewnętrznej nie są liczone. Przy wymaganiach rysunkowych sprawdź normę."
   },
   "rd": {
     "menu": "Gwinty okrągłe Rd (DIN 405)",

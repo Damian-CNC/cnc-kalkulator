@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Historia zmian",
-    "version": "v2.8.6",
+    "version": "v2.8.7",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Ustawienia",
     "feedback": "Zgłoś błąd / Sugestia",
@@ -107,6 +107,9 @@
     ],
     "v286": [
       "Nowy gwint pancerny Pg (DIN 40430) z głębokością nacinania, średnicą wiercenia i zastępczym gwintem metrycznym"
+    ],
+    "v287": [
+      "Gwinty Acme: dodany wariant Stub Acme (ASME B1.8, klasa 2G, wysokość zarysu 0,3·P) z przełącznikiem nad rozmiarem"
     ]
   },
   "pwa": {
