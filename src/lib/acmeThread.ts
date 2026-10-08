@@ -6,6 +6,7 @@
  */
 
 export type AcmeClass = '2G' | '3G' | '4G';
+export type AcmeForm = 'acme' | 'stub';
 export const ACME_CLASSES: AcmeClass[] = ['2G', '3G', '4G'];
 export const MM = 25.4;
 
@@ -43,6 +44,12 @@ const K_PITCH: Record<AcmeClass, [number, number]> = {
 };
 
 const r4 = (v: number) => Math.round(v * 10000 + 1e-7) / 10000;
+const r4e = (v: number) => {
+  const x = v * 10000;
+  const f = Math.floor(x + 1e-9);
+  if (Math.abs(x - f - 0.5) < 1e-7) return (f % 2 === 0 ? f : f + 1) / 10000;
+  return Math.round(x) / 10000;
+};
 const r4d = (v: number) => Math.round(v * 10000 - 1e-7) / 10000; // połówki w dół (jak 0,05P w tabeli 4)
 
 export type Lim = { max: number; min: number; tol: number };
@@ -79,6 +86,7 @@ export type AcmeResult = {
     rootFlat: number;
   };
   inRange: boolean;
+  form: AcmeForm;
 };
 
 export const calcAcme = (
@@ -86,10 +94,14 @@ export const calcAcme = (
   n: number,
   cls: AcmeClass,
   starts = 1,
+  form: AcmeForm = 'acme',
 ): AcmeResult | null => {
   if (!(D > 0) || !(n > 0)) return null;
   const P = 1 / n;
-  const h = P / 2;
+  const stub = form === 'stub';
+  // Stub Acme (ASME B1.8): ten sam zarys 29°, ale wysokość zarysu 0,3·P zamiast 0,5·P
+  const h = (stub ? 0.3 : 0.5) * P;
+  const flatK = stub ? 0.4224 : 0.3707;
   const inRange = D >= 0.25 - 1e-9 && D <= 5 + 1e-9;
 
   // średnica nominalna do tabel tolerancji
@@ -101,18 +113,19 @@ export const calcAcme = (
   const es = r4(K_ALLOW[cls] * Math.sqrt(range[1]));
 
   const c = n < 12 ? 0.02 : 0.01; // luz na średnicy zewn. i rdzenia
-  const tLM = P * 0.05 < 0.005 ? 0.005 : r4d(P * 0.05); // tolerancja średnicy zewn./rdzenia nakrętki
+  // tolerancja średnicy zewn./rdzenia: Acme min. 0,005 in; Stub Acme 0,05·P bez minimum
+  const tLM = stub ? r4d(P * 0.05) : P * 0.05 < 0.005 ? 0.005 : r4d(P * 0.05);
 
   const D2 = D - h;
-  const D1 = D - P;
+  const D1 = D - 2 * h;
 
   // śruba
   const boltMajor = mk(D, tLM);
-  const boltPitch = mk(r4(D2) - es, td2);
-  const boltMinor = mk(D1 - c, 1.5 * td2);
+  const boltPitch = mk(r4e(D2) - es, td2);
+  const boltMinor = mk(D1 - c, (stub ? 1 : 1.5) * td2);
   // nakrętka
   const nutMajorLim: Lim = { min: r4(D + c), max: r4(D + c + tLM), tol: r4(tLM) };
-  const nutPitch: Lim = { min: r4(D2), max: r4(r4(D2) + td2), tol: r4(td2) };
+  const nutPitch: Lim = { min: r4e(D2), max: r4(r4e(D2) + td2), tol: r4(td2) };
   const nutMinor: Lim = { min: r4(D1), max: r4(D1 + tLM), tol: r4(tLM) };
 
   const lead = starts * P;
@@ -125,7 +138,7 @@ export const calcAcme = (
     starts,
     lead,
     leadAngle,
-    designation: `${D.toFixed(3)}-${n}-ACME-${cls}`,
+    designation: `${D.toFixed(3)}-${n}-${stub ? 'STUB-ACME' : 'ACME'}-${cls}`,
     h: r4(h),
     depth: r4d(h + c / 2),
     clearance: c,
@@ -135,16 +148,17 @@ export const calcAcme = (
       major: boltMajor,
       pitch: boltPitch,
       minor: boltMinor,
-      crestFlat: r4(0.3707 * P - 0.259 * es),
-      rootFlat: r4(0.3707 * P - 0.259 * (c - es)),
+      crestFlat: r4(flatK * P - 0.259 * es),
+      rootFlat: r4(flatK * P - 0.259 * (c - es)),
     },
     nut: {
       major: nutMajorLim,
       pitch: nutPitch,
       minor: nutMinor,
-      crestFlat: r4(0.3707 * P),
-      rootFlat: r4(0.3707 * P - 0.259 * c),
+      crestFlat: r4(flatK * P),
+      rootFlat: r4(flatK * P - 0.259 * c),
     },
     inRange,
+    form,
   };
 };

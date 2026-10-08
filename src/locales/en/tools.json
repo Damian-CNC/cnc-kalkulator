@@ -169,7 +169,7 @@
     "footer": "Dimensions per ASME B1.1, calculated with the standard's formulas and checked against Table 2 (e.g. 1/4-20 UNC, 1/2-13, 1-8, 1/4-28, 1/4-32). Check the standard's table if the drawing requires it."
   },
   "acme": {
-    "menu": "Acme threads (inch trapezoidal)",
+    "menu": "Acme and Stub Acme threads",
     "title": "Acme threads (ASME B1.5)",
     "size": "Size (threads/inch)",
     "custom": "Custom",
@@ -202,7 +202,12 @@
     "drill": "Drill diameter (mid D1)",
     "drillNote": "drill within the D1 tolerance",
     "tolerance": "Tolerance",
-    "footer": "General purpose 29° Acme thread, classes 2G/3G/4G per ASME B1.5, length of engagement up to 2D. Formulas from the standard; the 1/2-10 2G result matches its example. Check Table 10 of the standard if the drawing requires it."
+    "footer": "General purpose 29° Acme thread, classes 2G/3G/4G per ASME B1.5, length of engagement up to 2D. Formulas from the standard; the 1/2-10 2G result matches its example. Check Table 10 of the standard if the drawing requires it.",
+    "formAcme": "Acme (full form)",
+    "formStub": "Stub Acme (0.3·P)",
+    "titleStub": "Stub Acme threads (ASME B1.8)",
+    "stubMajorNote": "basic diameter, no tolerance in this calculator",
+    "footerStub": "Stub Acme 29°, thread height 0.3·P, class 2G per ASME B1.8, length of engagement up to 2D. Results match the standard's table (pitch and minor diameters, sizes 1/4–1 3/8 in); in two small sizes the minor diameter differs by 0.0001 in. Major diameter tolerances are not calculated. Check the standard if the drawing requires it."
   },
   "rd": {
     "menu": "Round threads Rd (DIN 405)",

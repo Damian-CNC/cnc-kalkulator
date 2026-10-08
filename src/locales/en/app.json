@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Changelog",
-    "version": "v2.8.6",
+    "version": "v2.8.7",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Settings",
     "feedback": "Report bug / Suggestion",
@@ -107,6 +107,9 @@
     ],
     "v286": [
       "New Pg steel conduit thread (DIN 40430) with thread depth, drill diameter and the metric replacement"
+    ],
+    "v287": [
+      "Acme threads: added the Stub Acme variant (ASME B1.8, class 2G, thread height 0.3·P) with a switch above the size"
     ]
   },
   "pwa": {

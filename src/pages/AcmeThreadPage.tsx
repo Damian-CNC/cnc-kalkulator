@@ -16,6 +16,7 @@ import {
   MM,
   calcAcme,
   type AcmeClass,
+  type AcmeForm,
   type Lim,
 } from '@/lib/acmeThread';
 
@@ -23,12 +24,13 @@ type Range = Lim;
 
 type State = {
   size: string; // id z serii albo 'custom'
+  form: AcmeForm;
   cls: AcmeClass;
   starts: string;
   customD: string;
   customN: string;
 };
-const INITIAL: State = { size: '1/2', cls: '2G', starts: '1', customD: '', customN: '' };
+const INITIAL: State = { size: '1/2', form: 'acme', cls: '2G', starts: '1', customD: '', customN: '' };
 
 
 const AcmeThreadPage = () => {
@@ -42,16 +44,34 @@ const AcmeThreadPage = () => {
   const customDv = parseDecimal(s.customD);
   const D = isCustom ? (customDv === null ? null : L.isImperial ? customDv : customDv / 25.4) : std?.D ?? null;
   const n = isCustom ? parseDecimal(s.customN) : std?.n ?? null;
+  const form: AcmeForm = s.form === 'stub' ? 'stub' : 'acme';
+  const stub = form === 'stub';
   const starts = Math.min(6, Math.max(1, Math.round(parseDecimal(s.starts) ?? 1)));
 
   const res = useMemo(
-    () => (D !== null && n !== null ? calcAcme(D, n, s.cls, starts) : null),
-    [D, n, s.cls, starts],
+    () => (D !== null && n !== null ? calcAcme(D, n, stub ? '2G' : s.cls, starts, form) : null),
+    [D, n, s.cls, starts, form, stub],
   );
 
   return (
-    <PageLayout title={t('acme.title')} backRoute="/gwinty">
+    <PageLayout title={t(stub ? 'acme.titleStub' : 'acme.title')} backRoute="/gwinty">
       <div className="space-y-5">
+        <div className="grid grid-cols-2 gap-2">
+          {(['acme', 'stub'] as const).map((f) => (
+            <button
+              key={f}
+              type="button"
+              onClick={() => setS((p) => ({ ...p, form: f }))}
+              className={`py-3 rounded-xl font-bold text-sm transition-all border ${
+                form === f
+                  ? 'bg-cyan-600 border-cyan-500 text-white'
+                  : 'bg-zinc-900 border-zinc-800 text-zinc-400 hover:border-zinc-700'
+              }`}
+            >
+              {t(f === 'acme' ? 'acme.formAcme' : 'acme.formStub')}
+            </button>
+          ))}
+        </div>
         <div className="grid grid-cols-2 gap-3">
           <SelectField
             label={t('acme.size')}
@@ -88,8 +108,8 @@ const AcmeThreadPage = () => {
 
         <ClassPicker
           title={t('acme.class')}
-          options={ACME_CLASSES}
-          value={s.cls}
+          options={stub ? (['2G'] as const) : ACME_CLASSES}
+          value={stub ? '2G' : s.cls}
           onChange={(v) => setS((p) => ({ ...p, cls: v as AcmeClass }))}
         />
 
@@ -97,7 +117,7 @@ const AcmeThreadPage = () => {
           <>
             <div className="text-center">
               <span className="inline-block px-4 py-1.5 rounded-full bg-emerald-500/15 text-emerald-400 font-bold text-lg tracking-wide border border-emerald-500/30">
-                {res.D.toFixed(3)}-{res.n}-ACME-{s.cls}
+                {res.designation}
               </span>
               <p className="text-zinc-500 text-xs mt-2">
                 {t('acme.basicInfo', { p: L.fmt(res.P), lead: L.fmt(res.lead), angle: res.leadAngle.toFixed(2) })}
@@ -128,7 +148,11 @@ const AcmeThreadPage = () => {
 
               <TabsContent value="external">
                 <div className="space-y-3 mt-3">
-                  <LimitCard label={t('acme.major')} lim={res.bolt.major} tolLabel={t('acme.tolerance')} />
+                  {res.form === 'stub' ? (
+                    <ValueCard label={t('acme.major')} inches={res.D} prefix="max" note={t('acme.stubMajorNote')} />
+                  ) : (
+                    <LimitCard label={t('acme.major')} lim={res.bolt.major} tolLabel={t('acme.tolerance')} />
+                  )}
                   <LimitCard label={t('acme.pitch')} lim={res.bolt.pitch} tolLabel={t('acme.tolerance')} />
                   <LimitCard label={t('acme.minor')} lim={res.bolt.minor} tolLabel={t('acme.tolerance')} />
                   <CamCard label={t('acme.depthBolt')} inches={res.depth} note={`${t('acme.depthNote')} · ${t('acme.depthFrom')}`} />
@@ -147,7 +171,9 @@ const AcmeThreadPage = () => {
 
               <TabsContent value="internal">
                 <div className="space-y-3 mt-3">
-                  <LimitCard label={t('acme.majorNut')} lim={res.nut.major} tolLabel={t('acme.tolerance')} />
+                  {res.form !== 'stub' && (
+                    <LimitCard label={t('acme.majorNut')} lim={res.nut.major} tolLabel={t('acme.tolerance')} />
+                  )}
                   <LimitCard label={t('acme.pitchNut')} lim={res.nut.pitch} tolLabel={t('acme.tolerance')} />
                   <LimitCard label={t('acme.minorNut')} lim={res.nut.minor} tolLabel={t('acme.tolerance')} />
                   <CamCard label={t('acme.depthNut')} inches={res.depth} note={`${t('acme.depthNote')} · ${t('acme.depthFromNut')}`} />
@@ -166,7 +192,7 @@ const AcmeThreadPage = () => {
                   />
                 </div>
               </TabsContent>
-              <p className="text-zinc-600 text-xs text-center mt-4 leading-relaxed">{t('acme.footer')}</p>
+              <p className="text-zinc-600 text-xs text-center mt-4 leading-relaxed">{res.form === 'stub' ? t('acme.footerStub') : t('acme.footer')}</p>
             </Tabs>
           </>
         )}

@@ -169,7 +169,7 @@
     "footer": "Dimensioni secondo ASME B1.1, calcolate con le formule della norma e verificate con la tabella 2 (es. 1/4-20 UNC, 1/2-13, 1-8, 1/4-28, 1/4-32). Se il disegno lo richiede, controlla la tabella della norma."
   },
   "acme": {
-    "menu": "Filetti Acme (trapezoidali in pollici)",
+    "menu": "Filetti Acme e Stub Acme",
     "title": "Filetti Acme (ASME B1.5)",
     "size": "Misura (filetti/pollice)",
     "custom": "Personalizzata",
@@ -202,7 +202,12 @@
     "drill": "Diametro punta (centro D1)",
     "drillNote": "punta entro la tolleranza D1",
     "tolerance": "Tolleranza",
-    "footer": "Filetto Acme per uso generale 29°, classi 2G/3G/4G secondo ASME B1.5, lunghezza di impegno fino a 2D. Formule della norma; il risultato per 1/2-10 2G coincide con il suo esempio. Se il disegno lo richiede, controlla la tabella 10 della norma."
+    "footer": "Filetto Acme per uso generale 29°, classi 2G/3G/4G secondo ASME B1.5, lunghezza di impegno fino a 2D. Formule della norma; il risultato per 1/2-10 2G coincide con il suo esempio. Se il disegno lo richiede, controlla la tabella 10 della norma.",
+    "formAcme": "Acme (profilo pieno)",
+    "formStub": "Stub Acme (0,3·P)",
+    "titleStub": "Filetti Stub Acme (ASME B1.8)",
+    "stubMajorNote": "diametro nominale, senza tolleranza in questo calcolatore",
+    "footerStub": "Stub Acme 29°, altezza del filetto 0,3·P, classe 2G secondo ASME B1.8, lunghezza di impegno fino a 2D. I risultati coincidono con la tabella della norma (diametri medio e di nocciolo, misure 1/4–1 3/8 in); in due piccole misure il diametro di nocciolo differisce di 0,0001 in. Le tolleranze del diametro esterno non sono calcolate. Se il disegno lo richiede, verifica la norma."
   },
   "rd": {
     "menu": "Filetti tondi Rd (DIN 405)",
