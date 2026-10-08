@@ -278,5 +278,29 @@
     "hint": "Dotknij wyniku u góry, by wstawić · przytrzymaj, by skopiować",
     "error": "Błąd",
     "sign": "Zmień znak"
+  },
+  "pg": {
+    "menu": "Gwinty pancerne Pg (DIN 40430)",
+    "title": "Gwint pancerny Pg (DIN 40430)",
+    "size": "Rozmiar Pg (zwoje/cal)",
+    "basicInfo": "Skok P = {{p}} ({{tpi}} zwojów/cal) · zarys 80°",
+    "metric": "Zastępczy gwint metryczny: {{m}}",
+    "bolt": "Śruba",
+    "nut": "Nakrętka",
+    "major": "Średnica zewnętrzna (d)",
+    "pitch": "Średnica podziałowa (d2)",
+    "minor": "Średnica rdzenia (d1)",
+    "majorNut": "Średnica zewnętrzna (D)",
+    "pitchNut": "Średnica podziałowa (D2)",
+    "minorNut": "Średnica rdzenia (D1)",
+    "depthBolt": "Głębokość nacinania (śruba)",
+    "depthNut": "Głębokość nacinania (nakrętka)",
+    "depthNote": "na promień",
+    "radius": "Promień zaokrąglenia (R)",
+    "drill": "Średnica wiercenia",
+    "drillNote": "zaokrąglona D1",
+    "hole": "Otwór montażowy w obudowie",
+    "holeNote": "średnica d, tolerancja +0,2 / 0",
+    "footer": "Wymiary podstawowe wg DIN 40430 (bez tolerancji). Gwint Pg został wycofany w 2000 r. i zastąpiony gwintem metrycznym 1,5 mm. Rozmiary Pg 29–48 mają wartości podstawowe, bez podanych odpowiedników metrycznych."
   }
 }

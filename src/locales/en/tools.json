@@ -278,5 +278,29 @@
     "hint": "Tap a result above to insert it · hold to copy",
     "error": "Error",
     "sign": "Change sign"
+  },
+  "pg": {
+    "menu": "Steel conduit threads Pg (DIN 40430)",
+    "title": "Steel conduit thread Pg (DIN 40430)",
+    "size": "Pg size (threads/inch)",
+    "basicInfo": "Pitch P = {{p}} ({{tpi}} threads/inch) · 80° form",
+    "metric": "Metric replacement: {{m}}",
+    "bolt": "Bolt",
+    "nut": "Nut",
+    "major": "Major diameter (d)",
+    "pitch": "Pitch diameter (d2)",
+    "minor": "Minor diameter (d1)",
+    "majorNut": "Major diameter (D)",
+    "pitchNut": "Pitch diameter (D2)",
+    "minorNut": "Minor diameter (D1)",
+    "depthBolt": "Thread depth (bolt)",
+    "depthNut": "Thread depth (nut)",
+    "depthNote": "radial",
+    "radius": "Root radius (R)",
+    "drill": "Drill diameter",
+    "drillNote": "D1 rounded",
+    "hole": "Mounting hole in the enclosure",
+    "holeNote": "diameter d, tolerance +0.2 / 0",
+    "footer": "Basic dimensions per DIN 40430 (no tolerances). The Pg thread was withdrawn in 2000 and replaced by the 1.5 mm metric thread. Sizes Pg 29–48 show basic values with no metric equivalents listed."
   }
 }

@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Cronologia modifiche",
-    "version": "v2.8.5",
+    "version": "v2.8.6",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Impostazioni",
     "feedback": "Segnala bug / Suggerimento",
@@ -104,6 +104,9 @@
       "Avvio più rapido dalla schermata Home: la pagina e i file dell'app si caricano subito dalla memoria del telefono mentre gli aggiornamenti si scaricano in background (la nuova versione appare al lancio successivo)",
       "Il font non blocca più la prima schermata",
       "Il precaricamento delle pagine in background si ferma durante le transizioni tra schermate"
+    ],
+    "v286": [
+      "Nuovo filetto per tubi corazzati Pg (DIN 40430) con profondità, diametro della punta e sostituto metrico"
     ]
   },
   "pwa": {

@@ -278,5 +278,29 @@
     "hint": "Tocca un risultato in alto per inserirlo · tieni premuto per copiare",
     "error": "Errore",
     "sign": "Cambia segno"
+  },
+  "pg": {
+    "menu": "Filetti per tubi corazzati Pg (DIN 40430)",
+    "title": "Filetto per tubi corazzati Pg (DIN 40430)",
+    "size": "Misura Pg (filetti/pollice)",
+    "basicInfo": "Passo P = {{p}} ({{tpi}} filetti/pollice) · profilo 80°",
+    "metric": "Sostituto metrico: {{m}}",
+    "bolt": "Vite",
+    "nut": "Dado",
+    "major": "Diametro esterno (d)",
+    "pitch": "Diametro medio (d2)",
+    "minor": "Diametro di nocciolo (d1)",
+    "majorNut": "Diametro esterno (D)",
+    "pitchNut": "Diametro medio (D2)",
+    "minorNut": "Diametro di nocciolo (D1)",
+    "depthBolt": "Profondità filetto (vite)",
+    "depthNut": "Profondità filetto (dado)",
+    "depthNote": "radiale",
+    "radius": "Raggio di fondo (R)",
+    "drill": "Diametro punta",
+    "drillNote": "D1 arrotondato",
+    "hole": "Foro di montaggio nell'involucro",
+    "holeNote": "diametro d, tolleranza +0,2 / 0",
+    "footer": "Dimensioni nominali secondo DIN 40430 (senza tolleranze). Il filetto Pg è stato ritirato nel 2000 e sostituito dal filetto metrico da 1,5 mm. Le misure Pg 29–48 mostrano i valori nominali senza equivalenti metrici."
   }
 }
