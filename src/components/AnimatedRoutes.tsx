@@ -50,9 +50,6 @@ const MillChamferPage = page(() => import("@/pages/MillChamferPage"));
 const TrigPage = page(() => import("@/pages/TrigPage"));
 const BoltHolesPage = page(() => import("@/pages/BoltHolesPage"));
 const CalculatorPage = page(() => import("@/pages/CalculatorPage"));
-const BallMillPage = page(() => import("@/pages/BallMillPage"));
-const ToolLifePage = page(() => import("@/pages/ToolLifePage"));
-const ArcIjkPage = page(() => import("@/pages/ArcIjkPage"));
 const ThermalPage = page(() => import("@/pages/ThermalPage"));
 const MaterialsPage = page(() => import("@/pages/MaterialsPage"));
 const PrivacyPage = page(() => import("@/pages/PrivacyPage"));
@@ -270,9 +267,6 @@ const AnimatedRoutes = () => {
               <Route path="/trygonometria" element={<TrigPage />} />
               <Route path="/otwory-pod-sruby" element={<BoltHolesPage />} />
               <Route path="/kalkulator" element={<CalculatorPage />} />
-              <Route path="/frez-kulisty" element={<BallMillPage />} />
-              <Route path="/trwalosc-narzedzia" element={<ToolLifePage />} />
-              <Route path="/ijk-g2-g3" element={<ArcIjkPage />} />
               <Route path="/korekcja-temperaturowa" element={<ThermalPage />} />
               <Route path="/baza-materialow" element={<MaterialsPage />} />
               <Route path="/privacy" element={<PrivacyPage />} />
