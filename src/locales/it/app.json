@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Cronologia modifiche",
-    "version": "v2.9.0",
+    "version": "v2.9.1",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Impostazioni",
     "feedback": "Segnala bug / Suggerimento",
@@ -112,8 +112,12 @@
       "Filetti Acme: aggiunta la variante Stub Acme (ASME B1.8, classe 2G, altezza 0,3·P) con selettore sopra la misura"
     ],
     "v290": [
-      "Nuovi calcolatori (versione di prova): Fresa sferica (diametro effettivo, giri, altezza di cresta), Durata utensile (equazione di Taylor), I J K per G2/G3 (da raggio o centro), Correzione di temperatura (pezzo e strumento) e un Database materiali (designazioni EN, equivalenti USA, densità e dilatazione)",
-      "Tutti i nuovi calcolatori seguono il selettore mm/pollici"
+      "Nuovi calcolatori: Database materiali (designazioni EN, equivalenti USA, densità e dilatazione) e Correzione di temperatura (pezzo e strumento)",
+      "I nuovi calcolatori seguono il selettore mm/pollici"
+    ],
+    "v291": [
+      "Database materiali molto ampliato: designazioni polacche PN (es. NC11LV, WCL, WCLV, SW7M, 2H13, 4H13, 38HMJ, ŁH15, PA4, PA6, PA9), nomi commerciali (K110, Fortal, Anticorodal), acciai per utensili, inox, alluminio, ottoni e più plastiche",
+      "La ricerca trova un materiale per nome, numero, designazione PN, equivalente USA e nome commerciale"
     ]
   },
   "pwa": {

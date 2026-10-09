@@ -31,24 +31,27 @@ const ThermalPage = () => {
 
   const mat = findMaterial(s.mat);
   const gMat = findMaterial(s.gaugeMat);
+  const alphaOf = (m?: { alpha: number | null }) => (m && m.alpha !== null ? m.alpha : null);
+  const matAlpha = alphaOf(mat);
+  const gAlpha = alphaOf(gMat);
   const size = parseDecimal(s.size);
   const temp = toC(parseDecimal(s.temp));
   const nominal = parseDecimal(s.nominal);
   const partT = toC(parseDecimal(s.partTemp));
   const gaugeT = toC(parseDecimal(s.gaugeTemp));
 
-  const matOptions = MATERIALS.map((m) => ({
+  const matOptions = MATERIALS.filter((m) => m.alpha !== null).map((m) => ({
     value: m.id,
-    label: `${m.name} · α ${m.alpha}`,
+    label: `${m.name}${m.pn ? ` (${m.pn})` : ''} · α ${m.alpha}`,
   }));
 
-  const at20 = mat && size && temp !== null ? sizeAt20(size, temp, mat.alpha) : null;
+  const at20 = matAlpha !== null && size && temp !== null ? sizeAt20(size, temp, matAlpha) : null;
   const dev = at20 !== null && size ? size - at20 : null;
-  const read = mat && nominal && temp !== null ? readingAt(nominal, temp, mat.alpha) : null;
+  const read = matAlpha !== null && nominal && temp !== null ? readingAt(nominal, temp, matAlpha) : null;
 
   const gaugeRead =
-    mat && gMat && nominal && partT !== null && gaugeT !== null
-      ? readingWithGauge(nominal, mat.alpha, partT, gMat.alpha, gaugeT)
+    matAlpha !== null && gAlpha !== null && nominal && partT !== null && gaugeT !== null
+      ? readingWithGauge(nominal, matAlpha, partT, gAlpha, gaugeT)
       : null;
 
   return (
@@ -74,9 +77,9 @@ const ThermalPage = () => {
         <div className="glass-module">
           <SectionTitle>{t('thermal.partTitle')}</SectionTitle>
           <SelectField label={t('thermal.material')} value={s.mat} onChange={set('mat')} options={matOptions} />
-          {mat && (
+          {matAlpha !== null && (
             <p className="text-xs text-zinc-500 mt-2">
-              α = {mat.alpha} µm/(m·K) · {t('thermal.approx')}
+              α = {matAlpha} µm/(m·K) · {t('thermal.approx')}
             </p>
           )}
         </div>

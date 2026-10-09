@@ -14,12 +14,21 @@ const MaterialsPage = () => {
   const [s, setS, reset] = usePersistedState<State>('materials-db', { q: '', group: 'all' });
 
   const list = useMemo(() => {
-    const q = s.q.trim().toLowerCase().replace(/\s+/g, '');
-    return MATERIALS.filter((m) => {
+    const norm = (x: string) => x.toLowerCase().replace(/[\s\-/]+/g, '');
+    const q = norm(s.q.trim());
+    const rows = MATERIALS.filter((m) => {
       if (s.group !== 'all' && m.group !== s.group) return false;
       if (!q) return true;
-      return `${m.name} ${m.en} ${m.us}`.toLowerCase().replace(/\s+/g, '').includes(q);
+      return norm(`${m.name} ${m.en} ${m.pn} ${m.us} ${m.alt}`).includes(q);
     });
+    if (!q) return rows;
+    // trafienia dokładne w oznaczeniu PN lub numerze najpierw (np. „PA4” przed „PA45”)
+    const rank = (m: (typeof rows)[number]) => {
+      const pn = norm(m.pn.replace(/\(.*\)/, ''));
+      const nums = m.en.split('/').map(norm);
+      return pn === q || nums.includes(q) || norm(m.name) === q ? 0 : 1;
+    };
+    return [...rows].sort((a, b) => rank(a) - rank(b));
   }, [s.q, s.group]);
 
   return (
@@ -30,7 +39,7 @@ const MaterialsPage = () => {
           value={s.q}
           onChange={(e) => setS((p) => ({ ...p, q: e.target.value }))}
           numeric={false}
-          placeholder="1.0503, 1045, 304, 7075…"
+          placeholder="NC11LV, 2H13, PA4, 1.2379, 1045, 304…"
         />
 
         <div className="flex flex-wrap gap-2">
@@ -67,22 +76,35 @@ const MaterialsPage = () => {
                   <p className="text-zinc-300">{m.en}</p>
                 </div>
                 <div>
+                  <p className="text-xs text-zinc-500">{t('mat.pn')}</p>
+                  <p className="text-zinc-300">{m.pn || '—'}</p>
+                </div>
+                <div>
                   <p className="text-xs text-zinc-500">{t('mat.us')}</p>
                   <p className="text-zinc-300">{m.us}</p>
                 </div>
                 <div>
                   <p className="text-xs text-zinc-500">{t('mat.rho')} [g/cm³]</p>
-                  <CopyableValue value={String(m.rho)}>
-                    <span className="text-emerald-400 font-semibold">{m.rho}</span>
-                  </CopyableValue>
+                  {m.rho === null ? (
+                    <span className="text-zinc-600">—</span>
+                  ) : (
+                    <CopyableValue value={String(m.rho)}>
+                      <span className="text-emerald-400 font-semibold">{m.rho}</span>
+                    </CopyableValue>
+                  )}
                 </div>
                 <div>
                   <p className="text-xs text-zinc-500">{t('mat.alpha')} [µm/(m·K)]</p>
-                  <CopyableValue value={String(m.alpha)}>
-                    <span className="text-emerald-400 font-semibold">{m.alpha}</span>
-                  </CopyableValue>
+                  {m.alpha === null ? (
+                    <span className="text-zinc-600">—</span>
+                  ) : (
+                    <CopyableValue value={String(m.alpha)}>
+                      <span className="text-emerald-400 font-semibold">{m.alpha}</span>
+                    </CopyableValue>
+                  )}
                 </div>
               </div>
+              {m.alt && <p className="mt-2 text-xs text-zinc-500">{m.alt}</p>}
             </div>
           ))}
           {list.length === 0 && <p className="text-sm text-zinc-500 text-center py-6">{t('mat.empty')}</p>}
