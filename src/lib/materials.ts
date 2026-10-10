@@ -5,12 +5,17 @@
  * „≈” = odpowiednik zbliżony, „—” = brak lub nieznany, null = brak pewnej wartości.
  */
 
-export type MatGroup = 'P' | 'M' | 'K' | 'N' | 'S' | 'X';
-export const MAT_GROUPS: MatGroup[] = ['P', 'M', 'K', 'N', 'S', 'X'];
+export type MatGroup = 'P' | 'M' | 'K' | 'N' | 'S' | 'H' | 'O';
+export const MAT_GROUPS: MatGroup[] = ['P', 'M', 'K', 'N', 'S', 'H', 'O'];
+
+import { CATALOG_COLUMNS, CATALOG_RAW, type CatalogColumn } from '@/lib/materialsCatalog';
 
 export type Material = {
   id: string;
   group: MatGroup;
+  groups: MatGroup[]; // wszystkie grupy ISO, w których występuje materiał
+  cmc: string[]; // kody grup CMC (katalog), np. P.2.2
+  eq: Partial<Record<CatalogColumn, string>>; // odpowiedniki wg innych norm
   name: string;
   en: string; // numer materiałowy / oznaczenie EN
   pn: string; // polskie oznaczenie (PN), jeśli istnieje
@@ -23,9 +28,9 @@ export type Material = {
 const M = (
   group: MatGroup, id: string, name: string, en: string, us: string,
   rho: number | null, alpha: number | null, pn = '', alt = '',
-): Material => ({ id, group, name, en, pn, us, alt, rho, alpha });
+): Material => ({ id, group, groups: [group], cmc: [], eq: {}, name, en, pn, us, alt, rho, alpha });
 
-export const MATERIALS: Material[] = [
+const CURATED: Material[] = [
   // ===== P — stale konstrukcyjne i do ulepszania =====
   M('P', 'c15', 'C15 (C15E)', '1.0401 / 1.1141', 'AISI 1015', 7.85, 11.7, '15'),
   M('P', 'c22', 'C22 (C22E)', '1.0402 / 1.1151', 'AISI 1020', 7.85, 11.7, '20 (≈)'),
@@ -101,9 +106,9 @@ export const MATERIALS: Material[] = [
   M('M', 'duplex', 'X2CrNiMoN22-5-3', '1.4462', 'UNS S32205 (duplex 2205)', 7.8, 13.0),
 
   // ===== K — żeliwa =====
-  M('K', 'gjl250', 'EN-GJL-250 (GG25)', 'EN-JL1040', '≈ ASTM A48 class 35', 7.2, 10.5, 'Zl250', 'szare'),
-  M('K', 'gjs400', 'EN-GJS-400-15 (GGG40)', 'EN-JS1030', '≈ ASTM A536 60-40-18', 7.1, 12.0, 'Zs400-15', 'sferoidalne'),
-  M('K', 'gjs500', 'EN-GJS-500-7 (GGG50)', 'EN-JS1050', '≈ ASTM A536 80-55-06', 7.1, 12.0, 'Zs500-7', 'sferoidalne'),
+  M('K', 'gjl250', 'EN-GJL-250 (GG25)', 'EN-JL1040 / 0.6025', '≈ ASTM A48 class 35', 7.2, 10.5, 'Zl250', 'szare'),
+  M('K', 'gjs400', 'EN-GJS-400-15 (GGG40)', 'EN-JS1030 / 0.7040', '≈ ASTM A536 60-40-18', 7.1, 12.0, 'Zs400-15', 'sferoidalne'),
+  M('K', 'gjs500', 'EN-GJS-500-7 (GGG50)', 'EN-JS1050 / 0.7050', '≈ ASTM A536 80-55-06', 7.1, 12.0, 'Zs500-7', 'sferoidalne'),
 
   // ===== N — metale nieżelazne =====
   M('N', 'al1050', 'EN AW-1050A (Al99,5)', '3.0255', 'AA 1050', 2.71, 23.6, 'A1'),
@@ -118,12 +123,12 @@ export const MATERIALS: Material[] = [
   M('N', 'al6082', 'EN AW-6082 (AlSi1MgMn)', '3.2315', 'AA 6082', 2.71, 23.1, 'PA4', 'Anticorodal'),
   M('N', 'al7020', 'EN AW-7020 (AlZn4,5Mg1)', '3.4335', 'AA 7020', 2.78, 23.1, 'PA47'),
   M('N', 'al7075', 'EN AW-7075 (AlZn5,5MgCu)', '3.4365', 'AA 7075', 2.81, 23.5, 'PA9', 'Fortal'),
-  M('N', 'cu', 'Cu-ETP', 'CW004A', 'UNS C11000', 8.9, 16.9, 'M1E (≈)'),
-  M('N', 'cw614n', 'CuZn39Pb3 (mosiądz automatowy)', 'CW614N', '≈ UNS C38500 / C36000', 8.5, 20.5, 'MM59 (≈)'),
-  M('N', 'cw612n', 'CuZn39Pb2 (mosiądz)', 'CW612N', '—', 8.45, 20.5, 'MO58 (≈)'),
-  M('N', 'cw508l', 'CuZn37 (mosiądz)', 'CW508L', '≈ UNS C27400', 8.4, 20.2, 'M63 (≈)'),
-  M('N', 'cusn8', 'CuSn8 (brąz cynowy)', 'CW453K', '≈ UNS C52100', 8.8, 18.5),
-  M('N', 'cuan', 'CuAl10Ni5Fe4 (brąz aluminiowy)', 'CW307G', '≈ UNS C63000', 7.6, 16.2),
+  M('N', 'cu', 'Cu-ETP', 'CW004A / 2.0065', 'UNS C11000', 8.9, 16.9, 'M1E (≈)'),
+  M('N', 'cw614n', 'CuZn39Pb3 (mosiądz automatowy)', 'CW614N / 2.0401', '≈ UNS C38500 / C36000', 8.5, 20.5, 'MM59 (≈)'),
+  M('N', 'cw612n', 'CuZn39Pb2 (mosiądz)', 'CW612N / 2.0380', '—', 8.45, 20.5, 'MO58 (≈)'),
+  M('N', 'cw508l', 'CuZn37 (mosiądz)', 'CW508L / 2.0321', '≈ UNS C27400', 8.4, 20.2, 'M63 (≈)'),
+  M('N', 'cusn8', 'CuSn8 (brąz cynowy)', 'CW453K / 2.1030', '≈ UNS C52100', 8.8, 18.5),
+  M('N', 'cuan', 'CuAl10Ni5Fe4 (brąz aluminiowy)', 'CW307G / 2.0966', '≈ UNS C63000', 7.6, 16.2),
 
   // ===== S — tytan i stopy żaroodporne =====
   M('S', 'ti2', 'Tytan Grade 2', '3.7035', 'ASTM Grade 2', 4.51, 8.6),
@@ -132,18 +137,120 @@ export const MATERIALS: Material[] = [
   M('S', 'in625', 'Inconel 625', '2.4856', 'UNS N06625', 8.44, 12.8),
 
   // ===== X — tworzywa =====
-  M('X', 'pomc', 'POM-C (acetal)', 'POM-C', '—', 1.41, 110),
-  M('X', 'pa6', 'Poliamid PA6', 'PA6', '—', 1.14, 80),
-  M('X', 'peek', 'PEEK', 'PEEK', '—', 1.31, 47),
-  M('X', 'ptfe', 'PTFE (teflon)', 'PTFE', '—', 2.16, 130),
-  M('X', 'hdpe', 'PE-HD', 'PE-HD', '—', 0.95, 200),
-  M('X', 'uhmw', 'PE-UHMW (PE-1000)', 'PE-UHMW', '—', 0.94, 200),
-  M('X', 'pp', 'PP (polipropylen)', 'PP', '—', 0.91, 150),
-  M('X', 'pvc', 'PVC-U', 'PVC-U', '—', 1.4, 70),
-  M('X', 'pet', 'PET', 'PET', '—', 1.38, 60),
-  M('X', 'pmma', 'PMMA (pleksi)', 'PMMA', '—', 1.19, 70),
-  M('X', 'abs', 'ABS', 'ABS', '—', 1.05, 85),
-  M('X', 'pc', 'PC (poliwęglan)', 'PC', '—', 1.2, 65),
+  M('O', 'peek', 'PEEK', 'PEEK', '—', 1.31, 47),
+  M('O', 'uhmw', 'PE-UHMW (PE-1000)', 'PE-UHMW', '—', 0.94, 200),
+  M('O', 'pet', 'PET', 'PET', '—', 1.38, 60),
+  M('O', 'abs', 'ABS', 'ABS', '—', 1.05, 85),
 ];
 
+
+// ===== scalenie z tabelą katalogową =====
+
+const O_INFO: Record<string, { name: string; rho: number | null; alpha: number | null }> = {
+  EP: { name: 'EP (żywica epoksydowa)', rho: null, alpha: null },
+  MF: { name: 'MF (żywica melaminowa)', rho: null, alpha: null },
+  PF: { name: 'PF (żywica fenolowa)', rho: null, alpha: null },
+  UP: { name: 'UP (żywica poliestrowa nienasycona)', rho: null, alpha: null },
+  PA: { name: 'PA (poliamid)', rho: 1.14, alpha: 80 },
+  PC: { name: 'PC (poliwęglan)', rho: 1.2, alpha: 65 },
+  PE: { name: 'PE (polietylen)', rho: 0.95, alpha: 200 },
+  PI: { name: 'PI (poliimid)', rho: null, alpha: null },
+  PMMA: { name: 'PMMA (pleksi)', rho: 1.19, alpha: 70 },
+  POM: { name: 'POM (acetal)', rho: 1.41, alpha: 110 },
+  PP: { name: 'PP (polipropylen)', rho: 0.91, alpha: 150 },
+  PS: { name: 'PS (polistyren)', rho: 1.05, alpha: 70 },
+  PTFE: { name: 'PTFE (teflon)', rho: 2.16, alpha: 130 },
+  PVC: { name: 'PVC (polichlorek winylu)', rho: 1.4, alpha: 70 },
+  AFK: { name: 'AFK (kompozyt z włóknem aramidowym)', rho: null, alpha: null },
+  CFK: { name: 'CFK (kompozyt z włóknem węglowym)', rho: null, alpha: null },
+  GFK: { name: 'GFK (kompozyt z włóknem szklanym)', rho: null, alpha: null },
+  Graphit: { name: 'Grafit', rho: null, alpha: null },
+};
+
+type CatRow = { key: string; nr: string; eq: Partial<Record<CatalogColumn, string>>; cmc: string[] };
+
+const parseCatalog = (): CatRow[] => {
+  const map = new Map<string, CatRow>();
+  let cmc = '';
+  for (const raw of CATALOG_RAW.split('\n')) {
+    const line = raw.trim();
+    if (!line) continue;
+    if (line.startsWith('#')) {
+      cmc = line.slice(1);
+      continue;
+    }
+    const parts = line.split('|').map((x) => x.trim());
+    const nr = parts[0];
+    const row = map.get(nr) ?? { key: nr, nr, eq: {}, cmc: [] };
+    CATALOG_COLUMNS.forEach((col, i) => {
+      const v = parts[i + 1];
+      if (v && !row.eq[col]) row.eq[col] = v;
+    });
+    if (!row.cmc.includes(cmc)) row.cmc.push(cmc);
+    map.set(nr, row);
+  }
+  return [...map.values()];
+};
+
+const letterOf = (c: string) => c[0] as MatGroup;
+const uniqGroups = (list: MatGroup[]) => [...new Set(list)];
+
+const build = (): Material[] => {
+  const rows = parseCatalog();
+  const byNr = new Map(rows.map((r) => [r.nr, r]));
+  const used = new Set<string>();
+
+  // materiały ręcznie opisane: dołączamy odpowiedniki i kody CMC z katalogu
+  const merged = CURATED.map((m) => {
+    const nrs = m.en.match(/\b\d\.\d{4}\b/g) ?? [];
+    const eq: Material['eq'] = { ...m.eq };
+    const cmc = [...m.cmc];
+    for (const nr of nrs) {
+      const r = byNr.get(nr);
+      if (!r) continue;
+      used.add(nr);
+      for (const col of CATALOG_COLUMNS) if (r.eq[col] && !eq[col]) eq[col] = r.eq[col];
+      for (const c of r.cmc) if (!cmc.includes(c)) cmc.push(c);
+    }
+    const out: Material = { ...m, eq, cmc, groups: uniqGroups([m.group, ...cmc.map(letterOf)]) };
+    // numery z katalogu do wyszukiwania
+    return out;
+  });
+
+  // pozostałe wiersze katalogu
+  const extra: Material[] = [];
+  for (const r of rows) {
+    if (used.has(r.nr)) continue;
+    const isNr = /^\d\.\d{4}/.test(r.nr);
+    const o = O_INFO[r.nr];
+    const din = r.eq.din ?? '';
+    const name = o ? o.name : isNr ? din || r.nr : `${r.nr}${din ? ` (${din})` : ''}`;
+    const eq = { ...r.eq };
+    delete eq.din;
+    delete eq.usa;
+    const group = letterOf(r.cmc[0]);
+    extra.push({
+      id: `cat-${r.key}`,
+      group,
+      groups: uniqGroups(r.cmc.map(letterOf)),
+      cmc: r.cmc,
+      eq,
+      name,
+      en: isNr ? r.nr : '',
+      pn: '',
+      us: r.eq.usa ?? '—',
+      alt: o ? r.nr : '',
+      rho: o ? o.rho : null,
+      alpha: o ? o.alpha : null,
+    });
+  }
+  return [...merged, ...extra];
+};
+
+export const MATERIALS: Material[] = build();
+
 export const findMaterial = (id: string) => MATERIALS.find((m) => m.id === id);
+
+/** Tekst do wyszukiwania: nazwa, numery, PN, odpowiedniki, nazwy handlowe i kody CMC. */
+export const searchText = (m: Material): string =>
+  [m.name, m.en, m.pn, m.us, m.alt, m.cmc.join(' '), ...Object.values(m.eq)].join(' ');

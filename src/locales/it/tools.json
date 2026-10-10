@@ -346,8 +346,9 @@
       "M": "Inox",
       "K": "Ghise",
       "N": "Non ferrosi",
-      "S": "Titanio e leghe Ni",
-      "X": "Plastiche"
+      "S": "Titanio e leghe Ni/Co",
+      "H": "Acciai temprati",
+      "O": "Plastiche e compositi"
     },
     "count": "Trovati: {{n}}",
     "en": "EN / numero",
@@ -355,7 +356,11 @@
     "rho": "Densità",
     "alpha": "Dilatazione α",
     "empty": "Nessun risultato per questa ricerca.",
-    "footer": "Densità e α sono indicative e dipendono da fornitore e stato del materiale (— significa nessun valore sicuro). «≈» indica un equivalente simile, non identico. Le designazioni polacche PN sono state verificate su tabelle di acciaieria. Prima dell'ordine controlla certificato e norma.",
-    "pn": "Designazione polacca (PN)"
+    "footer": "Equivalenti delle norme e codici dei gruppi CMC trascritti dal catalogo Ceratizit, quindi sono possibili singoli refusi. Densità e α sono indicative (— significa nessun valore sicuro); «≈» indica un equivalente simile. Le designazioni polacche PN sono state verificate su tabelle di acciaieria. Prima dell'ordine controlla certificato e norma.",
+    "pn": "Designazione polacca (PN)",
+    "eqTitle": "Equivalenti in altre norme",
+    "cmc": "Gruppo CMC",
+    "more": "Mostra altro",
+    "showAll": "Mostra tutti ({{n}})"
   }
 }

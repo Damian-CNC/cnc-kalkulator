@@ -346,8 +346,9 @@
       "M": "Nierdzewne",
       "K": "Żeliwa",
       "N": "Nieżelazne",
-      "S": "Tytan i stopy Ni",
-      "X": "Tworzywa"
+      "S": "Tytan i stopy Ni/Co",
+      "H": "Stale hartowane",
+      "O": "Tworzywa i kompozyty"
     },
     "count": "Znaleziono: {{n}}",
     "en": "EN / numer",
@@ -355,7 +356,11 @@
     "rho": "Gęstość",
     "alpha": "Rozszerzalność α",
     "empty": "Brak wyników dla tego wyszukiwania.",
-    "footer": "Gęstość i α są orientacyjne i zależą od dostawcy i stanu materiału (— oznacza brak pewnej wartości). „≈” oznacza odpowiednik zbliżony, a nie identyczny. Polskie oznaczenia PN potwierdzone w tabelach hutniczych. Przed zamówieniem sprawdź atest i normę.",
-    "pn": "Oznaczenie PN"
+    "footer": "Odpowiedniki norm i kody grup CMC przepisane z katalogu Ceratizit, więc możliwe są pojedyncze literówki. Gęstość i α są orientacyjne (— oznacza brak pewnej wartości), „≈” oznacza odpowiednik zbliżony. Polskie oznaczenia PN potwierdzone w tabelach hutniczych. Przed zamówieniem sprawdź atest i normę.",
+    "pn": "Oznaczenie PN",
+    "eqTitle": "Odpowiedniki w innych normach",
+    "cmc": "Grupa CMC",
+    "more": "Pokaż więcej",
+    "showAll": "Pokaż wszystkie ({{n}})"
   }
 }
