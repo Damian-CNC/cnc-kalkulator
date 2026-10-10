@@ -346,8 +346,9 @@
       "M": "Nichtrostend",
       "K": "Gusseisen",
       "N": "NE-Metalle",
-      "S": "Titan und Ni-Legierungen",
-      "X": "Kunststoffe"
+      "S": "Titan und Ni/Co-Legierungen",
+      "H": "Gehärtete Stähle",
+      "O": "Kunststoffe und Verbundwerkstoffe"
     },
     "count": "Gefunden: {{n}}",
     "en": "EN / Nummer",
@@ -355,7 +356,11 @@
     "rho": "Dichte",
     "alpha": "Ausdehnung α",
     "empty": "Keine Treffer für diese Suche.",
-    "footer": "Dichte und α sind Richtwerte und hängen von Lieferant und Werkstoffzustand ab (— bedeutet: kein sicherer Wert). „≈“ kennzeichnet eine ähnliche, nicht identische Entsprechung. Die polnischen PN-Bezeichnungen wurden anhand von Werkstofftabellen geprüft. Vor der Bestellung Zeugnis und Norm prüfen.",
-    "pn": "Polnische Bezeichnung (PN)"
+    "footer": "Normentsprechungen und CMC-Gruppencodes wurden aus dem Ceratizit-Katalog übernommen, einzelne Tippfehler sind möglich. Dichte und α sind Richtwerte (— bedeutet: kein sicherer Wert); „≈“ kennzeichnet eine ähnliche Entsprechung. Polnische PN-Bezeichnungen wurden anhand von Werkstofftabellen geprüft. Vor der Bestellung Zeugnis und Norm prüfen.",
+    "pn": "Polnische Bezeichnung (PN)",
+    "eqTitle": "Entsprechungen in anderen Normen",
+    "cmc": "CMC-Gruppe",
+    "more": "Mehr anzeigen",
+    "showAll": "Alle anzeigen ({{n}})"
   }
 }

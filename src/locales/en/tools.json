@@ -346,8 +346,9 @@
       "M": "Stainless",
       "K": "Cast irons",
       "N": "Non-ferrous",
-      "S": "Titanium & Ni alloys",
-      "X": "Plastics"
+      "S": "Titanium & Ni/Co alloys",
+      "H": "Hardened steels",
+      "O": "Plastics & composites"
     },
     "count": "Found: {{n}}",
     "en": "EN / number",
@@ -355,7 +356,11 @@
     "rho": "Density",
     "alpha": "Expansion α",
     "empty": "No results for this search.",
-    "footer": "Density and α are approximate and depend on the supplier and material condition (— means no reliable value). \"≈\" marks a close, not identical, equivalent. Polish PN designations were checked against mill tables. Check the certificate and standard before ordering.",
-    "pn": "Polish PN designation"
+    "footer": "Standard equivalents and CMC group codes were transcribed from the Ceratizit catalog, so isolated typos are possible. Density and α are approximate (— means no reliable value); \"≈\" marks a close equivalent. Polish PN designations were checked against mill tables. Check the certificate and standard before ordering.",
+    "pn": "Polish PN designation",
+    "eqTitle": "Equivalents in other standards",
+    "cmc": "CMC group",
+    "more": "Show more",
+    "showAll": "Show all ({{n}})"
   }
 }
