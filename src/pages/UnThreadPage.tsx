@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import PageLayout from '@/components/PageLayout';
 import SelectField from '@/components/SelectField';
 import ClearFab from '@/components/ClearFab';
-import CopyableValue from '@/components/CopyableValue';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import usePersistedState from '@/hooks/usePersistedState';
 import useLength from '@/hooks/useLength';
@@ -17,9 +16,14 @@ import {
   sizesForSeries,
   type ExtClass,
   type IntClass,
-  type Range,
   type UnSeries,
 } from '@/lib/unThread';
+import {
+  DiameterCard,
+  PitchCard,
+  DepthCard,
+  DrillCard,
+} from '@/components/ThreadResultCards';
 
 const SERIES: UnSeries[] = ['UNC', 'UNF', 'UNEF'];
 
@@ -40,6 +44,22 @@ const UnThreadPage = () => {
     () => (size ? calcUn(size, s.series, s.extCls, s.intCls) : null),
     [size, s.series, s.extCls, s.intCls],
   );
+
+  // Compute metric drill for internal tab
+  const metricDrill = useMemo(() => {
+    if (!res) return null;
+    const min = res.int.minor.min;
+    const max = res.int.minor.max;
+    if (max === null) return null;
+    const mid = (min + max) / 2;
+    let metric: number | null = null;
+    for (let d = Math.ceil(min * MM * 10) / 10; d <= max * MM + 1e-9; d += 0.1) {
+      if (metric === null || Math.abs(d - mid * MM) < Math.abs(metric - mid * MM)) {
+        metric = Math.round(d * 10) / 10;
+      }
+    }
+    return metric;
+  }, [res]);
 
   return (
     <PageLayout title={t('un.title')} backRoute="/gwinty">
@@ -105,17 +125,39 @@ const UnThreadPage = () => {
                     value={s.extCls}
                     onChange={(v) => setS((p) => ({ ...p, extCls: v as ExtClass }))}
                   />
-                  <LimitCard label={t('un.major')} lim={res.ext.major} tolLabel={t('un.tolerance')} />
-                  <LimitCard label={t('un.pitch')} lim={res.ext.pitch} tolLabel={t('un.tolerance')} />
-                  <ValueCard
-                    label={t('un.minorRef')}
-                    inches={res.ext.minorRef}
-                    note={t('un.minorRefNote')}
+                  <DiameterCard
+                    label={t('un.major')}
+                    limits={res.ext.major}
+                    unit="in"
+                    digits={4}
+                    tolClass={s.extCls}
                   />
-                  <CamCard
+                  <DiameterCard
+                    label={t('un.pitch')}
+                    limits={res.ext.pitch}
+                    unit="in"
+                    digits={4}
+                    tolClass={s.extCls}
+                  />
+                  <DiameterCard
+                    label={t('un.minorRef')}
+                    limits={{ max: res.ext.minorRef, min: res.ext.minorRef }}
+                    unit="in"
+                    note={t('un.minorRefNote')}
+                    digits={4}
+                  />
+                  <PitchCard
+                    label="Skok gwintu (P)"
+                    pitch={res.P}
+                    unit="in"
+                    digits={4}
+                  />
+                  <DepthCard
                     label={t('un.depthExt')}
-                    inches={res.depthExt}
+                    depth={res.depthExt}
+                    unit="in"
                     note={`${t('un.depthNote')} · ${t('un.depthExtNote')}`}
+                    digits={4}
                   />
                   {res.ext.allowance > 0 && (
                     <p className="text-xs text-zinc-500 text-center">
@@ -133,31 +175,55 @@ const UnThreadPage = () => {
                     value={s.intCls}
                     onChange={(v) => setS((p) => ({ ...p, intCls: v as IntClass }))}
                   />
-                  <LimitCard
-                    label={t('un.minorNut')}
-                    lim={
-                      res.int.minor.max !== null
-                        ? { max: res.int.minor.max, min: res.int.minor.min, tol: res.int.minor.tol ?? 0 }
-                        : null
-                    }
-                    tolLabel={t('un.tolerance')}
-                    fallback={res.int.minor.min}
-                    fallbackNote={t('un.minorNoMax')}
-                    digits={3}
+                  <DiameterCard
+                    label={t('un.majorNut')}
+                    limits={{ max: res.int.majorMin, min: res.int.majorMin }}
+                    unit="in"
+                    note="min wg normy"
+                    digits={4}
                   />
-                  <LimitCard label={t('un.pitchNut')} lim={res.int.pitch} tolLabel={t('un.tolerance')} />
-                  <ValueCard label={t('un.majorNut')} inches={res.int.majorMin} prefix="min" />
-                  <CamCard
+                  <DiameterCard
+                    label={t('un.pitchNut')}
+                    limits={res.int.pitch}
+                    unit="in"
+                    digits={4}
+                    tolClass={s.intCls}
+                  />
+                  <DiameterCard
+                    label={t('un.minorNut')}
+                    limits={{
+                      max: res.int.minor.max ?? res.int.minor.min,
+                      min: res.int.minor.min,
+                      tol: res.int.minor.tol ?? 0,
+                    }}
+                    unit="in"
+                    digits={4}
+                    tolClass={s.intCls}
+                  />
+                  <PitchCard
+                    label="Skok gwintu (P)"
+                    pitch={res.P}
+                    unit="in"
+                    digits={4}
+                  />
+                  <DepthCard
                     label={t('un.depthInt')}
-                    inches={res.depthInt}
+                    depth={res.depthInt}
+                    unit="in"
                     note={t('un.depthNote')}
+                    digits={4}
                   />
                   <DrillCard
                     label={t('un.drill')}
-                    min={res.int.minor.min}
-                    max={res.int.minor.max}
+                    diameter={(res.int.minor.min + (res.int.minor.max ?? res.int.minor.min)) / 2}
+                    unit="in"
                     note={t('un.drillNote')}
+                    metricDrill={metricDrill}
+                    digits={3}
                   />
+                  {res.int.minor.max === null && (
+                    <p className="text-xs text-amber-500/80 text-center">{t('un.minorNoMax')}</p>
+                  )}
                 </div>
               </TabsContent>
 
@@ -201,136 +267,6 @@ function ClassPicker({
           </button>
         ))}
       </div>
-    </div>
-  );
-}
-
-function LimitCard({
-  label,
-  lim,
-  tolLabel,
-  fallback,
-  fallbackNote,
-  digits = 4,
-}: {
-  label: string;
-  lim: Range | null;
-  tolLabel: string;
-  fallback?: number;
-  fallbackNote?: string;
-  digits?: number;
-}) {
-  const L = useLength('in');
-  return (
-    <div className="rounded-xl border border-emerald-800/40 bg-emerald-950/20 p-4">
-      <p className="text-emerald-300 text-sm font-medium mb-2">{label}</p>
-      {lim ? (
-        <>
-          <div className="grid grid-cols-2 gap-3">
-            {(['max', 'min'] as const).map((k) => (
-              <div key={k}>
-                <p className="text-zinc-500 text-xs uppercase tracking-wider">{k}</p>
-                <p className="text-xl md:text-2xl font-bold text-emerald-400">
-                  <CopyableValue value={L.raw(lim[k], digits)}>{L.val(lim[k], digits)}</CopyableValue>
-                  <span className="text-xs text-zinc-500 font-normal ml-1">{L.unit}</span>
-                </p>
-              </div>
-            ))}
-          </div>
-          <p className="text-emerald-700 text-xs mt-2">
-            {tolLabel} {L.fmt(lim.tol, digits)}
-          </p>
-        </>
-      ) : (
-        <div>
-          <p className="text-zinc-500 text-xs uppercase tracking-wider">min</p>
-          <p className="text-xl md:text-2xl font-bold text-emerald-400">
-            {fallback !== undefined ? L.val(fallback, digits) : '—'}
-            <span className="text-xs text-zinc-500 font-normal ml-1">{L.unit}</span>
-          </p>
-          {fallbackNote && <p className="text-amber-500/80 text-xs mt-2">{fallbackNote}</p>}
-        </div>
-      )}
-    </div>
-  );
-}
-
-function ValueCard({
-  label,
-  inches,
-  note,
-  prefix,
-  digits = 4,
-}: {
-  label: string;
-  inches: number;
-  note?: string;
-  prefix?: string;
-  digits?: number;
-}) {
-  const L = useLength('in');
-  return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
-      <p className="text-zinc-400 text-sm font-medium mb-1">{label}</p>
-      <p className="text-xl font-bold text-zinc-100">
-        {prefix ? `${prefix} ` : ''}
-        <CopyableValue value={L.raw(inches, digits)}>{L.val(inches, digits)}</CopyableValue>
-        <span className="text-sm text-zinc-500 font-normal ml-1">{L.unit}</span>
-      </p>
-      {note && <p className="text-zinc-600 text-xs mt-1">{note}</p>}
-    </div>
-  );
-}
-
-function CamCard({ label, inches, note }: { label: string; inches: number; note?: string }) {
-  const L = useLength('in');
-  return (
-    <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4">
-      <p className="text-cyan-300 text-sm font-medium mb-1">{label}</p>
-      <p className="text-2xl md:text-3xl font-bold text-cyan-400">
-        <CopyableValue value={L.raw(inches)}>{L.val(inches)}</CopyableValue>
-        <span className="text-base text-cyan-600 font-normal ml-1">{L.unit}</span>
-      </p>
-      {note && <p className="text-cyan-600 text-xs mt-1.5">({note})</p>}
-    </div>
-  );
-}
-
-function DrillCard({
-  label,
-  min,
-  max,
-  note,
-  digits = 3,
-}: {
-  label: string;
-  min: number;
-  max: number | null;
-  note: string;
-  digits?: number;
-}) {
-  const L = useLength('in');
-  const mid = max !== null ? (min + max) / 2 : min;
-  // najbliższe wiertło metryczne co 0,1 mm mieszczące się w tolerancji D1
-  let metric: number | null = null;
-  if (max !== null) {
-    for (let d = Math.ceil(min * MM * 10) / 10; d <= max * MM + 1e-9; d += 0.1) {
-      if (metric === null || Math.abs(d - mid * MM) < Math.abs(metric - mid * MM)) {
-        metric = Math.round(d * 10) / 10;
-      }
-    }
-  }
-  return (
-    <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4">
-      <p className="text-cyan-300 text-sm font-medium mb-1">{label}</p>
-      <p className="text-2xl md:text-3xl font-bold text-cyan-400">
-        <CopyableValue value={L.raw(mid, digits, 2)}>{L.val(mid, digits, 2)}</CopyableValue>
-        <span className="text-base text-cyan-600 font-normal ml-1">{L.unit}</span>
-      </p>
-      {!L.isImperial && metric !== null && (
-        <p className="text-cyan-500 text-sm">Ø{metric.toFixed(1)} mm</p>
-      )}
-      <p className="text-cyan-600 text-xs mt-1.5">({note})</p>
     </div>
   );
 }

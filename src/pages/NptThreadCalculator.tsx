@@ -4,9 +4,14 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import useQueryState from '@/hooks/useQueryState';
 import usePersistedState from '@/hooks/usePersistedState';
-import CopyableValue from '@/components/CopyableValue';
 import useLength from '@/hooks/useLength';
 import ClearFab from '@/components/ClearFab';
+import {
+  DiameterCard,
+  PitchCard,
+  DepthCard,
+  DrillCard,
+} from '@/components/ThreadResultCards';
 
 interface NptData {
   tpi: number;
@@ -93,20 +98,82 @@ const NptThreadCalculator = () => {
 
               <TabsContent value="external">
                 <div className="space-y-3 mt-3">
-                  <NominalCard label="Średnica zewnętrzna na czole (d)" value={result.od} />
-                  <NominalCard label="Średnica podziałowa na czole (d2)" value={result.pitchDia} />
-                  <NominalCard label="Średnica rdzenia (d3)" value={result.minor} />
-                  <CamCard label="Wysokość profilu gwintu (h3)" value={result.h3} note="h3 = 0.8 × P" />
+                  <DiameterCard
+                    label="Średnica zewnętrzna na czole (d)"
+                    limits={{ max: result.od, min: result.od }}
+                    unit="mm"
+                    digits={3}
+                  />
+                  <DiameterCard
+                    label="Średnica podziałowa na czole (d2)"
+                    limits={{ max: result.pitchDia, min: result.pitchDia }}
+                    unit="mm"
+                    digits={3}
+                  />
+                  <DiameterCard
+                    label="Średnica rdzenia (d3)"
+                    limits={{ max: result.minor, min: result.minor }}
+                    unit="mm"
+                    digits={3}
+                  />
+                  <PitchCard
+                    label="Skok gwintu (P)"
+                    pitch={result.pitch}
+                    unit="mm"
+                    tpi={result.tpi}
+                    digits={4}
+                  />
+                  <DepthCard
+                    label="Wysokość profilu gwintu (h3)"
+                    depth={result.h3}
+                    unit="mm"
+                    digits={3}
+                    note="h3 = 0,8 × P"
+                  />
                 </div>
               </TabsContent>
 
               <TabsContent value="internal">
                 <div className="space-y-3 mt-3">
-                  <NominalCard label="Średnica zewnętrzna na czole (D)" value={result.od} />
-                  <NominalCard label="Średnica podziałowa na czole (D2)" value={result.pitchDia} />
-                  <NominalCard label="Średnica wewnętrzna (D1)" value={result.minor} />
-                  <CamCard label="Wysokość profilu gwintu (h3)" value={result.h3} note="h3 = 0.8 × P" />
-                  <CamCard label="Wiertło pod gwintownik stożkowy" value={result.tapDrill} note="Standardowe zalecenie" />
+                  <DiameterCard
+                    label="Średnica zewnętrzna na czole (D)"
+                    limits={{ max: result.od, min: result.od }}
+                    unit="mm"
+                    digits={3}
+                  />
+                  <DiameterCard
+                    label="Średnica podziałowa na czole (D2)"
+                    limits={{ max: result.pitchDia, min: result.pitchDia }}
+                    unit="mm"
+                    digits={3}
+                  />
+                  <DiameterCard
+                    label="Średnica wewnętrzna (D1)"
+                    limits={{ max: result.minor, min: result.minor }}
+                    unit="mm"
+                    digits={3}
+                  />
+                  <PitchCard
+                    label="Skok gwintu (P)"
+                    pitch={result.pitch}
+                    unit="mm"
+                    tpi={result.tpi}
+                    digits={4}
+                  />
+                  <DepthCard
+                    label="Wysokość profilu gwintu (h3)"
+                    depth={result.h3}
+                    unit="mm"
+                    digits={3}
+                    note="h3 = 0,8 × P"
+                  />
+                  <DrillCard
+                    label="Wiertło pod gwintownik stożkowy"
+                    diameter={result.tapDrill}
+                    unit="mm"
+                    digits={1}
+                    note="Standardowe zalecenie"
+                  />
                 </div>
               </TabsContent>
 
@@ -125,29 +192,5 @@ const NptThreadCalculator = () => {
     </PageLayout>
   );
 };
-
-function NominalCard({ label, value }: { label: string; value: number }) {
-  const L = useLength('mm');
-  return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
-      <p className="text-zinc-400 text-sm font-medium mb-2">{label}</p>
-      <p className="text-2xl md:text-3xl font-bold text-zinc-100">
-        <CopyableValue value={L.disp(value)}>{L.disp(value)}</CopyableValue> <span className="text-base text-zinc-500 font-normal">{L.unit}</span>
-      </p>
-      <p className="text-zinc-600 text-xs mt-1">Wymiar nominalny na płaszczyźnie bazowej</p>
-    </div>
-  );
-}
-
-function CamCard({ label, value, note }: { label: string; value: number; note?: string }) {
-  const L = useLength('mm');
-  return (
-    <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4">
-      <p className="text-cyan-300 text-sm font-medium mb-1">{label}</p>
-      <p className="text-2xl md:text-3xl font-bold text-cyan-400"><CopyableValue value={L.disp(value)}>{L.disp(value)} {L.unit}</CopyableValue></p>
-      {note && <p className="text-cyan-600 text-xs mt-1.5">({note})</p>}
-    </div>
-  );
-}
 
 export default NptThreadCalculator;

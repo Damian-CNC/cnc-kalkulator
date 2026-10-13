@@ -4,44 +4,22 @@ import PageLayout from '@/components/PageLayout';
 import SelectField from '@/components/SelectField';
 import InputField from '@/components/InputField';
 import ClearFab from '@/components/ClearFab';
-import CopyableValue from '@/components/CopyableValue';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import usePersistedState from '@/hooks/usePersistedState';
 import useQueryState from '@/hooks/useQueryState';
 import useLength from '@/hooks/useLength';
 import { parseDecimal } from '@/lib/numericInput';
 import { BUTTRESS_SIZES, calcButtress } from '@/lib/buttressThread';
+import {
+  DiameterCard,
+  PitchCard,
+  DepthCard,
+  DrillCard,
+  AuxCard,
+} from '@/components/ThreadResultCards';
 
 type State = { size: string; customD: string; customP: string };
 const INITIAL: State = { size: '40x7', customD: '', customP: '' };
-
-const Card = ({
-  label,
-  mm,
-  note,
-  accent,
-}: {
-  label: string;
-  mm: number;
-  note?: string;
-  accent?: boolean;
-}) => {
-  const L = useLength('mm');
-  return (
-    <div
-      className={`rounded-xl border p-4 ${
-        accent ? 'border-cyan-800/40 bg-cyan-950/20' : 'border-emerald-800/40 bg-emerald-950/20'
-      }`}
-    >
-      <p className={`text-sm font-medium mb-1 ${accent ? 'text-cyan-300' : 'text-emerald-300'}`}>{label}</p>
-      <p className={`text-2xl md:text-3xl font-bold ${accent ? 'text-cyan-400' : 'text-emerald-400'}`}>
-        <CopyableValue value={L.raw(mm)}>{L.val(mm)}</CopyableValue>
-        <span className="text-sm text-zinc-500 font-normal ml-1">{L.unit}</span>
-      </p>
-      {note && <p className={`text-xs mt-1.5 ${accent ? 'text-cyan-600' : 'text-emerald-700'}`}>({note})</p>}
-    </div>
-  );
-};
 
 const ButtressThreadPage = () => {
   const { t } = useTranslation('tools');
@@ -112,20 +90,92 @@ const ButtressThreadPage = () => {
 
               <TabsContent value="external">
                 <div className="space-y-3 mt-3">
-                  <Card label={t('buttress.major')} mm={res.d} />
-                  <Card label={t('buttress.pitch')} mm={res.d2} />
-                  <Card label={t('buttress.minor')} mm={res.d3} />
-                  <Card label={t('buttress.depthBolt')} mm={res.h3} accent note={`${t('buttress.depthNote')} · ${t('buttress.depthFrom')}`} />
-                  <Card label={t('buttress.radius')} mm={res.R} />
+                  <DiameterCard
+                    label={t('buttress.major')}
+                    limits={{ max: res.d, min: res.d }}
+                    unit="mm"
+                    digits={3}
+                  />
+                  <DiameterCard
+                    label={t('buttress.pitch')}
+                    limits={{ max: res.d2, min: res.d2 }}
+                    unit="mm"
+                    digits={3}
+                  />
+                  <DiameterCard
+                    label={t('buttress.minor')}
+                    limits={{ max: res.d3, min: res.d3 }}
+                    unit="mm"
+                    digits={3}
+                  />
+                  {P !== null && (
+                    <PitchCard
+                      label="Skok gwintu (P)"
+                      pitch={P}
+                      unit="mm"
+                      digits={3}
+                    />
+                  )}
+                  <DepthCard
+                    label={t('buttress.depthBolt')}
+                    depth={res.h3}
+                    unit="mm"
+                    digits={3}
+                    note={`${t('buttress.depthNote')} · ${t('buttress.depthFrom')}`}
+                  />
+                  <AuxCard
+                    label={t('buttress.radius')}
+                    value={res.R}
+                    unit="mm"
+                    digits={3}
+                  />
                 </div>
               </TabsContent>
 
               <TabsContent value="internal">
                 <div className="space-y-3 mt-3">
-                  <Card label={t('buttress.majorNut')} mm={res.d} note={t('buttress.majorNutNote')} />
-                  <Card label={t('buttress.pitchNut')} mm={res.d2} />
-                  <Card label={t('buttress.minorNut')} mm={res.D1} accent note={t('buttress.drillNote')} />
-                  <Card label={t('buttress.depthNut')} mm={res.H1} accent note={`${t('buttress.depthNote')} · ${t('buttress.depthFromNut')}`} />
+                  <DiameterCard
+                    label={t('buttress.majorNut')}
+                    limits={{ max: res.d, min: res.d }}
+                    unit="mm"
+                    digits={3}
+                    note={t('buttress.majorNutNote')}
+                  />
+                  <DiameterCard
+                    label={t('buttress.pitchNut')}
+                    limits={{ max: res.d2, min: res.d2 }}
+                    unit="mm"
+                    digits={3}
+                  />
+                  <DiameterCard
+                    label={t('buttress.minorNut')}
+                    limits={{ max: res.D1, min: res.D1 }}
+                    unit="mm"
+                    digits={3}
+                    note={t('buttress.drillNote')}
+                  />
+                  {P !== null && (
+                    <PitchCard
+                      label="Skok gwintu (P)"
+                      pitch={P}
+                      unit="mm"
+                      digits={3}
+                    />
+                  )}
+                  <DepthCard
+                    label={t('buttress.depthNut')}
+                    depth={res.H1}
+                    unit="mm"
+                    digits={3}
+                    note={`${t('buttress.depthNote')} · ${t('buttress.depthFromNut')}`}
+                  />
+                  <DrillCard
+                    label="Średnica wiercenia pod nakrętkę"
+                    diameter={res.D1}
+                    unit="mm"
+                    note="Równa średnicy wewnętrznej D1"
+                    digits={3}
+                  />
                 </div>
               </TabsContent>
               <p className="text-zinc-600 text-xs text-center mt-4 leading-relaxed">{t('buttress.footer')}</p>

@@ -4,7 +4,6 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
 import useQueryState from '@/hooks/useQueryState';
 import usePersistedState from '@/hooks/usePersistedState';
-import CopyableValue from '@/components/CopyableValue';
 import ClearFab from '@/components/ClearFab';
 import useLength from '@/hooks/useLength';
 import {
@@ -13,9 +12,9 @@ import {
   boltLimits,
   nutLimits,
   type BoltClass,
-  type Limits,
   type NutClass,
 } from '@/lib/trapTolerance';
+import { DiameterCard, PitchCard, DepthCard, DrillCard, AuxCard } from '@/components/ThreadResultCards';
 
 const round = (v: number, n = 3) => Number.isFinite(v) ? Number(v.toFixed(n)) : null;
 
@@ -141,10 +140,43 @@ const TrapezoidalThreadPage = () => {
 
             <TabsContent value="external">
               <div className="space-y-3 mt-3">
-                <NominalCard label="Średnica zewnętrzna (d)" value={nominal.d} />
-                <NominalCard label="Średnica podziałowa (d2)" value={nominal.d2} />
-                <NominalCard label="Średnica rdzenia (d3)" value={nominal.d3} />
-                <CamCard label="Wysokość profilu gwintu (h3)" value={nominal.h3} note="Głębokość nacinania" />
+                <DiameterCard
+                  label="Średnica zewnętrzna (d)"
+                  limits={bolt ? bolt.d : null}
+                  unit="mm"
+                  nominal={nominal.d as number}
+                  tolClass={bolt ? boltCls : undefined}
+                  digits={3}
+                />
+                <DiameterCard
+                  label="Średnica podziałowa (d2)"
+                  limits={bolt ? bolt.d2 : null}
+                  unit="mm"
+                  nominal={nominal.d2 as number}
+                  tolClass={bolt ? boltCls : undefined}
+                  digits={3}
+                />
+                <DiameterCard
+                  label="Średnica rdzenia (d3)"
+                  limits={bolt ? bolt.d3 : null}
+                  unit="mm"
+                  nominal={nominal.d3 as number}
+                  tolClass={bolt ? boltCls : undefined}
+                  digits={3}
+                />
+                <PitchCard
+                  label="Skok gwintu (P)"
+                  pitch={parsedP!}
+                  unit="mm"
+                  digits={3}
+                />
+                <DepthCard
+                  label="Głębokość nacinania (h3)"
+                  depth={nominal.h3 as number}
+                  unit="mm"
+                  note="h3 = P/2 + ac"
+                  digits={3}
+                />
 
                 <ClassPicker
                   title="Klasa tolerancji śruby"
@@ -152,28 +184,73 @@ const TrapezoidalThreadPage = () => {
                   value={boltCls}
                   onChange={(v) => setBoltCls(v as BoltClass)}
                 />
-                {bolt ? (
-                  <div className="space-y-3">
-                    <p className="text-center text-sm font-semibold text-emerald-400">
-                      Tr {parsedD} × {parsedP} – {bolt.cls}
-                    </p>
-                    <LimitCard label="Średnica zewnętrzna (d)" lim={bolt.d} />
-                    <LimitCard label="Średnica podziałowa (d2)" lim={bolt.d2} />
-                    <LimitCard label="Średnica rdzenia (d3)" lim={bolt.d3} />
-                  </div>
-                ) : (
-                  <ToleranceUnavailable />
+
+                {!bolt && (
+                  <p className="text-xs text-zinc-500 text-center py-3 leading-relaxed">
+                    Tolerancje ISO 2903 dotyczą średnic 5,6–355 mm i znormalizowanych skoków
+                    (1,5; 2; 3; 4; 5; 6; 7; 8; 9; 10; 12; 14; 16; 18; 20; 22; 24; 28; 32; 36; 40; 44 mm).
+                  </p>
+                )}
+
+                {bolt && (
+                  <p className="text-center text-sm font-semibold text-emerald-400">
+                    Tr {parsedD} × {parsedP} – {bolt.cls}
+                  </p>
                 )}
               </div>
             </TabsContent>
 
             <TabsContent value="internal">
               <div className="space-y-3 mt-3">
-                <NominalCard label="Średnica wewnętrzna (D1)" value={nominal.D1} />
-                <NominalCard label="Średnica podziałowa (D2)" value={nominal.d2} />
-                <NominalCard label="Średnica zewn. w bruzdach (D4)" value={nominal.D4} />
-                <CamCard label="Wysokość profilu gwintu (H4)" value={nominal.h3} note="Głębokość nacinania" />
-                <CamCard label="Średnica wiercenia" value={nominal.D1} note="Równa D1" />
+                <DiameterCard
+                  label="Średnica zewn. w bruzdach (D4)"
+                  limits={
+                    nut
+                      ? { max: Number((nominal.D4 as number).toFixed(3)), min: nut.D4min, tol: Number(((nominal.D4 as number) - nut.D4min).toFixed(3)) }
+                      : null
+                  }
+                  unit="mm"
+                  nominal={nominal.D4 as number}
+                  tolClass={nut ? nutCls : undefined}
+                  digits={3}
+                  note="min wg normy"
+                />
+                <DiameterCard
+                  label="Średnica podziałowa (D2)"
+                  limits={nut ? nut.D2 : null}
+                  unit="mm"
+                  nominal={nominal.d2 as number}
+                  tolClass={nut ? nutCls : undefined}
+                  digits={3}
+                />
+                <DiameterCard
+                  label="Średnica wewnętrzna (D1)"
+                  limits={nut ? nut.D1 : null}
+                  unit="mm"
+                  nominal={nominal.D1 as number}
+                  tolClass={nut ? nutCls : undefined}
+                  digits={3}
+                />
+                <PitchCard
+                  label="Skok gwintu (P)"
+                  pitch={parsedP!}
+                  unit="mm"
+                  digits={3}
+                />
+                <DepthCard
+                  label="Głębokość nacinania (h3)"
+                  depth={nominal.h3 as number}
+                  unit="mm"
+                  note="h3 = P/2 + ac"
+                  digits={3}
+                />
+                <DrillCard
+                  label="Średnica wiercenia pod nakrętkę"
+                  diameter={nominal.D1 as number}
+                  unit="mm"
+                  note="Równa średnicy wewnętrznej D1"
+                  digits={3}
+                />
 
                 <ClassPicker
                   title="Klasa tolerancji nakrętki"
@@ -181,23 +258,18 @@ const TrapezoidalThreadPage = () => {
                   value={nutCls}
                   onChange={(v) => setNutCls(v as NutClass)}
                 />
-                {nut ? (
-                  <div className="space-y-3">
-                    <p className="text-center text-sm font-semibold text-emerald-400">
-                      Tr {parsedD} × {parsedP} – {nut.cls}
-                    </p>
-                    <LimitCard label="Średnica rdzenia (D1)" lim={nut.D1} />
-                    <LimitCard label="Średnica podziałowa (D2)" lim={nut.D2} />
-                    <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
-                      <p className="text-zinc-400 text-sm font-medium mb-1">Średnica zewn. w bruzdach (D4)</p>
-                      <p className="text-xl font-bold text-zinc-100">
-                        min <CopyableValue value={L.disp(nut.D4min, 5)}>{L.isImperial ? L.disp(nut.D4min, 5) : fmt3(nut.D4min)}</CopyableValue> {L.unit}
-                      </p>
-                      <p className="text-zinc-600 text-xs mt-1">Norma nie podaje tolerancji D4</p>
-                    </div>
-                  </div>
-                ) : (
-                  <ToleranceUnavailable />
+
+                {!nut && (
+                  <p className="text-xs text-zinc-500 text-center py-3 leading-relaxed">
+                    Tolerancje ISO 2903 dotyczą średnic 5,6–355 mm i znormalizowanych skoków
+                    (1,5; 2; 3; 4; 5; 6; 7; 8; 9; 10; 12; 14; 16; 18; 20; 22; 24; 28; 32; 36; 40; 44 mm).
+                  </p>
+                )}
+
+                {nut && (
+                  <p className="text-center text-sm font-semibold text-emerald-400">
+                    Tr {parsedD} × {parsedP} – {nut.cls}
+                  </p>
                 )}
               </div>
             </TabsContent>
@@ -222,8 +294,6 @@ const TrapezoidalThreadPage = () => {
     </PageLayout>
   );
 };
-
-const fmt3 = (v: number) => v.toFixed(3);
 
 function ClassPicker({
   title,
@@ -255,64 +325,6 @@ function ClassPicker({
           </button>
         ))}
       </div>
-    </div>
-  );
-}
-
-function LimitCard({ label, lim }: { label: string; lim: Limits }) {
-  const L = useLength('mm');
-  const f = (v: number) => (L.isImperial ? L.disp(v, 5) : fmt3(v));
-  return (
-    <div className="rounded-xl border border-emerald-800/40 bg-emerald-950/20 p-4">
-      <p className="text-emerald-300 text-sm font-medium mb-2">{label}</p>
-      <div className="grid grid-cols-2 gap-3">
-        <div>
-          <p className="text-zinc-500 text-xs uppercase tracking-wider">Max</p>
-          <p className="text-xl md:text-2xl font-bold text-emerald-400">
-            <CopyableValue value={Number(f(lim.max))}>{f(lim.max)}</CopyableValue>
-          </p>
-        </div>
-        <div>
-          <p className="text-zinc-500 text-xs uppercase tracking-wider">Min</p>
-          <p className="text-xl md:text-2xl font-bold text-emerald-400">
-            <CopyableValue value={Number(f(lim.min))}>{f(lim.min)}</CopyableValue>
-          </p>
-        </div>
-      </div>
-      <p className="text-emerald-700 text-xs mt-2">Tolerancja {f(lim.tol)} {L.unit}</p>
-    </div>
-  );
-}
-
-function ToleranceUnavailable() {
-  return (
-    <p className="text-xs text-zinc-500 text-center py-3 leading-relaxed">
-      Tolerancje ISO 2903 dotyczą średnic 5,6–355 mm i znormalizowanych skoków
-      (1,5; 2; 3; 4; 5; 6; 7; 8; 9; 10; 12; 14; 16; 18; 20; 22; 24; 28; 32; 36; 40; 44 mm).
-    </p>
-  );
-}
-
-function NominalCard({ label, value }: { label: string; value: number | null }) {
-  const L = useLength('mm');
-  const shown = value === null ? null : L.disp(value);
-  return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
-      <p className="text-zinc-400 text-sm font-medium mb-2">{label}</p>
-      <p className="text-2xl md:text-3xl font-bold text-zinc-100"><CopyableValue value={shown}>{shown ?? '—'}</CopyableValue> <span className="text-base text-zinc-500 font-normal">{L.unit}</span></p>
-      <p className="text-zinc-600 text-xs mt-1">Wymiar nominalny</p>
-    </div>
-  );
-}
-
-function CamCard({ label, value, note }: { label: string; value: number | null; note?: string }) {
-  const L = useLength('mm');
-  const shown = value === null ? '—' : L.disp(value);
-  return (
-    <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4">
-      <p className="text-cyan-300 text-sm font-medium mb-1">{label}</p>
-      <p className="text-2xl md:text-3xl font-bold text-cyan-400"><CopyableValue value={shown}>{shown} {L.unit}</CopyableValue></p>
-      {note && <p className="text-cyan-600 text-xs mt-1.5">({note})</p>}
     </div>
   );
 }

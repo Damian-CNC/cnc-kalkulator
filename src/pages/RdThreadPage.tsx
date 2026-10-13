@@ -3,12 +3,17 @@ import { useTranslation } from 'react-i18next';
 import PageLayout from '@/components/PageLayout';
 import SelectField from '@/components/SelectField';
 import ClearFab from '@/components/ClearFab';
-import CopyableValue from '@/components/CopyableValue';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import usePersistedState from '@/hooks/usePersistedState';
 import useQueryState from '@/hooks/useQueryState';
 import useLength from '@/hooks/useLength';
-import { RD_SIZES, calcRd, type Range } from '@/lib/rdThread';
+import { RD_SIZES, calcRd } from '@/lib/rdThread';
+import {
+  DiameterCard,
+  PitchCard,
+  DepthCard,
+  DrillCard,
+} from '@/components/ThreadResultCards';
 
 type State = { size: string };
 const INITIAL: State = { size: '20' };
@@ -65,20 +70,76 @@ const RdThreadPage = () => {
 
               <TabsContent value="external">
                 <div className="space-y-3 mt-3">
-                  <LimitCard label={`${t('rd.major')} (6h)`} lim={res.bolt.major} tolLabel={t('rd.tolerance')} />
-                  <LimitCard label={`${t('rd.pitch')} (7h)`} lim={res.bolt.pitch} tolLabel={t('rd.tolerance')} />
-                  <LimitCard label={`${t('rd.minor')} (7h)`} lim={res.bolt.minor} tolLabel={t('rd.tolerance')} />
-                  <CamCard label={t('rd.depthBolt')} mm={res.depth} note={`${t('rd.depthNote')} · ${t('rd.depthFrom')}`} />
+                  <DiameterCard
+                    label={`${t('rd.major')} (6h)`}
+                    limits={res.bolt.major}
+                    unit="mm"
+                    tolClass="6h"
+                  />
+                  <DiameterCard
+                    label={`${t('rd.pitch')} (7h)`}
+                    limits={res.bolt.pitch}
+                    unit="mm"
+                    tolClass="7h"
+                  />
+                  <DiameterCard
+                    label={`${t('rd.minor')} (7h)`}
+                    limits={res.bolt.minor}
+                    unit="mm"
+                    tolClass="7h"
+                  />
+                  <PitchCard
+                    label={`${t('rd.pitch')} (P)`}
+                    pitch={res.P}
+                    unit="mm"
+                    tpi={res.tpi}
+                  />
+                  <DepthCard
+                    label={t('rd.depthBolt')}
+                    depth={res.depth}
+                    unit="mm"
+                    note={`${t('rd.depthNote')} · ${t('rd.depthFrom')}`}
+                  />
                 </div>
               </TabsContent>
 
               <TabsContent value="internal">
                 <div className="space-y-3 mt-3">
-                  <ValueCard label={t('rd.majorNut')} mm={res.nut.majorMin} prefix="min" />
-                  <LimitCard label={t('rd.pitchNut')} lim={res.nut.pitch} tolLabel={t('rd.tolerance')} />
-                  <LimitCard label={t('rd.minorNut')} lim={res.nut.minor} tolLabel={t('rd.tolerance')} />
-                  <CamCard label={t('rd.depthNut')} mm={res.depth} note={`${t('rd.depthNote')} · ${t('rd.depthFromNut')}`} />
-                  <DrillCard label={t('rd.drill')} min={res.nut.minor.min} max={res.nut.minor.max} note={t('rd.drillNote')} />
+                  <DiameterCard
+                    label={t('rd.majorNut')}
+                    limits={{ max: res.nut.majorMin, min: res.nut.majorMin }}
+                    unit="mm"
+                    note="min wg normy"
+                  />
+                  <DiameterCard
+                    label={t('rd.pitchNut')}
+                    limits={res.nut.pitch}
+                    unit="mm"
+                  />
+                  <DiameterCard
+                    label={t('rd.minorNut')}
+                    limits={res.nut.minor}
+                    unit="mm"
+                  />
+                  <PitchCard
+                    label={`${t('rd.pitch')} (P)`}
+                    pitch={res.P}
+                    unit="mm"
+                    tpi={res.tpi}
+                  />
+                  <DepthCard
+                    label={t('rd.depthNut')}
+                    depth={res.depth}
+                    unit="mm"
+                    note={`${t('rd.depthNote')} · ${t('rd.depthFromNut')}`}
+                  />
+                  <DrillCard
+                    label={t('rd.drill')}
+                    diameter={(res.nut.minor.min + res.nut.minor.max) / 2}
+                    unit="mm"
+                    note={t('rd.drillNote')}
+                    digits={3}
+                  />
                 </div>
               </TabsContent>
               <p className="text-zinc-600 text-xs text-center mt-4 leading-relaxed">{t('rd.footer')}</p>
@@ -90,76 +151,5 @@ const RdThreadPage = () => {
     </PageLayout>
   );
 };
-
-function LimitCard({ label, lim, tolLabel }: { label: string; lim: Range; tolLabel: string }) {
-  const L = useLength('mm');
-  return (
-    <div className="rounded-xl border border-emerald-800/40 bg-emerald-950/20 p-4">
-      <p className="text-emerald-300 text-sm font-medium mb-2">{label}</p>
-      <div className="grid grid-cols-2 gap-3">
-        {(['max', 'min'] as const).map((k) => (
-          <div key={k}>
-            <p className="text-zinc-500 text-xs uppercase tracking-wider">{k}</p>
-            <p className="text-xl md:text-2xl font-bold text-emerald-400">
-              <CopyableValue value={L.raw(lim[k])}>{L.val(lim[k])}</CopyableValue>
-              <span className="text-xs text-zinc-500 font-normal ml-1">{L.unit}</span>
-            </p>
-          </div>
-        ))}
-      </div>
-      <p className="text-emerald-700 text-xs mt-2">
-        {tolLabel} {L.fmt(lim.tol)}
-      </p>
-    </div>
-  );
-}
-
-function ValueCard({ label, mm, prefix }: { label: string; mm: number; prefix?: string }) {
-  const L = useLength('mm');
-  return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
-      <p className="text-zinc-400 text-sm font-medium mb-1">{label}</p>
-      <p className="text-xl font-bold text-zinc-100">
-        {prefix ? `${prefix} ` : ''}
-        <CopyableValue value={L.raw(mm)}>{L.val(mm)}</CopyableValue>
-        <span className="text-sm text-zinc-500 font-normal ml-1">{L.unit}</span>
-      </p>
-    </div>
-  );
-}
-
-function CamCard({ label, mm, note }: { label: string; mm: number; note?: string }) {
-  const L = useLength('mm');
-  return (
-    <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4">
-      <p className="text-cyan-300 text-sm font-medium mb-1">{label}</p>
-      <p className="text-2xl md:text-3xl font-bold text-cyan-400">
-        <CopyableValue value={L.raw(mm)}>{L.val(mm)}</CopyableValue>
-        <span className="text-base text-cyan-600 font-normal ml-1">{L.unit}</span>
-      </p>
-      {note && <p className="text-cyan-600 text-xs mt-1.5">({note})</p>}
-    </div>
-  );
-}
-
-function DrillCard({ label, min, max, note }: { label: string; min: number; max: number; note: string }) {
-  const L = useLength('mm');
-  const mid = (min + max) / 2;
-  let drill: number | null = null;
-  for (let d = Math.ceil(min * 10) / 10; d <= max + 1e-9; d += 0.1) {
-    if (drill === null || Math.abs(d - mid) < Math.abs(drill - mid)) drill = Math.round(d * 10) / 10;
-  }
-  return (
-    <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4">
-      <p className="text-cyan-300 text-sm font-medium mb-1">{label}</p>
-      <p className="text-2xl md:text-3xl font-bold text-cyan-400">
-        <CopyableValue value={L.raw(mid, 4, 2)}>{L.val(mid, 4, 2)}</CopyableValue>
-        <span className="text-base text-cyan-600 font-normal ml-1">{L.unit}</span>
-      </p>
-      {!L.isImperial && drill !== null && <p className="text-cyan-500 text-sm">Ø{drill.toFixed(1)} mm</p>}
-      <p className="text-cyan-600 text-xs mt-1.5">({note})</p>
-    </div>
-  );
-}
 
 export default RdThreadPage;

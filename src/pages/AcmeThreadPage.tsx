@@ -4,7 +4,6 @@ import PageLayout from '@/components/PageLayout';
 import SelectField from '@/components/SelectField';
 import InputField from '@/components/InputField';
 import ClearFab from '@/components/ClearFab';
-import CopyableValue from '@/components/CopyableValue';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import usePersistedState from '@/hooks/usePersistedState';
 import useLength from '@/hooks/useLength';
@@ -13,12 +12,18 @@ import { parseDecimal } from '@/lib/numericInput';
 import {
   ACME_CLASSES,
   ACME_SIZES,
-  MM,
   calcAcme,
   type AcmeClass,
   type AcmeForm,
   type Lim,
 } from '@/lib/acmeThread';
+import {
+  DiameterCard,
+  PitchCard,
+  DepthCard,
+  DrillCard,
+  AuxCard,
+} from '@/components/ThreadResultCards';
 
 type Range = Lim;
 
@@ -52,6 +57,21 @@ const AcmeThreadPage = () => {
     () => (D !== null && n !== null ? calcAcme(D, n, stub ? '2G' : s.cls, starts, form) : null),
     [D, n, s.cls, starts, form, stub],
   );
+
+  // Compute nearest metric drill for nut tab (DrillCard)
+  let metricDrill: number | null = null;
+  if (res && res.nut.minor.max !== null) {
+    const mid = (res.nut.minor.min + (res.nut.minor.max ?? res.nut.minor.min)) / 2;
+    for (
+      let d = Math.ceil(res.nut.minor.min * 25.4 * 10) / 10;
+      d <= res.nut.minor.max * 25.4 + 1e-9;
+      d += 0.1
+    ) {
+      if (metricDrill === null || Math.abs(d - mid * 25.4) < Math.abs(metricDrill - mid * 25.4)) {
+        metricDrill = Math.round(d * 10) / 10;
+      }
+    }
+  }
 
   return (
     <PageLayout title={t(stub ? 'acme.titleStub' : 'acme.title')} backRoute="/gwinty">
@@ -149,20 +169,64 @@ const AcmeThreadPage = () => {
               <TabsContent value="external">
                 <div className="space-y-3 mt-3">
                   {res.form === 'stub' ? (
-                    <ValueCard label={t('acme.major')} inches={res.D} prefix="max" note={t('acme.stubMajorNote')} />
+                    <DiameterCard
+                      label={t('acme.major')}
+                      limits={{ max: res.D, min: res.D }}
+                      unit="in"
+                      digits={4}
+                      note={t('acme.stubMajorNote')}
+                    />
                   ) : (
-                    <LimitCard label={t('acme.major')} lim={res.bolt.major} tolLabel={t('acme.tolerance')} />
+                    <DiameterCard
+                      label={t('acme.major')}
+                      limits={res.bolt.major}
+                      unit="in"
+                      digits={4}
+                      tolClass={s.cls}
+                    />
                   )}
-                  <LimitCard label={t('acme.pitch')} lim={res.bolt.pitch} tolLabel={t('acme.tolerance')} />
-                  <LimitCard label={t('acme.minor')} lim={res.bolt.minor} tolLabel={t('acme.tolerance')} />
-                  <CamCard label={t('acme.depthBolt')} inches={res.depth} note={`${t('acme.depthNote')} · ${t('acme.depthFrom')}`} />
-                  <ValueCard
+                  <DiameterCard
+                    label={t('acme.pitch')}
+                    limits={res.bolt.pitch}
+                    unit="in"
+                    digits={4}
+                    tolClass={s.cls}
+                  />
+                  <DiameterCard
+                    label={t('acme.minor')}
+                    limits={res.bolt.minor}
+                    unit="in"
+                    digits={4}
+                    tolClass={s.cls}
+                  />
+                  <PitchCard
+                    label="Skok / Posuw"
+                    pitch={res.P}
+                    lead={res.lead}
+                    unit="in"
+                    note={`Kat wzniosu: ${res.leadAngle.toFixed(2)}deg`}
+                    digits={4}
+                  />
+                  <DepthCard
+                    label={t('acme.depthBolt')}
+                    depth={res.depth}
+                    unit="in"
+                    note={`${t('acme.depthNote')} · ${t('acme.depthFrom')}`}
+                    digits={4}
+                  />
+                  <AuxCard
                     label={t('acme.rootFlat')}
-                    inches={res.bolt.rootFlat}
+                    value={res.bolt.rootFlat}
+                    unit="in"
                     note={t('acme.rootFlatNote')}
                     digits={4}
                   />
-                  <ValueCard label={t('acme.crestFlat')} inches={res.bolt.crestFlat} digits={4} />
+                  <AuxCard
+                    label={t('acme.crestFlat')}
+                    value={res.bolt.crestFlat}
+                    unit="in"
+                    digits={4}
+                  />
                   <p className="text-xs text-zinc-500 text-center">
                     {t('acme.allowance', { a: L.fmt(res.pitchAllowance) })}
                   </p>
@@ -172,22 +236,56 @@ const AcmeThreadPage = () => {
               <TabsContent value="internal">
                 <div className="space-y-3 mt-3">
                   {res.form !== 'stub' && (
-                    <LimitCard label={t('acme.majorNut')} lim={res.nut.major} tolLabel={t('acme.tolerance')} />
+                    <DiameterCard
+                      label={t('acme.majorNut')}
+                      limits={res.nut.major}
+                      unit="in"
+                      digits={4}
+                      tolClass={s.cls}
+                    />
                   )}
-                  <LimitCard label={t('acme.pitchNut')} lim={res.nut.pitch} tolLabel={t('acme.tolerance')} />
-                  <LimitCard label={t('acme.minorNut')} lim={res.nut.minor} tolLabel={t('acme.tolerance')} />
-                  <CamCard label={t('acme.depthNut')} inches={res.depth} note={`${t('acme.depthNote')} · ${t('acme.depthFromNut')}`} />
-                  <DrillCard
-                    label={t('acme.drill')}
-                    min={res.nut.minor.min}
-                    max={res.nut.minor.max}
-                    note={t('acme.drillNote')}
+                  <DiameterCard
+                    label={t('acme.pitchNut')}
+                    limits={res.nut.pitch}
+                    unit="in"
+                    digits={4}
+                    tolClass={s.cls}
+                  />
+                  <DiameterCard
+                    label={t('acme.minorNut')}
+                    limits={res.nut.minor}
+                    unit="in"
+                    digits={4}
+                    tolClass={s.cls}
+                  />
+                  <PitchCard
+                    label="Skok / Posuw"
+                    pitch={res.P}
+                    lead={res.lead}
+                    unit="in"
+                    note={`Kat wzniosu: ${res.leadAngle.toFixed(2)}deg`}
                     digits={4}
                   />
-                  <ValueCard
+                  <DepthCard
+                    label={t('acme.depthNut')}
+                    depth={res.depth}
+                    unit="in"
+                    note={`${t('acme.depthNote')} · ${t('acme.depthFromNut')}`}
+                    digits={4}
+                  />
+                  <DrillCard
+                    label={t('acme.drill')}
+                    diameter={(res.nut.minor.min + res.nut.minor.max) / 2}
+                    unit="in"
+                    note={t('acme.drillNote')}
+                    metricDrill={metricDrill}
+                    digits={4}
+                  />
+                  <AuxCard
                     label={t('acme.rootFlatNut')}
-                    inches={res.nut.rootFlat}
+                    value={res.nut.rootFlat}
                     note={t('acme.rootFlatNutNote')}
+                    unit="in"
                     digits={4}
                   />
                 </div>
@@ -232,136 +330,6 @@ function ClassPicker({
           </button>
         ))}
       </div>
-    </div>
-  );
-}
-
-function LimitCard({
-  label,
-  lim,
-  tolLabel,
-  fallback,
-  fallbackNote,
-  digits = 4,
-}: {
-  label: string;
-  lim: Range | null;
-  tolLabel: string;
-  fallback?: number;
-  fallbackNote?: string;
-  digits?: number;
-}) {
-  const L = useLength('in');
-  return (
-    <div className="rounded-xl border border-emerald-800/40 bg-emerald-950/20 p-4">
-      <p className="text-emerald-300 text-sm font-medium mb-2">{label}</p>
-      {lim ? (
-        <>
-          <div className="grid grid-cols-2 gap-3">
-            {(['max', 'min'] as const).map((k) => (
-              <div key={k}>
-                <p className="text-zinc-500 text-xs uppercase tracking-wider">{k}</p>
-                <p className="text-xl md:text-2xl font-bold text-emerald-400">
-                  <CopyableValue value={L.raw(lim[k], digits)}>{L.val(lim[k], digits)}</CopyableValue>
-                  <span className="text-xs text-zinc-500 font-normal ml-1">{L.unit}</span>
-                </p>
-              </div>
-            ))}
-          </div>
-          <p className="text-emerald-700 text-xs mt-2">
-            {tolLabel} {L.fmt(lim.tol, digits)}
-          </p>
-        </>
-      ) : (
-        <div>
-          <p className="text-zinc-500 text-xs uppercase tracking-wider">min</p>
-          <p className="text-xl md:text-2xl font-bold text-emerald-400">
-            {fallback !== undefined ? L.val(fallback, digits) : '—'}
-            <span className="text-xs text-zinc-500 font-normal ml-1">{L.unit}</span>
-          </p>
-          {fallbackNote && <p className="text-amber-500/80 text-xs mt-2">{fallbackNote}</p>}
-        </div>
-      )}
-    </div>
-  );
-}
-
-function ValueCard({
-  label,
-  inches,
-  note,
-  prefix,
-  digits = 4,
-}: {
-  label: string;
-  inches: number;
-  note?: string;
-  prefix?: string;
-  digits?: number;
-}) {
-  const L = useLength('in');
-  return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
-      <p className="text-zinc-400 text-sm font-medium mb-1">{label}</p>
-      <p className="text-xl font-bold text-zinc-100">
-        {prefix ? `${prefix} ` : ''}
-        <CopyableValue value={L.raw(inches, digits)}>{L.val(inches, digits)}</CopyableValue>
-        <span className="text-sm text-zinc-500 font-normal ml-1">{L.unit}</span>
-      </p>
-      {note && <p className="text-zinc-600 text-xs mt-1">{note}</p>}
-    </div>
-  );
-}
-
-function CamCard({ label, inches, note }: { label: string; inches: number; note?: string }) {
-  const L = useLength('in');
-  return (
-    <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4">
-      <p className="text-cyan-300 text-sm font-medium mb-1">{label}</p>
-      <p className="text-2xl md:text-3xl font-bold text-cyan-400">
-        <CopyableValue value={L.raw(inches)}>{L.val(inches)}</CopyableValue>
-        <span className="text-base text-cyan-600 font-normal ml-1">{L.unit}</span>
-      </p>
-      {note && <p className="text-cyan-600 text-xs mt-1.5">({note})</p>}
-    </div>
-  );
-}
-
-function DrillCard({
-  label,
-  min,
-  max,
-  note,
-  digits = 3,
-}: {
-  label: string;
-  min: number;
-  max: number | null;
-  note: string;
-  digits?: number;
-}) {
-  const L = useLength('in');
-  const mid = max !== null ? (min + max) / 2 : min;
-  // najbliższe wiertło metryczne co 0,1 mm mieszczące się w tolerancji D1
-  let metric: number | null = null;
-  if (max !== null) {
-    for (let d = Math.ceil(min * MM * 10) / 10; d <= max * MM + 1e-9; d += 0.1) {
-      if (metric === null || Math.abs(d - mid * MM) < Math.abs(metric - mid * MM)) {
-        metric = Math.round(d * 10) / 10;
-      }
-    }
-  }
-  return (
-    <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4">
-      <p className="text-cyan-300 text-sm font-medium mb-1">{label}</p>
-      <p className="text-2xl md:text-3xl font-bold text-cyan-400">
-        <CopyableValue value={L.raw(mid, digits, 2)}>{L.val(mid, digits, 2)}</CopyableValue>
-        <span className="text-base text-cyan-600 font-normal ml-1">{L.unit}</span>
-      </p>
-      {!L.isImperial && metric !== null && (
-        <p className="text-cyan-500 text-sm">Ø{metric.toFixed(1)} mm</p>
-      )}
-      <p className="text-cyan-600 text-xs mt-1.5">({note})</p>
     </div>
   );
 }

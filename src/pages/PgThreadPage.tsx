@@ -3,42 +3,18 @@ import { useTranslation } from 'react-i18next';
 import PageLayout from '@/components/PageLayout';
 import SelectField from '@/components/SelectField';
 import ClearFab from '@/components/ClearFab';
-import CopyableValue from '@/components/CopyableValue';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import usePersistedState from '@/hooks/usePersistedState';
 import useQueryState from '@/hooks/useQueryState';
 import useLength from '@/hooks/useLength';
 import { PG_SIZES, calcPg } from '@/lib/pgThread';
-
-const Card = ({
-  label,
-  mm,
-  note,
-  accent,
-  digits = 3,
-}: {
-  label: string;
-  mm: number;
-  note?: string;
-  accent?: boolean;
-  digits?: number;
-}) => {
-  const L = useLength('mm');
-  return (
-    <div
-      className={`rounded-xl border p-4 ${
-        accent ? 'border-cyan-800/40 bg-cyan-950/20' : 'border-emerald-800/40 bg-emerald-950/20'
-      }`}
-    >
-      <p className={`text-sm font-medium mb-1 ${accent ? 'text-cyan-300' : 'text-emerald-300'}`}>{label}</p>
-      <p className={`text-2xl md:text-3xl font-bold ${accent ? 'text-cyan-400' : 'text-emerald-400'}`}>
-        <CopyableValue value={L.raw(mm, 4, digits)}>{L.val(mm, 4, digits)}</CopyableValue>
-        <span className="text-sm text-zinc-500 font-normal ml-1">{L.unit}</span>
-      </p>
-      {note && <p className={`text-xs mt-1.5 ${accent ? 'text-cyan-600' : 'text-emerald-700'}`}>({note})</p>}
-    </div>
-  );
-};
+import {
+  DiameterCard,
+  AuxCard,
+  PitchCard,
+  DepthCard,
+  DrillCard,
+} from '@/components/ThreadResultCards';
 
 const PgThreadPage = () => {
   const { t } = useTranslation('tools');
@@ -78,22 +54,36 @@ const PgThreadPage = () => {
 
           <TabsContent value="external">
             <div className="space-y-3 mt-3">
-              <Card label={t('pg.major')} mm={r.d} digits={2} />
-              <Card label={t('pg.pitch')} mm={r.d2} digits={2} />
-              <Card label={t('pg.minor')} mm={r.d1} digits={2} />
-              <Card label={t('pg.depthBolt')} mm={r.H1} accent digits={2} note={`${t('pg.depthNote')} · H1`} />
-              <Card label={t('pg.radius')} mm={r.R} digits={2} />
+              <DiameterCard label={t('pg.major')} limits={{ max: r.d, min: r.d }} unit="mm" digits={2} />
+              <DiameterCard label={t('pg.pitch')} limits={{ max: r.d2, min: r.d2 }} unit="mm" digits={2} />
+              <DiameterCard label={t('pg.minor')} limits={{ max: r.d1, min: r.d1 }} unit="mm" digits={2} />
+              <PitchCard label="Skok gwintu (P)" pitch={r.P} unit="mm" tpi={r.tpi} digits={4} />
+              <DepthCard
+                label={t('pg.depthBolt')}
+                depth={r.H1}
+                unit="mm"
+                digits={2}
+                note={`${t('pg.depthNote')} · H1`}
+              />
+              <AuxCard label={t('pg.radius')} value={r.R} unit="mm" digits={2} />
             </div>
           </TabsContent>
 
           <TabsContent value="internal">
             <div className="space-y-3 mt-3">
-              <Card label={t('pg.majorNut')} mm={r.d} digits={2} />
-              <Card label={t('pg.pitchNut')} mm={r.d2} digits={2} />
-              <Card label={t('pg.minorNut')} mm={r.d1} digits={2} />
-              <Card label={t('pg.depthNut')} mm={r.H1} accent digits={2} note={`${t('pg.depthNote')} · H1`} />
-              <Card label={t('pg.drill')} mm={r.drill} accent digits={1} note={t('pg.drillNote')} />
-              <Card label={t('pg.hole')} mm={r.d} digits={1} note={t('pg.holeNote')} />
+              <DiameterCard label={t('pg.majorNut')} limits={{ max: r.d, min: r.d }} unit="mm" digits={2} />
+              <DiameterCard label={t('pg.pitchNut')} limits={{ max: r.d2, min: r.d2 }} unit="mm" digits={2} />
+              <DiameterCard label={t('pg.minorNut')} limits={{ max: r.d1, min: r.d1 }} unit="mm" digits={2} />
+              <PitchCard label="Skok gwintu (P)" pitch={r.P} unit="mm" tpi={r.tpi} digits={4} />
+              <DepthCard
+                label={t('pg.depthNut')}
+                depth={r.H1}
+                unit="mm"
+                digits={2}
+                note={`${t('pg.depthNote')} · H1`}
+              />
+              <DrillCard label={t('pg.drill')} diameter={r.drill} unit="mm" digits={1} note={t('pg.drillNote')} />
+              <AuxCard label={t('pg.hole')} value={r.d} unit="mm" digits={1} note={t('pg.holeNote')} />
             </div>
           </TabsContent>
           <p className="text-zinc-600 text-xs text-center mt-4 leading-relaxed">{t('pg.footer')}</p>

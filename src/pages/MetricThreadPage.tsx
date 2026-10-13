@@ -9,9 +9,8 @@ import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
 import PageLayout from '@/components/PageLayout';
 import useQueryState from '@/hooks/useQueryState';
 import usePersistedState from '@/hooks/usePersistedState';
-import CopyableValue from '@/components/CopyableValue';
 import ClearFab from '@/components/ClearFab';
-import useLength from '@/hooks/useLength';
+import { DiameterCard, PitchCard, DepthCard, DrillCard } from '@/components/ThreadResultCards';
 
 interface ThreadEntry {
   designation: string;
@@ -187,7 +186,7 @@ const MetricThreadPage = () => {
             </div>
           )}
 
-          {nominal && (
+          {nominal && effectivePitch && (
             <Tabs value={threadTab} onValueChange={(v) => setThreadTab(v as 'external' | 'internal')} className="w-full">
               <TabsList className="w-full bg-zinc-900 border border-zinc-800">
                 <TabsTrigger value="external" type="button" className="flex-1 touch-manipulation data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50">
@@ -200,20 +199,102 @@ const MetricThreadPage = () => {
 
               <TabsContent value="external">
                 <div className="space-y-3 mt-3">
-                  <DimensionCard label={t('metric.extDiameter')} nominal={nominal.nominalDiameter} max={selectedThread?.external_6g.d_max ?? null} min={selectedThread?.external_6g.d_min ?? null} />
-                  <DimensionCard label={t('metric.extPitchDiameter')} nominal={nominal.pitchDiameter} max={selectedThread?.external_6g.d2_max ?? null} min={selectedThread?.external_6g.d2_min ?? null} />
-                  <DimensionCard label={t('metric.extCoreDiameter')} nominal={nominal.externalMinorDiameter} max={selectedThread?.external_6g.d3_max ?? null} min={selectedThread?.external_6g.d3_min ?? null} />
-                  <CamCard label={t('metric.extThreadHeight')} value={nominal.externalThreadHeight} />
+                  <DiameterCard
+                    label={t('metric.extDiameter')}
+                    nominal={nominal.nominalDiameter}
+                    limits={
+                      selectedThread
+                        ? { max: selectedThread.external_6g.d_max, min: selectedThread.external_6g.d_min }
+                        : null
+                    }
+                    unit="mm"
+                    tolClass="6g"
+                  />
+                  <DiameterCard
+                    label={t('metric.extPitchDiameter')}
+                    nominal={nominal.pitchDiameter}
+                    limits={
+                      selectedThread
+                        ? { max: selectedThread.external_6g.d2_max, min: selectedThread.external_6g.d2_min }
+                        : null
+                    }
+                    unit="mm"
+                    tolClass="6g"
+                  />
+                  <DiameterCard
+                    label={t('metric.extCoreDiameter')}
+                    nominal={nominal.externalMinorDiameter}
+                    limits={
+                      selectedThread
+                        ? { max: selectedThread.external_6g.d3_max, min: selectedThread.external_6g.d3_min }
+                        : null
+                    }
+                    unit="mm"
+                    tolClass="6g"
+                  />
+                  <PitchCard
+                    label="Skok gwintu"
+                    pitch={effectivePitch}
+                    unit="mm"
+                  />
+                  <DepthCard
+                    label="Głębokość nacinania"
+                    depth={nominal.externalThreadHeight}
+                    unit="mm"
+                  />
                 </div>
               </TabsContent>
 
               <TabsContent value="internal">
                 <div className="space-y-3 mt-3">
-                  <DimensionCard label={t('metric.intDiameter')} nominal={nominal.internalMinorDiameter} max={selectedThread?.internal_6H.D1_max ?? null} min={selectedThread?.internal_6H.D1_min ?? null} />
-                  <DimensionCard label={t('metric.intPitchDiameter')} nominal={nominal.pitchDiameter} max={selectedThread?.internal_6H.D2_max ?? null} min={selectedThread?.internal_6H.D2_min ?? null} />
-                  <DimensionCard label={t('metric.intExtDiameter')} nominal={null} max={selectedThread?.internal_6H.D_max ?? null} min={selectedThread?.internal_6H.D_min ?? null} />
-                  <DrillCard tapDrill={selectedThread?.internal_6H.tap_drill ?? nominal.tapDrillSize} formTapDrill={nominal.formTapDrillSize} />
-                  <CamCard label={t('metric.intProfileHeight')} value={nominal.internalThreadHeight} />
+                  <DiameterCard
+                    label={t('metric.intExtDiameter')}
+                    nominal={nominal.nominalDiameter}
+                    limits={
+                      selectedThread
+                        ? { max: selectedThread.internal_6H.D_max, min: selectedThread.internal_6H.D_min }
+                        : null
+                    }
+                    unit="mm"
+                    tolClass="6H"
+                  />
+                  <DiameterCard
+                    label={t('metric.intPitchDiameter')}
+                    nominal={nominal.pitchDiameter}
+                    limits={
+                      selectedThread
+                        ? { max: selectedThread.internal_6H.D2_max, min: selectedThread.internal_6H.D2_min }
+                        : null
+                    }
+                    unit="mm"
+                    tolClass="6H"
+                  />
+                  <DiameterCard
+                    label={t('metric.intDiameter')}
+                    nominal={nominal.internalMinorDiameter}
+                    limits={
+                      selectedThread
+                        ? { max: selectedThread.internal_6H.D1_max, min: selectedThread.internal_6H.D1_min }
+                        : null
+                    }
+                    unit="mm"
+                    tolClass="6H"
+                  />
+                  <PitchCard
+                    label="Skok gwintu (P)"
+                    pitch={effectivePitch}
+                    unit="mm"
+                  />
+                  <DepthCard
+                    label="Głębokość nacinania"
+                    depth={nominal.internalThreadHeight}
+                    unit="mm"
+                  />
+                  <DrillCard
+                    label="Wiertło pod gwintownik"
+                    diameter={selectedThread?.internal_6H.tap_drill ?? nominal.tapDrillSize}
+                    unit="mm"
+                  />
                 </div>
               </TabsContent>
 
@@ -233,65 +314,5 @@ const MetricThreadPage = () => {
     </PageLayout>
   );
 };
-
-/* ---- Sub-components ---- */
-
-function DimensionCard({ label, nominal, max, min }: { label: string; nominal: number | null; max: number | null; min: number | null }) {
-  const { t } = useTranslation('threadsCalc');
-  const L = useLength('mm');
-  const maxS = max === null ? null : L.disp(max);
-  const minS = min === null ? null : L.disp(min);
-  return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
-      <p className="text-zinc-400 text-sm font-medium mb-2">{label}</p>
-      {nominal !== null && <p className="text-zinc-500 text-xs mb-2">{t('bsp.nominal', { value: `${L.disp(nominal)} ${L.unit}` })}</p>}
-      {(max !== null || min !== null) ? (
-        <div className="grid grid-cols-2 gap-3">
-          <div className="text-center">
-            <span className="text-xs text-zinc-500 uppercase tracking-wider">{t('metric.max', { defaultValue: 'Max' })}</span>
-            <p className="text-xl md:text-2xl font-bold text-emerald-400"><CopyableValue value={maxS}>{maxS ?? '—'}</CopyableValue></p>
-          </div>
-          <div className="text-center">
-            <span className="text-xs text-zinc-500 uppercase tracking-wider">{t('metric.min', { defaultValue: 'Min' })}</span>
-            <p className="text-xl md:text-2xl font-bold text-amber-400"><CopyableValue value={minS}>{minS ?? '—'}</CopyableValue></p>
-          </div>
-        </div>
-      ) : (
-        <p className="text-zinc-600 text-xs italic">{t('metric.footnoteNoData')}</p>
-      )}
-    </div>
-  );
-}
-
-function DrillCard({ tapDrill, formTapDrill }: { tapDrill: number; formTapDrill: number }) {
-  const { t } = useTranslation('threadsCalc');
-  const L = useLength('mm');
-  return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
-      <p className="text-zinc-400 text-sm font-medium mb-3">{t('metric.tapDrills', { defaultValue: 'Wiertła' })}</p>
-      <div className="grid grid-cols-2 gap-3">
-        <div className="text-center">
-          <span className="text-xs text-zinc-500">{t('metric.tapDrillLabel', { defaultValue: 'Gwintownik' })}</span>
-          <p className="text-xl md:text-2xl font-bold text-cyan-400"><CopyableValue value={L.disp(tapDrill, 4)}>{L.disp(tapDrill, 4)} {L.unit}</CopyableValue></p>
-        </div>
-        <div className="text-center">
-          <span className="text-xs text-zinc-500">{t('metric.formTapDrillLabel', { defaultValue: 'Wygniatak' })}</span>
-          <p className="text-xl md:text-2xl font-bold text-violet-400"><CopyableValue value={L.disp(formTapDrill, 4)}>{L.disp(formTapDrill, 4)} {L.unit}</CopyableValue></p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function CamCard({ label, value, note }: { label: string; value: number; note?: string }) {
-  const L = useLength('mm');
-  return (
-    <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4">
-      <p className="text-cyan-300 text-sm font-medium mb-1">{label}</p>
-      <p className="text-2xl md:text-3xl font-bold text-cyan-400"><CopyableValue value={L.disp(value)}>{L.disp(value)} {L.unit}</CopyableValue></p>
-      {note && <p className="text-cyan-600 text-xs mt-1.5">({note})</p>}
-    </div>
-  );
-}
 
 export default MetricThreadPage;

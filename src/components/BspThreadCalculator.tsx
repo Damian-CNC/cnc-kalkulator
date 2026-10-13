@@ -2,12 +2,11 @@ import { useMemo } from 'react';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { bspThreads, bspSizes } from '@/data/bspThreadsData';
-import type { ThreadLimits } from '@/data/bspThreadsData';
 import useQueryState from '@/hooks/useQueryState';
 import usePersistedState from '@/hooks/usePersistedState';
-import CopyableValue from '@/components/CopyableValue';
 import useLength from '@/hooks/useLength';
 import ClearFab from '@/components/ClearFab';
+import { DiameterCard, PitchCard, DepthCard, DrillCard } from '@/components/ThreadResultCards';
 
 const BspThreadCalculator = () => {
   const L = useLength('mm');
@@ -57,20 +56,94 @@ const BspThreadCalculator = () => {
 
             <TabsContent value="external">
               <div className="space-y-3 mt-3">
-                <DimensionCard label="Średnica zewnętrzna (d)" limits={thread.external.d} />
-                <DimensionCard label="Średnica podziałowa (d2)" limits={thread.external.d2} />
-                <DimensionCard label="Średnica rdzenia (d1)" limits={thread.external.d1} />
-                <CamCard label="Wysokość nacinania (h3)" value={thread.h3} />
+                <DiameterCard
+                  label="Średnica zewnętrzna (d)"
+                  limits={{ max: thread.external.d.max, min: thread.external.d.min }}
+                  unit="mm"
+                  nominal={thread.external.d.nom}
+                  tolClass="A"
+                  digits={3}
+                />
+                <DiameterCard
+                  label="Średnica podziałowa (d2)"
+                  limits={{ max: thread.external.d2.max, min: thread.external.d2.min }}
+                  unit="mm"
+                  nominal={thread.external.d2.nom}
+                  tolClass="A"
+                  digits={3}
+                />
+                <DiameterCard
+                  label="Średnica rdzenia (d1)"
+                  limits={{ max: thread.external.d1.max, min: thread.external.d1.min }}
+                  unit="mm"
+                  nominal={thread.external.d1.nom}
+                  tolClass="A"
+                  digits={3}
+                />
+                <PitchCard
+                  label="Skok gwintu (P)"
+                  pitch={thread.pitch}
+                  tpi={thread.tpi}
+                  unit="mm"
+                  digits={4}
+                />
+                <DepthCard
+                  label="Głębokość nacinania (h3)"
+                  depth={thread.h3}
+                  unit="mm"
+                  digits={3}
+                  note="Radialna głębokość profilu gwintu"
+                />
               </div>
             </TabsContent>
 
             <TabsContent value="internal">
               <div className="space-y-3 mt-3">
-                <DimensionCard label="Średnica zewnętrzna (D)" limits={thread.internal.D} />
-                <DimensionCard label="Średnica podziałowa (D2)" limits={thread.internal.D2} />
-                <DimensionCard label="Średnica wewnętrzna (D1)" limits={thread.internal.D1} />
-                <CamCard label="Wysokość nacinania (h3)" value={thread.h3} />
-                <DrillCard tapDrill={thread.internal.drill} />
+                <DiameterCard
+                  label="Średnica zewnętrzna (D)"
+                  limits={{ max: thread.internal.D.max, min: thread.internal.D.min }}
+                  unit="mm"
+                  nominal={thread.internal.D.nom}
+                  tolClass="A"
+                  digits={3}
+                />
+                <DiameterCard
+                  label="Średnica podziałowa (D2)"
+                  limits={{ max: thread.internal.D2.max, min: thread.internal.D2.min }}
+                  unit="mm"
+                  nominal={thread.internal.D2.nom}
+                  tolClass="A"
+                  digits={3}
+                />
+                <DiameterCard
+                  label="Średnica wewnętrzna (D1)"
+                  limits={{ max: thread.internal.D1.max, min: thread.internal.D1.min }}
+                  unit="mm"
+                  nominal={thread.internal.D1.nom}
+                  tolClass="A"
+                  digits={3}
+                />
+                <PitchCard
+                  label="Skok gwintu (P)"
+                  pitch={thread.pitch}
+                  tpi={thread.tpi}
+                  unit="mm"
+                  digits={4}
+                />
+                <DepthCard
+                  label="Głębokość nacinania (h3)"
+                  depth={thread.h3}
+                  unit="mm"
+                  digits={3}
+                  note="Radialna głębokość profilu gwintu"
+                />
+                <DrillCard
+                  label="Wiertło pod gwintownik"
+                  diameter={thread.internal.drill}
+                  unit="mm"
+                  digits={3}
+                  note="Średnica wiercenia"
+                />
               </div>
             </TabsContent>
 
@@ -88,71 +161,5 @@ const BspThreadCalculator = () => {
     </div>
   );
 };
-
-function DimensionCard({ label, limits }: { label: string; limits: ThreadLimits }) {
-  const L = useLength('mm');
-  const midMm = (limits.max + limits.min) / 2;
-  const mid = L.isImperial ? L.disp(midMm, 5) : midMm.toFixed(3);
-  const maxS = L.disp(limits.max);
-  const minS = L.disp(limits.min);
-  const range = limits.max - limits.min;
-  const midPct = range > 0 ? 50 : 50;
-  return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
-      <p className="text-zinc-400 text-sm font-medium mb-2">{label}</p>
-      <p className="text-zinc-500 text-xs mb-2">Nominalna: {L.disp(limits.nom)} {L.unit}</p>
-      <div className="grid grid-cols-2 gap-3 mb-3">
-        <div className="text-center">
-          <span className="text-xs text-zinc-500 uppercase tracking-wider">Max</span>
-          <p className="text-xl md:text-2xl font-bold text-emerald-400"><CopyableValue value={maxS}>{maxS}</CopyableValue></p>
-        </div>
-        <div className="text-center">
-          <span className="text-xs text-zinc-500 uppercase tracking-wider">Min</span>
-          <p className="text-xl md:text-2xl font-bold text-amber-400"><CopyableValue value={minS}>{minS}</CopyableValue></p>
-        </div>
-      </div>
-      {/* Środek tolerancji */}
-      <div className="border-t border-zinc-700/50 pt-3">
-        <p className="text-xs text-zinc-500 text-center mb-1">Środek tolerancji (Idealny)</p>
-        <p className="text-2xl md:text-3xl font-black text-cyan-400 text-center"><CopyableValue value={mid}>{mid}</CopyableValue> <span className="text-sm font-normal text-zinc-500">{L.unit}</span></p>
-        {/* Wizualny pasek */}
-        <div className="relative mt-3 h-2 rounded-full bg-zinc-700/50">
-          <div className="absolute inset-y-0 left-0 right-0 rounded-full bg-gradient-to-r from-amber-500/40 via-cyan-500/40 to-emerald-500/40" />
-          <div className="absolute top-1/2 -translate-y-1/2 left-0 w-2.5 h-2.5 rounded-full bg-amber-400 border border-zinc-900" />
-          <div className="absolute top-1/2 -translate-y-1/2 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 border border-zinc-900" />
-          <div className="absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-cyan-400 border-2 border-zinc-900 shadow-lg shadow-cyan-500/30" style={{ left: `${midPct}%`, transform: 'translate(-50%, -50%)' }} />
-        </div>
-        <div className="flex justify-between mt-1">
-          <span className="text-[10px] text-amber-500/70">MIN</span>
-          <span className="text-[10px] text-cyan-400 font-bold">↑ Celuj tutaj</span>
-          <span className="text-[10px] text-emerald-500/70">MAX</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function CamCard({ label, value }: { label: string; value: number }) {
-  const L = useLength('mm');
-  return (
-    <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4">
-      <p className="text-cyan-300 text-sm font-medium mb-1">{label}</p>
-      <p className="text-2xl md:text-3xl font-bold text-cyan-400"><CopyableValue value={L.disp(value)}>{L.disp(value)} {L.unit}</CopyableValue></p>
-      <p className="text-cyan-600 text-xs mt-1.5">(Radialna głębokość profilu gwintu)</p>
-    </div>
-  );
-}
-
-function DrillCard({ tapDrill }: { tapDrill: number }) {
-  const L = useLength('mm');
-  return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
-      <p className="text-zinc-400 text-sm font-medium mb-3">Wiertło pod gwintownik</p>
-      <div className="text-center">
-        <p className="text-xl md:text-2xl font-bold text-cyan-400"><CopyableValue value={L.disp(tapDrill, 4)}>ø{L.disp(tapDrill, 4)}</CopyableValue> <span className="text-sm font-normal text-zinc-500">{L.unit}</span></p>
-      </div>
-    </div>
-  );
-}
 
 export default BspThreadCalculator;
