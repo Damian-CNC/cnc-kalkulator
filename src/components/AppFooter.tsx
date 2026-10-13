@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
-import { History, MessageSquarePlus, ShieldCheck, RefreshCw } from 'lucide-react';
+import { History, MessageSquarePlus, ShieldCheck, RefreshCw, Coffee } from 'lucide-react';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import UnitSwitcher from '@/components/UnitSwitcher';
 import ChangelogModal from '@/components/ChangelogModal';
@@ -64,6 +64,17 @@ const AppFooter = ({ className = '' }: { className?: string }) => {
           <ShieldCheck className={ICON} />
           {t('footer.legal')}
         </button>
+        <a
+          href="https://buymeacoffee.com/cnchub"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`${BTN} ${TXT} border-amber-500/30 bg-amber-500/10 hover:border-amber-400/60 hover:bg-amber-500/20 group`}
+        >
+          <Coffee className="w-3.5 h-3.5 shrink-0 text-amber-400 group-hover:scale-110 transition-transform" />
+          <span className="text-amber-300 group-hover:text-amber-200">
+            {t('footer.support', { defaultValue: 'Postaw kawę ☕' })}
+          </span>
+        </a>
       </div>
 
       <p className="text-zinc-600 text-xs tracking-wide">

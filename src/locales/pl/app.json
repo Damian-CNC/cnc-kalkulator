@@ -19,6 +19,7 @@
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Ustawienia",
     "feedback": "Zgłoś błąd / Sugestia",
+    "support": "Postaw kawę",
     "legal": "Warunki i Prywatność"
   },
   "changelog": {
@@ -126,9 +127,35 @@
     ]
   },
   "pwa": {
-    "message": "Zainstaluj aplikację na telefonie, aby korzystać z niej offline na warsztacie",
+    "message": "Zainstaluj aplikację na telefonie lub PC, aby korzystać z niej błyskawicznie i offline na warsztacie",
     "install": "Instaluj",
-    "dismiss": "Zamknij"
+    "dismiss": "Zamknij",
+    "guide": "Instrukcja",
+    "modalTitle": "Instalacja aplikacji CNCHub",
+    "modalSubtitle": "Wybierz swoje urządzenie, aby zobaczyć prostą instrukcję krok po kroku",
+    "tabPc": "PC / Komputer",
+    "tabAndroid": "Android",
+    "tabIos": "iPhone / iOS",
+    "pc": {
+      "title": "Komputer (Chrome, Edge, Brave)",
+      "step1": "W pasku adresu przeglądarki (po prawej stronie) kliknij ikonę instalacji aplikacji (monitor ze strzałką lub symbol plusa).",
+      "step2": "Alternatywnie: kliknij menu trzech kropek ⋮ w prawym górnym rogu przeglądarki i wybierz 'Zainstaluj CNCHub' lub 'Aplikacje > Zainstaluj'.",
+      "step3": "Kliknij 'Zainstaluj'. Aplikacja uruchomi się w osobnym oknie bez pasków przeglądarki i pojawi się na Twoim Pulpicie."
+    },
+    "android": {
+      "title": "Smartfon z Androidem (Chrome)",
+      "step1": "Otwórz stronę cnchub.app w przeglądarce Chrome.",
+      "step2": "Kliknij menu trzech kropek ⋮ w prawym górnym rogu ekranu.",
+      "step3": "Wybierz 'Zainstaluj aplikację' lub 'Dodaj do ekranu głównego'.",
+      "step4": "Zatwierdź instalację. Ikona pojawi się na Twoim ekranie głównym jak zwykła aplikacja ze sklepu."
+    },
+    "ios": {
+      "title": "iPhone / iPad (Safari)",
+      "step1": "Otwórz stronę w domyślnej przeglądarce Safari (Apple wymaga Safari do instalacji PWA).",
+      "step2": "Kliknij przycisk Udostępnij na dolnym pasku (ikona kwadratu ze strzałką w górę).",
+      "step3": "Przewiń menu w dół i wybierz opcję 'Do ekranu początkowego' (ikona kwadratu z plusem).",
+      "step4": "W prawym górnym rogu kliknij 'Dodaj'. Ikona CNCHub pojawi się na Twoim pulpicie."
+    }
   },
   "formulas": {
     "help": "Wzór i objaśnienie",
@@ -214,5 +241,13 @@
     "changeDecision": "Pokaż warunki ponownie",
     "close": "Zamknij",
     "back": "Powrót"
+  },
+  "support": {
+    "badge": "Wsparcie projektu",
+    "title": "Podoba Ci się CNCHub? ☕",
+    "greeting": "Cześć! Tworzę CNCHub całkowicie za darmo dla tokarzy, frezerów, operatorów i technologów CNC.",
+    "desc": "Jeśli kalkulator ułatwia Twoją codzienną pracę na warsztacie, oszczędza cenny czas lub pomógł uniknąć kosztownego błędu na maszynie – rozważ postawienie wirtualnej kawy. Każda kawa bezpośrednio pomaga utrzymać szybkie serwery, domenę cnchub.app oraz motywuje do ciągłego rozwoju!",
+    "cta": "Postaw kawę ☕",
+    "later": "Może później"
   }
 }

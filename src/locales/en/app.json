@@ -19,6 +19,7 @@
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Settings",
     "feedback": "Report bug / Suggestion",
+    "support": "Buy me a coffee",
     "legal": "Terms & Privacy"
   },
   "changelog": {
@@ -126,9 +127,35 @@
     ]
   },
   "pwa": {
-    "message": "Install the app on your phone to use it offline on the shop floor",
+    "message": "Install the app on your phone or PC to use it instantly and offline on the shop floor",
     "install": "Install",
-    "dismiss": "Dismiss"
+    "dismiss": "Dismiss",
+    "guide": "Guide",
+    "modalTitle": "How to Install CNCHub",
+    "modalSubtitle": "Select your device for a quick step-by-step walkthrough",
+    "tabPc": "PC / Desktop",
+    "tabAndroid": "Android",
+    "tabIos": "iPhone / iOS",
+    "pc": {
+      "title": "Desktop (Chrome, Edge, Brave)",
+      "step1": "In the browser address bar (on the right side), click the Install App icon (monitor with arrow or plus icon).",
+      "step2": "Alternatively: click the three-dot menu ⋮ at top right and choose 'Install CNCHub' or 'Apps > Install'.",
+      "step3": "Click 'Install'. The app will launch in its own standalone window and appear on your Desktop."
+    },
+    "android": {
+      "title": "Android Smartphone (Chrome)",
+      "step1": "Open cnchub.app in Chrome browser.",
+      "step2": "Tap the three dots menu ⋮ in the upper right corner.",
+      "step3": "Tap 'Install app' or 'Add to Home screen'.",
+      "step4": "Confirm install. The CNCHub icon will appear on your home screen like any native app."
+    },
+    "ios": {
+      "title": "iPhone / iPad (Safari)",
+      "step1": "Open the website in Safari (Apple requires Safari for PWA installation).",
+      "step2": "Tap the Share button on the bottom bar (box with an upward arrow).",
+      "step3": "Scroll down and select 'Add to Home Screen' (plus icon).",
+      "step4": "Tap 'Add' in the top right corner. The icon will appear on your home screen."
+    }
   },
   "formulas": {
     "help": "Formula and explanation",
@@ -214,5 +241,13 @@
     "changeDecision": "Show the terms again",
     "close": "Close",
     "back": "Back"
+  },
+  "support": {
+    "badge": "Support the project",
+    "title": "Enjoying CNCHub? ☕",
+    "greeting": "Hey there! I build CNCHub completely free for machinists, CNC operators, and programmers.",
+    "desc": "If this calculator saves you time on the shop floor, helps with cutting formulas, or prevents a costly part mistake – consider buying me a coffee. Your support covers fast server hosting, domain costs, and fuels ongoing development!",
+    "cta": "Buy Me a Coffee ☕",
+    "later": "Maybe later"
   }
 }

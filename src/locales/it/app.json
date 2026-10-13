@@ -19,6 +19,7 @@
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Impostazioni",
     "feedback": "Segnala bug / Suggerimento",
+    "support": "Offrimi un caffè",
     "legal": "Termini e Privacy"
   },
   "changelog": {
@@ -126,9 +127,35 @@
     ]
   },
   "pwa": {
-    "message": "Installa l'app sul telefono per usarla offline in officina",
+    "message": "Installa l'app sul telefono o su PC per usarla all'istante e offline in officina",
     "install": "Installa",
-    "dismiss": "Chiudi"
+    "dismiss": "Chiudi",
+    "guide": "Guida",
+    "modalTitle": "Come installare l'app CNCHub",
+    "modalSubtitle": "Seleziona il tuo dispositivo per seguire la guida passo dopo passo",
+    "tabPc": "PC / Computer",
+    "tabAndroid": "Android",
+    "tabIos": "iPhone / iOS",
+    "pc": {
+      "title": "Computer (Chrome, Edge, Brave)",
+      "step1": "Nella barra degli indirizzi del browser (a destra), clicca sull'icona di installazione (schermo con freccia o simbolo +).",
+      "step2": "In alternativa: clicca sul menu a tre puntini ⋮ in alto a destra e scegli 'Installa CNCHub' o 'App > Installa'.",
+      "step3": "Clicca su 'Installa'. L'app si aprirà in una finestra autonoma e apparirà sul Desktop."
+    },
+    "android": {
+      "title": "Smartphone Android (Chrome)",
+      "step1": "Apri cnchub.app nel browser Chrome.",
+      "step2": "Tocca il menu a tre puntini ⋮ in alto a destra.",
+      "step3": "Tocca 'Installa app' o 'Aggiungi a schermata Home'.",
+      "step4": "Conferma l'installazione. L'icona apparirà nella schermata Home come una normale app."
+    },
+    "ios": {
+      "title": "iPhone / iPad (Safari)",
+      "step1": "Apri il sito nel browser predefinito Safari (Apple richiede Safari per installare le PWA).",
+      "step2": "Tocca il pulsante Condividi nella barra inferiore (quadrato con freccia verso l'alto).",
+      "step3": "Scorri verso il basso e seleziona 'Aggiungi alla schermata Home' (icona +).",
+      "step4": "Tocca 'Aggiungi' in alto a destra. L'icona apparirà sulla schermata iniziale."
+    }
   },
   "formulas": {
     "help": "Formula e spiegazione",
@@ -214,5 +241,13 @@
     "changeDecision": "Mostra di nuovo le condizioni",
     "close": "Chiudi",
     "back": "Indietro"
+  },
+  "support": {
+    "badge": "Sostieni il progetto",
+    "title": "Ti piace CNCHub? ☕",
+    "greeting": "Ciao! Sviluppo CNCHub gratuitamente per operatori CNC, programmatori e meccanici.",
+    "desc": "Se questo calcolatore ti fa risparmiare tempo in officina, semplifica i calcoli o ti ha evitato errori, considera di offrirmi un caffè. Ogni supporto copre i costi di server e dominio e stimola lo sviluppo continuo!",
+    "cta": "Offrimi un caffè ☕",
+    "later": "Forse più tardi"
   }
 }

@@ -7,6 +7,7 @@ import AnimatedRoutes from "./components/AnimatedRoutes";
 import AppErrorBoundary from "./components/AppErrorBoundary";
 import { UnitProvider } from "./contexts/UnitContext";
 import OnboardingController from "./components/OnboardingController";
+import SupportModalController from "./components/SupportModalController";
 import PwaInstallBanner from "./components/PwaInstallBanner";
 import FavoritesFab from "./components/layout/FavoritesFab";
 
@@ -23,6 +24,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <OnboardingController />
+        <SupportModalController />
         <HashRouter>
           <FavoritesFab />
           <Suspense fallback={<AppFallback />}>

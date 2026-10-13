@@ -19,6 +19,7 @@
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Einstellungen",
     "feedback": "Fehler / Vorschlag melden",
+    "support": "Kaffee spendieren",
     "legal": "AGB & Datenschutz"
   },
   "changelog": {
@@ -126,9 +127,35 @@
     ]
   },
   "pwa": {
-    "message": "Installiere die App auf dem Smartphone, um sie offline in der Werkstatt zu nutzen",
+    "message": "Installiere die App auf dem Smartphone oder PC, um sie blitzschnell und offline in der Werkstatt zu nutzen",
     "install": "Installieren",
-    "dismiss": "Schließen"
+    "dismiss": "Schließen",
+    "guide": "Anleitung",
+    "modalTitle": "CNCHub App installieren",
+    "modalSubtitle": "Wähle dein Gerät für eine einfache Schritt-für-Schritt-Anleitung",
+    "tabPc": "PC / Computer",
+    "tabAndroid": "Android",
+    "tabIos": "iPhone / iOS",
+    "pc": {
+      "title": "Computer (Chrome, Edge, Brave)",
+      "step1": "Klicke in der Adressleiste des Browsers (rechts) auf das Installationssymbol (Bildschirm mit Pfeil oder Pluszeichen).",
+      "step2": "Alternativ: Klicke oben rechts auf das Drei-Punkte-Menü ⋮ und wähle 'CNCHub installieren' oder 'Apps > Installieren'.",
+      "step3": "Klicke auf 'Installieren'. Die App öffnet sich in einem separaten Fenster und erscheint auf deinem Desktop."
+    },
+    "android": {
+      "title": "Android-Smartphone (Chrome)",
+      "step1": "Öffne cnchub.app im Chrome-Browser auf deinem Smartphone.",
+      "step2": "Tippe oben rechts auf das Drei-Punkte-Menü ⋮.",
+      "step3": "Wähle 'App installieren' oder 'Zum Startbildschirm hinzufügen'.",
+      "step4": "Bestätige die Installation. Das CNCHub-Symbol erscheint auf deinem Startbildschirm."
+    },
+    "ios": {
+      "title": "iPhone / iPad (Safari)",
+      "step1": "Öffne die Website im Standardbrowser Safari (Apple erfordert Safari für PWA-Installationen).",
+      "step2": "Tippe in der unteren Leiste auf das Teilen-Symbol (Quadrat mit Pfeil nach oben).",
+      "step3": "Scrolle nach unten und wähle 'Zum Home-Bildschirm' (Plus-Symbol).",
+      "step4": "Tippe oben rechts auf 'Hinzufügen'. Das Icon erscheint auf deinem Bildschirm."
+    }
   },
   "formulas": {
     "help": "Formel und Erklärung",
@@ -214,5 +241,13 @@
     "changeDecision": "Bedingungen erneut anzeigen",
     "close": "Schließen",
     "back": "Zurück"
+  },
+  "support": {
+    "badge": "Projekt unterstützen",
+    "title": "Gefällt dir CNCHub? ☕",
+    "greeting": "Hallo! Ich entwickle CNCHub völlig kostenlos für Dreher, Fräser, Zerspaner und CNC-Programmierer.",
+    "desc": "Wenn dir dieser Rechner wertvolle Zeit in der Werkstatt spart, Berechnungen vereinfacht oder geholfen hat, Ausschuss zu vermeiden – spendiere mir gerne einen virtuellen Kaffee. Jede Unterstützung deckt Server- und Domainkosten und treibt die Entwicklung voran!",
+    "cta": "Kaffee spendieren ☕",
+    "later": "Vielleicht später"
   }
 }
