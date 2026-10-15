@@ -18,6 +18,15 @@ const isPreviewHost =
   window.location.hostname.includes("lovableproject.com");
 
 if ('serviceWorker' in navigator && !isInIframe && !isPreviewHost) {
+  // Przeładuj stronę, gdy nowy Service Worker przejmie kontrolę po aktualizacji
+  let refreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!refreshing) {
+      refreshing = true;
+      window.location.reload();
+    }
+  });
+
   window.addEventListener('load', () => {
     const swPath = import.meta.env.BASE_URL + 'sw.js';
     navigator.serviceWorker.register(swPath).then((reg) => {

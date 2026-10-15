@@ -12,6 +12,8 @@ interface PageLayoutProps {
   favoriteTitle?: string;
   /** Use compact bottom padding when the page's scroll should end with its content. */
   compactBottom?: boolean;
+  /** Fullscreen on mobile (no vertical scroll, no footer, no favorite star on mobile). Desktop remains standard. */
+  fullScreenMobile?: boolean;
 }
 
 const FAVORITE_VIEW_LABELS: Record<string, string> = {
@@ -21,7 +23,13 @@ const FAVORITE_VIEW_LABELS: Record<string, string> = {
   radial: 'Promieniowe', axial: 'Osiowe', dynamic: 'Dynamiczne',
 };
 
-const PageLayout = ({ title, children, backRoute = '/', favoriteTitle }: PageLayoutProps) => {
+const PageLayout = ({
+  title,
+  children,
+  backRoute = '/',
+  favoriteTitle,
+  fullScreenMobile = false,
+}: PageLayoutProps) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const location = useLocation();
@@ -48,9 +56,19 @@ const PageLayout = ({ title, children, backRoute = '/', favoriteTitle }: PageLay
 
   return (
     <div
-      className="min-h-screen flex flex-col bg-background text-zinc-100 overflow-x-hidden pt-[calc(env(safe-area-inset-top,0px)+0.5rem)] pt-14 md:pt-12"
+      className={
+        fullScreenMobile
+          ? 'h-[100dvh] max-h-[100dvh] overflow-hidden flex flex-col bg-background text-zinc-100 pt-[calc(env(safe-area-inset-top,0px)+0.25rem)] md:pt-12 md:min-h-screen md:h-auto md:max-h-none md:overflow-x-hidden md:overflow-y-visible'
+          : 'min-h-screen flex flex-col bg-background text-zinc-100 overflow-x-hidden pt-[calc(env(safe-area-inset-top,0px)+0.5rem)] pt-14 md:pt-12'
+      }
     >
-      <header className="flex items-center gap-4 mb-6 sm:mb-8 mt-2 p-4 sm:p-6 pb-0 max-w-2xl mx-auto w-full">
+      <header
+        className={
+          fullScreenMobile
+            ? 'flex items-center gap-3 mb-1 sm:mb-2 mt-0 px-3 py-1.5 shrink-0 max-w-2xl mx-auto w-full md:gap-4 md:mb-6 md:sm:mb-8 md:mt-2 md:p-4 md:sm:p-6 md:pb-0'
+            : 'flex items-center gap-4 mb-6 sm:mb-8 mt-2 p-4 sm:p-6 pb-0 max-w-2xl mx-auto w-full'
+        }
+      >
         <button
           onClick={() => navigate(backRoute)}
           className="p-2 -ml-2 rounded-xl text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800 transition-colors"
@@ -63,7 +81,9 @@ const PageLayout = ({ title, children, backRoute = '/', favoriteTitle }: PageLay
           <button
             type="button"
             onClick={toggleFavorite}
-            className="inline-flex items-center justify-center p-1 rounded-md text-zinc-400 hover:text-amber-400 transition-colors shrink-0"
+            className={`items-center justify-center p-1 rounded-md text-zinc-400 hover:text-amber-400 transition-colors shrink-0 ${
+              fullScreenMobile ? 'hidden md:inline-flex' : 'inline-flex'
+            }`}
             title={favorited ? 'Usuń z ulubionych' : 'Dodaj do ulubionych (max 4)'}
             aria-label={favorited ? 'Usuń z ulubionych' : 'Dodaj do ulubionych (max 4)'}
             aria-pressed={favorited}
@@ -78,9 +98,21 @@ const PageLayout = ({ title, children, backRoute = '/', favoriteTitle }: PageLay
         </div>
       </header>
 
-      <main className="flex-1 w-full max-w-4xl mx-auto px-4 pt-4 pb-[calc(5rem+env(safe-area-inset-bottom))]">
+      <main
+        className={
+          fullScreenMobile
+            ? 'flex-1 min-h-0 w-full max-w-4xl mx-auto px-3 pt-0 pb-[max(0.5rem,env(safe-area-inset-bottom))] overflow-hidden flex flex-col md:px-4 md:pt-4 md:pb-[calc(5rem+env(safe-area-inset-bottom))] md:overflow-visible md:flex-initial'
+            : 'flex-1 w-full max-w-4xl mx-auto px-4 pt-4 pb-[calc(5rem+env(safe-area-inset-bottom))]'
+        }
+      >
         {children}
-        <AppFooter />
+        {fullScreenMobile ? (
+          <div className="hidden md:block w-full">
+            <AppFooter />
+          </div>
+        ) : (
+          <AppFooter />
+        )}
       </main>
     </div>
   );

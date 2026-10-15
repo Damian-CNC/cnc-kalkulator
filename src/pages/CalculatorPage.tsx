@@ -88,6 +88,20 @@ const CalculatorPage = () => {
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
+  // Zapobiegaj przewijaniu i efektowi 'rubber-banding' na smartfonach w widoku pełnoekranowym
+  useEffect(() => {
+    const isMobile = window.innerWidth < 768;
+    if (!isMobile) return;
+    const prevOverflow = document.body.style.overflow;
+    const prevOverscroll = document.body.style.overscrollBehaviorY;
+    document.body.style.overflow = 'hidden';
+    document.body.style.overscrollBehaviorY = 'none';
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      document.body.style.overscrollBehaviorY = prevOverscroll;
+    };
+  }, []);
+
   // --- wyświetlanie ---
   const hasStructure = /[+−×÷()%]/.test(s.expr);
   const live = !s.done && hasStructure ? evaluate(previewExpr(s.expr)) : null;
@@ -104,7 +118,13 @@ const CalculatorPage = () => {
           : showExpr(s.expr);
   const copyValue = bigNumber !== null ? numToExpr(bigNumber).replace('−', '-') : null;
   const sizeCls =
-    bigText.length > 16 ? 'text-3xl' : bigText.length > 12 ? 'text-4xl' : bigText.length > 8 ? 'text-5xl' : 'text-6xl';
+    bigText.length > 16
+      ? 'text-2xl sm:text-3xl'
+      : bigText.length > 12
+        ? 'text-3xl sm:text-4xl'
+        : bigText.length > 8
+          ? 'text-4xl sm:text-5xl'
+          : 'text-5xl sm:text-6xl';
 
   // długie przytrzymanie wyniku z historii = kopiowanie
   const pressTimer = useRef<number | undefined>(undefined);
@@ -141,7 +161,7 @@ const CalculatorPage = () => {
         triggerLight();
         onPress();
       }}
-      className={`h-[4.5rem] rounded-2xl flex items-center justify-center text-3xl font-semibold select-none border transition-all active:scale-95 ${
+      className={`h-[clamp(2.75rem,7.2dvh,4.25rem)] md:h-[4.5rem] rounded-xl sm:rounded-2xl flex items-center justify-center text-2xl sm:text-3xl font-semibold select-none border transition-all active:scale-95 touch-manipulation ${
         wide ? 'col-span-3' : ''
       } ${
         kind === 'op'
@@ -158,10 +178,10 @@ const CalculatorPage = () => {
   );
 
   return (
-    <PageLayout title={t('calc.title')}>
-      <div className="max-w-sm mx-auto flex flex-col min-h-[calc(100dvh-8.5rem)] pb-2">
+    <PageLayout title={t('calc.title')} fullScreenMobile>
+      <div className="max-w-sm w-full mx-auto flex flex-col flex-1 h-full min-h-0 justify-between md:min-h-[calc(100dvh-8.5rem)] md:pb-2">
         {/* trzy ostatnie wyniki */}
-        <div className="flex gap-2 mb-2 min-h-[2.25rem]" aria-label={t('calc.history')}>
+        <div className="flex gap-1.5 sm:gap-2 mb-1 shrink-0 min-h-[1.75rem] sm:min-h-[2.25rem]" aria-label={t('calc.history')}>
           {s.history.map((h, i) => (
             <button
               key={`${h}-${i}`}
@@ -185,21 +205,21 @@ const CalculatorPage = () => {
                 triggerLight();
                 insertValue(h);
               }}
-              className="flex-1 min-w-0 truncate px-3 py-2 rounded-full bg-zinc-900 border border-zinc-800 text-sm font-semibold text-cyan-400 hover:border-cyan-600/60 active:scale-95 transition-all"
+              className="flex-1 min-w-0 truncate px-2.5 py-1 sm:px-3 sm:py-2 rounded-full bg-zinc-900 border border-zinc-800 text-xs sm:text-sm font-semibold text-cyan-400 hover:border-cyan-600/60 active:scale-95 transition-all"
             >
               {formatNumber(toNum(h), dec)}
             </button>
           ))}
         </div>
-        <p className="text-[11px] text-zinc-600 mb-3 text-right">{t('calc.hint')}</p>
+        <p className="text-[10px] sm:text-[11px] text-zinc-600 mb-1 sm:mb-2 text-right shrink-0">{t('calc.hint')}</p>
 
         {/* dolna część: wyrażenie, wynik i klawiatura przy dole ekranu */}
         <div className="mt-auto" />
-        <div className="px-2 pb-4 text-right">
-          <div className="min-h-[1.75rem] text-lg text-zinc-400 overflow-x-auto whitespace-nowrap [scrollbar-width:none]">
+        <div className="px-2 pb-1 sm:pb-2 md:pb-4 text-right flex-1 min-h-0 flex flex-col justify-end">
+          <div className="min-h-[1.25rem] sm:min-h-[1.5rem] md:min-h-[1.75rem] text-sm sm:text-base md:text-lg text-zinc-400 overflow-x-auto whitespace-nowrap [scrollbar-width:none]">
             {s.expr && (hasStructure || s.done) ? `${showExpr(s.expr)}${s.done ? ' =' : ''}` : '\u00A0'}
           </div>
-          <div className={`${sizeCls} font-light text-white leading-tight min-h-[4.5rem] flex items-end justify-end`}>
+          <div className={`${sizeCls} font-light text-white leading-tight min-h-[2.5rem] sm:min-h-[3.5rem] md:min-h-[4.5rem] flex items-end justify-end`}>
             {copyValue !== null && !error ? (
               <CopyableValue value={copyValue}>{bigText}</CopyableValue>
             ) : (
@@ -209,9 +229,9 @@ const CalculatorPage = () => {
         </div>
 
         {/* klawiatura */}
-        <div className="grid grid-cols-4 gap-3 pb-[env(safe-area-inset-bottom,0px)]">
+        <div className="grid grid-cols-4 gap-2 sm:gap-2.5 md:gap-3 shrink-0 pb-[max(0.25rem,env(safe-area-inset-bottom,0px))]">
           <Key label="AC" kind="fn" onPress={clear} aria="AC" />
-          <Key label={<BackspaceIcon size={30} />} kind="fn" onPress={backspace} aria="Backspace" />
+          <Key label={<BackspaceIcon className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />} kind="fn" onPress={backspace} aria="Backspace" />
           <Key label="(" kind="fn" onPress={() => paren('(')} />
           <Key label=")" kind="fn" onPress={() => paren(')')} />
 

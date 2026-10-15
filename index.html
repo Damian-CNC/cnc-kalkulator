@@ -57,10 +57,20 @@
           if (preloader) preloader.remove();
         };
         window.__removeCncPreloader = removePreloader;
-        document.addEventListener('DOMContentLoaded', function () {
-          window.setTimeout(removePreloader, 3000);
-        }, { once: true });
-        window.setTimeout(removePreloader, 3000);
+        // Zabezpieczenie przed błędem 404 starych plików JS po aktualizacji (automatyczne odświeżenie)
+        window.addEventListener('error', function (e) {
+          if (e.target && (e.target.tagName === 'SCRIPT' || e.target.tagName === 'LINK')) {
+            var reloadKey = 'cnc_reload_attempted';
+            if (!sessionStorage.getItem(reloadKey)) {
+              sessionStorage.setItem(reloadKey, '1');
+              window.location.reload();
+            }
+          }
+        }, true);
+        window.addEventListener('load', function () {
+          sessionStorage.removeItem('cnc_reload_attempted');
+        });
+        window.setTimeout(removePreloader, 6000);
       })();
     </script>
     <script type="module" src="/src/main.tsx"></script>

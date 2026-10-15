@@ -35,8 +35,14 @@ const FavoritesFab = () => {
     return () => window.removeEventListener('keydown', onKey);
   }, [isOpen]);
 
+  const isCalculatorPage = location.pathname === '/kalkulator';
+
   return (
-    <div className="fixed left-4 sm:left-8 z-40 bottom-[calc(1.5rem+env(safe-area-inset-bottom))] sm:bottom-[calc(2rem+env(safe-area-inset-bottom))]">
+    <div
+      className={`${
+        isCalculatorPage ? 'hidden md:block ' : ''
+      }fixed left-4 sm:left-8 z-40 bottom-[calc(1.5rem+env(safe-area-inset-bottom))] sm:bottom-[calc(2rem+env(safe-area-inset-bottom))]`}
+    >
       {isOpen && (
         <>
           <button
