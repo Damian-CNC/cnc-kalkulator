@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { motion, type PanInfo } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { SlidersHorizontal } from 'lucide-react';
+import { toast } from 'sonner';
 import WakeLockToggle from '@/components/WakeLockToggle';
 import AppFooter from '@/components/AppFooter';
 import useHaptics from '@/hooks/useHaptics';
@@ -23,6 +24,7 @@ const Index = () => {
     toggleEditMode,
     addSpacer,
     removeSpacer,
+    moveItem,
     resetToDefault,
   } = useMenuLayout();
 
@@ -35,18 +37,35 @@ const Index = () => {
   };
 
   const handleDrag = (id: string, info: PanInfo) => {
+    // Przelicz współrzędne Framer Motion (pageX, pageY) na współrzędne widoku (clientX, clientY)
+    // Dzięki temu przeciąganie działa w 100% poprawnie zarówno na PC jak i po przewinięciu strony na telefonie!
+    const clientX = info.point.x - window.scrollX;
+    const clientY = info.point.y - window.scrollY;
+
+    // Płynny auto-scroll, gdy przeciągamy blisko krawędzi ekranu
+    const edgeThreshold = 80;
+    if (clientY < edgeThreshold && window.scrollY > 0) {
+      window.scrollBy({ top: -10, behavior: 'auto' });
+    } else if (clientY > window.innerHeight - edgeThreshold) {
+      window.scrollBy({ top: 10, behavior: 'auto' });
+    }
+
     const now = Date.now();
-    // Odstęp min. 220 ms pomiędzy zamianami pozycji (zapobiega migotaniu przy granicy)
-    if (now - lastSwapTimeRef.current < 220) return;
+    // Odstęp min. 200 ms pomiędzy zamianami pozycji (zapobiega migotaniu przy granicy)
+    if (now - lastSwapTimeRef.current < 200) return;
 
-    // Pobierz wszystkie elementy pod kursorem/palcem i znajdź inny kafelek
-    const elements = document.elementsFromPoint(info.point.x, info.point.y);
-    const targetEl = elements.find((el) => {
-      const layoutId = el.getAttribute('data-layout-id');
-      return layoutId && layoutId !== id;
-    });
+    // Szukamy kafelka pod kursorem/palcem w obrębie bieżącego widoku
+    const elements = document.elementsFromPoint(clientX, clientY);
+    let targetId: string | null = null;
+    for (const el of elements) {
+      const container = (el as HTMLElement).closest?.('[data-layout-id]');
+      const layoutId = container?.getAttribute('data-layout-id');
+      if (layoutId && layoutId !== id) {
+        targetId = layoutId;
+        break;
+      }
+    }
 
-    const targetId = targetEl?.getAttribute('data-layout-id');
     if (targetId && targetId !== id) {
       lastSwapTimeRef.current = now;
       triggerLight();
@@ -66,6 +85,20 @@ const Index = () => {
     draggedIdRef.current = null;
   };
 
+  const handleAddSpacer = () => {
+    addSpacer();
+    toast(t('menuEdit.spacerAddedBottom', { defaultValue: 'Pusty kafelek pojawił się na samym dole menu ⬇️' }), {
+      duration: 1500,
+    });
+    // Płynne przewinięcie ekranu na sam dół do nowego kafelka
+    setTimeout(() => {
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: 'smooth',
+      });
+    }, 60);
+  };
+
   return (
     <div className="min-h-screen bg-zinc-950 px-4 pb-safe overflow-x-hidden flex flex-col items-center">
       {/* Nagłówek */}
@@ -74,15 +107,15 @@ const Index = () => {
         <button
           type="button"
           onClick={toggleEditMode}
-          className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border text-xs font-semibold transition-all active:scale-95 ${
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold transition-all active:scale-95 ${
             isEditMode
               ? 'border-cyan-400 bg-cyan-500/20 text-cyan-300 shadow-[0_0_12px_rgba(6,182,212,0.25)]'
-              : 'border-zinc-800 bg-zinc-900/80 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700'
+              : 'border-zinc-700 bg-zinc-900/90 text-zinc-300 hover:text-cyan-300 hover:border-cyan-500/50 hover:bg-zinc-800'
           }`}
           title={isEditMode ? t('menuEdit.done') : t('menuEdit.edit')}
         >
           <SlidersHorizontal className="w-3.5 h-3.5 text-cyan-400" />
-          <span className="hidden sm:inline">
+          <span className="hidden min-[380px]:inline">
             {isEditMode ? t('menuEdit.done') : t('menuEdit.edit')}
           </span>
         </button>
@@ -132,13 +165,16 @@ const Index = () => {
                   onDrag={(_e, info) => handleDrag(item.id, info)}
                   onDragEnd={handleDragEnd}
                   transition={{ type: 'spring', damping: 26, stiffness: 320 }}
+                  style={{ touchAction: 'none' }}
                   className="w-full"
                 >
                   <MenuSpacer
                     id={item.id}
                     index={index}
+                    totalItems={items.length}
                     isEditMode={isEditMode}
                     onRemove={removeSpacer}
+                    onMove={(dir) => moveItem(item.id, dir)}
                   />
                 </motion.div>
               );
@@ -159,13 +195,16 @@ const Index = () => {
                 onDrag={(_e, info) => handleDrag(item.id, info)}
                 onDragEnd={handleDragEnd}
                 transition={{ type: 'spring', damping: 26, stiffness: 320 }}
+                style={{ touchAction: 'none' }}
                 className="w-full"
               >
                 <MenuTile
                   tile={tile}
                   index={index}
+                  totalItems={items.length}
                   isEditMode={isEditMode}
                   onStartEdit={() => setIsEditMode(true)}
+                  onMove={(dir) => moveItem(item.id, dir)}
                 />
               </motion.div>
             );
@@ -176,7 +215,7 @@ const Index = () => {
       {/* Dolny pasek narzędzi w trybie edycji */}
       {isEditMode && (
         <MenuEditBar
-          onAddSpacer={() => addSpacer()}
+          onAddSpacer={handleAddSpacer}
           onReset={resetToDefault}
           onDone={() => setIsEditMode(false)}
         />

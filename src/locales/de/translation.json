@@ -118,6 +118,9 @@
     "hintTitle": "Passe dein Menü an! ⚙️",
     "hintDesc": "Verschiebe Kacheln frei und füge Abstände hinzu. Halte eine Kachel 1,5 Sek. gedrückt oder klicke auf 'Menü anpassen'.",
     "hintCta": "Verstanden",
-    "hintTry": "Jetzt ausprobieren"
+    "hintTry": "Jetzt ausprobieren",
+    "spacerAddedBottom": "Leerkachel wurde ganz unten im Menü hinzugefügt ⬇️",
+    "moveLeft": "Nach links verschieben",
+    "moveRight": "Nach rechts verschieben"
   }
 }

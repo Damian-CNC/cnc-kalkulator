@@ -118,6 +118,9 @@
     "hintTitle": "Układaj menu po swojemu! ⚙️",
     "hintDesc": "Możesz dowolnie przestawiać kafelki i dodawać puste miejsca. Przytrzymaj kafelek przez 1.5 sekundy na telefonie lub kliknij 'Edytuj menu'.",
     "hintCta": "Rozumiem",
-    "hintTry": "Wypróbuj teraz"
+    "hintTry": "Wypróbuj teraz",
+    "spacerAddedBottom": "Pusty kafelek pojawił się na samym dole menu ⬇️",
+    "moveLeft": "Przesuń w lewo",
+    "moveRight": "Przesuń w prawo"
   }
 }

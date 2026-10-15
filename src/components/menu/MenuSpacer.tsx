@@ -1,22 +1,26 @@
 import { useTranslation } from 'react-i18next';
-import { MinusCircle, X } from 'lucide-react';
+import { MinusCircle, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import useHaptics from '@/hooks/useHaptics';
 
 interface MenuSpacerProps {
   id: string;
   index: number;
+  totalItems: number;
   isEditMode: boolean;
   onRemove: (id: string) => void;
+  onMove?: (direction: 'left' | 'right') => void;
 }
 
 export const MenuSpacer = ({
   id,
   index,
+  totalItems,
   isEditMode,
   onRemove,
+  onMove,
 }: MenuSpacerProps) => {
   const { t } = useTranslation();
-  const { triggerWarning } = useHaptics();
+  const { triggerLight, triggerWarning } = useHaptics();
 
   if (!isEditMode) {
     // W trybie zwykłym: niewidoczny blok zajmujący 1 slot w siatce
@@ -39,6 +43,9 @@ export const MenuSpacer = ({
 
   return (
     <div
+      onDragStart={(e) => e.preventDefault()}
+      draggable={false}
+      style={{ touchAction: 'none' }}
       className={`relative aspect-square w-full select-none rounded-2xl border-2 border-dashed border-zinc-700/80 bg-zinc-900/40 flex flex-col items-center justify-center gap-1.5 p-3 text-center cursor-grab active:cursor-grabbing touch-manipulation transition-all hover:border-zinc-500 hover:bg-zinc-800/30 ${jiggleClass}`}
     >
       {/* Przycisk usuwania odstępu */}
@@ -55,6 +62,45 @@ export const MenuSpacer = ({
       <span className="text-xs font-medium text-zinc-400">
         {t('menuEdit.spacerLabel')}
       </span>
+
+      {/* Przyciski przesuwania w lewo / w prawo w trybie edycji (dla PC i wygody) */}
+      {isEditMode && onMove && (
+        <div className="absolute inset-x-2 bottom-1.5 flex items-center justify-between pointer-events-none z-30">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              triggerLight();
+              onMove('left');
+            }}
+            disabled={index === 0}
+            aria-label={t('menuEdit.moveLeft')}
+            title={t('menuEdit.moveLeft')}
+            className={`pointer-events-auto p-1 rounded-lg bg-zinc-950/80 border border-zinc-700/80 text-zinc-300 hover:text-cyan-300 hover:border-cyan-500/60 active:scale-90 transition-all ${
+              index === 0 ? 'opacity-25 pointer-events-none' : 'hover:bg-zinc-800'
+            }`}
+          >
+            <ChevronLeft className="w-3.5 h-3.5" />
+          </button>
+
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              triggerLight();
+              onMove('right');
+            }}
+            disabled={index >= totalItems - 1}
+            aria-label={t('menuEdit.moveRight')}
+            title={t('menuEdit.moveRight')}
+            className={`pointer-events-auto p-1 rounded-lg bg-zinc-950/80 border border-zinc-700/80 text-zinc-300 hover:text-cyan-300 hover:border-cyan-500/60 active:scale-90 transition-all ${
+              index >= totalItems - 1 ? 'opacity-25 pointer-events-none' : 'hover:bg-zinc-800'
+            }`}
+          >
+            <ChevronRight className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      )}
     </div>
   );
 };

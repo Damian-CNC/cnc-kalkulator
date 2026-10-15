@@ -1,25 +1,29 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { GripVertical } from 'lucide-react';
+import { GripVertical, ChevronLeft, ChevronRight } from 'lucide-react';
 import useHaptics from '@/hooks/useHaptics';
 import { type TileDefinition, LUCIDE_ICONS } from '@/types/menu';
 
 const HOLD_DURATION = 1500; // 1.5 sekundy
-const MOVE_TOLERANCE = 12; // piksele przesunięcia anulujące przytrzymanie (np. przy scrollu)
+const MOVE_TOLERANCE = 18; // piksele przesunięcia anulujące przytrzymanie (zwiększone z 12 dla stabilności myszki na PC)
 
 interface MenuTileProps {
   tile: TileDefinition;
   index: number;
+  totalItems: number;
   isEditMode: boolean;
   onStartEdit: () => void;
+  onMove?: (direction: 'left' | 'right') => void;
 }
 
 export const MenuTile = ({
   tile,
   index,
+  totalItems,
   isEditMode,
   onStartEdit,
+  onMove,
 }: MenuTileProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -99,6 +103,14 @@ export const MenuTile = ({
     navigate(tile.route);
   };
 
+  const handleContextMenu = (e: React.MouseEvent) => {
+    if (!isEditMode) {
+      e.preventDefault();
+      triggerLight();
+      onStartEdit();
+    }
+  };
+
   useEffect(() => {
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
@@ -120,7 +132,11 @@ export const MenuTile = ({
       onPointerMove={handlePointerMove}
       onPointerUp={cancelHold}
       onPointerCancel={cancelHold}
+      onContextMenu={handleContextMenu}
       onClick={handleClick}
+      onDragStart={(e) => e.preventDefault()}
+      draggable={false}
+      style={{ touchAction: 'none' }}
       className={`relative aspect-square w-full select-none rounded-2xl border flex flex-col items-center justify-center gap-2 p-3 text-center cursor-pointer transition-all touch-manipulation md:gap-1.5 md:p-2.5 ${
         isEditMode
           ? `border-cyan-500/50 bg-zinc-900/90 shadow-[0_0_15px_rgba(6,182,212,0.15)] cursor-grab active:cursor-grabbing ${jiggleClass}`
@@ -183,6 +199,45 @@ export const MenuTile = ({
       <span className="text-sm sm:text-base md:text-sm font-semibold text-zinc-200 leading-tight pointer-events-none">
         {t(tile.labelKey)}
       </span>
+
+      {/* Przyciski przesuwania w lewo / w prawo w trybie edycji (dla PC i wygody) */}
+      {isEditMode && onMove && (
+        <div className="absolute inset-x-2 bottom-1.5 flex items-center justify-between pointer-events-none z-30">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              triggerLight();
+              onMove('left');
+            }}
+            disabled={index === 0}
+            aria-label={t('menuEdit.moveLeft')}
+            title={t('menuEdit.moveLeft')}
+            className={`pointer-events-auto p-1 rounded-lg bg-zinc-950/80 border border-zinc-700/80 text-zinc-300 hover:text-cyan-300 hover:border-cyan-500/60 active:scale-90 transition-all ${
+              index === 0 ? 'opacity-25 pointer-events-none' : 'hover:bg-zinc-800'
+            }`}
+          >
+            <ChevronLeft className="w-3.5 h-3.5" />
+          </button>
+
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              triggerLight();
+              onMove('right');
+            }}
+            disabled={index >= totalItems - 1}
+            aria-label={t('menuEdit.moveRight')}
+            title={t('menuEdit.moveRight')}
+            className={`pointer-events-auto p-1 rounded-lg bg-zinc-950/80 border border-zinc-700/80 text-zinc-300 hover:text-cyan-300 hover:border-cyan-500/60 active:scale-90 transition-all ${
+              index >= totalItems - 1 ? 'opacity-25 pointer-events-none' : 'hover:bg-zinc-800'
+            }`}
+          >
+            <ChevronRight className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      )}
     </div>
   );
 };

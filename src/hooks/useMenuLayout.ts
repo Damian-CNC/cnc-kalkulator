@@ -94,6 +94,19 @@ export const useMenuLayout = () => {
     setItems((prev) => prev.filter((item) => item.id !== spacerId));
   }, [setItems]);
 
+  const moveItem = useCallback((id: string, direction: 'left' | 'right') => {
+    setItems((prev) => {
+      const index = prev.findIndex((item) => item.id === id);
+      if (index === -1) return prev;
+      const targetIndex = direction === 'left' ? index - 1 : index + 1;
+      if (targetIndex < 0 || targetIndex >= prev.length) return prev;
+      const copy = [...prev];
+      const [moved] = copy.splice(index, 1);
+      copy.splice(targetIndex, 0, moved);
+      return copy;
+    });
+  }, [setItems]);
+
   const resetToDefault = useCallback(() => {
     setItems(DEFAULT_LAYOUT);
   }, [setItems]);
@@ -120,6 +133,7 @@ export const useMenuLayout = () => {
     toggleEditMode,
     addSpacer,
     removeSpacer,
+    moveItem,
     resetToDefault,
   };
 };

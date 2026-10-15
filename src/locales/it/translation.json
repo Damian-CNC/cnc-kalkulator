@@ -118,6 +118,9 @@
     "hintTitle": "Personalizza il tuo menu! ⚙️",
     "hintDesc": "Riorganizza liberamente i calcolatori e aggiungi spazi vuoti. Tieni premuto un riquadro per 1,5s o clicca su 'Modifica menu'.",
     "hintCta": "Ho capito",
-    "hintTry": "Prova ora"
+    "hintTry": "Prova ora",
+    "spacerAddedBottom": "Casella vuota aggiunta in fondo al menu ⬇️",
+    "moveLeft": "Sposta a sinistra",
+    "moveRight": "Sposta a destra"
   }
 }
