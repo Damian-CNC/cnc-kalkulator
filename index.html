@@ -34,8 +34,8 @@
     <meta name="twitter:description" content="Precyzyjny kalkulator parametrów skrawania, gwintów, pasowań ISO i geometrii dla tokarzy oraz frezerów CNC." />
     <meta name="twitter:image" content="https://cnc-forge-assist.lovable.app/og-preview.png" />
 
-    <script type="module" crossorigin src="./assets/index-D4cM8Cbk.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-Cf5-bSPU.css">
+    <script type="module" crossorigin src="./assets/index-D4fJ4ywv.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index--7qHjqjV.css">
   </head>
 
   <body style="margin:0;background-color:#09090b;">
@@ -59,10 +59,20 @@
           if (preloader) preloader.remove();
         };
         window.__removeCncPreloader = removePreloader;
-        document.addEventListener('DOMContentLoaded', function () {
-          window.setTimeout(removePreloader, 3000);
-        }, { once: true });
-        window.setTimeout(removePreloader, 3000);
+        // Zabezpieczenie przed błędem 404 starych plików JS po aktualizacji (automatyczne odświeżenie)
+        window.addEventListener('error', function (e) {
+          if (e.target && (e.target.tagName === 'SCRIPT' || e.target.tagName === 'LINK')) {
+            var reloadKey = 'cnc_reload_attempted';
+            if (!sessionStorage.getItem(reloadKey)) {
+              sessionStorage.setItem(reloadKey, '1');
+              window.location.reload();
+            }
+          }
+        }, true);
+        window.addEventListener('load', function () {
+          sessionStorage.removeItem('cnc_reload_attempted');
+        });
+        window.setTimeout(removePreloader, 6000);
       })();
     </script>
   </body>

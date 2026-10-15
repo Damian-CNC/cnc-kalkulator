@@ -1,5 +1,5 @@
 const CACHE_PREFIX = 'cnc-calculator-';
-const CACHE_NAME = `${CACHE_PREFIX}v9`;
+const CACHE_NAME = `${CACHE_PREFIX}v10`;
 const PRECACHE_URLS = [
   './', './index.html', './manifest.json', './favicon.png', './icon-192.png', './icon-512.png',
   './din509/form-e.jpg', './din509/form-f.jpg', './din509/form-g.jpg', './din509/form-h.jpg',
@@ -25,7 +25,13 @@ self.addEventListener('activate', (event) => {
         ),
       ),
       self.clients.claim(),
-    ])
+    ]).then(() => {
+      return self.clients.matchAll({ type: 'window' }).then((clients) => {
+        clients.forEach((client) => {
+          client.postMessage({ type: 'SW_ACTIVATED' });
+        });
+      });
+    })
   );
 });
 
@@ -85,32 +91,27 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // HTML — od razu z cache, a w tle pobieramy świeżą wersję (stale-while-revalidate).
-  // Dzięki temu start aplikacji z ekranu głównego nie czeka na sieć; nowa wersja
-  // pojawia się przy kolejnym uruchomieniu.
+  // HTML — sieć najpierw (zawsze świeży index.html po aktualizacji aplikacji),
+  // a w razie braku sieci natychmiastowy fallback do cache (działa offline na warsztacie).
   if (isHTML) {
     const indexUrl = self.registration.scope + 'index.html';
     event.respondWith(
-      caches.match(req, { ignoreSearch: true }).then((hit) => hit || caches.match(indexUrl)).then((cached) => {
-        const update = fetch(req, { cache: 'no-store' })
-          .then((response) => {
-            if (response && response.status === 200) {
-              const copy1 = response.clone();
-              const copy2 = response.clone();
-              caches.open(CACHE_NAME).then((cache) => {
-                cache.put(req, copy1);
-                cache.put(indexUrl, copy2);
-              });
-            }
+      fetch(req, { cache: 'no-cache' })
+        .then((response) => {
+          if (response && response.status === 200) {
+            const clone1 = response.clone();
+            const clone2 = response.clone();
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(req, clone1);
+              cache.put(indexUrl, clone2);
+            });
             return response;
-          })
-          .catch(() => null);
-        if (cached) {
-          event.waitUntil(update);
-          return cached;
-        }
-        return update.then((response) => response || Response.error());
-      }),
+          }
+          return caches.match(req, { ignoreSearch: true }).then((hit) => hit || caches.match(indexUrl));
+        })
+        .catch(() => {
+          return caches.match(req, { ignoreSearch: true }).then((hit) => hit || caches.match(indexUrl));
+        })
     );
     return;
   }
