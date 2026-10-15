@@ -106,5 +106,18 @@
     "hrcInput": "Hardness HRC",
     "resultTitle": "Conversion result",
     "standard": "Conversion according to ISO 18265 (ISO 6506/6508)"
+  },
+  "menuEdit": {
+    "edit": "Edit menu",
+    "done": "Done",
+    "addSpacer": "Add spacer",
+    "reset": "Reset layout",
+    "resetConfirm": "Are you sure you want to reset to the default tile layout?",
+    "spacerLabel": "Spacer",
+    "removeSpacer": "Remove spacer",
+    "hintTitle": "Customize your menu! ⚙️",
+    "hintDesc": "Rearrange tiles and add blank spaces however you like. Hold any tile for 1.5s on mobile or click 'Edit menu' on PC.",
+    "hintCta": "Got it",
+    "hintTry": "Try now"
   }
 }

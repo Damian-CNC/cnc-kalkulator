@@ -262,4 +262,24 @@ body {
   .stagger-1 { animation-delay: 0.1s; }
   .stagger-2 { animation-delay: 0.2s; }
   .stagger-3 { animation-delay: 0.3s; }
+
+  @keyframes jiggle {
+    0% { transform: rotate(-1.2deg); }
+    50% { transform: rotate(1.2deg); }
+    100% { transform: rotate(-1.2deg); }
+  }
+
+  @keyframes jiggle-alt {
+    0% { transform: rotate(1.2deg); }
+    50% { transform: rotate(-1.2deg); }
+    100% { transform: rotate(1.2deg); }
+  }
+
+  .animate-jiggle {
+    animation: jiggle 0.26s ease-in-out infinite;
+  }
+
+  .animate-jiggle-alt {
+    animation: jiggle-alt 0.26s ease-in-out infinite;
+  }
 }

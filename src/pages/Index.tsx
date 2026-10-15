@@ -1,106 +1,93 @@
-import { useNavigate } from 'react-router-dom';
-import { Settings, Scale, Gem, Ruler, Waves, Target, Triangle, Calculator, Thermometer, Database } from 'lucide-react';
-import type { ComponentType } from 'react';
-import {
-  MillChamferIcon,
-  ThreadIcon,
-  CaliperIcon,
-  LatheChamferIcon,
-  DrillIcon,
-  HexDiagonalIcon,
-  UndercutIcon,
-  PcdIcon,
-  AngledHolesIcon,
-  CirclipIcon,
-  KeywayIcon,
-  ORingIcon,
-  BoltHoleIcon,
-} from '@/components/icons/CncIcons';
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, type PanInfo } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { SlidersHorizontal } from 'lucide-react';
 import WakeLockToggle from '@/components/WakeLockToggle';
 import AppFooter from '@/components/AppFooter';
 import useHaptics from '@/hooks/useHaptics';
-
-
-type Tile = {
-  id: string;
-  labelKey: string;
-  icon: ComponentType<{ className?: string; strokeWidth?: number | string }>;
-  route: string;
-  isNew?: boolean;
-};
-
-// Ikony lucide rysowane są na siatce 24 px (własne na 64 px), więc ta sama
-// grubość linii na ekranie wymaga tu znacznie mniejszego strokeWidth.
-const LUCIDE_ICONS: unknown[] = [Settings, Waves, Ruler, Target, Scale, Gem, Triangle, Calculator, Thermometer, Database];
-
-const sections: { titleKey: string; tiles: Tile[] }[] = [
-  {
-    titleKey: 'sections.basic',
-    tiles: [
-      { id: 'parameters', labelKey: 'tiles.parameters', icon: Settings, route: '/parametry' },
-      { id: 'calc', labelKey: 'tools:calc.tile', icon: Calculator, route: '/kalkulator', isNew: true },
-    ],
-  },
-  {
-    titleKey: 'sections.machining',
-    tiles: [
-      { id: 'roughness', labelKey: 'tiles.roughness', icon: Waves, route: '/chropowatosc' },
-    ],
-  },
-  {
-    titleKey: 'sections.threadsFits',
-    tiles: [
-      { id: 'tolerances', labelKey: 'tiles.tolerances', icon: Ruler, route: '/tolerancje' },
-      { id: 'threads', labelKey: 'tiles.threads', icon: ThreadIcon, route: '/gwinty' },
-      { id: 'iso2768', labelKey: 'tiles.iso2768', icon: CaliperIcon, route: '/tolerancje-iso-2768' },
-    ],
-  },
-  {
-    titleKey: 'sections.geometry',
-    tiles: [
-      { id: 'taper', labelKey: 'tiles.taper', icon: LatheChamferIcon, route: '/kalkulator-stozkow' },
-      { id: 'millChamfer', labelKey: 'chamfer:tile', icon: MillChamferIcon, route: '/faza-frezem' },
-      { id: 'cone', labelKey: 'tiles.cone', icon: DrillIcon, route: '/stozek' },
-      { id: 'polygon', labelKey: 'tiles.polygon', icon: HexDiagonalIcon, route: '/przekatne' },
-      { id: 'pcd', labelKey: 'tiles.pcd', icon: PcdIcon, route: '/pcd' },
-      { id: 'linearHoles', labelKey: 'tiles.linearHoles', icon: AngledHolesIcon, route: '/otwory-liniowe' },
-      { id: 'truePosition', labelKey: 'tiles.truePosition', icon: Target, route: '/true-position' },
-      { id: 'trig', labelKey: 'tools:trig.tile', icon: Triangle, route: '/trygonometria', isNew: true },
-    ],
-  },
-  {
-    titleKey: 'sections.standardParts',
-    tiles: [
-      { id: 'seger', labelKey: 'tiles.seger', icon: CirclipIcon, route: '/rowki-segera' },
-      { id: 'keyways', labelKey: 'tiles.keyways', icon: KeywayIcon, route: '/wpusty' },
-      { id: 'oring', labelKey: 'tiles.oring', icon: ORingIcon, route: '/rowki-oring' },
-      { id: 'din509', labelKey: 'tiles.din509', icon: UndercutIcon, route: '/podciecia-din509' },
-      { id: 'boltHoles', labelKey: 'tools:holes.tile', icon: BoltHoleIcon, route: '/otwory-pod-sruby', isNew: true },
-    ],
-  },
-  {
-    titleKey: 'sections.materials',
-    tiles: [
-      { id: 'weight', labelKey: 'tiles.weight', icon: Scale, route: '/waga' },
-      { id: 'hardness', labelKey: 'tiles.hardness', icon: Gem, route: '/twardosc' },
-      { id: 'materialsDb', labelKey: 'tools:mat.tile', icon: Database, route: '/baza-materialow', isNew: true },
-      { id: 'thermal', labelKey: 'tools:thermal.tile', icon: Thermometer, route: '/korekcja-temperaturowa', isNew: true },
-    ],
-  },
-];
-
+import { useMenuLayout } from '@/hooks/useMenuLayout';
+import { TILE_MAP } from '@/types/menu';
+import MenuTile from '@/components/menu/MenuTile';
+import MenuSpacer from '@/components/menu/MenuSpacer';
+import MenuEditBar from '@/components/menu/MenuEditBar';
+import MenuOnboardingHint from '@/components/menu/MenuOnboardingHint';
 
 const Index = () => {
-  const navigate = useNavigate();
-  const { triggerLight } = useHaptics();
   const { t } = useTranslation();
+  const { triggerLight } = useHaptics();
+  const {
+    items,
+    setItems,
+    isEditMode,
+    setIsEditMode,
+    toggleEditMode,
+    addSpacer,
+    removeSpacer,
+    resetToDefault,
+  } = useMenuLayout();
+
+  const draggedIdRef = useRef<string | null>(null);
+  const lastSwapTimeRef = useRef<number>(0);
+
+  const handleDragStart = (id: string) => {
+    draggedIdRef.current = id;
+    triggerLight();
+  };
+
+  const handleDrag = (id: string, info: PanInfo) => {
+    const now = Date.now();
+    // Odstęp min. 220 ms pomiędzy zamianami pozycji (zapobiega migotaniu przy granicy)
+    if (now - lastSwapTimeRef.current < 220) return;
+
+    // Pobierz wszystkie elementy pod kursorem/palcem i znajdź inny kafelek
+    const elements = document.elementsFromPoint(info.point.x, info.point.y);
+    const targetEl = elements.find((el) => {
+      const layoutId = el.getAttribute('data-layout-id');
+      return layoutId && layoutId !== id;
+    });
+
+    const targetId = targetEl?.getAttribute('data-layout-id');
+    if (targetId && targetId !== id) {
+      lastSwapTimeRef.current = now;
+      triggerLight();
+      setItems((prev) => {
+        const fromIndex = prev.findIndex((item) => item.id === id);
+        const toIndex = prev.findIndex((item) => item.id === targetId);
+        if (fromIndex === -1 || toIndex === -1 || fromIndex === toIndex) return prev;
+        const copy = [...prev];
+        const [moved] = copy.splice(fromIndex, 1);
+        copy.splice(toIndex, 0, moved);
+        return copy;
+      });
+    }
+  };
+
+  const handleDragEnd = () => {
+    draggedIdRef.current = null;
+  };
 
   return (
     <div className="min-h-screen bg-zinc-950 px-4 pb-safe overflow-x-hidden flex flex-col items-center">
-      <header className="w-full pt-[calc(env(safe-area-inset-top,0px)+1.25rem)] pt-14 md:pt-3 pb-3 mb-8 md:mb-6 max-w-4xl md:max-w-[44.8rem] grid grid-cols-[2.25rem_1fr_2.25rem] items-center gap-2">
-        <span aria-hidden />
+      {/* Nagłówek */}
+      <header className="w-full pt-[calc(env(safe-area-inset-top,0px)+1.25rem)] pt-14 md:pt-3 pb-3 mb-6 md:mb-6 max-w-4xl md:max-w-[44.8rem] grid grid-cols-[auto_1fr_auto] items-center gap-2">
+        {/* Przycisk trybu edycji menu */}
+        <button
+          type="button"
+          onClick={toggleEditMode}
+          className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border text-xs font-semibold transition-all active:scale-95 ${
+            isEditMode
+              ? 'border-cyan-400 bg-cyan-500/20 text-cyan-300 shadow-[0_0_12px_rgba(6,182,212,0.25)]'
+              : 'border-zinc-800 bg-zinc-900/80 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700'
+          }`}
+          title={isEditMode ? t('menuEdit.done') : t('menuEdit.edit')}
+        >
+          <SlidersHorizontal className="w-3.5 h-3.5 text-cyan-400" />
+          <span className="hidden sm:inline">
+            {isEditMode ? t('menuEdit.done') : t('menuEdit.edit')}
+          </span>
+        </button>
+
+        {/* Tytuł aplikacji */}
         <motion.h1
           className="text-xl min-[400px]:text-2xl md:text-3xl font-black tracking-wide text-zinc-100 select-none text-center"
           initial={{ rotate: -360, scale: 0.5, opacity: 0 }}
@@ -116,49 +103,87 @@ const Index = () => {
         >
           ⚙️ {t('nav.appTitle')}
         </motion.h1>
-        <div className="md:hidden flex justify-end">
+
+        {/* Blokada wygaszania ekranu */}
+        <div className="flex justify-end">
           <WakeLockToggle />
         </div>
       </header>
 
-      <div className="w-full max-w-4xl md:max-w-[44.8rem] flex flex-col gap-8 md:gap-6">
-        {sections.map((section) => (
-          <section key={section.titleKey}>
-            <h2 className="text-zinc-400 text-sm uppercase tracking-widest mb-4 md:mb-3 px-1 md:text-xs">
-              {t(section.titleKey)}
-            </h2>
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:flex md:flex-wrap md:justify-center md:gap-3">
-              {section.tiles.map((tile) => {
-                const Icon = tile.icon;
-                return (
-                  <button
-                    key={tile.id}
-                    onClick={() => {
-                      triggerLight();
-                      navigate(tile.route);
-                    }}
-                    className="relative aspect-square bg-zinc-900 border border-zinc-800 rounded-2xl flex flex-col items-center justify-center gap-2 p-3 text-center cursor-pointer transition-all hover:bg-zinc-800/80 hover:border-cyan-500/50 hover:shadow-[0_0_15px_rgba(6,182,212,0.15)] active:scale-95 md:w-[calc((100%-2.25rem)/4)] md:gap-1.5 md:p-2.5"
-                  >
-                    {tile.isNew && (
-                      <span className="absolute top-2 right-2 text-[10px] font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-1.5 py-0.5 rounded uppercase tracking-wider">
-                        {t('common.new')}
-                      </span>
-                    )}
-                    <Icon className="w-[60px] h-[60px] md:w-[67px] md:h-[67px] text-cyan-400" strokeWidth={LUCIDE_ICONS.includes(Icon) ? 0.85 : 2.25} />
-                    <span className="text-sm sm:text-base md:text-sm font-semibold text-zinc-200 leading-tight">
-                      {t(tile.labelKey)}
-                    </span>
-                  </button>
+      {/* Podpowiedź przy pierwszym wejściu */}
+      {!isEditMode && (
+        <MenuOnboardingHint onStartEdit={() => setIsEditMode(true)} />
+      )}
 
-                );
-              })}
-            </div>
-          </section>
-        ))}
+      {/* Elastyczny pulpit z kafelkami */}
+      <div className="w-full max-w-4xl md:max-w-[44.8rem] mb-12">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 md:gap-3">
+          {items.map((item, index) => {
+            if (item.type === 'spacer') {
+              return (
+                <motion.div
+                  key={item.id}
+                  layout
+                  data-layout-id={item.id}
+                  drag={isEditMode}
+                  dragSnapToOrigin
+                  whileDrag={{ scale: 1.05, zIndex: 50 }}
+                  onDragStart={() => handleDragStart(item.id)}
+                  onDrag={(_e, info) => handleDrag(item.id, info)}
+                  onDragEnd={handleDragEnd}
+                  transition={{ type: 'spring', damping: 26, stiffness: 320 }}
+                  className="w-full"
+                >
+                  <MenuSpacer
+                    id={item.id}
+                    index={index}
+                    isEditMode={isEditMode}
+                    onRemove={removeSpacer}
+                  />
+                </motion.div>
+              );
+            }
+
+            const tile = TILE_MAP.get(item.tileId || '');
+            if (!tile) return null;
+
+            return (
+              <motion.div
+                key={item.id}
+                layout
+                data-layout-id={item.id}
+                drag={isEditMode}
+                dragSnapToOrigin
+                whileDrag={{ scale: 1.05, zIndex: 50 }}
+                onDragStart={() => handleDragStart(item.id)}
+                onDrag={(_e, info) => handleDrag(item.id, info)}
+                onDragEnd={handleDragEnd}
+                transition={{ type: 'spring', damping: 26, stiffness: 320 }}
+                className="w-full"
+              >
+                <MenuTile
+                  tile={tile}
+                  index={index}
+                  isEditMode={isEditMode}
+                  onStartEdit={() => setIsEditMode(true)}
+                />
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
 
-      <AppFooter />
+      {/* Dolny pasek narzędzi w trybie edycji */}
+      {isEditMode && (
+        <MenuEditBar
+          onAddSpacer={() => addSpacer()}
+          onReset={resetToDefault}
+          onDone={() => setIsEditMode(false)}
+        />
+      )}
 
+      {/* Stopka aplikacji */}
+      <AppFooter className={isEditMode ? 'pb-24' : ''} />
     </div>
   );
 };

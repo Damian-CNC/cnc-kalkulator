@@ -106,5 +106,18 @@
     "hrcInput": "Twardość HRC",
     "resultTitle": "Wynik konwersji",
     "standard": "Konwersja zgodna z ISO 18265 (ISO 6506/6508)"
+  },
+  "menuEdit": {
+    "edit": "Edytuj menu",
+    "done": "Gotowe",
+    "addSpacer": "Dodaj odstęp",
+    "reset": "Domyślny układ",
+    "resetConfirm": "Czy na pewno chcesz przywrócić domyślny układ kafelków?",
+    "spacerLabel": "Odstęp",
+    "removeSpacer": "Usuń odstęp",
+    "hintTitle": "Układaj menu po swojemu! ⚙️",
+    "hintDesc": "Możesz dowolnie przestawiać kafelki i dodawać puste miejsca. Przytrzymaj kafelek przez 1.5 sekundy na telefonie lub kliknij 'Edytuj menu'.",
+    "hintCta": "Rozumiem",
+    "hintTry": "Wypróbuj teraz"
   }
 }

@@ -106,5 +106,18 @@
     "hrcInput": "Härte HRC",
     "resultTitle": "Umrechnungsergebnis",
     "standard": "Umrechnung nach ISO 18265 (ISO 6506/6508)"
+  },
+  "menuEdit": {
+    "edit": "Menü anpassen",
+    "done": "Fertig",
+    "addSpacer": "Abstand hinzufügen",
+    "reset": "Standard-Layout",
+    "resetConfirm": "Möchtest du das Menü-Layout wirklich auf die Standardeinstellung zurücksetzen?",
+    "spacerLabel": "Abstand",
+    "removeSpacer": "Abstand entfernen",
+    "hintTitle": "Passe dein Menü an! ⚙️",
+    "hintDesc": "Verschiebe Kacheln frei und füge Abstände hinzu. Halte eine Kachel 1,5 Sek. gedrückt oder klicke auf 'Menü anpassen'.",
+    "hintCta": "Verstanden",
+    "hintTry": "Jetzt ausprobieren"
   }
 }
