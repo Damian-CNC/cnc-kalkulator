@@ -104,34 +104,37 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-zinc-950 px-4 pb-safe overflow-x-hidden flex flex-col items-center">
-      {/* Nagłówek */}
-      <header
-        className={`w-full pt-[calc(env(safe-area-inset-top,0px)+1.25rem)] pt-14 md:pt-3 pb-3 mb-6 md:mb-6 max-w-4xl md:max-w-[44.8rem] items-center gap-2 ${
-          isMobile ? 'grid grid-cols-[auto_1fr_auto]' : 'grid grid-cols-[2.25rem_1fr_2.25rem]'
-        }`}
-      >
-        {/* Na mobile przycisk trybu edycji, na PC puste pole wyrównujące */}
+      {/* 
+        ⚠️ WAŻNE DLA POTOMNYCH / ARCHITEKTURA NAGŁÓWKA:
+        Tytuł / baner główny '⚙️ CNC HUB' MUSI być absolutnie i idealnie wycentrowany na środku ekranu
+        na każdym urządzeniu (zarówno mobile, jak i PC).
+        Układ opiera się na symetrycznym CSS Grid: `grid-cols-[2.25rem_1fr_2.25rem]`.
+        Lewa kolumna (przycisk edycji na mobile / puste pole na PC) oraz prawa kolumna (WakeLockToggle)
+        mają DOKŁADNIE taką samą szerokość: 2.25rem (w-9 = 36px).
+        ABSOLUTNIE NIE DODAWAĆ tekstów do lewego przycisku ani nie zmieniać szerokości bocznych kolumn,
+        ponieważ spowoduje to asymetrię i przesunięcie baneru ze środka ekranu!
+      */}
+      <header className="w-full pt-[calc(env(safe-area-inset-top,0px)+1.25rem)] pt-14 md:pt-3 pb-3 mb-6 md:mb-6 max-w-4xl md:max-w-[44.8rem] grid grid-cols-[2.25rem_1fr_2.25rem] items-center gap-2">
+        {/* Na mobile przycisk trybu edycji (wyłącznie ikona w-9 h-9 dla idealnej symetrii), na PC puste pole wyrównujące */}
         {isMobile ? (
           <button
             type="button"
             onClick={toggleEditMode}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold transition-all active:scale-95 ${
+            className={`flex items-center justify-center w-9 h-9 rounded-xl border transition-all active:scale-95 ${
               isEditMode
                 ? 'border-cyan-400 bg-cyan-500/20 text-cyan-300 shadow-[0_0_12px_rgba(6,182,212,0.25)]'
-                : 'border-zinc-700 bg-zinc-900/90 text-zinc-300 hover:text-cyan-300 hover:border-cyan-500/50 hover:bg-zinc-800'
+                : 'border-zinc-800 bg-zinc-900/90 text-zinc-400 hover:text-cyan-300 hover:border-cyan-500/50 hover:bg-zinc-800'
             }`}
+            aria-label={isEditMode ? t('menuEdit.done') : t('menuEdit.edit')}
             title={isEditMode ? t('menuEdit.done') : t('menuEdit.edit')}
           >
-            <SlidersHorizontal className="w-3.5 h-3.5 text-cyan-400" />
-            <span className="hidden min-[380px]:inline">
-              {isEditMode ? t('menuEdit.done') : t('menuEdit.edit')}
-            </span>
+            <SlidersHorizontal className="w-4 h-4 text-cyan-400" />
           </button>
         ) : (
-          <span aria-hidden="true" />
+          <span aria-hidden="true" className="w-9 h-9" />
         )}
 
-        {/* Tytuł aplikacji */}
+        {/* Tytuł / baner aplikacji - ZAWSZE IDEALNIE WYCENTROWANY */}
         <motion.h1
           className="text-xl min-[400px]:text-2xl md:text-3xl font-black tracking-wide text-zinc-100 select-none text-center"
           initial={{ rotate: -360, scale: 0.5, opacity: 0 }}
@@ -148,7 +151,7 @@ const Index = () => {
           ⚙️ {t('nav.appTitle')}
         </motion.h1>
 
-        {/* Blokada wygaszania ekranu */}
+        {/* Blokada wygaszania ekranu (w-9 h-9) */}
         <div className="flex justify-end">
           <WakeLockToggle />
         </div>
