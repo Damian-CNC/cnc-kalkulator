@@ -6,16 +6,19 @@ import { toast } from 'sonner';
 import WakeLockToggle from '@/components/WakeLockToggle';
 import AppFooter from '@/components/AppFooter';
 import useHaptics from '@/hooks/useHaptics';
+import { useIsMobile } from '@/hooks/use-mobile';
 import { useMenuLayout } from '@/hooks/useMenuLayout';
 import { TILE_MAP } from '@/types/menu';
 import MenuTile from '@/components/menu/MenuTile';
 import MenuSpacer from '@/components/menu/MenuSpacer';
 import MenuEditBar from '@/components/menu/MenuEditBar';
 import MenuOnboardingHint from '@/components/menu/MenuOnboardingHint';
+import PcCategorizedMenu from '@/components/menu/PcCategorizedMenu';
 
 const Index = () => {
   const { t } = useTranslation();
   const { triggerLight } = useHaptics();
+  const isMobile = useIsMobile();
   const {
     items,
     setItems,
@@ -102,23 +105,31 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-zinc-950 px-4 pb-safe overflow-x-hidden flex flex-col items-center">
       {/* Nagłówek */}
-      <header className="w-full pt-[calc(env(safe-area-inset-top,0px)+1.25rem)] pt-14 md:pt-3 pb-3 mb-6 md:mb-6 max-w-4xl md:max-w-[44.8rem] grid grid-cols-[auto_1fr_auto] items-center gap-2">
-        {/* Przycisk trybu edycji menu */}
-        <button
-          type="button"
-          onClick={toggleEditMode}
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold transition-all active:scale-95 ${
-            isEditMode
-              ? 'border-cyan-400 bg-cyan-500/20 text-cyan-300 shadow-[0_0_12px_rgba(6,182,212,0.25)]'
-              : 'border-zinc-700 bg-zinc-900/90 text-zinc-300 hover:text-cyan-300 hover:border-cyan-500/50 hover:bg-zinc-800'
-          }`}
-          title={isEditMode ? t('menuEdit.done') : t('menuEdit.edit')}
-        >
-          <SlidersHorizontal className="w-3.5 h-3.5 text-cyan-400" />
-          <span className="hidden min-[380px]:inline">
-            {isEditMode ? t('menuEdit.done') : t('menuEdit.edit')}
-          </span>
-        </button>
+      <header
+        className={`w-full pt-[calc(env(safe-area-inset-top,0px)+1.25rem)] pt-14 md:pt-3 pb-3 mb-6 md:mb-6 max-w-4xl md:max-w-[44.8rem] items-center gap-2 ${
+          isMobile ? 'grid grid-cols-[auto_1fr_auto]' : 'grid grid-cols-[2.25rem_1fr_2.25rem]'
+        }`}
+      >
+        {/* Na mobile przycisk trybu edycji, na PC puste pole wyrównujące */}
+        {isMobile ? (
+          <button
+            type="button"
+            onClick={toggleEditMode}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold transition-all active:scale-95 ${
+              isEditMode
+                ? 'border-cyan-400 bg-cyan-500/20 text-cyan-300 shadow-[0_0_12px_rgba(6,182,212,0.25)]'
+                : 'border-zinc-700 bg-zinc-900/90 text-zinc-300 hover:text-cyan-300 hover:border-cyan-500/50 hover:bg-zinc-800'
+            }`}
+            title={isEditMode ? t('menuEdit.done') : t('menuEdit.edit')}
+          >
+            <SlidersHorizontal className="w-3.5 h-3.5 text-cyan-400" />
+            <span className="hidden min-[380px]:inline">
+              {isEditMode ? t('menuEdit.done') : t('menuEdit.edit')}
+            </span>
+          </button>
+        ) : (
+          <span aria-hidden="true" />
+        )}
 
         {/* Tytuł aplikacji */}
         <motion.h1
@@ -143,86 +154,93 @@ const Index = () => {
         </div>
       </header>
 
-      {/* Podpowiedź przy pierwszym wejściu */}
-      {!isEditMode && (
-        <MenuOnboardingHint onStartEdit={() => setIsEditMode(true)} />
-      )}
+      {/* Na PC wyświetlamy menu podzielone na kategorie, bez możliwości edycji */}
+      {!isMobile ? (
+        <PcCategorizedMenu />
+      ) : (
+        <>
+          {/* Podpowiedź przy pierwszym wejściu (tylko na mobile) */}
+          {!isEditMode && (
+            <MenuOnboardingHint onStartEdit={() => setIsEditMode(true)} />
+          )}
 
-      {/* Elastyczny pulpit z kafelkami */}
-      <div className="w-full max-w-4xl md:max-w-[44.8rem] mb-12">
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 md:gap-3">
-          {items.map((item, index) => {
-            if (item.type === 'spacer') {
-              return (
-                <motion.div
-                  key={item.id}
-                  layout
-                  data-layout-id={item.id}
-                  drag={isEditMode}
-                  dragSnapToOrigin
-                  whileDrag={{ scale: 1.05, zIndex: 50 }}
-                  onDragStart={() => handleDragStart(item.id)}
-                  onDrag={(_e, info) => handleDrag(item.id, info)}
-                  onDragEnd={handleDragEnd}
-                  transition={{ type: 'spring', damping: 26, stiffness: 320 }}
-                  style={{ touchAction: 'none' }}
-                  className="w-full"
-                >
-                  <MenuSpacer
-                    id={item.id}
-                    index={index}
-                    totalItems={items.length}
-                    isEditMode={isEditMode}
-                    onRemove={removeSpacer}
-                    onMove={(dir) => moveItem(item.id, dir)}
-                  />
-                </motion.div>
-              );
-            }
+          {/* Elastyczny pulpit z kafelkami na mobile */}
+          <div className="w-full max-w-4xl md:max-w-[44.8rem] mb-12">
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 md:gap-3">
+              {items.map((item, index) => {
+                if (item.type === 'spacer') {
+                  return (
+                    <motion.div
+                      key={item.id}
+                      layout
+                      data-layout-id={item.id}
+                      drag={isEditMode}
+                      dragSnapToOrigin
+                      whileDrag={{ scale: 1.05, zIndex: 50 }}
+                      onDragStart={() => handleDragStart(item.id)}
+                      onDrag={(_e, info) => handleDrag(item.id, info)}
+                      onDragEnd={handleDragEnd}
+                      transition={{ type: 'spring', damping: 26, stiffness: 320 }}
+                      style={{ touchAction: isEditMode ? 'none' : 'pan-y' }}
+                      className="w-full"
+                    >
+                      <MenuSpacer
+                        id={item.id}
+                        index={index}
+                        totalItems={items.length}
+                        isEditMode={isEditMode}
+                        onRemove={removeSpacer}
+                        onMove={(dir) => moveItem(item.id, dir)}
+                      />
+                    </motion.div>
+                  );
+                }
 
-            const tile = TILE_MAP.get(item.tileId || '');
-            if (!tile) return null;
+                const tile = TILE_MAP.get(item.tileId || '');
+                if (!tile) return null;
 
-            return (
-              <motion.div
-                key={item.id}
-                layout
-                data-layout-id={item.id}
-                drag={isEditMode}
-                dragSnapToOrigin
-                whileDrag={{ scale: 1.05, zIndex: 50 }}
-                onDragStart={() => handleDragStart(item.id)}
-                onDrag={(_e, info) => handleDrag(item.id, info)}
-                onDragEnd={handleDragEnd}
-                transition={{ type: 'spring', damping: 26, stiffness: 320 }}
-                style={{ touchAction: 'none' }}
-                className="w-full"
-              >
-                <MenuTile
-                  tile={tile}
-                  index={index}
-                  totalItems={items.length}
-                  isEditMode={isEditMode}
-                  onStartEdit={() => setIsEditMode(true)}
-                  onMove={(dir) => moveItem(item.id, dir)}
-                />
-              </motion.div>
-            );
-          })}
-        </div>
-      </div>
+                return (
+                  <motion.div
+                    key={item.id}
+                    layout
+                    data-layout-id={item.id}
+                    drag={isEditMode}
+                    dragSnapToOrigin
+                    whileDrag={{ scale: 1.05, zIndex: 50 }}
+                    onDragStart={() => handleDragStart(item.id)}
+                    onDrag={(_e, info) => handleDrag(item.id, info)}
+                    onDragEnd={handleDragEnd}
+                    transition={{ type: 'spring', damping: 26, stiffness: 320 }}
+                    style={{ touchAction: isEditMode ? 'none' : 'pan-y' }}
+                    className="w-full"
+                  >
+                    <MenuTile
+                      tile={tile}
+                      index={index}
+                      totalItems={items.length}
+                      isEditMode={isEditMode}
+                      onStartEdit={() => setIsEditMode(true)}
+                      onMove={(dir) => moveItem(item.id, dir)}
+                    />
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
 
-      {/* Dolny pasek narzędzi w trybie edycji */}
-      {isEditMode && (
-        <MenuEditBar
-          onAddSpacer={handleAddSpacer}
-          onReset={resetToDefault}
-          onDone={() => setIsEditMode(false)}
-        />
+          {/* Dolny pasek narzędzi w trybie edycji (tylko na mobile) */}
+          {isEditMode && (
+            <MenuEditBar
+              onAddSpacer={handleAddSpacer}
+              onReset={resetToDefault}
+              onDone={() => setIsEditMode(false)}
+            />
+          )}
+        </>
       )}
 
       {/* Stopka aplikacji */}
-      <AppFooter className={isEditMode ? 'pb-24' : ''} />
+      <AppFooter className={isMobile && isEditMode ? 'pb-24' : ''} />
     </div>
   );
 };

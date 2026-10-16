@@ -91,3 +91,64 @@ export const DEFAULT_LAYOUT: MenuLayoutItem[] = ALL_TILES.map((tile) => ({
   type: 'tile',
   tileId: tile.id,
 }));
+
+export interface MenuSection {
+  titleKey: string;
+  tiles: TileDefinition[];
+}
+
+export const MENU_SECTIONS: MenuSection[] = [
+  {
+    titleKey: 'sections.basic',
+    tiles: [
+      TILE_MAP.get('parameters')!,
+      TILE_MAP.get('calc')!,
+    ],
+  },
+  {
+    titleKey: 'sections.machining',
+    tiles: [
+      TILE_MAP.get('roughness')!,
+    ],
+  },
+  {
+    titleKey: 'sections.threadsFits',
+    tiles: [
+      TILE_MAP.get('tolerances')!,
+      TILE_MAP.get('threads')!,
+      TILE_MAP.get('iso2768')!,
+    ],
+  },
+  {
+    titleKey: 'sections.geometry',
+    tiles: [
+      TILE_MAP.get('taper')!,
+      TILE_MAP.get('millChamfer')!,
+      TILE_MAP.get('cone')!,
+      TILE_MAP.get('polygon')!,
+      TILE_MAP.get('pcd')!,
+      TILE_MAP.get('linearHoles')!,
+      TILE_MAP.get('truePosition')!,
+      TILE_MAP.get('trig')!,
+    ],
+  },
+  {
+    titleKey: 'sections.standardParts',
+    tiles: [
+      TILE_MAP.get('seger')!,
+      TILE_MAP.get('keyways')!,
+      TILE_MAP.get('oring')!,
+      TILE_MAP.get('din509')!,
+      TILE_MAP.get('boltHoles')!,
+    ],
+  },
+  {
+    titleKey: 'sections.materials',
+    tiles: [
+      TILE_MAP.get('weight')!,
+      TILE_MAP.get('hardness')!,
+      TILE_MAP.get('materialsDb')!,
+      TILE_MAP.get('thermal')!,
+    ],
+  },
+];

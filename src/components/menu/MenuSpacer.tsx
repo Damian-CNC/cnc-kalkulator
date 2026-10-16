@@ -45,7 +45,7 @@ export const MenuSpacer = ({
     <div
       onDragStart={(e) => e.preventDefault()}
       draggable={false}
-      style={{ touchAction: 'none' }}
+      style={{ touchAction: isEditMode ? 'none' : 'pan-y' }}
       className={`relative aspect-square w-full select-none rounded-2xl border-2 border-dashed border-zinc-700/80 bg-zinc-900/40 flex flex-col items-center justify-center gap-1.5 p-3 text-center cursor-grab active:cursor-grabbing touch-manipulation transition-all hover:border-zinc-500 hover:bg-zinc-800/30 ${jiggleClass}`}
     >
       {/* Przycisk usuwania odstępu */}

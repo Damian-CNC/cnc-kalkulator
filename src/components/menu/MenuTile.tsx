@@ -5,8 +5,9 @@ import { GripVertical, ChevronLeft, ChevronRight } from 'lucide-react';
 import useHaptics from '@/hooks/useHaptics';
 import { type TileDefinition, LUCIDE_ICONS } from '@/types/menu';
 
-const HOLD_DURATION = 1500; // 1.5 sekundy
-const MOVE_TOLERANCE = 18; // piksele przesunięcia anulujące przytrzymanie (zwiększone z 12 dla stabilności myszki na PC)
+const GRACE_DELAY = 500; // 0.5 sekundy bufora (żadnego naliczania i animacji - swobodny scroll)
+const HOLD_DURATION = 750; // 0.75 sekundy widocznego ładowania kółka
+const MOVE_TOLERANCE = 8; // małe przesunięcie palca podczas bufora od razu anuluje i pozwala na scroll
 
 interface MenuTileProps {
   tile: TileDefinition;
@@ -33,18 +34,25 @@ export const MenuTile = ({
   const [holdProgress, setHoldProgress] = useState(0);
 
   const startPosRef = useRef<{ x: number; y: number } | null>(null);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const graceTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const holdTimerRef = useRef<NodeJS.Timeout | null>(null);
   const animFrameRef = useRef<number | null>(null);
-  const startTimeRef = useRef<number>(0);
-  const isHoldingRef = useRef(false);
+  const holdStartTimeRef = useRef<number>(0);
+  const isGraceActiveRef = useRef(false);
+  const isHoldingVisualRef = useRef(false);
 
   const cancelHold = useCallback(() => {
-    isHoldingRef.current = false;
+    isGraceActiveRef.current = false;
+    isHoldingVisualRef.current = false;
     setIsHolding(false);
     setHoldProgress(0);
-    if (timerRef.current) {
-      clearTimeout(timerRef.current);
-      timerRef.current = null;
+    if (graceTimerRef.current) {
+      clearTimeout(graceTimerRef.current);
+      graceTimerRef.current = null;
+    }
+    if (holdTimerRef.current) {
+      clearTimeout(holdTimerRef.current);
+      holdTimerRef.current = null;
     }
     if (animFrameRef.current) {
       cancelAnimationFrame(animFrameRef.current);
@@ -59,33 +67,42 @@ export const MenuTile = ({
     if (e.button !== 0) return;
 
     startPosRef.current = { x: e.clientX, y: e.clientY };
-    startTimeRef.current = Date.now();
-    isHoldingRef.current = true;
-    setIsHolding(true);
-    setHoldProgress(0);
+    isGraceActiveRef.current = true;
 
-    const updateProgress = () => {
-      if (!isHoldingRef.current) return;
-      const elapsed = Date.now() - startTimeRef.current;
-      const progress = Math.min(1, elapsed / HOLD_DURATION);
-      setHoldProgress(progress);
+    // Faza 1: Cichy bufor 0.5s - żadnych animacji, pełna swoboda scrolla
+    graceTimerRef.current = setTimeout(() => {
+      if (!isGraceActiveRef.current) return;
+      // Faza 2: Po 0.5s bezruchu aktywujemy widoczne ładowanie pierścienia przez 0.75s
+      isGraceActiveRef.current = false;
+      isHoldingVisualRef.current = true;
+      setIsHolding(true);
+      setHoldProgress(0);
+      holdStartTimeRef.current = Date.now();
 
-      if (progress < 1) {
-        animFrameRef.current = requestAnimationFrame(updateProgress);
-      }
-    };
-    animFrameRef.current = requestAnimationFrame(updateProgress);
+      const updateProgress = () => {
+        if (!isHoldingVisualRef.current) return;
+        const elapsed = Date.now() - holdStartTimeRef.current;
+        const progress = Math.min(1, elapsed / HOLD_DURATION);
+        setHoldProgress(progress);
 
-    timerRef.current = setTimeout(() => {
-      if (!isHoldingRef.current) return;
-      cancelHold();
-      triggerSuccess();
-      onStartEdit();
-    }, HOLD_DURATION);
+        if (progress < 1) {
+          animFrameRef.current = requestAnimationFrame(updateProgress);
+        }
+      };
+      animFrameRef.current = requestAnimationFrame(updateProgress);
+
+      holdTimerRef.current = setTimeout(() => {
+        if (!isHoldingVisualRef.current) return;
+        cancelHold();
+        triggerSuccess();
+        onStartEdit();
+      }, HOLD_DURATION);
+    }, GRACE_DELAY);
   };
 
   const handlePointerMove = (e: React.PointerEvent) => {
-    if (!startPosRef.current || !isHoldingRef.current) return;
+    if (!startPosRef.current) return;
+    if (!isGraceActiveRef.current && !isHoldingVisualRef.current) return;
     const dx = Math.abs(e.clientX - startPosRef.current.x);
     const dy = Math.abs(e.clientY - startPosRef.current.y);
     if (dx > MOVE_TOLERANCE || dy > MOVE_TOLERANCE) {
@@ -98,22 +115,15 @@ export const MenuTile = ({
       e.preventDefault();
       return;
     }
-    // Jeśli nie jesteśmy w trybie edycji i kliknięcie było krótkie:
+    cancelHold();
     triggerLight();
     navigate(tile.route);
   };
 
-  const handleContextMenu = (e: React.MouseEvent) => {
-    if (!isEditMode) {
-      e.preventDefault();
-      triggerLight();
-      onStartEdit();
-    }
-  };
-
   useEffect(() => {
     return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
+      if (graceTimerRef.current) clearTimeout(graceTimerRef.current);
+      if (holdTimerRef.current) clearTimeout(holdTimerRef.current);
       if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
     };
   }, []);
@@ -132,11 +142,10 @@ export const MenuTile = ({
       onPointerMove={handlePointerMove}
       onPointerUp={cancelHold}
       onPointerCancel={cancelHold}
-      onContextMenu={handleContextMenu}
       onClick={handleClick}
       onDragStart={(e) => e.preventDefault()}
       draggable={false}
-      style={{ touchAction: 'none' }}
+      style={{ touchAction: isEditMode ? 'none' : 'pan-y' }}
       className={`relative aspect-square w-full select-none rounded-2xl border flex flex-col items-center justify-center gap-2 p-3 text-center cursor-pointer transition-all touch-manipulation md:gap-1.5 md:p-2.5 ${
         isEditMode
           ? `border-cyan-500/50 bg-zinc-900/90 shadow-[0_0_15px_rgba(6,182,212,0.15)] cursor-grab active:cursor-grabbing ${jiggleClass}`
