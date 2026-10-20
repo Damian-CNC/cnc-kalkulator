@@ -22,7 +22,15 @@
     "footnoteWithData": "Tolleranze secondo ISO 965-1 · Altezze per profilo ISO 60°",
     "footnoteNoData": "Dimensioni nominali calcolate dalle formule · Nessun dato di tolleranza disponibile",
     "emptyMessage": "Inserisci il diametro e seleziona il passo per visualizzare le dimensioni della filettatura.",
-    "nominalLabel": "Nominale"
+    "nominalLabel": "Nominale",
+    "tapDrill": "Punta preforo maschio",
+    "tapDrillNote": "Maschiatura ad asportazione",
+    "formTapDrill": "Punta preforo rullatore",
+    "formTapDrillNote": "Formatura senza truciolo (rullatura)"
+  },
+  "helicoil": {
+    "title": "Inserti HeliCoil (EG M)",
+    "emptyMessage": "Inserisci il diametro nominale e seleziona il passo per visualizzare le dimensioni del filetto HeliCoil."
   },
   "trapezoidal": {
     "title": "Filettature Trapezoidali (Tr)",

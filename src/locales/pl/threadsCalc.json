@@ -22,7 +22,15 @@
     "footnoteWithData": "Tolerancje wg ISO 965-1 · Wysokości dla profilu ISO 60°",
     "footnoteNoData": "Wymiary nominalne obliczone ze wzorów · Brak tolerancji w bazie",
     "emptyMessage": "Wpisz średnicę i wybierz skok, aby zobaczyć wymiary gwintu.",
-    "nominalLabel": "Nominalna"
+    "nominalLabel": "Nominalna",
+    "tapDrill": "Wiertło pod gwintownik",
+    "tapDrillNote": "Gwintowanie skrawające",
+    "formTapDrill": "Wiertło pod wygniatak",
+    "formTapDrillNote": "Formowanie bezwiórowe (wygniatanie)"
+  },
+  "helicoil": {
+    "title": "Wkładki HeliCoil (EG M)",
+    "emptyMessage": "Wpisz średnicę nominalną i wybierz skok, aby zobaczyć wymiary gniazda HeliCoil."
   },
   "trapezoidal": {
     "title": "Gwinty Trapezowe (Tr)",

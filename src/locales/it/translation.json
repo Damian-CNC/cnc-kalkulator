@@ -69,6 +69,7 @@
   },
   "threads": {
     "metric": "Filettature Metriche",
+    "helicoil": "Inserti HeliCoil (EG M)",
     "trapezoidal": "Filettature Trapezoidali (Tr)",
     "bsp": "Filettature Gas BSP (G)",
     "npt": "Filettature NPT (ANSI)",

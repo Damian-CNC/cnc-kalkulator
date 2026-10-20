@@ -141,8 +141,15 @@ const BspThreadCalculator = () => {
                   label="Wiertło pod gwintownik"
                   diameter={thread.internal.drill}
                   unit="mm"
-                  digits={3}
+                  digits={2}
                   note="Średnica wiercenia"
+                />
+                <DrillCard
+                  label="Wiertło pod wygniatak"
+                  diameter={thread.internal.formDrill}
+                  unit="mm"
+                  digits={2}
+                  note="Formowanie bezwiórowe (wygniatanie)"
                 />
               </div>
             </TabsContent>

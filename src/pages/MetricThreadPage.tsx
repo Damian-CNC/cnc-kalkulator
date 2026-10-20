@@ -291,9 +291,17 @@ const MetricThreadPage = () => {
                     unit="mm"
                   />
                   <DrillCard
-                    label="Wiertło pod gwintownik"
+                    label={t('metric.tapDrill', { defaultValue: 'Wiertło pod gwintownik' })}
                     diameter={selectedThread?.internal_6H.tap_drill ?? nominal.tapDrillSize}
                     unit="mm"
+                    note={t('metric.tapDrillNote', { defaultValue: 'Gwintowanie skrawające' })}
+                  />
+                  <DrillCard
+                    label={t('metric.formTapDrill', { defaultValue: 'Wiertło pod wygniatak' })}
+                    diameter={nominal.formTapDrillSize}
+                    unit="mm"
+                    digits={2}
+                    note={t('metric.formTapDrillNote', { defaultValue: 'Formowanie bezwiórowe (wygniatanie)' })}
                   />
                 </div>
               </TabsContent>

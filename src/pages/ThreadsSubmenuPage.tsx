@@ -14,6 +14,7 @@ type Tile = {
 
 const tiles: Tile[] = [
   { id: 'metric', labelKey: 'threads.metric', badge: 'M', route: '/threads/metric', color: 'text-cyan-400' },
+  { id: 'helicoil', labelKey: 'threads.helicoil', badge: 'EG M', route: '/threads/helicoil', color: 'text-cyan-400', isNew: true },
   { id: 'trapezoidal', labelKey: 'threads.trapezoidal', badge: 'Tr', route: '/threads/trapezoidal', color: 'text-sky-400' },
   { id: 'bsp', labelKey: 'threads.bsp', badge: 'G', route: '/threads/bsp', color: 'text-emerald-400' },
   { id: 'npt', labelKey: 'threads.npt', badge: 'NPT', route: '/threads/npt', color: 'text-rose-400' },

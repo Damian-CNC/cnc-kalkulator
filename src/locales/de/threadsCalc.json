@@ -22,7 +22,15 @@
     "footnoteWithData": "Toleranzen nach ISO 965-1 · Höhen für 60°-ISO-Profil",
     "footnoteNoData": "Nennmaße berechnet nach Formeln · Keine Toleranzdaten vorhanden",
     "emptyMessage": "Durchmesser eingeben und Steigung wählen, um die Gewindemaße anzuzeigen.",
-    "nominalLabel": "Nennmaß"
+    "nominalLabel": "Nennmaß",
+    "tapDrill": "Kernlochbohrer (Gewindebohrer)",
+    "tapDrillNote": "Spanendes Gewindeschneiden",
+    "formTapDrill": "Vorbohrdurchmesser (Gewindefurcher)",
+    "formTapDrillNote": "Spanlose Gewindeformung"
+  },
+  "helicoil": {
+    "title": "HeliCoil-Einsätze (EG M)",
+    "emptyMessage": "Nenndurchmesser und Steigung eingeben, um HeliCoil-Aufnahmegewindemaße anzuzeigen."
   },
   "trapezoidal": {
     "title": "Trapezgewinde (Tr)",

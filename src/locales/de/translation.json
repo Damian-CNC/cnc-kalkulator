@@ -69,6 +69,7 @@
   },
   "threads": {
     "metric": "Metrische Gewinde",
+    "helicoil": "HeliCoil-Einsätze (EG M)",
     "trapezoidal": "Trapezgewinde (Tr)",
     "bsp": "BSP-Rohrgewinde (G)",
     "npt": "NPT-Gewinde (ANSI)",

@@ -22,7 +22,15 @@
     "footnoteWithData": "Tolerances per ISO 965-1 · Heights for 60° ISO profile",
     "footnoteNoData": "Nominal dimensions calculated from formulas · No tolerance data available",
     "emptyMessage": "Enter the diameter and select the pitch to view thread dimensions.",
-    "nominalLabel": "Nominal"
+    "nominalLabel": "Nominal",
+    "tapDrill": "Cutting tap drill",
+    "tapDrillNote": "Cutting tap",
+    "formTapDrill": "Forming tap drill",
+    "formTapDrillNote": "Chipless cold forming (roll tap)"
+  },
+  "helicoil": {
+    "title": "HeliCoil Inserts (EG M)",
+    "emptyMessage": "Enter nominal diameter and select pitch to view HeliCoil thread dimensions."
   },
   "trapezoidal": {
     "title": "Trapezoidal Threads (Tr)",

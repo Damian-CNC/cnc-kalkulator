@@ -22,6 +22,7 @@ const ConePage = page(() => import("@/pages/ConePage"));
 const HardnessPage = page(() => import("@/pages/HardnessPage"));
 const ThreadsMenuPage = page(() => import("@/pages/ThreadsMenuPage"));
 const MetricThreadPage = page(() => import("@/pages/MetricThreadPage"));
+const HelicoilThreadPage = page(() => import("@/pages/HelicoilThreadPage"));
 const BspThreadPage = page(() => import("@/pages/BspThreadPage"));
 const BswThreadPage = page(() => import("@/pages/BswThreadPage"));
 const BsfThreadPage = page(() => import("@/pages/BsfThreadPage"));
@@ -233,6 +234,7 @@ const AnimatedRoutes = () => {
               <Route path="/twardosc" element={<HardnessPage />} />
               <Route path="/threads" element={<ThreadsMenuPage />} />
               <Route path="/threads/metric" element={<MetricThreadPage />} />
+              <Route path="/threads/helicoil" element={<HelicoilThreadPage />} />
               <Route path="/threads/bsp" element={<BspThreadPage />} />
               <Route path="/threads/bsw" element={<BswThreadPage />} />
               <Route path="/threads/bsf" element={<BsfThreadPage />} />

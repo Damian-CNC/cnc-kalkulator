@@ -69,6 +69,7 @@
   },
   "threads": {
     "metric": "Gwinty Metryczne",
+    "helicoil": "Wkładki HeliCoil (EG M)",
     "trapezoidal": "Gwinty Trapezowe (Tr)",
     "bsp": "Gwinty Rurowe BSP (G)",
     "npt": "Gwinty NPT (ANSI)",

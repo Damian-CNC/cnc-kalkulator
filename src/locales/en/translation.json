@@ -69,6 +69,7 @@
   },
   "threads": {
     "metric": "Metric Threads",
+    "helicoil": "HeliCoil Inserts (EG M)",
     "trapezoidal": "Trapezoidal Threads (Tr)",
     "bsp": "BSP Pipe Threads (G)",
     "npt": "NPT Threads (ANSI)",
