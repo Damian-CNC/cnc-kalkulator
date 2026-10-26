@@ -59,7 +59,7 @@ export const PcCategorizedMenu = () => {
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
               <h2 className="text-zinc-300 text-xs font-bold uppercase tracking-wider">
-                {t('sections.basic')} &amp; {t('sections.machining')}
+                {t('sections.basic')} {'&'} {t('sections.machining')}
               </h2>
             </div>
             <span className="text-[10px] font-mono text-zinc-500 bg-zinc-800/60 px-2 py-0.5 rounded-md border border-zinc-700/40">
