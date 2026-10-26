@@ -114,7 +114,7 @@ const Index = () => {
         ABSOLUTNIE NIE DODAWAĆ tekstów do lewego przycisku ani nie zmieniać szerokości bocznych kolumn,
         ponieważ spowoduje to asymetrię i przesunięcie baneru ze środka ekranu!
       */}
-      <header className="w-full pt-[calc(env(safe-area-inset-top,0px)+1.25rem)] pt-14 md:pt-3 pb-3 mb-6 md:mb-6 max-w-4xl md:max-w-[44.8rem] grid grid-cols-[2.25rem_1fr_2.25rem] items-center gap-2">
+      <header className="w-full pt-[calc(env(safe-area-inset-top,0px)+1.25rem)] pt-14 md:pt-4 pb-3 mb-6 max-w-4xl md:max-w-6xl grid grid-cols-[2.25rem_1fr_2.25rem] items-center gap-2">
         {/* Na mobile przycisk trybu edycji (wyłącznie ikona w-9 h-9 dla idealnej symetrii), na PC puste pole wyrównujące */}
         {isMobile ? (
           <button

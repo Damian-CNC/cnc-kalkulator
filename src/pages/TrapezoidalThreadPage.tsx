@@ -99,7 +99,7 @@ const TrapezoidalThreadPage = () => {
                 onFocus={selectOnFocus}
               value={dInput}
               onChange={(e) => setDInput(sanitizeDecimal(e.target.value))}
-              className="w-full bg-zinc-900/50 border border-zinc-700 rounded-xl px-4 py-4 text-zinc-100 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-lg"
+              className="w-full bg-zinc-900/50 border border-zinc-700 rounded-xl px-4 py-4 text-zinc-100 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-lg md:text-sm md:py-2.5 md:px-3 md:rounded-lg"
             />
           </div>
           <div className="flex flex-col">
@@ -113,7 +113,7 @@ const TrapezoidalThreadPage = () => {
                 onFocus={selectOnFocus}
               value={pInput}
               onChange={(e) => setPInput(sanitizeDecimal(e.target.value))}
-              className="w-full bg-zinc-900/50 border border-zinc-700 rounded-xl px-4 py-4 text-zinc-100 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-lg"
+              className="w-full bg-zinc-900/50 border border-zinc-700 rounded-xl px-4 py-4 text-zinc-100 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-lg md:text-sm md:py-2.5 md:px-3 md:rounded-lg"
             />
           </div>
         </div>

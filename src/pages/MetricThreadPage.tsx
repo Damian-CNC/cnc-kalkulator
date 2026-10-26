@@ -78,7 +78,7 @@ const MetricThreadPage = () => {
 
   const availablePitches = useMemo(() => {
     if (parsedD === null || !isStandardDiameter) return [];
-    return standardMetricPitches[String(parsedD)] || [];
+    return (standardMetricPitches as Record<string, number[]>)[String(parsedD)] || [];
   }, [parsedD, isStandardDiameter]);
 
   // Przy zmianie średnicy wybieramy skok zgrubny. Przy powrocie do zakładki
@@ -128,196 +128,217 @@ const MetricThreadPage = () => {
   }, [parsedD, effectivePitch, selectedThread]);
 
   return (
-    <PageLayout title={t('metric.title')} backRoute="/gwinty">
-        <div className="space-y-5">
-          <div className="grid grid-cols-2 gap-3">
-            <div className="flex flex-col">
-              <label className="block text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider">{t('metric.diameterLabel')}</label>
-              <input
-                type="text"
-                inputMode="decimal"
-                pattern="^[0-9]*[.,]?[0-9]*$"
-                onFocus={selectOnFocus}
-                placeholder={t('metric.diameterPlaceholder')}
-                value={diameterInput}
-                onChange={(e) => setDiameterInput(sanitizeDecimal(e.target.value))}
-                className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500/50 transition-all text-lg"
-              />
-            </div>
-
-            <div className="flex flex-col">
-              <label className="block text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider">
-                {t('metric.pitchLabel')} {!isStandardDiameter && parsedD !== null && <span className="text-amber-400 text-[10px] normal-case">{t('metric.pitchSpecial')}</span>}
-              </label>
-              {isStandardDiameter ? (
-                <Select value={selectedP} onValueChange={setSelectedP}>
-                  <SelectTrigger className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-100 text-lg h-auto">
-                    <SelectValue placeholder={t('metric.pitchPlaceholder')} />
-                  </SelectTrigger>
-                  <SelectContent className="bg-zinc-900 border-zinc-700 max-h-60">
-                    {availablePitches.map((p) => (
-                      <SelectItem key={p} value={String(p)} className="text-zinc-100 focus:bg-zinc-800">
-                        {p} mm {p === availablePitches[availablePitches.length - 1] ? t('metric.pitchCoarse') : ''}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              ) : (
+    <PageLayout title={t('metric.title')} backRoute="/gwinty" wideDesktop>
+      <Tabs value={threadTab} onValueChange={(v) => setThreadTab(v as 'external' | 'internal')} className="w-full">
+        <div className="space-y-5 lg:space-y-0 lg:grid lg:grid-cols-[280px_1fr] lg:gap-6 lg:items-start">
+          {/* LEWA KOLUMNA: Dane wejściowe, Oznaczenie, Wybór zakładki */}
+          <div className="space-y-4 lg:sticky lg:top-4 bg-zinc-900/40 p-3.5 sm:p-4 border border-zinc-800/80 rounded-2xl">
+            <div className="grid grid-cols-2 gap-3 lg:grid-cols-1 lg:gap-3">
+              <div className="flex flex-col">
+                <label className="block text-xs font-semibold text-zinc-500 mb-1.5 uppercase tracking-wider">
+                  {t('metric.diameterLabel')}
+                </label>
                 <input
                   type="text"
                   inputMode="decimal"
-                pattern="^[0-9]*[.,]?[0-9]*$"
-                onFocus={selectOnFocus}
-                  placeholder={t('metric.pitchManualPlaceholder')}
-                  value={manualPitch}
-                  onChange={(e) => setManualPitch(sanitizeDecimal(e.target.value))}
-                  disabled={parsedD === null}
-                  className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500/50 transition-all text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                  pattern="^[0-9]*[.,]?[0-9]*$"
+                  onFocus={selectOnFocus}
+                  placeholder={t('metric.diameterPlaceholder')}
+                  value={diameterInput}
+                  onChange={(e) => setDiameterInput(sanitizeDecimal(e.target.value))}
+                  className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500/50 transition-all text-lg md:text-sm md:py-2.5 md:px-3 md:rounded-lg"
                 />
-              )}
-            </div>
-          </div>
+              </div>
 
-          {designation && (
-            <div className="text-center">
-              <span className="inline-block px-4 py-1.5 rounded-full bg-emerald-500/15 text-emerald-400 font-bold text-lg tracking-wide border border-emerald-500/30">
-                {designation}
-              </span>
+              <div className="flex flex-col">
+                <label className="block text-xs font-semibold text-zinc-500 mb-1.5 uppercase tracking-wider">
+                  {t('metric.pitchLabel')}{' '}
+                  {!isStandardDiameter && parsedD !== null && (
+                    <span className="text-amber-400 text-[10px] normal-case">{t('metric.pitchSpecial')}</span>
+                  )}
+                </label>
+                {isStandardDiameter ? (
+                  <Select value={selectedP} onValueChange={setSelectedP}>
+                    <SelectTrigger className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-100 text-lg h-auto md:text-sm md:py-2.5 md:px-3 md:h-10 md:rounded-lg">
+                      <SelectValue placeholder={t('metric.pitchPlaceholder')} />
+                    </SelectTrigger>
+                    <SelectContent className="bg-zinc-900 border-zinc-700 max-h-60">
+                      {availablePitches.map((p) => (
+                        <SelectItem key={p} value={String(p)} className="text-zinc-100 focus:bg-zinc-800">
+                          {p} mm {p === availablePitches[availablePitches.length - 1] ? t('metric.pitchCoarse') : ''}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                ) : (
+                  <input
+                    type="text"
+                    inputMode="decimal"
+                    pattern="^[0-9]*[.,]?[0-9]*$"
+                    onFocus={selectOnFocus}
+                    placeholder={t('metric.pitchManualPlaceholder')}
+                    value={manualPitch}
+                    onChange={(e) => setManualPitch(sanitizeDecimal(e.target.value))}
+                    disabled={parsedD === null}
+                    className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500/50 transition-all text-lg md:text-sm md:py-2.5 md:px-3 md:rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                  />
+                )}
+              </div>
             </div>
-          )}
 
-          {nominal && effectivePitch && (
-            <Tabs value={threadTab} onValueChange={(v) => setThreadTab(v as 'external' | 'internal')} className="w-full">
-              <TabsList className="w-full bg-zinc-900 border border-zinc-800">
-                <TabsTrigger value="external" type="button" className="flex-1 touch-manipulation data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50">
+            {designation && (
+              <div className="text-center pt-0.5">
+                <span className="inline-block px-3.5 py-1.5 rounded-full bg-emerald-500/15 text-emerald-400 font-bold text-base md:text-sm tracking-wide border border-emerald-500/30">
+                  {designation}
+                </span>
+              </div>
+            )}
+
+            {nominal && effectivePitch && (
+              <TabsList className="w-full bg-zinc-900 border border-zinc-800 p-1">
+                <TabsTrigger
+                  value="external"
+                  type="button"
+                  className="flex-1 touch-manipulation text-xs md:text-xs py-1.5 data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50"
+                >
                   {t('metric.tabExternal')}
                 </TabsTrigger>
-                <TabsTrigger value="internal" type="button" className="flex-1 touch-manipulation data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50">
+                <TabsTrigger
+                  value="internal"
+                  type="button"
+                  className="flex-1 touch-manipulation text-xs md:text-xs py-1.5 data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50"
+                >
                   {t('metric.tabInternal')}
                 </TabsTrigger>
               </TabsList>
+            )}
+          </div>
 
-              <TabsContent value="external">
-                <div className="space-y-3 mt-3">
-                  <DiameterCard
-                    label={t('metric.extDiameter')}
-                    nominal={nominal.nominalDiameter}
-                    limits={
-                      selectedThread
-                        ? { max: selectedThread.external_6g.d_max, min: selectedThread.external_6g.d_min }
-                        : null
-                    }
-                    unit="mm"
-                    tolClass="6g"
-                  />
-                  <DiameterCard
-                    label={t('metric.extPitchDiameter')}
-                    nominal={nominal.pitchDiameter}
-                    limits={
-                      selectedThread
-                        ? { max: selectedThread.external_6g.d2_max, min: selectedThread.external_6g.d2_min }
-                        : null
-                    }
-                    unit="mm"
-                    tolClass="6g"
-                  />
-                  <DiameterCard
-                    label={t('metric.extCoreDiameter')}
-                    nominal={nominal.externalMinorDiameter}
-                    limits={
-                      selectedThread
-                        ? { max: selectedThread.external_6g.d3_max, min: selectedThread.external_6g.d3_min }
-                        : null
-                    }
-                    unit="mm"
-                    tolClass="6g"
-                  />
-                  <PitchCard
-                    label="Skok gwintu"
-                    pitch={effectivePitch}
-                    unit="mm"
-                  />
-                  <DepthCard
-                    label="Głębokość nacinania"
-                    depth={nominal.externalThreadHeight}
-                    unit="mm"
-                  />
-                </div>
-              </TabsContent>
+          {/* PRAWA KOLUMNA: Wyniki (karty tolerancji, wiertła, wymiary) */}
+          <div className="flex-1 min-w-0">
+            {nominal && effectivePitch ? (
+              <>
+                <TabsContent value="external" className="mt-0">
+                  <div className="space-y-3 lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-3">
+                    <DiameterCard
+                      label={t('metric.extDiameter')}
+                      nominal={nominal.nominalDiameter}
+                      limits={
+                        selectedThread
+                          ? { max: selectedThread.external_6g.d_max, min: selectedThread.external_6g.d_min }
+                          : null
+                      }
+                      unit="mm"
+                      tolClass="6g"
+                    />
+                    <DiameterCard
+                      label={t('metric.extPitchDiameter')}
+                      nominal={nominal.pitchDiameter}
+                      limits={
+                        selectedThread
+                          ? { max: selectedThread.external_6g.d2_max, min: selectedThread.external_6g.d2_min }
+                          : null
+                      }
+                      unit="mm"
+                      tolClass="6g"
+                    />
+                    <DiameterCard
+                      label={t('metric.extCoreDiameter')}
+                      nominal={nominal.externalMinorDiameter}
+                      limits={
+                        selectedThread
+                          ? { max: selectedThread.external_6g.d3_max, min: selectedThread.external_6g.d3_min }
+                          : null
+                      }
+                      unit="mm"
+                      tolClass="6g"
+                    />
+                    <PitchCard
+                      label="Skok gwintu"
+                      pitch={effectivePitch}
+                      unit="mm"
+                    />
+                    <DepthCard
+                      label="Głębokość nacinania"
+                      depth={nominal.externalThreadHeight}
+                      unit="mm"
+                    />
+                  </div>
+                </TabsContent>
 
-              <TabsContent value="internal">
-                <div className="space-y-3 mt-3">
-                  <DiameterCard
-                    label={t('metric.intExtDiameter')}
-                    nominal={nominal.nominalDiameter}
-                    limits={
-                      selectedThread
-                        ? { max: selectedThread.internal_6H.D_max, min: selectedThread.internal_6H.D_min }
-                        : null
-                    }
-                    unit="mm"
-                    tolClass="6H"
-                  />
-                  <DiameterCard
-                    label={t('metric.intPitchDiameter')}
-                    nominal={nominal.pitchDiameter}
-                    limits={
-                      selectedThread
-                        ? { max: selectedThread.internal_6H.D2_max, min: selectedThread.internal_6H.D2_min }
-                        : null
-                    }
-                    unit="mm"
-                    tolClass="6H"
-                  />
-                  <DiameterCard
-                    label={t('metric.intDiameter')}
-                    nominal={nominal.internalMinorDiameter}
-                    limits={
-                      selectedThread
-                        ? { max: selectedThread.internal_6H.D1_max, min: selectedThread.internal_6H.D1_min }
-                        : null
-                    }
-                    unit="mm"
-                    tolClass="6H"
-                  />
-                  <PitchCard
-                    label="Skok gwintu (P)"
-                    pitch={effectivePitch}
-                    unit="mm"
-                  />
-                  <DepthCard
-                    label="Głębokość nacinania"
-                    depth={nominal.internalThreadHeight}
-                    unit="mm"
-                  />
-                  <DrillCard
-                    label={t('metric.tapDrill', { defaultValue: 'Wiertło pod gwintownik' })}
-                    diameter={selectedThread?.internal_6H.tap_drill ?? nominal.tapDrillSize}
-                    unit="mm"
-                    note={t('metric.tapDrillNote', { defaultValue: 'Gwintowanie skrawające' })}
-                  />
-                  <DrillCard
-                    label={t('metric.formTapDrill', { defaultValue: 'Wiertło pod wygniatak' })}
-                    diameter={nominal.formTapDrillSize}
-                    unit="mm"
-                    digits={2}
-                    note={t('metric.formTapDrillNote', { defaultValue: 'Formowanie bezwiórowe (wygniatanie)' })}
-                  />
-                </div>
-              </TabsContent>
+                <TabsContent value="internal" className="mt-0">
+                  <div className="space-y-3 lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-3">
+                    <DiameterCard
+                      label={t('metric.intExtDiameter')}
+                      nominal={nominal.nominalDiameter}
+                      limits={
+                        selectedThread
+                          ? { max: selectedThread.internal_6H.D_max, min: selectedThread.internal_6H.D_min }
+                          : null
+                      }
+                      unit="mm"
+                      tolClass="6H"
+                    />
+                    <DiameterCard
+                      label={t('metric.intPitchDiameter')}
+                      nominal={nominal.pitchDiameter}
+                      limits={
+                        selectedThread
+                          ? { max: selectedThread.internal_6H.D2_max, min: selectedThread.internal_6H.D2_min }
+                          : null
+                      }
+                      unit="mm"
+                      tolClass="6H"
+                    />
+                    <DiameterCard
+                      label={t('metric.intDiameter')}
+                      nominal={nominal.internalMinorDiameter}
+                      limits={
+                        selectedThread
+                          ? { max: selectedThread.internal_6H.D1_max, min: selectedThread.internal_6H.D1_min }
+                          : null
+                      }
+                      unit="mm"
+                      tolClass="6H"
+                    />
+                    <PitchCard
+                      label="Skok gwintu (P)"
+                      pitch={effectivePitch}
+                      unit="mm"
+                    />
+                    <DepthCard
+                      label="Głębokość nacinania"
+                      depth={nominal.internalThreadHeight}
+                      unit="mm"
+                    />
+                    <DrillCard
+                      label={t('metric.tapDrill', { defaultValue: 'Wiertło pod gwintownik' })}
+                      diameter={selectedThread?.internal_6H.tap_drill ?? nominal.tapDrillSize}
+                      unit="mm"
+                      note={t('metric.tapDrillNote', { defaultValue: 'Gwintowanie skrawające' })}
+                    />
+                    <DrillCard
+                      label={t('metric.formTapDrill', { defaultValue: 'Wiertło pod wygniatak' })}
+                      diameter={nominal.formTapDrillSize}
+                      unit="mm"
+                      digits={2}
+                      note={t('metric.formTapDrillNote', { defaultValue: 'Formowanie bezwiórowe (wygniatanie)' })}
+                    />
+                  </div>
+                </TabsContent>
 
-              <p className="text-zinc-600 text-xs text-center mt-4">
-                {selectedThread
-                  ? t('metric.footnoteWithData')
-                  : t('metric.footnoteNoData')}
-              </p>
-            </Tabs>
-          )}
-
-          {(parsedD === null || effectivePitch === null) && (
-            <p className="text-center text-zinc-500 py-10">{t('metric.emptyMessage')}</p>
-          )}
+                <p className="text-zinc-600 text-xs text-center mt-3">
+                  {selectedThread
+                    ? t('metric.footnoteWithData')
+                    : t('metric.footnoteNoData')}
+                </p>
+              </>
+            ) : (
+              <p className="text-center text-zinc-500 py-10">{t('metric.emptyMessage')}</p>
+            )}
+          </div>
         </div>
+      </Tabs>
       <ClearFab onClear={() => setSaved((s) => ({ ...INITIAL_STATE, tab: s.tab }))} />
     </PageLayout>
   );

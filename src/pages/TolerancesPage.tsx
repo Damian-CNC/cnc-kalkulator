@@ -61,7 +61,7 @@ const TolerancesPage = () => {
             placeholder={t('nominalPlaceholder')}
             value={nominalInput}
             onChange={(e) => setNominalInput(sanitizeDecimal(e.target.value))}
-            className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500/50 transition-all text-lg text-center font-bold"
+            className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500/50 transition-all text-lg md:text-sm md:py-2.5 md:px-3 md:rounded-lg text-center font-bold"
           />
         </div>
 

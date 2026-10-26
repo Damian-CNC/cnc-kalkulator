@@ -42,7 +42,7 @@ const WhitworthThreadCalculator = ({ threads, sizes, standardLabel, emptyMessage
       <div className="flex flex-col">
         <label className="block text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider">{t('whitworth.sizeLabel')}</label>
         <Select value={selectedSize} onValueChange={setSelectedSize}>
-          <SelectTrigger className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-100 text-lg h-auto">
+          <SelectTrigger className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-100 text-lg h-auto md:text-sm md:py-2.5 md:px-3 md:h-10 md:rounded-lg">
             <SelectValue placeholder={t('whitworth.sizePlaceholder')} />
           </SelectTrigger>
           <SelectContent className="bg-zinc-900 border-zinc-700 max-h-60">

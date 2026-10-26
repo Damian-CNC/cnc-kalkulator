@@ -108,76 +108,76 @@ const HelicoilThreadPage = () => {
   }, [parsedD, effectivePitch, thread]);
 
   return (
-    <PageLayout title={t('helicoil.title', { defaultValue: 'Wkładki HeliCoil (EG M)' })} backRoute="/gwinty">
-      <div className="space-y-5">
-        <div className="grid grid-cols-2 gap-3">
-          <div className="flex flex-col">
-            <label className="block text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider">
-              {t('metric.diameterLabel', { defaultValue: 'Średnica (d) mm' })}
-            </label>
-            <input
-              type="text"
-              inputMode="decimal"
-              pattern="^[0-9]*[.,]?[0-9]*$"
-              onFocus={selectOnFocus}
-              placeholder={t('metric.diameterPlaceholder', { defaultValue: 'np. 6' })}
-              value={diameterInput}
-              onChange={(e) => setDiameterInput(sanitizeDecimal(e.target.value))}
-              className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500/50 transition-all text-lg"
-            />
-          </div>
-
-          <div className="flex flex-col">
-            <label className="block text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider">
-              {t('metric.pitchLabel', { defaultValue: 'Skok (P)' })}{' '}
-              {!isStandardDiameter && parsedD !== null && (
-                <span className="text-amber-400 text-[10px] normal-case">
-                  {t('metric.pitchSpecial', { defaultValue: '— specjalny' })}
-                </span>
-              )}
-            </label>
-            {isStandardDiameter ? (
-              <Select value={selectedP} onValueChange={setSelectedP}>
-                <SelectTrigger className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-100 text-lg h-auto">
-                  <SelectValue placeholder={t('metric.pitchPlaceholder', { defaultValue: 'Wybierz P' })} />
-                </SelectTrigger>
-                <SelectContent className="bg-zinc-900 border-zinc-700 max-h-60">
-                  {availablePitches.map((p) => (
-                    <SelectItem key={p} value={String(p)} className="text-zinc-100 focus:bg-zinc-800">
-                      {p} mm {p === availablePitches[availablePitches.length - 1] ? t('metric.pitchCoarse', { defaultValue: '(zwykły)' }) : ''}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            ) : (
+    <PageLayout title={t('helicoil.title', { defaultValue: 'Wkładki HeliCoil (EG M)' })} backRoute="/gwinty" wideDesktop>
+      <div className="space-y-5 lg:space-y-0 lg:grid lg:grid-cols-[300px_1fr] lg:gap-6 lg:items-start">
+        {/* LEWA KOLUMNA: Inputy, Oznaczenie, Wiertła pod gniazdo */}
+        <div className="space-y-4 lg:sticky lg:top-4 bg-zinc-900/40 p-3.5 sm:p-4 border border-zinc-800/80 rounded-2xl">
+          <div className="grid grid-cols-2 gap-3 lg:grid-cols-1 lg:gap-3">
+            <div className="flex flex-col">
+              <label className="block text-xs font-semibold text-zinc-500 mb-1.5 uppercase tracking-wider">
+                {t('metric.diameterLabel', { defaultValue: 'Średnica (d) mm' })}
+              </label>
               <input
                 type="text"
                 inputMode="decimal"
                 pattern="^[0-9]*[.,]?[0-9]*$"
                 onFocus={selectOnFocus}
-                placeholder={t('metric.pitchManualPlaceholder', { defaultValue: 'np. 1.0' })}
-                value={manualPitch}
-                onChange={(e) => setManualPitch(sanitizeDecimal(e.target.value))}
-                disabled={parsedD === null}
-                className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500/50 transition-all text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                placeholder={t('metric.diameterPlaceholder', { defaultValue: 'np. 6' })}
+                value={diameterInput}
+                onChange={(e) => setDiameterInput(sanitizeDecimal(e.target.value))}
+                className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500/50 transition-all text-lg md:text-sm md:py-2.5 md:px-3 md:rounded-lg"
               />
-            )}
-          </div>
-        </div>
+            </div>
 
-        {designation && (
-          <div className="text-center">
-            <span className="inline-block px-4 py-1.5 rounded-full bg-emerald-500/15 text-emerald-400 font-bold text-lg tracking-wide border border-emerald-500/30">
-              {designation} · Gniazdo HeliCoil
-            </span>
+            <div className="flex flex-col">
+              <label className="block text-xs font-semibold text-zinc-500 mb-1.5 uppercase tracking-wider">
+                {t('metric.pitchLabel', { defaultValue: 'Skok (P)' })}{' '}
+                {!isStandardDiameter && parsedD !== null && (
+                  <span className="text-amber-400 text-[10px] normal-case">
+                    {t('metric.pitchSpecial', { defaultValue: '— specjalny' })}
+                  </span>
+                )}
+              </label>
+              {isStandardDiameter ? (
+                <Select value={selectedP} onValueChange={setSelectedP}>
+                  <SelectTrigger className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-100 text-lg h-auto md:text-sm md:py-2.5 md:px-3 md:h-10 md:rounded-lg">
+                    <SelectValue placeholder={t('metric.pitchPlaceholder', { defaultValue: 'Wybierz P' })} />
+                  </SelectTrigger>
+                  <SelectContent className="bg-zinc-900 border-zinc-700 max-h-60">
+                    {availablePitches.map((p) => (
+                      <SelectItem key={p} value={String(p)} className="text-zinc-100 focus:bg-zinc-800">
+                        {p} mm {p === availablePitches[availablePitches.length - 1] ? t('metric.pitchCoarse', { defaultValue: '(zwykły)' }) : ''}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              ) : (
+                <input
+                  type="text"
+                  inputMode="decimal"
+                  pattern="^[0-9]*[.,]?[0-9]*$"
+                  onFocus={selectOnFocus}
+                  placeholder={t('metric.pitchManualPlaceholder', { defaultValue: 'np. 1.0' })}
+                  value={manualPitch}
+                  onChange={(e) => setManualPitch(sanitizeDecimal(e.target.value))}
+                  disabled={parsedD === null}
+                  className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500/50 transition-all text-lg md:text-sm md:py-2.5 md:px-3 md:rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                />
+              )}
+            </div>
           </div>
-        )}
 
-        {thread && effectivePitch && (
-          <div className="space-y-4">
-            {/* Sekcja: Wiertła pod gniazdo */}
-            <div className="space-y-3">
-              <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider px-1">
+          {designation && (
+            <div className="text-center pt-0.5">
+              <span className="inline-block px-3.5 py-1.5 rounded-full bg-emerald-500/15 text-emerald-400 font-bold text-base md:text-sm tracking-wide border border-emerald-500/30">
+                {designation} · Gniazdo HeliCoil
+              </span>
+            </div>
+          )}
+
+          {thread && effectivePitch && (
+            <div className="space-y-2.5 pt-1">
+              <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider px-0.5">
                 Wiercenie pod gwintownik HeliCoil
               </h3>
               <DrillCard
@@ -197,147 +197,154 @@ const HelicoilThreadPage = () => {
                 />
               )}
             </div>
+          )}
+        </div>
 
-            {/* Sekcja: Wymiary gwintu gniazda (EG M) */}
-            <div className="space-y-3 pt-2">
-              <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider px-1">
-                Wymiary gwintu gniazda (DIN 8140-2 · 6H mod)
-              </h3>
-              <DiameterCard
-                label="Średnica zewn. gwintu gniazda (D_HC)"
-                nominal={thread.holdingThread.D.nom}
-                limits={{ min: thread.holdingThread.D.min, max: thread.holdingThread.D.nom }}
-                unit="mm"
-                tolClass="6H mod"
-                digits={3}
-              />
-              <DiameterCard
-                label="Średnica podziałowa gwintu gniazda (D2_HC)"
-                nominal={thread.holdingThread.D2.nom}
-                limits={{ min: thread.holdingThread.D2.min, max: thread.holdingThread.D2.max }}
-                unit="mm"
-                tolClass="6H mod"
-                digits={3}
-              />
-              <DiameterCard
-                label="Średnica wewn. otworu nagwintowanego (D1_HC)"
-                nominal={thread.holdingThread.D1.nom}
-                limits={{ min: thread.holdingThread.D1.min, max: thread.holdingThread.D1.max }}
-                unit="mm"
-                tolClass="6H mod"
-                digits={3}
-              />
-              <PitchCard
-                label="Skok gwintu (P)"
-                pitch={effectivePitch}
-                unit="mm"
-              />
-            </div>
-
-            {/* Sekcja: Długości wkładki i głębokości montażu */}
-            <div className="space-y-3 pt-2">
-              <div className="flex items-center justify-between px-1">
-                <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">
-                  Długość wkładki i głębokości (DIN 8140-1)
+        {/* PRAWA KOLUMNA: Wymiary gniazda i Długości montażowe */}
+        <div className="flex-1 min-w-0">
+          {thread && effectivePitch ? (
+            <div className="space-y-5">
+              {/* Sekcja: Wymiary gwintu gniazda (EG M) */}
+              <div className="space-y-3">
+                <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider px-1">
+                  Wymiary gwintu gniazda (DIN 8140-2 · 6H mod)
                 </h3>
-                <button
-                  type="button"
-                  onClick={() => setShowAllLengths((v) => !v)}
-                  className="text-xs text-cyan-400 hover:text-cyan-300 font-medium underline underline-offset-2 cursor-pointer"
-                >
-                  {showAllLengths ? 'Ukryj tabelę' : 'Pokaż wszystkie (1.0d - 3.0d)'}
-                </button>
-              </div>
-
-              {/* Wybór mnożnika długości */}
-              <div className="grid grid-cols-5 gap-1.5 p-1 bg-zinc-900 border border-zinc-800 rounded-xl">
-                {(['1.0d', '1.5d', '2.0d', '2.5d', '3.0d'] as const).map((m) => {
-                  const isActive = selectedMultiplier === m;
-                  return (
-                    <button
-                      key={m}
-                      type="button"
-                      onClick={() => setSelectedMultiplier(m)}
-                      className={`py-2 text-xs sm:text-sm font-bold rounded-lg transition-all cursor-pointer ${
-                        isActive
-                          ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm'
-                          : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/60'
-                      }`}
-                    >
-                      {m}
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Karty dla wybranej długości */}
-              {activeLengthSpec && (
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  <AuxCard
-                    label={`Długość wkładki L (${activeLengthSpec.multiplier})`}
-                    value={activeLengthSpec.nominalLength}
+                <div className="space-y-3 lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-3">
+                  <DiameterCard
+                    label="Średnica zewn. gwintu gniazda (D_HC)"
+                    nominal={thread.holdingThread.D.nom}
+                    limits={{ min: thread.holdingThread.D.min, max: thread.holdingThread.D.nom }}
                     unit="mm"
-                    digits={2}
-                    note="Długość w stanie zamontowanym"
+                    tolClass="6H mod"
+                    digits={3}
                   />
-                  <AuxCard
-                    label="Min. głębokość gwintu (t2)"
-                    value={activeLengthSpec.minThreadDepth}
+                  <DiameterCard
+                    label="Średnica podziałowa gwintu gniazda (D2_HC)"
+                    nominal={thread.holdingThread.D2.nom}
+                    limits={{ min: thread.holdingThread.D2.min, max: thread.holdingThread.D2.max }}
                     unit="mm"
-                    digits={2}
-                    note="Głębokość naciętego gwintu roboczego"
+                    tolClass="6H mod"
+                    digits={3}
                   />
-                  <AuxCard
-                    label="Min. głębokość wiercenia (t1)"
-                    value={activeLengthSpec.minDrillDepth}
+                  <DiameterCard
+                    label="Średnica wewn. otworu nagwintowanego (D1_HC)"
+                    nominal={thread.holdingThread.D1.nom}
+                    limits={{ min: thread.holdingThread.D1.min, max: thread.holdingThread.D1.max }}
                     unit="mm"
-                    digits={2}
-                    note="Głębokość otworu pod gwintownik"
+                    tolClass="6H mod"
+                    digits={3}
+                  />
+                  <PitchCard
+                    label="Skok gwintu (P)"
+                    pitch={effectivePitch}
+                    unit="mm"
                   />
                 </div>
-              )}
+              </div>
 
-              {/* Tabela zestawcza dla wszystkich długości */}
-              {showAllLengths && (
-                <div className="overflow-x-auto rounded-xl border border-zinc-800 bg-zinc-900/60 mt-3 p-3">
-                  <table className="w-full text-xs text-left">
-                    <thead>
-                      <tr className="border-b border-zinc-800 text-zinc-400 uppercase tracking-wider">
-                        <th className="py-2 px-2.5">Oznaczenie</th>
-                        <th className="py-2 px-2.5">Długość L</th>
-                        <th className="py-2 px-2.5">Min. gwint t₂</th>
-                        <th className="py-2 px-2.5">Min. wiercenie t₁</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-zinc-800/60">
-                      {thread.lengths.map((len) => (
-                        <tr
-                          key={len.multiplier}
-                          className={len.multiplier === selectedMultiplier ? 'bg-cyan-950/40 text-cyan-300 font-bold' : 'text-zinc-300'}
-                        >
-                          <td className="py-2 px-2.5 font-mono">{len.multiplier}</td>
-                          <td className="py-2 px-2.5">{len.nominalLength.toFixed(2)} mm</td>
-                          <td className="py-2 px-2.5">{len.minThreadDepth.toFixed(2)} mm</td>
-                          <td className="py-2 px-2.5">{len.minDrillDepth.toFixed(2)} mm</td>
+              {/* Sekcja: Długości wkładki i głębokości montażu */}
+              <div className="space-y-3 pt-1 border-t border-zinc-800/80">
+                <div className="flex items-center justify-between px-1 pt-1">
+                  <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">
+                    Długość wkładki i głębokości (DIN 8140-1)
+                  </h3>
+                  <button
+                    type="button"
+                    onClick={() => setShowAllLengths((v) => !v)}
+                    className="text-xs text-cyan-400 hover:text-cyan-300 font-medium underline underline-offset-2 cursor-pointer"
+                  >
+                    {showAllLengths ? 'Ukryj tabelę' : 'Pokaż wszystkie (1.0d - 3.0d)'}
+                  </button>
+                </div>
+
+                {/* Wybór mnożnika długości */}
+                <div className="grid grid-cols-5 gap-1.5 p-1 bg-zinc-900 border border-zinc-800 rounded-xl">
+                  {(['1.0d', '1.5d', '2.0d', '2.5d', '3.0d'] as const).map((m) => {
+                    const isActive = selectedMultiplier === m;
+                    return (
+                      <button
+                        key={m}
+                        type="button"
+                        onClick={() => setSelectedMultiplier(m)}
+                        className={`py-1.5 text-xs sm:text-sm font-bold rounded-lg transition-all cursor-pointer ${
+                          isActive
+                            ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm'
+                            : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/60'
+                        }`}
+                      >
+                        {m}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Karty dla wybranej długości */}
+                {activeLengthSpec && (
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <AuxCard
+                      label={`Długość wkładki L (${activeLengthSpec.multiplier})`}
+                      value={activeLengthSpec.nominalLength}
+                      unit="mm"
+                      digits={2}
+                      note="Długość w stanie zamontowanym"
+                    />
+                    <AuxCard
+                      label="Min. głębokość gwintu (t2)"
+                      value={activeLengthSpec.minThreadDepth}
+                      unit="mm"
+                      digits={2}
+                      note="Głębokość naciętego gwintu roboczego"
+                    />
+                    <AuxCard
+                      label="Min. głębokość wiercenia (t1)"
+                      value={activeLengthSpec.minDrillDepth}
+                      unit="mm"
+                      digits={2}
+                      note="Głębokość otworu pod gwintownik"
+                    />
+                  </div>
+                )}
+
+                {/* Tabela zestawcza dla wszystkich długości */}
+                {showAllLengths && (
+                  <div className="overflow-x-auto rounded-xl border border-zinc-800 bg-zinc-900/60 mt-3 p-3">
+                    <table className="w-full text-xs text-left">
+                      <thead>
+                        <tr className="border-b border-zinc-800 text-zinc-400 uppercase tracking-wider">
+                          <th className="py-2 px-2.5">Oznaczenie</th>
+                          <th className="py-2 px-2.5">Długość L</th>
+                          <th className="py-2 px-2.5">Min. gwint t₂</th>
+                          <th className="py-2 px-2.5">Min. wiercenie t₁</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
+                      </thead>
+                      <tbody className="divide-y divide-zinc-800/60">
+                        {thread.lengths.map((len) => (
+                          <tr
+                            key={len.multiplier}
+                            className={len.multiplier === selectedMultiplier ? 'bg-cyan-950/40 text-cyan-300 font-bold' : 'text-zinc-300'}
+                          >
+                            <td className="py-2 px-2.5 font-mono">{len.multiplier}</td>
+                            <td className="py-2 px-2.5">{len.nominalLength.toFixed(2)} mm</td>
+                            <td className="py-2 px-2.5">{len.minThreadDepth.toFixed(2)} mm</td>
+                            <td className="py-2 px-2.5">{len.minDrillDepth.toFixed(2)} mm</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+
+              <p className="text-zinc-500 text-xs text-center mt-3 leading-relaxed">
+                Wymiary gwintu gniazda wg DIN 8140-2 · Tolerancja 6H mod (STI) · Wymiary montażowe wkładek wg DIN 8140-1 (Böllhoff HELICOIL® Plus).
+              </p>
             </div>
-
-            <p className="text-zinc-500 text-xs text-center mt-5 leading-relaxed">
-              Wymiary gwintu gniazda wg DIN 8140-2 · Tolerancja 6H mod (STI) · Wymiary montażowe wkładek wg DIN 8140-1 (Böllhoff HELICOIL® Plus).
+          ) : (
+            <p className="text-center text-zinc-500 py-10">
+              {t('helicoil.emptyMessage', { defaultValue: 'Wpisz średnicę nominalną i wybierz skok, aby zobaczyć wymiary gniazda HeliCoil.' })}
             </p>
-          </div>
-        )}
-
-        {(parsedD === null || effectivePitch === null) && (
-          <p className="text-center text-zinc-500 py-10">
-            {t('helicoil.emptyMessage', { defaultValue: 'Wpisz średnicę nominalną i wybierz skok, aby zobaczyć wymiary gniazda HeliCoil.' })}
-          </p>
-        )}
+          )}
+        </div>
       </div>
 
       <ClearFab onClear={() => setSaved(INITIAL_STATE)} />

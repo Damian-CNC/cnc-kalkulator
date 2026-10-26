@@ -14,6 +14,8 @@ interface PageLayoutProps {
   compactBottom?: boolean;
   /** Fullscreen on mobile (no vertical scroll, no footer, no favorite star on mobile). Desktop remains standard. */
   fullScreenMobile?: boolean;
+  /** Allows wide desktop container (e.g. for submenus and split-view 2-column layouts). */
+  wideDesktop?: boolean;
 }
 
 const FAVORITE_VIEW_LABELS: Record<string, string> = {
@@ -29,6 +31,7 @@ const PageLayout = ({
   backRoute = '/',
   favoriteTitle,
   fullScreenMobile = false,
+  wideDesktop = false,
 }: PageLayoutProps) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -65,8 +68,8 @@ const PageLayout = ({
       <header
         className={
           fullScreenMobile
-            ? 'flex items-center gap-3 mb-1 sm:mb-2 mt-0 px-3 py-1.5 shrink-0 max-w-2xl mx-auto w-full md:gap-4 md:mb-6 md:sm:mb-8 md:mt-2 md:p-4 md:sm:p-6 md:pb-0'
-            : 'flex items-center gap-4 mb-6 sm:mb-8 mt-2 p-4 sm:p-6 pb-0 max-w-2xl mx-auto w-full'
+            ? `flex items-center gap-3 mb-1 sm:mb-2 mt-0 px-3 py-1.5 shrink-0 ${wideDesktop ? 'max-w-2xl md:max-w-6xl' : 'max-w-2xl'} mx-auto w-full md:gap-4 md:mb-6 md:sm:mb-8 md:mt-2 md:p-4 md:sm:p-6 md:pb-0`
+            : `flex items-center gap-4 mb-6 sm:mb-8 mt-2 p-4 sm:p-6 pb-0 ${wideDesktop ? 'max-w-2xl md:max-w-6xl' : 'max-w-2xl'} mx-auto w-full`
         }
       >
         <button
@@ -101,8 +104,8 @@ const PageLayout = ({
       <main
         className={
           fullScreenMobile
-            ? 'flex-1 min-h-0 w-full max-w-4xl mx-auto px-3 pt-0 pb-[max(0.5rem,env(safe-area-inset-bottom))] overflow-hidden flex flex-col md:px-4 md:pt-4 md:pb-[calc(5rem+env(safe-area-inset-bottom))] md:overflow-visible md:flex-initial'
-            : 'flex-1 w-full max-w-4xl mx-auto px-4 pt-4 pb-[calc(5rem+env(safe-area-inset-bottom))]'
+            ? `flex-1 min-h-0 w-full ${wideDesktop ? 'max-w-4xl md:max-w-6xl' : 'max-w-4xl md:max-w-2xl'} mx-auto px-3 pt-0 pb-[max(0.5rem,env(safe-area-inset-bottom))] overflow-hidden flex flex-col md:px-4 md:pt-4 md:pb-[calc(5rem+env(safe-area-inset-bottom))] md:overflow-visible md:flex-initial`
+            : `flex-1 w-full ${wideDesktop ? 'max-w-4xl md:max-w-6xl' : 'max-w-4xl md:max-w-2xl'} mx-auto px-4 pt-4 pb-[calc(5rem+env(safe-area-inset-bottom))]`
         }
       >
         {children}

@@ -75,18 +75,18 @@ export function DiameterCard({
   const isToleranceZero = tol === 0 || (limits !== null && limits.max === limits.min);
 
   return (
-    <div className="rounded-xl border border-emerald-800/40 bg-emerald-950/20 p-4">
-      <div className="flex items-center justify-between mb-2">
-        <p className="text-emerald-300 text-sm font-semibold">{label}</p>
+    <div className="rounded-xl border border-emerald-800/40 bg-emerald-950/20 p-4 md:p-3">
+      <div className="flex items-center justify-between mb-2 md:mb-1.5">
+        <p className="text-emerald-300 text-sm md:text-xs font-semibold">{label}</p>
         {tolClass && (
-          <span className="text-[11px] px-2 py-0.5 rounded-md bg-emerald-900/60 border border-emerald-700/50 text-emerald-300 font-mono font-bold tracking-wide">
+          <span className="text-[11px] md:text-[10px] px-2 py-0.5 rounded-md bg-emerald-900/60 border border-emerald-700/50 text-emerald-300 font-mono font-bold tracking-wide">
             {tolClass}
           </span>
         )}
       </div>
 
       {nominal !== null && nominal !== undefined && (
-        <p className="text-zinc-500 text-xs mb-2.5">
+        <p className="text-zinc-500 text-xs md:text-[11px] mb-2.5 md:mb-1.5">
           Nominalny:&nbsp;
           <span className="text-zinc-400 font-medium">
             {unit === 'in' ? L.val(nominal, digits) : nominal.toFixed(digits)} {dispUnit}
@@ -96,24 +96,24 @@ export function DiameterCard({
 
       {limits ? (
         <>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-3 md:gap-2">
             <div>
-              <p className="text-zinc-500 text-[11px] uppercase tracking-wider mb-0.5">Max</p>
-              <p className="text-xl md:text-2xl font-bold text-emerald-400 leading-tight">
+              <p className="text-zinc-500 text-[11px] md:text-[10px] uppercase tracking-wider mb-0.5">Max</p>
+              <p className="text-xl md:text-lg font-bold text-emerald-400 leading-tight">
                 <CopyableValue value={raw(limits.max)}>{fmt(limits.max)}</CopyableValue>
                 <span className="text-xs text-zinc-500 font-normal ml-1">{dispUnit}</span>
               </p>
             </div>
             <div>
-              <p className="text-zinc-500 text-[11px] uppercase tracking-wider mb-0.5">Min</p>
-              <p className="text-xl md:text-2xl font-bold text-emerald-300 leading-tight">
+              <p className="text-zinc-500 text-[11px] md:text-[10px] uppercase tracking-wider mb-0.5">Min</p>
+              <p className="text-xl md:text-lg font-bold text-emerald-300 leading-tight">
                 <CopyableValue value={raw(limits.min)}>{fmt(limits.min)}</CopyableValue>
                 <span className="text-xs text-zinc-500 font-normal ml-1">{dispUnit}</span>
               </p>
             </div>
           </div>
 
-          <div className="flex items-center justify-between gap-2 mt-2 pt-2 border-t border-emerald-900/40 text-[11px]">
+          <div className="flex items-center justify-between gap-2 mt-2 pt-2 border-t border-emerald-900/40 text-[11px] md:text-[10px]">
             {!isToleranceZero && tol !== null ? (
               <span className="text-emerald-700 font-medium">
                 Tolerancja: {unit === 'in' ? L.fmt(tol, digits) : tol.toFixed(digits)} {dispUnit}
@@ -129,14 +129,14 @@ export function DiameterCard({
       ) : (
         <div>
           {nominal !== null && nominal !== undefined ? (
-            <p className="text-xl md:text-2xl font-bold text-emerald-400">
+            <p className="text-xl md:text-lg font-bold text-emerald-400">
               <CopyableValue value={raw(nominal)}>{fmt(nominal)}</CopyableValue>
               <span className="text-xs text-zinc-500 font-normal ml-1">{dispUnit}</span>
             </p>
           ) : (
-            <p className="text-zinc-600 text-sm italic">Brak danych tolerancji</p>
+            <p className="text-zinc-600 text-sm md:text-xs italic">Brak danych tolerancji</p>
           )}
-          {note && <p className="text-emerald-700/80 text-[11px] mt-1.5">({note})</p>}
+          {note && <p className="text-emerald-700/80 text-[11px] md:text-[10px] mt-1.5">({note})</p>}
         </div>
       )}
     </div>
@@ -179,22 +179,22 @@ export function PitchCard({
   const hasExtra = tpi !== undefined || (lead !== undefined && lead !== pitch);
 
   return (
-    <div className="rounded-xl border border-amber-800/40 bg-amber-950/20 p-4">
-      <p className="text-amber-300 text-sm font-semibold mb-2">{label}</p>
+    <div className="rounded-xl border border-amber-800/40 bg-amber-950/20 p-4 md:p-3">
+      <p className="text-amber-300 text-sm md:text-xs font-semibold mb-2 md:mb-1.5">{label}</p>
 
-      <div className={`grid ${hasExtra ? 'grid-cols-2' : 'grid-cols-1'} gap-3`}>
+      <div className={`grid ${hasExtra ? 'grid-cols-2' : 'grid-cols-1'} gap-3 md:gap-2`}>
         <div>
-          <p className="text-zinc-500 text-[11px] uppercase tracking-wider mb-0.5">Skok (P)</p>
-          <p className="text-2xl md:text-3xl font-bold text-amber-400 leading-tight">
+          <p className="text-zinc-500 text-[11px] md:text-[10px] uppercase tracking-wider mb-0.5">Skok (P)</p>
+          <p className="text-2xl md:text-xl font-bold text-amber-400 leading-tight">
             <CopyableValue value={rawVal(pitch)}>{fmtVal(pitch)}</CopyableValue>
-            <span className="text-sm text-amber-500/80 font-normal ml-1">{dispUnit}</span>
+            <span className="text-sm md:text-xs text-amber-500/80 font-normal ml-1">{dispUnit}</span>
           </p>
         </div>
 
         {tpi !== undefined && (
           <div>
-            <p className="text-zinc-500 text-[11px] uppercase tracking-wider mb-0.5">Zwoje na cal</p>
-            <p className="text-2xl md:text-3xl font-bold text-amber-300 leading-tight">
+            <p className="text-zinc-500 text-[11px] md:text-[10px] uppercase tracking-wider mb-0.5">Zwoje na cal</p>
+            <p className="text-2xl md:text-xl font-bold text-amber-300 leading-tight">
               {tpi}
               <span className="text-xs text-amber-500/80 font-normal ml-1">TPI</span>
             </p>
@@ -203,8 +203,8 @@ export function PitchCard({
 
         {lead !== undefined && lead !== pitch && (
           <div>
-            <p className="text-zinc-500 text-[11px] uppercase tracking-wider mb-0.5">Posuw (L)</p>
-            <p className="text-xl md:text-2xl font-bold text-amber-300 leading-tight">
+            <p className="text-zinc-500 text-[11px] md:text-[10px] uppercase tracking-wider mb-0.5">Posuw (L)</p>
+            <p className="text-xl md:text-lg font-bold text-amber-300 leading-tight">
               <CopyableValue value={rawVal(lead)}>{fmtVal(lead)}</CopyableValue>
               <span className="text-xs text-zinc-500 font-normal ml-1">{dispUnit}</span>
             </p>
@@ -212,7 +212,7 @@ export function PitchCard({
         )}
       </div>
 
-      {note && <p className="text-amber-700/80 text-[11px] mt-2 pt-2 border-t border-amber-900/40">({note})</p>}
+      {note && <p className="text-amber-700/80 text-[11px] md:text-[10px] mt-2 pt-2 border-t border-amber-900/40">({note})</p>}
     </div>
   );
 }
@@ -242,13 +242,13 @@ export function DepthCard({
   const rawVal = unit === 'in' ? L.raw(depth, digits) : depth.toFixed(digits);
 
   return (
-    <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4">
-      <p className="text-cyan-300 text-sm font-semibold mb-1">{label}</p>
-      <p className="text-2xl md:text-3xl font-bold text-cyan-400 leading-tight">
+    <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4 md:p-3">
+      <p className="text-cyan-300 text-sm md:text-xs font-semibold mb-1">{label}</p>
+      <p className="text-2xl md:text-xl font-bold text-cyan-400 leading-tight">
         <CopyableValue value={rawVal}>{fmtVal}</CopyableValue>
-        <span className="text-base text-cyan-500/80 font-normal ml-1">{dispUnit}</span>
+        <span className="text-base md:text-sm text-cyan-500/80 font-normal ml-1">{dispUnit}</span>
       </p>
-      {note && <p className="text-cyan-600 text-[11px] mt-1.5">({note})</p>}
+      {note && <p className="text-cyan-600 text-[11px] md:text-[10px] mt-1.5">({note})</p>}
     </div>
   );
 }
@@ -280,18 +280,18 @@ export function DrillCard({
   const rawVal = unit === 'in' ? L.raw(diameter, digits) : diameter.toFixed(digits);
 
   return (
-    <div className="rounded-xl border border-violet-800/40 bg-violet-950/20 p-4">
-      <p className="text-violet-300 text-sm font-semibold mb-1">{label}</p>
-      <p className="text-2xl md:text-3xl font-bold text-violet-400 leading-tight">
+    <div className="rounded-xl border border-violet-800/40 bg-violet-950/20 p-4 md:p-3">
+      <p className="text-violet-300 text-sm md:text-xs font-semibold mb-1">{label}</p>
+      <p className="text-2xl md:text-xl font-bold text-violet-400 leading-tight">
         Ø <CopyableValue value={rawVal}>{fmtVal}</CopyableValue>
-        <span className="text-base text-violet-500/80 font-normal ml-1">{dispUnit}</span>
+        <span className="text-base md:text-sm text-violet-500/80 font-normal ml-1">{dispUnit}</span>
       </p>
       {metricDrill !== null && metricDrill !== undefined && !L.isImperial && (
-        <p className="text-violet-400/90 text-sm mt-1">
+        <p className="text-violet-400/90 text-sm md:text-xs mt-1">
           Wiertło metryczne: Ø{metricDrill.toFixed(1)} mm
         </p>
       )}
-      {note && <p className="text-violet-600 text-[11px] mt-1.5">({note})</p>}
+      {note && <p className="text-violet-600 text-[11px] md:text-[10px] mt-1.5">({note})</p>}
     </div>
   );
 }
@@ -323,14 +323,14 @@ export function AuxCard({
   const rawVal = unit === 'in' ? L.raw(value, digits) : value.toFixed(digits);
 
   return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
-      <p className="text-zinc-400 text-sm font-medium mb-1">{label}</p>
-      <p className="text-xl font-bold text-zinc-100 leading-tight">
+    <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4 md:p-3">
+      <p className="text-zinc-400 text-sm md:text-xs font-medium mb-1">{label}</p>
+      <p className="text-xl md:text-lg font-bold text-zinc-100 leading-tight">
         {prefix && <span className="text-zinc-500 font-normal mr-1">{prefix}</span>}
         <CopyableValue value={rawVal}>{fmtVal}</CopyableValue>
-        <span className="text-sm text-zinc-500 font-normal ml-1">{dispUnit}</span>
+        <span className="text-sm md:text-xs text-zinc-500 font-normal ml-1">{dispUnit}</span>
       </p>
-      {note && <p className="text-zinc-600 text-[11px] mt-1">({note})</p>}
+      {note && <p className="text-zinc-600 text-[11px] md:text-[10px] mt-1.5">({note})</p>}
     </div>
   );
 }

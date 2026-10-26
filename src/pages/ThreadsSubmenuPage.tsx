@@ -33,23 +33,27 @@ const ThreadsSubmenuPage = () => {
   const { t } = useTranslation();
 
   return (
-    <PageLayout title={t('pages.threadsMenu')}>
-      <div className="grid grid-cols-2 gap-4 sm:gap-6 w-full">
+    <PageLayout title={t('pages.threadsMenu')} wideDesktop>
+      <div className="grid grid-cols-2 gap-3.5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 md:gap-4 w-full">
         {tiles.map((tile) => {
           return (
             <button
               key={tile.id}
               type="button"
               onClick={() => navigate(tile.route)}
-              className="relative aspect-square bg-zinc-900 border border-zinc-800/80 rounded-2xl flex flex-col items-center justify-center gap-3 p-4 text-center cursor-pointer touch-manipulation transition-all hover:bg-zinc-800/80 hover:border-cyan-500/50 active:scale-95"
+              className="relative aspect-square md:aspect-[1.05/1] bg-zinc-900 border border-zinc-800/80 rounded-2xl flex flex-col items-center justify-center gap-2 p-3 text-center cursor-pointer select-none transition-all hover:bg-zinc-800/80 hover:border-cyan-500/50 hover:shadow-[0_0_16px_rgba(6,182,212,0.18)] hover:-translate-y-0.5 active:scale-95 group"
             >
               {tile.isNew && (
                 <span className="absolute top-2 right-2 text-[10px] font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-1.5 py-0.5 rounded uppercase tracking-wider">
                   {t('common.new')}
                 </span>
               )}
-              <ThreadIcon badge={tile.badge} className={`w-[72px] h-[72px] ${tile.color}`} strokeWidth={2.25} />
-              <span className="text-sm sm:text-base font-semibold text-zinc-200 leading-tight">
+              <ThreadIcon
+                badge={tile.badge}
+                className={`w-[72px] h-[72px] md:w-[94px] md:h-[94px] ${tile.color} group-hover:scale-105 transition-transform duration-150`}
+                strokeWidth={2.25}
+              />
+              <span className="text-xs sm:text-sm font-semibold text-zinc-200 group-hover:text-white leading-tight line-clamp-2 px-1">
                 {t(tile.labelKey)}
               </span>
             </button>
