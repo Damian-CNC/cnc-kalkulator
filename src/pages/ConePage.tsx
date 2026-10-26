@@ -5,7 +5,7 @@ import DrillConeCalculator from '@/components/DrillConeCalculator';
 const ConePage = () => {
   const { t } = useTranslation();
   return (
-  <PageLayout title={t('pages.cone')}>
+  <PageLayout title={t('pages.cone')} wideDesktop>
     <DrillConeCalculator />
   </PageLayout>
 );

@@ -10,7 +10,7 @@ const ParametersPage = () => {
   };
 
   return (
-    <PageLayout title={t('pages.parameters')}>
+    <PageLayout title={t('pages.parameters')} wideDesktop>
       <ParametersCalculator />
       <ClearFab onClear={handleReset} label={t('common.clearAll')} />
     </PageLayout>

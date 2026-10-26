@@ -284,255 +284,261 @@ const WeightCalculator = () => {
   );
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-4">
-        <p className="block text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider">
-          {t('fields.shape')}
-        </p>
-        <div className="grid grid-cols-5 gap-2 mb-4">
-          {SHAPES.map((s) => {
-            const active = form.shapeType === s;
-            return (
-              <button
-                key={s}
-                type="button"
-                onClick={() => set({ shapeType: s })}
-                aria-pressed={active}
-                title={t(`shapes.${s}`)}
-                className={`flex flex-col items-center gap-1 rounded-xl border px-1 py-2 touch-manipulation transition-colors ${
-                  active
-                    ? 'border-cyan-500/60 bg-cyan-500/10 text-cyan-400'
-                    : 'border-zinc-800 bg-zinc-900/60 text-zinc-500 hover:text-zinc-300'
-                }`}
-              >
-                <ShapeIcon shape={s} className="w-6 h-6" />
-                <span className="text-[9px] font-semibold uppercase tracking-wide leading-tight text-center">
-                  {t(`shapes.${s}`)}
-                </span>
-              </button>
-            );
-          })}
-        </div>
+    <div className="lg:grid lg:grid-cols-[400px_1fr] lg:gap-6 lg:items-start space-y-4 lg:space-y-0">
+      {/* Left Column: Form, Calculation & Add Button */}
+      <div className="space-y-4 lg:sticky lg:top-4">
+        <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-4">
+          <p className="block text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider">
+            {t('fields.shape')}
+          </p>
+          <div className="grid grid-cols-5 gap-2 mb-4">
+            {SHAPES.map((s) => {
+              const active = form.shapeType === s;
+              return (
+                <button
+                  key={s}
+                  type="button"
+                  onClick={() => set({ shapeType: s })}
+                  aria-pressed={active}
+                  title={t(`shapes.${s}`)}
+                  className={`flex flex-col items-center gap-1 rounded-xl border px-1 py-2 touch-manipulation transition-colors ${
+                    active
+                      ? 'border-cyan-500/60 bg-cyan-500/10 text-cyan-400'
+                      : 'border-zinc-800 bg-zinc-900/60 text-zinc-500 hover:text-zinc-300'
+                  }`}
+                >
+                  <ShapeIcon shape={s} className="w-6 h-6" />
+                  <span className="text-[9px] font-semibold uppercase tracking-wide leading-tight text-center">
+                    {t(`shapes.${s}`)}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
 
-        <div className="grid grid-cols-2 gap-2.5">
-          <InputField
-            label={t(`fields.${fields[0]}`)}
-            value={form.dimA}
-            onChange={(e) => set({ dimA: e.target.value })}
-          />
-          <InputField
-            label={t('fields.length')}
-            value={form.length}
-            onChange={(e) => set({ length: e.target.value })}
-          />
+          <div className="grid grid-cols-2 gap-2.5">
+            <InputField
+              label={t(`fields.${fields[0]}`)}
+              value={form.dimA}
+              onChange={(e) => set({ dimA: e.target.value })}
+            />
+            <InputField
+              label={t('fields.length')}
+              value={form.length}
+              onChange={(e) => set({ length: e.target.value })}
+            />
 
-          {fields[1] && (
-            <InputField
-              label={t(`fields.${fields[1]}`)}
-              value={form.dimB}
-              onChange={(e) => set({ dimB: e.target.value })}
-            />
-          )}
-          {fields[2] && (
-            <InputField
-              label={t(`fields.${fields[2]}`)}
-              value={form.dimC}
-              onChange={(e) => set({ dimC: e.target.value })}
-            />
-          )}
-          {fields[3] && (
-            <InputField
-              label={t(`fields.${fields[3]}`)}
-              value={form.dimD}
-              onChange={(e) => set({ dimD: e.target.value })}
-            />
-          )}
-
-          <div className="col-span-2 relative" ref={matRef}>
-            <label className="min-h-[2.5rem] flex items-end text-xs font-semibold text-zinc-500 pb-1 mb-1 uppercase tracking-wider">
-              {t('fields.material')}
-            </label>
-            <button
-              type="button"
-              onClick={() => setMatOpen((o) => !o)}
-              aria-haspopup="listbox"
-              aria-expanded={matOpen}
-              className="input-field cursor-pointer w-full flex items-center justify-between gap-2 text-left"
-            >
-              {form.materialType ? (
-                (() => {
-                  const { main, sub } = splitLabel(t(`materialGroups.${form.materialType}`));
-                  return (
-                    <span className="truncate">
-                      <span className="font-semibold text-zinc-100">{main}</span>
-                      {sub && <span className="font-normal text-zinc-400 text-xs"> {sub}</span>}
-                    </span>
-                  );
-                })()
-              ) : (
-                <span className="text-zinc-500">{t('fields.materialSelect')}</span>
-              )}
-              <ChevronDown
-                className={`w-4 h-4 shrink-0 text-zinc-500 transition-transform ${matOpen ? 'rotate-180' : ''}`}
+            {fields[1] && (
+              <InputField
+                label={t(`fields.${fields[1]}`)}
+                value={form.dimB}
+                onChange={(e) => set({ dimB: e.target.value })}
               />
-            </button>
-            {matOpen && (
-              <ul
-                role="listbox"
-                className="absolute z-40 left-0 right-0 mt-1 max-h-64 overflow-y-auto rounded-xl border border-zinc-700 bg-zinc-900 shadow-xl"
-              >
-                {MATERIALS.map((m) => {
-                  const { main, sub } = splitLabel(t(`materialGroups.${m.id}`));
-                  const active = form.materialType === m.id;
-                  return (
-                    <li key={m.id}>
-                      <button
-                        type="button"
-                        role="option"
-                        aria-selected={active}
-                        onClick={() => {
-                          set({ materialType: m.id });
-                          setMatOpen(false);
-                        }}
-                        className={`w-full text-left px-3 py-2.5 transition-colors ${
-                          active ? 'bg-cyan-500/10' : 'hover:bg-zinc-800'
-                        }`}
-                      >
-                        <span className={`font-semibold ${active ? 'text-cyan-300' : 'text-zinc-100'}`}>
-                          {main}
-                        </span>
-                        {sub && (
-                          <span className="font-normal text-zinc-400 text-xs"> {sub}</span>
-                        )}
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
             )}
-          </div>
-          <div className="flex flex-col">
-            <label className="min-h-[2.5rem] flex items-end text-xs font-semibold text-zinc-500 pb-1 mb-1 uppercase tracking-wider">
-              {t('fields.quantity')}
-            </label>
-            <div className="relative">
-              <input
-                type="text"
-                inputMode="numeric"
-                value={form.quantity}
-                onChange={(e) => set({ quantity: e.target.value.replace(/[^0-9]/g, '') })}
-                onFocus={(e) => e.target.select()}
-                className="input-field w-full pr-10"
+            {fields[2] && (
+              <InputField
+                label={t(`fields.${fields[2]}`)}
+                value={form.dimC}
+                onChange={(e) => set({ dimC: e.target.value })}
               />
-              <div className="absolute right-1 top-1 bottom-1 flex flex-col gap-0.5">
-                <button
-                  type="button"
-                  onClick={() => stepQty(1)}
-                  aria-label="+"
-                  className="flex-1 w-8 flex items-center justify-center rounded-md border border-zinc-700 bg-zinc-800 text-zinc-300 hover:text-cyan-400 hover:border-cyan-500/50 active:bg-zinc-700 transition-colors touch-manipulation"
+            )}
+            {fields[3] && (
+              <InputField
+                label={t(`fields.${fields[3]}`)}
+                value={form.dimD}
+                onChange={(e) => set({ dimD: e.target.value })}
+              />
+            )}
+
+            <div className="col-span-2 relative" ref={matRef}>
+              <label className="min-h-[2.5rem] flex items-end text-xs font-semibold text-zinc-500 pb-1 mb-1 uppercase tracking-wider">
+                {t('fields.material')}
+              </label>
+              <button
+                type="button"
+                onClick={() => setMatOpen((o) => !o)}
+                aria-haspopup="listbox"
+                aria-expanded={matOpen}
+                className="input-field cursor-pointer w-full flex items-center justify-between gap-2 text-left"
+              >
+                {form.materialType ? (
+                  (() => {
+                    const { main, sub } = splitLabel(t(`materialGroups.${form.materialType}`));
+                    return (
+                      <span className="truncate">
+                        <span className="font-semibold text-zinc-100">{main}</span>
+                        {sub && <span className="font-normal text-zinc-400 text-xs"> {sub}</span>}
+                      </span>
+                    );
+                  })()
+                ) : (
+                  <span className="text-zinc-500">{t('fields.materialSelect')}</span>
+                )}
+                <ChevronDown
+                  className={`w-4 h-4 shrink-0 text-zinc-500 transition-transform ${matOpen ? 'rotate-180' : ''}`}
+                />
+              </button>
+              {matOpen && (
+                <ul
+                  role="listbox"
+                  className="absolute z-40 left-0 right-0 mt-1 max-h-64 overflow-y-auto rounded-xl border border-zinc-700 bg-zinc-900 shadow-xl"
                 >
-                  <Plus className="w-3.5 h-3.5" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => stepQty(-1)}
-                  aria-label="−"
-                  className="flex-1 w-8 flex items-center justify-center rounded-md border border-zinc-700 bg-zinc-800 text-zinc-300 hover:text-cyan-400 hover:border-cyan-500/50 active:bg-zinc-700 transition-colors touch-manipulation"
-                >
-                  <Minus className="w-3.5 h-3.5" />
-                </button>
+                  {MATERIALS.map((m) => {
+                    const { main, sub } = splitLabel(t(`materialGroups.${m.id}`));
+                    const active = form.materialType === m.id;
+                    return (
+                      <li key={m.id}>
+                        <button
+                          type="button"
+                          role="option"
+                          aria-selected={active}
+                          onClick={() => {
+                            set({ materialType: m.id });
+                            setMatOpen(false);
+                          }}
+                          className={`w-full text-left px-3 py-2.5 transition-colors ${
+                            active ? 'bg-cyan-500/10' : 'hover:bg-zinc-800'
+                          }`}
+                        >
+                          <span className={`font-semibold ${active ? 'text-cyan-300' : 'text-zinc-100'}`}>
+                            {main}
+                          </span>
+                          {sub && (
+                            <span className="font-normal text-zinc-400 text-xs"> {sub}</span>
+                          )}
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+            </div>
+            <div className="flex flex-col">
+              <label className="min-h-[2.5rem] flex items-end text-xs font-semibold text-zinc-500 pb-1 mb-1 uppercase tracking-wider">
+                {t('fields.quantity')}
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  value={form.quantity}
+                  onChange={(e) => set({ quantity: e.target.value.replace(/[^0-9]/g, '') })}
+                  onFocus={(e) => e.target.select()}
+                  className="input-field w-full pr-10"
+                />
+                <div className="absolute right-1 top-1 bottom-1 flex flex-col gap-0.5">
+                  <button
+                    type="button"
+                    onClick={() => stepQty(1)}
+                    aria-label="+"
+                    className="flex-1 w-8 flex items-center justify-center rounded-md border border-zinc-700 bg-zinc-800 text-zinc-300 hover:text-cyan-400 hover:border-cyan-500/50 active:bg-zinc-700 transition-colors touch-manipulation"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => stepQty(-1)}
+                    aria-label="−"
+                    className="flex-1 w-8 flex items-center justify-center rounded-md border border-zinc-700 bg-zinc-800 text-zinc-300 hover:text-cyan-400 hover:border-cyan-500/50 active:bg-zinc-700 transition-colors touch-manipulation"
+                  >
+                    <Minus className="w-3.5 h-3.5" />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <ResultDisplay className="!min-h-[5rem] mt-4">
-          {result ? (
-            <div className="text-center w-full">
-              <div className="text-xs uppercase tracking-wider text-zinc-500 mb-1">
-                {t('result.totalWeight')}
+          <ResultDisplay className="!min-h-[5rem] mt-4">
+            {result ? (
+              <div className="text-center w-full">
+                <div className="text-xs uppercase tracking-wider text-zinc-500 mb-1">
+                  {t('result.totalWeight')}
+                </div>
+                <div className="text-2xl font-bold text-cyan-400 mb-1">{fmtMass(result.totalKg)}</div>
+                <div className="text-xs text-zinc-500">
+                  {result.qty} {t('result.pieces')} · {t('result.volume')}:{' '}
+                  {result.volume.toFixed(2)} cm³ · {t('result.density')}: {result.density} g/cm³
+                </div>
               </div>
-              <div className="text-2xl font-bold text-cyan-400 mb-1">{fmtMass(result.totalKg)}</div>
-              <div className="text-xs text-zinc-500">
-                {result.qty} {t('result.pieces')} · {t('result.volume')}:{' '}
-                {result.volume.toFixed(2)} cm³ · {t('result.density')}: {result.density} g/cm³
-              </div>
-            </div>
-          ) : (
-            <span className="text-zinc-600 text-sm">{t('result.invalid')}</span>
-          )}
-        </ResultDisplay>
+            ) : (
+              <span className="text-zinc-600 text-sm">{t('result.invalid')}</span>
+            )}
+          </ResultDisplay>
 
-        <button
-          type="button"
-          onClick={addItem}
-          disabled={!result}
-          className="mt-3 w-full flex items-center justify-center gap-2 rounded-xl border border-cyan-500/40 bg-cyan-500/10 px-4 py-3 text-sm font-bold uppercase tracking-wider text-cyan-300 transition-colors disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.99]"
-        >
-          <PlusCircle className="w-5 h-5" />
-          {t('inventory.add')}
-        </button>
-      </div>
-
-      <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-4">
-        <div className="flex items-center justify-between mb-3">
-          <h3 className="text-sm font-black uppercase tracking-wider text-zinc-300">
-            {t('inventory.title')}
-          </h3>
           <button
             type="button"
-            onClick={clearList}
-            disabled={!items.length}
-            className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-zinc-500 hover:text-red-400 transition-colors disabled:opacity-40"
+            onClick={addItem}
+            disabled={!result}
+            className="mt-3 w-full flex items-center justify-center gap-2 rounded-xl border border-cyan-500/40 bg-cyan-500/10 px-4 py-3 text-sm font-bold uppercase tracking-wider text-cyan-300 transition-colors disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.99]"
           >
-            <RotateCcw className="w-4 h-4" />
-            {t('inventory.clearList')}
+            <PlusCircle className="w-5 h-5" />
+            {t('inventory.add')}
           </button>
         </div>
+      </div>
 
-        {items.length === 0 ? (
-          <p className="text-sm text-zinc-600 py-4 text-center">{t('inventory.empty')}</p>
-        ) : (
-          <ul className="flex flex-col divide-y divide-zinc-800">
-            {items.map((item) => (
-              <li key={item.id} className="flex items-center gap-3 py-2.5">
-                <ShapeIcon shape={item.shape} className="w-5 h-5 text-zinc-600 shrink-0" />
-                <div className="min-w-0 flex-1">
-                  <p className="text-sm text-zinc-200 truncate">{item.desc}</p>
-                  <p className="text-xs text-zinc-500 truncate">
-                    {item.material} × {item.quantity} {t('result.pieces')}
-                  </p>
-                </div>
-                <span className="text-sm font-bold text-cyan-400 whitespace-nowrap">
-                  {fmtMass(item.weightKg)}
-                </span>
-                <button
-                  type="button"
-                  onClick={() => removeItem(item.id)}
-                  aria-label={t('inventory.remove')}
-                  className="p-2 text-zinc-600 hover:text-red-400 transition-colors"
-                >
-                  <Trash2 className="w-4 h-4" />
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
-
-        <div className="mt-4 rounded-xl border border-cyan-500/30 bg-cyan-500/5 px-4 py-3 flex items-center justify-between">
-          <div>
-            <p className="text-[11px] uppercase tracking-wider text-zinc-500">
-              {t('inventory.totalWeight')}
-            </p>
-            <p className="text-xl font-black text-cyan-400">{fmtMass(totals.kg)}</p>
+      {/* Right Column: Inventory List & Totals */}
+      <div className="space-y-4">
+        <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-4">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-sm font-black uppercase tracking-wider text-zinc-300">
+              {t('inventory.title')}
+            </h3>
+            <button
+              type="button"
+              onClick={clearList}
+              disabled={!items.length}
+              className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-zinc-500 hover:text-red-400 transition-colors disabled:opacity-40"
+            >
+              <RotateCcw className="w-4 h-4" />
+              {t('inventory.clearList')}
+            </button>
           </div>
-          <div className="text-right">
-            <p className="text-[11px] uppercase tracking-wider text-zinc-500">
-              {t('inventory.totalPieces')}
-            </p>
-            <p className="text-xl font-black text-zinc-200">
-              {totals.pcs} {t('result.pieces')}
-            </p>
+
+          {items.length === 0 ? (
+            <p className="text-sm text-zinc-600 py-4 text-center">{t('inventory.empty')}</p>
+          ) : (
+            <ul className="flex flex-col divide-y divide-zinc-800">
+              {items.map((item) => (
+                <li key={item.id} className="flex items-center gap-3 py-2.5">
+                  <ShapeIcon shape={item.shape} className="w-5 h-5 text-zinc-600 shrink-0" />
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm text-zinc-200 truncate">{item.desc}</p>
+                    <p className="text-xs text-zinc-500 truncate">
+                      {item.material} × {item.quantity} {t('result.pieces')}
+                    </p>
+                  </div>
+                  <span className="text-sm font-bold text-cyan-400 whitespace-nowrap">
+                    {fmtMass(item.weightKg)}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => removeItem(item.id)}
+                    aria-label={t('inventory.remove')}
+                    className="p-2 text-zinc-600 hover:text-red-400 transition-colors"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          <div className="mt-4 rounded-xl border border-cyan-500/30 bg-cyan-500/5 px-4 py-3 flex items-center justify-between">
+            <div>
+              <p className="text-[11px] uppercase tracking-wider text-zinc-500">
+                {t('inventory.totalWeight')}
+              </p>
+              <p className="text-xl font-black text-cyan-400">{fmtMass(totals.kg)}</p>
+            </div>
+            <div className="text-right">
+              <p className="text-[11px] uppercase tracking-wider text-zinc-500">
+                {t('inventory.totalPieces')}
+              </p>
+              <p className="text-xl font-black text-zinc-200">
+                {totals.pcs} {t('result.pieces')}
+              </p>
+            </div>
           </div>
         </div>
       </div>

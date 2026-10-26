@@ -231,7 +231,9 @@ const BoltHolesCalculator = () => {
         ))}
       </div>
 
-      <div className="glass-module">
+      <div className="lg:grid lg:grid-cols-[340px_1fr] lg:gap-6 lg:items-start space-y-4 lg:space-y-0">
+        <div className="space-y-4 lg:sticky lg:top-4">
+          <div className="glass-module">
         <SectionTitle>{t('holes.screwTitle')}</SectionTitle>
         <div className="grid grid-cols-2 gap-4">
           <SelectField
@@ -383,10 +385,12 @@ const BoltHolesCalculator = () => {
           )}
         </div>
         <p className="text-xs text-zinc-500 mt-3 leading-relaxed">{t('holes.plateHint')}</p>
-      </div>
+        </div>
       )}
+      </div>
 
-      {res && (
+      <div className="space-y-4">
+        {res && (
         <>
           <div className="glass-module">
             <SectionTitle>{t('holes.sectionTitle')}</SectionTitle>
@@ -505,6 +509,8 @@ const BoltHolesCalculator = () => {
           <p className="text-xs text-zinc-600 text-center leading-relaxed px-2">{t('holes.footer')}</p>
         </>
       )}
+        </div>
+      </div>
 
       <ClearFab onClear={reset} />
     </div>

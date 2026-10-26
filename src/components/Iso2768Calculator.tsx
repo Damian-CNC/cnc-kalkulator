@@ -71,7 +71,9 @@ const Iso2768Calculator = () => {
 
   return (
     <>
-      <div className="glass-module">
+      <div className="lg:grid lg:grid-cols-[340px_1fr] lg:gap-6 lg:items-start space-y-4 lg:space-y-0">
+        <div className="space-y-4 lg:sticky lg:top-4">
+          <div className="glass-module">
         <h2 className="text-sm uppercase tracking-wider text-zinc-400 mb-4">{t('title')}</h2>
 
         <div className="flex flex-col mb-5">
@@ -204,8 +206,10 @@ const Iso2768Calculator = () => {
           )}
         </div>
       </div>
+    </div>
 
-      <div className="glass-module mt-6">
+      <div className="space-y-4">
+        <div className="glass-module">
         <h2 className="text-sm uppercase tracking-wider text-zinc-400 mb-3">{t('tableTitle')}</h2>
         <div className="overflow-x-auto -mx-1 px-1">
           <table className="w-full text-sm border-separate border-spacing-y-1">
@@ -263,7 +267,9 @@ const Iso2768Calculator = () => {
           </table>
         </div>
         <p className="text-[11px] text-zinc-500 mt-3 leading-relaxed">{t('note')}</p>
+        </div>
       </div>
+    </div>
 
       <ClearFab onClear={clear} />
     </>

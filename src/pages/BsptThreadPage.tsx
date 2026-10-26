@@ -55,88 +55,91 @@ const BsptThreadPage = () => {
   const r = useMemo(() => calcBspt(size), [size]);
 
   return (
-    <PageLayout title={t('bspt.title')} backRoute="/gwinty">
-      <div className="space-y-4">
-        <SelectField
-          label={t('bspt.size')}
-          value={size.id}
-          onChange={(e) => setS({ size: e.target.value })}
-          options={BSPT_SIZES.map((z) => ({ value: z.id, label: `R ${z.id}″ – ${z.tpi}` }))}
-        />
+    <PageLayout title={t('bspt.title')} backRoute="/gwinty" wideDesktop>
+      <div className="space-y-5">
+        <div className="lg:grid lg:grid-cols-[280px_1fr] lg:gap-6 lg:items-start space-y-5 lg:space-y-0">
+          {/* Lewa kolumna: wybór i kontrolki (sticky na PC) */}
+          <div className="space-y-4 lg:sticky lg:top-4 bg-zinc-900/40 border border-zinc-800/80 rounded-2xl p-4">
+            <SelectField
+              label={t('bspt.size')}
+              value={size.id}
+              onChange={(e) => setS({ size: e.target.value })}
+              options={BSPT_SIZES.map((z) => ({ value: z.id, label: `R ${z.id}″ – ${z.tpi}` }))}
+            />
 
-        {/* Designation badge */}
-        <div className="text-center">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-emerald-500/15 text-emerald-400 font-bold text-lg tracking-wide border border-emerald-500/30">
-            R / Rc {size.id}″
-          </span>
-          <p className="text-zinc-500 text-xs mt-2">
-            {t('bspt.basicInfo', { p: L.fmt(r.P), tpi: r.tpi })}
-          </p>
+            <div className="text-center pt-1 border-t border-zinc-800/60">
+              <span className="inline-block px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-400 font-bold text-sm md:text-base tracking-wide border border-emerald-500/30">
+                R / Rc {size.id}″
+              </span>
+              <p className="text-zinc-500 text-xs mt-1">
+                {t('bspt.basicInfo', { p: L.fmt(r.P), tpi: r.tpi })}
+              </p>
+            </div>
+
+            <p className="text-xs text-zinc-500 text-center leading-relaxed pt-2 border-t border-zinc-800/60">
+              {t('bspt.taper', {
+                angle: `${Math.floor(r.halfAngle)}°${Math.round((r.halfAngle % 1) * 60)}′`,
+              })}
+            </p>
+            <p className="text-zinc-600 text-[11px] text-center leading-relaxed">{t('bspt.footer')}</p>
+          </div>
+
+          {/* Prawa kolumna: karty wyników */}
+          <div className="space-y-3 min-w-0">
+            {/* Przekroje gwintu */}
+            <ThreadSection
+              label={t('bspt.gauge')}
+              d={r.gauge.d}
+              d2={r.gauge.d2}
+              d1={r.gauge.d1}
+            />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <ThreadSection
+                label={t('bspt.small')}
+                d={r.small.d}
+                d2={r.small.d2}
+                d1={r.small.d1}
+              />
+              <ThreadSection
+                label={t('bspt.end', { x: L.fmt(r.L, 2, 1) })}
+                d={r.end.d}
+                d2={r.end.d2}
+                d1={r.end.d1}
+              />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <PitchCard
+                label={t('bspt.pitch')}
+                pitch={r.P}
+                unit="mm"
+                tpi={r.tpi}
+                digits={4}
+              />
+              <DepthCard
+                label={t('bspt.depth')}
+                depth={r.h}
+                unit="mm"
+                note={t('bspt.depthNote')}
+                digits={4}
+              />
+              <AuxCard
+                label={t('bspt.gaugeLength')}
+                value={r.a}
+                unit="mm"
+                note={t('bspt.gaugeLengthNote')}
+                digits={3}
+              />
+              <AuxCard
+                label={t('bspt.length')}
+                value={r.L}
+                unit="mm"
+                note={t('bspt.lengthNote')}
+                digits={3}
+              />
+            </div>
+          </div>
         </div>
-
-        {/* Cross-sections */}
-        <ThreadSection
-          label={t('bspt.gauge')}
-          d={r.gauge.d}
-          d2={r.gauge.d2}
-          d1={r.gauge.d1}
-        />
-        <ThreadSection
-          label={t('bspt.small')}
-          d={r.small.d}
-          d2={r.small.d2}
-          d1={r.small.d1}
-        />
-        <ThreadSection
-          label={t('bspt.end', { x: L.fmt(r.L, 2, 1) })}
-          d={r.end.d}
-          d2={r.end.d2}
-          d1={r.end.d1}
-        />
-
-        {/* Pitch */}
-        <PitchCard
-          label={t('bspt.pitch')}
-          pitch={r.P}
-          unit="mm"
-          tpi={r.tpi}
-          digits={4}
-        />
-
-        {/* Depth of cut */}
-        <DepthCard
-          label={t('bspt.depth')}
-          depth={r.h}
-          unit="mm"
-          note={t('bspt.depthNote')}
-          digits={4}
-        />
-
-        {/* Gauge length */}
-        <AuxCard
-          label={t('bspt.gaugeLength')}
-          value={r.a}
-          unit="mm"
-          note={t('bspt.gaugeLengthNote')}
-          digits={3}
-        />
-
-        {/* Thread length */}
-        <AuxCard
-          label={t('bspt.length')}
-          value={r.L}
-          unit="mm"
-          note={t('bspt.lengthNote')}
-          digits={3}
-        />
-
-        {/* Taper info footer */}
-        <p className="text-xs text-zinc-500 text-center leading-relaxed">
-          {t('bspt.taper', {
-            angle: `${Math.floor(r.halfAngle)}°${Math.round((r.halfAngle % 1) * 60)}′`,
-          })}
-        </p>
-        <p className="text-zinc-600 text-xs text-center leading-relaxed">{t('bspt.footer')}</p>
       </div>
       <ClearFab onClear={reset} />
     </PageLayout>

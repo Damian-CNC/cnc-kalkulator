@@ -28,8 +28,10 @@ const KeywaysPage = () => {
   const outOfRange = diameter !== '' && (!d || d <= 0 || !row);
 
   return (
-    <PageLayout title="Wpusty pryzmowe (DIN 6885)">
-      <div className="glass-module">
+    <PageLayout title="Wpusty pryzmowe (DIN 6885)" wideDesktop>
+      <div className="lg:grid lg:grid-cols-[320px_1fr] lg:gap-6 lg:items-start space-y-4 lg:space-y-0">
+        <div className="space-y-4 lg:sticky lg:top-4">
+          <div className="glass-module">
         <label className="block text-xs uppercase tracking-wider text-zinc-400 mb-2">
           Średnica wału / otworu d [mm] (oznaczenie normy)
         </label>
@@ -69,9 +71,11 @@ const KeywaysPage = () => {
             Brak danych dla tej średnicy. Zakres normy w module: 6–75 mm.
           </p>
         )}
+        </div>
       </div>
 
-      {row && (
+      <div className="space-y-4">
+        {row && (
         <>
           <div className="glass-module">
             <h2 className="text-sm uppercase tracking-wider text-zinc-400 mb-4">Wpust b × h</h2>
@@ -169,7 +173,9 @@ const KeywaysPage = () => {
               ))}
             </tbody>
           </table>
+          </div>
         </div>
+      </div>
       </div>
 
       <div className="h-20" />

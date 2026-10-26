@@ -229,164 +229,177 @@ const ParametersCalculator = () => {
 
   return (
     <div className="glass-container p-0 overflow-hidden">
-      <div className="flex items-stretch">
-        {/* Sekcja pól */}
-        <div className="flex-1 flex flex-col gap-6 p-6 md:p-8 min-w-0">
-          {/* Module 1: Obroty (Vc, D, n) */}
-          <div className="glass-module">
-            <h2 className="text-primary font-semibold text-lg mb-4 flex items-center gap-2">
-              🌀 {t('params.speedModule')}
-              <FormulaHelper
-                title={th('formulas.rpm.title')}
-                formula="n = (Vc · K) / (π · D)"
-                note={th('formulas.rpm.note')}
-                label={th('formulas.help')}
-                params={[
-                  { symbol: 'n', desc: th('formulas.rpm.p.n') },
-                  { symbol: 'Vc', desc: th('formulas.rpm.p.Vc') },
-                  { symbol: 'D', desc: th('formulas.rpm.p.D') },
-                ]}
-              />
-            </h2>
-            <div className="flex flex-col gap-4">
-              <InputField
-                label={withUnit('params.cuttingSpeed', u.speed)}
-                type="number"
-                step="0.1"
-                inputMode="decimal"
-                value={values.vc}
-                onChange={handleChange('vc')}
-                computed={isComputed('vc')}
-              />
-              <InputField
-                label={withUnit('params.toolDiameter', u.length)}
-                type="number"
-                step="0.1"
-                inputMode="decimal"
-                value={values.D}
-                onChange={handleChange('D')}
-                computed={isComputed('D')}
-              />
-              <InputField
-                label={t('params.spindleSpeed')}
-                type="number"
-                step="1"
-                inputMode="decimal"
-                value={values.n}
-                onChange={handleChange('n')}
-                computed={isComputed('n')}
-              />
+      <div className="p-4 sm:p-6 md:p-6 min-w-0">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+          {/* Lewa kolumna: Obroty i Posuw */}
+          <div className="flex flex-col gap-6">
+            {/* Module 1: Obroty (Vc, D, n) */}
+            <div className="glass-module">
+              <h2 className="text-primary font-semibold text-base md:text-lg mb-4 flex items-center gap-2">
+                🌀 {t('params.speedModule')}
+                <FormulaHelper
+                  title={th('formulas.rpm.title')}
+                  formula="n = (Vc · K) / (π · D)"
+                  note={th('formulas.rpm.note')}
+                  label={th('formulas.help')}
+                  params={[
+                    { symbol: 'n', desc: th('formulas.rpm.p.n') },
+                    { symbol: 'Vc', desc: th('formulas.rpm.p.Vc') },
+                    { symbol: 'D', desc: th('formulas.rpm.p.D') },
+                  ]}
+                />
+              </h2>
+              <div className="flex flex-col gap-3.5">
+                <InputField
+                  label={withUnit('params.cuttingSpeed', u.speed)}
+                  type="number"
+                  step="0.1"
+                  inputMode="decimal"
+                  value={values.vc}
+                  onChange={handleChange('vc')}
+                  computed={isComputed('vc')}
+                />
+                <InputField
+                  label={withUnit('params.toolDiameter', u.length)}
+                  type="number"
+                  step="0.1"
+                  inputMode="decimal"
+                  value={values.D}
+                  onChange={handleChange('D')}
+                  computed={isComputed('D')}
+                />
+                <InputField
+                  label={t('params.spindleSpeed')}
+                  type="number"
+                  step="1"
+                  inputMode="decimal"
+                  value={values.n}
+                  onChange={handleChange('n')}
+                  computed={isComputed('n')}
+                />
+              </div>
+            </div>
+
+            {/* Module 2: Posuw (fz, Z, n, Vf) */}
+            <div className="glass-module">
+              <h2 className="text-primary font-semibold text-base md:text-lg mb-4 flex items-center gap-2">
+                🚀 {t('params.feedModule')}
+                <FormulaHelper
+                  title={th('formulas.feed.title')}
+                  formula="Vf = fz · z · n"
+                  label={th('formulas.help')}
+                  params={[
+                    { symbol: 'Vf', desc: th('formulas.feed.p.vf') },
+                    { symbol: 'fz', desc: th('formulas.feed.p.fz') },
+                    { symbol: 'z', desc: th('formulas.feed.p.z') },
+                    { symbol: 'n', desc: th('formulas.feed.p.n') },
+                  ]}
+                />
+              </h2>
+              <div className="flex flex-col gap-3.5">
+                <InputField
+                  label={withUnit('params.feedPerTooth', isImperial ? 'IPT' : u.feedPerTooth)}
+                  type="number"
+                  step="0.001"
+                  inputMode="decimal"
+                  value={values.fz}
+                  onChange={handleChange('fz')}
+                  computed={isComputed('fz')}
+                />
+                <InputField
+                  label={t('params.teeth')}
+                  type="number"
+                  step="1"
+                  inputMode="numeric"
+                  value={values.Z}
+                  onChange={handleChange('Z')}
+                  computed={isComputed('Z')}
+                />
+                <InputField
+                  label={withUnit('params.feedRate', u.feedRate)}
+                  type="number"
+                  step="0.1"
+                  inputMode="decimal"
+                  value={values.vf}
+                  onChange={handleChange('vf')}
+                  computed={isComputed('vf')}
+                />
+              </div>
             </div>
           </div>
 
-          {/* Module 2: Posuw (fz, Z, n, Vf) */}
-          <div className="glass-module">
-            <h2 className="text-primary font-semibold text-lg mb-4 flex items-center gap-2">
-              🚀 {t('params.feedModule')}
-              <FormulaHelper
-                title={th('formulas.feed.title')}
-                formula="Vf = fz · z · n"
-                label={th('formulas.help')}
-                params={[
-                  { symbol: 'Vf', desc: th('formulas.feed.p.vf') },
-                  { symbol: 'fz', desc: th('formulas.feed.p.fz') },
-                  { symbol: 'z', desc: th('formulas.feed.p.z') },
-                  { symbol: 'n', desc: th('formulas.feed.p.n') },
-                ]}
-              />
-            </h2>
-            <div className="flex flex-col gap-4">
-              <InputField
-                label={withUnit('params.feedPerTooth', isImperial ? 'IPT' : u.feedPerTooth)}
-                type="number"
-                step="0.001"
-                inputMode="decimal"
-                value={values.fz}
-                onChange={handleChange('fz')}
-                computed={isComputed('fz')}
-              />
-              <InputField
-                label={t('params.teeth')}
-                type="number"
-                step="1"
-                inputMode="numeric"
-                value={values.Z}
-                onChange={handleChange('Z')}
-                computed={isComputed('Z')}
-              />
-              <InputField
-                label={withUnit('params.feedRate', u.feedRate)}
-                type="number"
-                step="0.1"
-                inputMode="decimal"
-                value={values.vf}
-                onChange={handleChange('vf')}
-                computed={isComputed('vf')}
-              />
+          {/* Prawa kolumna: Interpolacja kołowa i podsumowanie */}
+          <div className="flex flex-col gap-6">
+            {/* Module 3: Interpolacja kołowa (D, D2, Vf, Fc) */}
+            <div className="glass-module">
+              <h2 className="text-primary font-semibold text-base md:text-lg mb-4 flex items-center gap-2">
+                🎯 {t('params.circularModule')}
+                <FormulaHelper
+                  title={th('formulas.circular.title')}
+                  formula="Fc = (Vf · (D2 − D1)) / D2"
+                  label={th('formulas.help')}
+                  params={[
+                    { symbol: 'Fc', desc: th('formulas.circular.p.Fc') },
+                    { symbol: 'Vf', desc: th('formulas.circular.p.vf') },
+                    { symbol: 'D1', desc: th('formulas.circular.p.D1') },
+                    { symbol: 'D2', desc: th('formulas.circular.p.D2') },
+                  ]}
+                />
+              </h2>
+              <div className="flex flex-col gap-3.5 mt-2">
+                <p className="text-muted-foreground text-xs leading-relaxed">
+                  {t('params.circularHint')}
+                </p>
+                <InputField
+                  label={withUnit('params.toolDiameterD1', u.length)}
+                  type="number"
+                  step="0.1"
+                  inputMode="decimal"
+                  value={values.D}
+                  onChange={handleChange('D')}
+                  computed={isComputed('D')}
+                />
+                <InputField
+                  label={withUnit('params.workDiameterD2', u.length)}
+                  type="number"
+                  step="0.1"
+                  inputMode="decimal"
+                  value={values.d2}
+                  onChange={handleChange('d2')}
+                  computed={isComputed('d2')}
+                />
+                <InputField
+                  label={withUnit('params.peripheralFeed', u.feedRate)}
+                  type="number"
+                  step="0.1"
+                  inputMode="decimal"
+                  value={values.vf}
+                  onChange={handleChange('vf')}
+                  computed={isComputed('vf')}
+                />
+                <InputField
+                  label={withUnit('params.centralFeed', u.feedRate)}
+                  type="number"
+                  step="0.1"
+                  inputMode="decimal"
+                  value={values.fc}
+                  onChange={handleChange('fc')}
+                  computed={isComputed('fc')}
+                />
+              </div>
             </div>
-          </div>
 
-          {/* Module 3: Interpolacja kołowa (D, D2, Vf, Fc) */}
-          <details className="glass-module group" open>
-            <summary className="text-primary font-semibold text-lg mb-4 flex items-center gap-2 cursor-pointer list-none">
-              <span className="transition-transform group-open:rotate-90">▸</span>
-              🎯 {t('params.circularModule')}
-              <FormulaHelper
-                title={th('formulas.circular.title')}
-                formula="Fc = (Vf · (D2 − D1)) / D2"
-                label={th('formulas.help')}
-                params={[
-                  { symbol: 'Fc', desc: th('formulas.circular.p.Fc') },
-                  { symbol: 'Vf', desc: th('formulas.circular.p.vf') },
-                  { symbol: 'D1', desc: th('formulas.circular.p.D1') },
-                  { symbol: 'D2', desc: th('formulas.circular.p.D2') },
-                ]}
-              />
-            </summary>
-            <div className="flex flex-col gap-4 mt-2">
-              <p className="text-muted-foreground text-xs">
-                {t('params.circularHint')}
+            {/* Pomoc / skrót inżynieryjny */}
+            <div className="rounded-2xl border border-zinc-800/80 bg-zinc-900/30 p-4 text-xs text-zinc-400 space-y-2">
+              <p className="font-semibold text-zinc-300 uppercase tracking-wider text-[11px]">
+                💡 Automatyczny Solver Parametrów
               </p>
-              <InputField
-                label={withUnit('params.toolDiameterD1', u.length)}
-                type="number"
-                step="0.1"
-                inputMode="decimal"
-                value={values.D}
-                onChange={handleChange('D')}
-                computed={isComputed('D')}
-              />
-              <InputField
-                label={withUnit('params.workDiameterD2', u.length)}
-                type="number"
-                step="0.1"
-                inputMode="decimal"
-                value={values.d2}
-                onChange={handleChange('d2')}
-                computed={isComputed('d2')}
-              />
-              <InputField
-                label={withUnit('params.peripheralFeed', u.feedRate)}
-                type="number"
-                step="0.1"
-                inputMode="decimal"
-                value={values.vf}
-                onChange={handleChange('vf')}
-                computed={isComputed('vf')}
-              />
-              <InputField
-                label={withUnit('params.centralFeed', u.feedRate)}
-                type="number"
-                step="0.1"
-                inputMode="decimal"
-                value={values.fc}
-                onChange={handleChange('fc')}
-                computed={isComputed('fc')}
-              />
+              <p className="text-zinc-500 leading-relaxed">
+                Wprowadź dowolne dwa znane parametry w sekcji obrotów lub posuwów – kalkulator natychmiast wyznaczy brakujące wartości i podświetli je na turkusowo.
+              </p>
             </div>
-          </details>
+          </div>
         </div>
-
       </div>
     </div>
   );

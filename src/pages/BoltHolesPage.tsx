@@ -5,7 +5,7 @@ import BoltHolesCalculator from '@/components/BoltHolesCalculator';
 const BoltHolesPage = () => {
   const { t } = useTranslation('tools');
   return (
-    <PageLayout title={t('holes.title')}>
+    <PageLayout title={t('holes.title')} wideDesktop>
       <BoltHolesCalculator />
     </PageLayout>
   );

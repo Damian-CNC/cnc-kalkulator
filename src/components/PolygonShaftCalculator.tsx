@@ -88,87 +88,92 @@ const PolygonShaftCalculator = () => {
   };
 
   return (
-    <div className="glass-container p-4 sm:p-6 flex flex-col gap-6">
-      {/* Toggle */}
-      <div className="grid grid-cols-2 gap-2 p-1 bg-zinc-900 rounded-xl border border-zinc-800">
-        <button
-          onClick={() => handleShapeChange('hex')}
-          className={`py-2.5 rounded-lg font-semibold text-sm transition-colors ${
-            shape === 'hex'
-              ? 'bg-primary text-primary-foreground shadow'
-              : 'text-zinc-400 hover:text-zinc-200'
-          }`}
-        >
-          {t('hex')}
-        </button>
-        <button
-          onClick={() => handleShapeChange('square')}
-          className={`py-2.5 rounded-lg font-semibold text-sm transition-colors ${
-            shape === 'square'
-              ? 'bg-primary text-primary-foreground shadow'
-              : 'text-zinc-400 hover:text-zinc-200'
-          }`}
-        >
-          {t('square')}
-        </button>
-      </div>
+    <div className="glass-container p-4 sm:p-6">
+      <div className="lg:grid lg:grid-cols-[300px_1fr] lg:gap-6 lg:items-start space-y-6 lg:space-y-0">
+        {/* Left Column: Shape toggle and Inputs */}
+        <div className="space-y-4 lg:sticky lg:top-4">
+          {/* Toggle */}
+          <div className="grid grid-cols-2 gap-2 p-1 bg-zinc-900 rounded-xl border border-zinc-800">
+            <button
+              onClick={() => handleShapeChange('hex')}
+              className={`py-2.5 rounded-lg font-semibold text-sm transition-colors ${
+                shape === 'hex'
+                  ? 'bg-primary text-primary-foreground shadow'
+                  : 'text-zinc-400 hover:text-zinc-200'
+              }`}
+            >
+              {t('hex')}
+            </button>
+            <button
+              onClick={() => handleShapeChange('square')}
+              className={`py-2.5 rounded-lg font-semibold text-sm transition-colors ${
+                shape === 'square'
+                  ? 'bg-primary text-primary-foreground shadow'
+                  : 'text-zinc-400 hover:text-zinc-200'
+              }`}
+            >
+              {t('square')}
+            </button>
+          </div>
 
-      {/* SVG */}
-      <div className="flex justify-center">
-        <svg viewBox="0 0 200 200" className="w-48 h-48 sm:w-56 sm:h-56">
-          {/* okrąg opisany */}
-          <circle cx={cx} cy={cy} r={R} fill="none" stroke="hsl(var(--primary))" strokeWidth="1.5" strokeDasharray="3 3" />
-          {/* figura */}
-          {shape === 'hex' ? (
-            <polygon points={hexPoints} fill="hsl(var(--primary) / 0.1)" stroke="hsl(var(--primary))" strokeWidth="2" />
-          ) : (
-            <polygon points={squarePoints} fill="hsl(var(--primary) / 0.1)" stroke="hsl(var(--primary))" strokeWidth="2" />
-          )}
-          {/* linia D (przekątna) */}
-          <line x1={cx - R} y1={cy} x2={cx + R} y2={cy} stroke="#22d3ee" strokeWidth="1" />
-          <text x={cx + R + 4} y={cy + 4} fontSize="10" fill="#22d3ee">D</text>
-          {/* linia S (pod klucz) */}
-          {shape === 'hex' ? (
-            <>
-              <line x1={cx - sHexHalf} y1={cy - 30} x2={cx + sHexHalf} y2={cy - 30} stroke="#f59e0b" strokeWidth="1" />
-              <text x={cx + sHexHalf + 4} y={cy - 26} fontSize="10" fill="#f59e0b">S</text>
-            </>
-          ) : (
-            <>
-              <line x1={cx - sSqHalf} y1={cy - 30} x2={cx + sSqHalf} y2={cy - 30} stroke="#f59e0b" strokeWidth="1" />
-              <text x={cx + sSqHalf + 4} y={cy - 26} fontSize="10" fill="#f59e0b">S</text>
-            </>
-          )}
-        </svg>
-      </div>
+          {/* Pola */}
+          <div className="flex flex-col gap-4">
+            <InputField
+              label={t('fields.s').replace('[mm]', `[${L.unit}]`)}
+              type="number"
+              step="0.001"
+              inputMode="decimal"
+              value={values.S}
+              onChange={handleChange('S')}
+              computed={computed === 'S'}
+            />
+            <InputField
+              label={t('fields.d').replace('[mm]', `[${L.unit}]`)}
+              type="number"
+              step="0.001"
+              inputMode="decimal"
+              value={values.D}
+              onChange={handleChange('D')}
+              computed={computed === 'D'}
+            />
+          </div>
 
-      {/* Pola */}
-      <div className="flex flex-col gap-4">
-        <InputField
-          label={t('fields.s').replace('[mm]', `[${L.unit}]`)}
-          type="number"
-          step="0.001"
-          inputMode="decimal"
-          value={values.S}
-          onChange={handleChange('S')}
-          computed={computed === 'S'}
-        />
-        <InputField
-          label={t('fields.d').replace('[mm]', `[${L.unit}]`)}
-          type="number"
-          step="0.001"
-          inputMode="decimal"
-          value={values.D}
-          onChange={handleChange('D')}
-          computed={computed === 'D'}
-        />
-      </div>
+          <p className="text-xs text-muted-foreground text-center lg:text-left">
+            {shape === 'hex'
+              ? t('formula.hex')
+              : t('formula.square')}
+          </p>
+        </div>
 
-      <p className="text-xs text-muted-foreground text-center">
-        {shape === 'hex'
-          ? t('formula.hex')
-          : t('formula.square')}
-      </p>
+        {/* Right Column: SVG Preview Card */}
+        <div className="flex items-center justify-center p-6 bg-zinc-900/40 border border-zinc-800/80 rounded-2xl">
+          <svg viewBox="0 0 200 200" className="w-56 h-56 sm:w-64 sm:h-64">
+            {/* okrąg opisany */}
+            <circle cx={cx} cy={cy} r={R} fill="none" stroke="hsl(var(--primary))" strokeWidth="1.5" strokeDasharray="3 3" />
+            {/* figura */}
+            {shape === 'hex' ? (
+              <polygon points={hexPoints} fill="hsl(var(--primary) / 0.1)" stroke="hsl(var(--primary))" strokeWidth="2" />
+            ) : (
+              <polygon points={squarePoints} fill="hsl(var(--primary) / 0.1)" stroke="hsl(var(--primary))" strokeWidth="2" />
+            )}
+            {/* linia D (przekątna) */}
+            <line x1={cx - R} y1={cy} x2={cx + R} y2={cy} stroke="#22d3ee" strokeWidth="1" />
+            <text x={cx + R + 4} y={cy + 4} fontSize="10" fill="#22d3ee">D</text>
+            {/* linia S (pod klucz) */}
+            {shape === 'hex' ? (
+              <>
+                <line x1={cx - sHexHalf} y1={cy - 30} x2={cx + sHexHalf} y2={cy - 30} stroke="#f59e0b" strokeWidth="1" />
+                <text x={cx + sHexHalf + 4} y={cy - 26} fontSize="10" fill="#f59e0b">S</text>
+              </>
+            ) : (
+              <>
+                <line x1={cx - sSqHalf} y1={cy - 30} x2={cx + sSqHalf} y2={cy - 30} stroke="#f59e0b" strokeWidth="1" />
+                <text x={cx + sSqHalf + 4} y={cy - 26} fontSize="10" fill="#f59e0b">S</text>
+              </>
+            )}
+          </svg>
+        </div>
+      </div>
       <ClearFab onClear={handleClear} />
     </div>
   );

@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Changelog",
-    "version": "v2.9.2",
+    "version": "v3.0.0",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Settings",
     "feedback": "Report bug / Suggestion",
@@ -31,6 +31,13 @@
       "update": "Update",
       "fix": "Fix"
     },
+    "v300": [
+      "New desktop PC (1080p) interface: Bento Master Grid on home screen and Split View (left: controls, right: results) for all calculators",
+      "Optimized proportions and scaling for 1080p desktop workshop screens",
+      "New HeliCoil metric thread calculator (EG M) with full drill, tolerance, and insert length data",
+      "Added roll tap (fluteless tap) drill sizes for Metric and BSP G threads",
+      "Enhanced thread submenu with 5 columns and enlarged badges on PC"
+    ],
     "v277": [
       "Added fully dimensioned DIN 509 technical drawings for Forms E, F, G and H",
       "Fully synchronized parameter labels (r, t₁, t₂, f, g, d₁) with DIN 509",

@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Historia zmian",
-    "version": "v2.9.2",
+    "version": "v3.0.0",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Ustawienia",
     "feedback": "Zgłoś błąd / Sugestia",
@@ -31,6 +31,13 @@
       "update": "Aktualizacja",
       "fix": "Poprawka"
     },
+    "v300": [
+      "Nowy interfejs desktopowy PC (1080p): Bento Master Grid w menu głównym oraz układ Split View (lewa kolumna: wybory i kontrolki, prawa kolumna: wyniki i rysunki) dla wszystkich kalkulatorów",
+      "Dedykowane proporcje i optymalizacja skalowania pod monitory warsztatowe 1080p",
+      "Nowy kalkulator gwintów metrycznych HeliCoil (EG M) z pełnymi wymiarami wierteł, tolerancji i długości wkładek",
+      "Dodano wymiary wierteł pod wygniataki bezwiórowe (Roll Taps) dla gwintów metrycznych oraz calowych G",
+      "Rozbudowane podmenu gwintów z 5 kolumnami i powiększonymi odznakami na komputerach PC"
+    ],
     "v277": [
       "Wdrożono zwymiarowane rysunki techniczne DIN 509 dla form E, F, G i H",
       "Pełna synchronizacja oznaczeń parametrów (r, t₁, t₂, f, g, d₁) z normą DIN 509",

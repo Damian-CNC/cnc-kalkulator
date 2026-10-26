@@ -44,50 +44,88 @@ const HardnessConverter = () => {
 
   return (
     <div className="glass-container">
-      <div className="glass-module">
-        <h2 className="text-primary font-semibold text-lg mb-4 flex items-center gap-2">
-          💎 {t('hardness.title')}
-        </h2>
+      <div className="lg:grid lg:grid-cols-[320px_1fr] lg:gap-6 lg:items-start space-y-4 lg:space-y-0">
+        {/* Left Column: Direction & Input */}
+        <div className="space-y-4 lg:sticky lg:top-4">
+          <div className="glass-module">
+            <h2 className="text-primary font-semibold text-base mb-4 flex items-center gap-2">
+              💎 {t('hardness.title')}
+            </h2>
 
-        <div className="flex flex-col gap-4">
-          <SelectField
-            label={t('hardness.direction')}
-            options={directionOptions}
-            value={direction}
-            onChange={(e) => handleDirectionChange(e.target.value as ConversionDirection)}
-          />
+            <div className="flex flex-col gap-4">
+              <SelectField
+                label={t('hardness.direction')}
+                options={directionOptions}
+                value={direction}
+                onChange={(e) => handleDirectionChange(e.target.value as ConversionDirection)}
+              />
 
-          <InputField
-            label={getInputLabel()}
-            type="number"
-            step="1"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-          />
+              <InputField
+                label={getInputLabel()}
+                type="number"
+                step="1"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+              />
+            </div>
+          </div>
+        </div>
 
-          <ResultDisplay className="!min-h-[5rem]">
-            {result !== null ? (
-              result.success ? (
-                <div className="text-center w-full animate-fade-in">
-                  <div className="text-lg text-primary font-semibold mb-1">
-                    {t('hardness.resultTitle')}
+        {/* Right Column: Result & Reference Guide */}
+        <div className="space-y-4">
+          <div className="glass-module">
+            <ResultDisplay className="!min-h-[5rem]">
+              {result !== null ? (
+                result.success ? (
+                  <div className="text-center w-full animate-fade-in py-2">
+                    <div className="text-xs uppercase tracking-wider text-cyan-400 font-semibold mb-1">
+                      {t('hardness.resultTitle')}
+                    </div>
+                    <div className="text-3xl font-black text-cyan-300 mb-2 tabular-nums">
+                      {result.value} {getResultLabel()}
+                    </div>
+                    <div className="text-xs text-muted-foreground mt-2 px-2">
+                      {t('hardness.standard')}
+                    </div>
                   </div>
-                  <div className="text-2xl font-bold text-foreground mb-2">
-                    💎 {result.value} {getResultLabel()}
+                ) : (
+                  <div className="text-center w-full animate-fade-in py-2">
+                    <div className="text-sm text-amber-400 px-2 font-medium">
+                      ⚠️ {result.message}
+                    </div>
                   </div>
-                  <div className="text-xs text-muted-foreground mt-2 px-2">
-                    {t('hardness.standard')}
-                  </div>
-                </div>
+                )
               ) : (
-                <div className="text-center w-full animate-fade-in">
-                  <div className="text-sm text-amber-400 px-2">
-                    ⚠️ {result.message}
-                  </div>
+                <div className="text-center text-zinc-500 text-xs py-4">
+                  {t('hardness.standard')}
                 </div>
-              )
-            ) : null}
-          </ResultDisplay>
+              )}
+            </ResultDisplay>
+          </div>
+
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-4">
+            <h3 className="text-xs uppercase tracking-wider text-zinc-400 font-semibold mb-3">
+              Typowe zakresy twardości stali
+            </h3>
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              <div className="p-2.5 rounded-xl border border-zinc-800/80 bg-zinc-900/60">
+                <p className="text-zinc-400 font-medium">Konstrukcyjne (S355)</p>
+                <p className="text-cyan-400 font-bold mt-0.5">~140 – 190 HB</p>
+              </div>
+              <div className="p-2.5 rounded-xl border border-zinc-800/80 bg-zinc-900/60">
+                <p className="text-zinc-400 font-medium">Do ulepszania (42CrMo4)</p>
+                <p className="text-cyan-400 font-bold mt-0.5">~28 – 34 HRC (270–320 HB)</p>
+              </div>
+              <div className="p-2.5 rounded-xl border border-zinc-800/80 bg-zinc-900/60">
+                <p className="text-zinc-400 font-medium">Nawęglane / Azotowane</p>
+                <p className="text-cyan-400 font-bold mt-0.5">~55 – 62 HRC</p>
+              </div>
+              <div className="p-2.5 rounded-xl border border-zinc-800/80 bg-zinc-900/60">
+                <p className="text-zinc-400 font-medium">Narzędziowe / Hartowane</p>
+                <p className="text-cyan-400 font-bold mt-0.5">~60 – 66 HRC</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 

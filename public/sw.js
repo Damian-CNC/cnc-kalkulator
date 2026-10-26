@@ -1,5 +1,5 @@
 const CACHE_PREFIX = 'cnc-calculator-';
-const CACHE_NAME = `${CACHE_PREFIX}v11`;
+const CACHE_NAME = `${CACHE_PREFIX}v12`;
 const PRECACHE_URLS = [
   './', './index.html', './manifest.json', './favicon.png', './icon-192.png', './icon-512.png',
   './din509/form-e.jpg', './din509/form-f.jpg', './din509/form-g.jpg', './din509/form-h.jpg',

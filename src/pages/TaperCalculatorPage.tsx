@@ -87,102 +87,107 @@ const TaperCalculatorPage = () => {
   const accent = 'border-cyan-500 ring-2 ring-cyan-500/30';
 
   return (
-    <PageLayout title={tCommon('pages.taper')}>
-      <div className="space-y-5">
-        <span className="text-xs font-semibold text-zinc-500 uppercase tracking-widest block mb-2">{t('toolHint')}</span>
-        {/* SVG — half-view of shaft chamfer (lathe view) */}
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900/30 p-4 flex justify-center">
-          <svg viewBox="0 0 400 200" className="w-full max-w-md" fill="none">
-            {/* Spindle axis (bottom) */}
-            <line x1="20" y1="170" x2="380" y2="170" stroke="rgb(82,82,91)" strokeWidth="1" strokeDasharray="8 4" />
-            <text x="385" y="173" fill="rgb(82,82,91)" fontSize="9">{t('axis')}</text>
-
-            {/* Part contour: top OD line → chamfer → face down to axis */}
-            {/* Top OD horizontal (left) at y=50, from x=40 to x=240 */}
-            {/* Chamfer from (240,50) to (310,110) */}
-            {/* Face vertical from (310,110) to (310,170) */}
-            <polyline
-              points="40,50 240,50 310,110 310,170"
-              stroke="rgb(6,182,212)"
-              strokeWidth="2"
-              fill="none"
-              strokeLinejoin="round"
-            />
-            {/* Subtle fill of the body */}
-            <polygon points="40,50 240,50 310,110 310,170 40,170" fill="rgba(6,182,212,0.05)" stroke="none" />
-
-            {/* D1 dimension — large diameter (left side) */}
-            <line x1="25" y1="50" x2="25" y2="170" stroke="rgb(52,211,153)" strokeWidth="1" strokeDasharray="4 2" />
-            <line x1="20" y1="50" x2="45" y2="50" stroke="rgb(52,211,153)" strokeWidth="1" />
-            <line x1="20" y1="170" x2="45" y2="170" stroke="rgb(52,211,153)" strokeWidth="1" />
-            <text x="14" y="113" fill="rgb(52,211,153)" fontSize="12" fontWeight="bold" textAnchor="middle">D1</text>
-
-            {/* D2 dimension — small diameter (right side, at face) */}
-            <line x1="330" y1="110" x2="330" y2="170" stroke="rgb(251,191,36)" strokeWidth="1" strokeDasharray="4 2" />
-            <line x1="310" y1="110" x2="335" y2="110" stroke="rgb(251,191,36)" strokeWidth="1" />
-            <line x1="310" y1="170" x2="335" y2="170" stroke="rgb(251,191,36)" strokeWidth="1" />
-            <text x="345" y="143" fill="rgb(251,191,36)" fontSize="12" fontWeight="bold" textAnchor="middle">D2</text>
-
-            {/* L dimension — chamfer length along Z (top) */}
-            <line x1="240" y1="30" x2="310" y2="30" stroke="rgb(148,163,184)" strokeWidth="1" />
-            <line x1="240" y1="25" x2="240" y2="55" stroke="rgb(148,163,184)" strokeWidth="0.8" strokeDasharray="3 2" />
-            <line x1="310" y1="25" x2="310" y2="115" stroke="rgb(148,163,184)" strokeWidth="0.8" strokeDasharray="3 2" />
-            <text x="275" y="22" fill="rgb(148,163,184)" fontSize="11" fontWeight="bold" textAnchor="middle">L</text>
-
-            {/* Angle α/2 — between chamfer line and horizontal (extension of OD) */}
-            <line x1="240" y1="50" x2="320" y2="50" stroke="rgb(244,114,182)" strokeWidth="0.8" strokeDasharray="3 2" />
-            <path d="M 280,50 A 40 40 0 0 1 268.5,77" stroke="rgb(244,114,182)" strokeWidth="1.5" fill="none" />
-            <text x="288" y="72" fill="rgb(244,114,182)" fontSize="10" fontWeight="bold">{t('angleLabel')}</text>
-          </svg>
-        </div>
-
-        {/* 4 Input fields */}
-        <div className="grid grid-cols-2 gap-3">
-          <Field label={t('fields.d1')} value={d1Input} onChange={setD1Input} color="text-emerald-400"
-            solved={solver?.solvedField === 'd1'} solvedValue={solver?.d1} unit={Lu.unit} accentClass={accent} />
-          <Field label={t('fields.d2')} value={d2Input} onChange={setD2Input} color="text-amber-400"
-            solved={solver?.solvedField === 'd2'} solvedValue={solver?.d2} unit={Lu.unit} accentClass={accent} />
-          <Field label={t('fields.l')} value={lInput} onChange={setLInput} color="text-zinc-300"
-            solved={solver?.solvedField === 'l'} solvedValue={solver?.l} unit={Lu.unit} accentClass={accent} />
-          <Field label={t('fields.halfAngle')} value={halfAngleInput} onChange={setHalfAngleInput} color="text-pink-400"
-            solved={solver?.solvedField === 'halfAngle'} solvedValue={solver?.halfDeg} unit="°" accentClass={accent} />
-        </div>
-
-        {/* Result cards */}
-        {solver && (
-          <div className="space-y-3">
-            {/* Full angle α */}
-            <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
-              <p className="text-zinc-400 text-sm font-medium mb-2">{t('result.fullAngle')}</p>
-              <p className="text-3xl md:text-4xl font-black text-emerald-400 text-center">{solver.alphaDeg.toFixed(3)}°</p>
-              <p className="text-center text-amber-400 text-sm mt-1 font-medium">
-                {solver.dmsAlpha.d}° {solver.dmsAlpha.m}' {solver.dmsAlpha.s}"
-              </p>
-            </div>
-
-            {/* Half angle α/2 */}
-            <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4">
-              <p className="text-cyan-300 text-sm font-medium mb-2">{t('result.settingAngle')}</p>
-              <p className="text-3xl md:text-4xl font-black text-cyan-400 text-center">{solver.halfDeg.toFixed(3)}°</p>
-              <p className="text-center text-amber-400 text-sm mt-1 font-medium">
-                {solver.dmsHalf.d}° {solver.dmsHalf.m}' {solver.dmsHalf.s}"
-              </p>
-            </div>
-
-            {/* Taper ratio */}
-            <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
-              <p className="text-zinc-400 text-sm font-medium mb-2">{t('result.taper')}</p>
-              <p className="text-2xl md:text-3xl font-bold text-cyan-400 text-center">
-                {solver.C > 0 ? `1 : ${solver.taperRatio.toFixed(2)}` : '—'}
-              </p>
-              <p className="text-zinc-600 text-xs text-center mt-1.5">C = {solver.C.toFixed(4)} {Lu.unit}/{Lu.unit}</p>
-            </div>
+    <PageLayout title={tCommon('pages.taper')} wideDesktop>
+      <div className="lg:grid lg:grid-cols-[320px_1fr] lg:gap-6 lg:items-start space-y-5 lg:space-y-0">
+        {/* Left: Inputs */}
+        <div className="space-y-4 lg:sticky lg:top-4">
+          <span className="text-xs font-semibold text-zinc-500 uppercase tracking-widest block">{t('toolHint')}</span>
+          <div className="grid grid-cols-2 lg:grid-cols-1 gap-3">
+            <Field label={t('fields.d1')} value={d1Input} onChange={setD1Input} color="text-emerald-400"
+              solved={solver?.solvedField === 'd1'} solvedValue={solver?.d1} unit={Lu.unit} accentClass={accent} />
+            <Field label={t('fields.d2')} value={d2Input} onChange={setD2Input} color="text-amber-400"
+              solved={solver?.solvedField === 'd2'} solvedValue={solver?.d2} unit={Lu.unit} accentClass={accent} />
+            <Field label={t('fields.l')} value={lInput} onChange={setLInput} color="text-zinc-300"
+              solved={solver?.solvedField === 'l'} solvedValue={solver?.l} unit={Lu.unit} accentClass={accent} />
+            <Field label={t('fields.halfAngle')} value={halfAngleInput} onChange={setHalfAngleInput} color="text-pink-400"
+              solved={solver?.solvedField === 'halfAngle'} solvedValue={solver?.halfDeg} unit="°" accentClass={accent} />
           </div>
-        )}
+        </div>
 
-        {!solver && (
-          <p className="text-center text-zinc-500 py-10">{t('hint')}</p>
-        )}
+        {/* Right: Diagram & Results */}
+        <div className="space-y-4">
+          {/* SVG — half-view of shaft chamfer (lathe view) */}
+          <div className="rounded-xl border border-zinc-800 bg-zinc-900/30 p-4 flex justify-center">
+            <svg viewBox="0 0 400 200" className="w-full max-w-md" fill="none">
+              {/* Spindle axis (bottom) */}
+              <line x1="20" y1="170" x2="380" y2="170" stroke="rgb(82,82,91)" strokeWidth="1" strokeDasharray="8 4" />
+              <text x="385" y="173" fill="rgb(82,82,91)" fontSize="9">{t('axis')}</text>
+
+              {/* Part contour: top OD line → chamfer → face down to axis */}
+              {/* Top OD horizontal (left) at y=50, from x=40 to x=240 */}
+              {/* Chamfer from (240,50) to (310,110) */}
+              {/* Face vertical from (310,110) to (310,170) */}
+              <polyline
+                points="40,50 240,50 310,110 310,170"
+                stroke="rgb(6,182,212)"
+                strokeWidth="2"
+                fill="none"
+                strokeLinejoin="round"
+              />
+              {/* Subtle fill of the body */}
+              <polygon points="40,50 240,50 310,110 310,170 40,170" fill="rgba(6,182,212,0.05)" stroke="none" />
+
+              {/* D1 dimension — large diameter (left side) */}
+              <line x1="25" y1="50" x2="25" y2="170" stroke="rgb(52,211,153)" strokeWidth="1" strokeDasharray="4 2" />
+              <line x1="20" y1="50" x2="45" y2="50" stroke="rgb(52,211,153)" strokeWidth="1" />
+              <line x1="20" y1="170" x2="45" y2="170" stroke="rgb(52,211,153)" strokeWidth="1" />
+              <text x="14" y="113" fill="rgb(52,211,153)" fontSize="12" fontWeight="bold" textAnchor="middle">D1</text>
+
+              {/* D2 dimension — small diameter (right side, at face) */}
+              <line x1="330" y1="110" x2="330" y2="170" stroke="rgb(251,191,36)" strokeWidth="1" strokeDasharray="4 2" />
+              <line x1="310" y1="110" x2="335" y2="110" stroke="rgb(251,191,36)" strokeWidth="1" />
+              <line x1="310" y1="170" x2="335" y2="170" stroke="rgb(251,191,36)" strokeWidth="1" />
+              <text x="345" y="143" fill="rgb(251,191,36)" fontSize="12" fontWeight="bold" textAnchor="middle">D2</text>
+
+              {/* L dimension — chamfer length along Z (top) */}
+              <line x1="240" y1="30" x2="310" y2="30" stroke="rgb(148,163,184)" strokeWidth="1" />
+              <line x1="240" y1="25" x2="240" y2="55" stroke="rgb(148,163,184)" strokeWidth="0.8" strokeDasharray="3 2" />
+              <line x1="310" y1="25" x2="310" y2="115" stroke="rgb(148,163,184)" strokeWidth="0.8" strokeDasharray="3 2" />
+              <text x="275" y="22" fill="rgb(148,163,184)" fontSize="11" fontWeight="bold" textAnchor="middle">L</text>
+
+              {/* Angle α/2 — between chamfer line and horizontal (extension of OD) */}
+              <line x1="240" y1="50" x2="320" y2="50" stroke="rgb(244,114,182)" strokeWidth="0.8" strokeDasharray="3 2" />
+              <path d="M 280,50 A 40 40 0 0 1 268.5,77" stroke="rgb(244,114,182)" strokeWidth="1.5" fill="none" />
+              <text x="288" y="72" fill="rgb(244,114,182)" fontSize="10" fontWeight="bold">{t('angleLabel')}</text>
+            </svg>
+          </div>
+
+          {/* Result cards */}
+          {solver && (
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {/* Full angle α */}
+              <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
+                <p className="text-zinc-400 text-sm font-medium mb-2">{t('result.fullAngle')}</p>
+                <p className="text-3xl font-black text-emerald-400 text-center">{solver.alphaDeg.toFixed(3)}°</p>
+                <p className="text-center text-amber-400 text-sm mt-1 font-medium">
+                  {solver.dmsAlpha.d}° {solver.dmsAlpha.m}' {solver.dmsAlpha.s}"
+                </p>
+              </div>
+
+              {/* Half angle α/2 */}
+              <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4">
+                <p className="text-cyan-300 text-sm font-medium mb-2">{t('result.settingAngle')}</p>
+                <p className="text-3xl font-black text-cyan-400 text-center">{solver.halfDeg.toFixed(3)}°</p>
+                <p className="text-center text-amber-400 text-sm mt-1 font-medium">
+                  {solver.dmsHalf.d}° {solver.dmsHalf.m}' {solver.dmsHalf.s}"
+                </p>
+              </div>
+
+              {/* Taper ratio */}
+              <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
+                <p className="text-zinc-400 text-sm font-medium mb-2">{t('result.taper')}</p>
+                <p className="text-2xl font-bold text-cyan-400 text-center">
+                  {solver.C > 0 ? `1 : ${solver.taperRatio.toFixed(2)}` : '—'}
+                </p>
+                <p className="text-zinc-600 text-xs text-center mt-1.5">C = {solver.C.toFixed(4)} {Lu.unit}/{Lu.unit}</p>
+              </div>
+            </div>
+          )}
+
+          {!solver && (
+            <p className="text-center text-zinc-500 py-10">{t('hint')}</p>
+          )}
+        </div>
       </div>
       <ClearFab onClear={clearAll} />
     </PageLayout>

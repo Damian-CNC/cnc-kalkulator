@@ -5,7 +5,7 @@ import TruePositionCalculator from '@/components/TruePositionCalculator';
 const TruePositionPage = () => {
   const { t } = useTranslation();
   return (
-    <PageLayout title={t('pages.truePosition')}>
+    <PageLayout title={t('pages.truePosition')} wideDesktop>
       <TruePositionCalculator />
     </PageLayout>
   );

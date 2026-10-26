@@ -85,210 +85,227 @@ const TrapezoidalThreadPage = () => {
   const designation = parsedD !== null && parsedP !== null ? `Tr ${parsedD} × ${parsedP}` : null;
 
   return (
-    <PageLayout title="Gwinty Trapezowe (Tr)" backRoute="/gwinty">
+    <PageLayout title="Gwinty Trapezowe (Tr)" backRoute="/gwinty" wideDesktop>
       <div className="space-y-5">
-        <div className="grid grid-cols-2 gap-3">
-          <div className="flex flex-col">
-            <label className="block text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider">
-              Średnica (d) mm
-            </label>
-            <input
-              type="text"
-              inputMode="decimal"
-                pattern="^[0-9]*[.,]?[0-9]*$"
-                onFocus={selectOnFocus}
-              value={dInput}
-              onChange={(e) => setDInput(sanitizeDecimal(e.target.value))}
-              className="w-full bg-zinc-900/50 border border-zinc-700 rounded-xl px-4 py-4 text-zinc-100 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-lg md:text-sm md:py-2.5 md:px-3 md:rounded-lg"
-            />
-          </div>
-          <div className="flex flex-col">
-            <label className="block text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider">
-              Skok (P) mm
-            </label>
-            <input
-              type="text"
-              inputMode="decimal"
-                pattern="^[0-9]*[.,]?[0-9]*$"
-                onFocus={selectOnFocus}
-              value={pInput}
-              onChange={(e) => setPInput(sanitizeDecimal(e.target.value))}
-              className="w-full bg-zinc-900/50 border border-zinc-700 rounded-xl px-4 py-4 text-zinc-100 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-lg md:text-sm md:py-2.5 md:px-3 md:rounded-lg"
-            />
-          </div>
-        </div>
-
-        {designation && nominal && (
-          <div className="text-center">
-            <span className="inline-block px-4 py-1.5 rounded-full bg-emerald-500/15 text-emerald-400 font-bold text-lg tracking-wide border border-emerald-500/30">
-              {designation}
-            </span>
-            <p className="text-zinc-500 text-xs mt-2">Luz wierzchołkowy ac = {L.disp(nominal.ac as number)} {L.unit}</p>
-          </div>
-        )}
-
-        {nominal && (
-          <Tabs value={threadTab} onValueChange={(value) => setThreadTab(value as 'external' | 'internal')} className="w-full">
-            <TabsList className="w-full bg-zinc-900 border border-zinc-800">
-              <TabsTrigger value="external" className="flex-1 data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50">
-                🔩 Śruba (Czop)
-              </TabsTrigger>
-              <TabsTrigger value="internal" className="flex-1 data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50">
-                🔧 Nakrętka (Otwór)
-              </TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="external">
-              <div className="space-y-3 mt-3">
-                <DiameterCard
-                  label="Średnica zewnętrzna (d)"
-                  limits={bolt ? bolt.d : null}
-                  unit="mm"
-                  nominal={nominal.d as number}
-                  tolClass={bolt ? boltCls : undefined}
-                  digits={3}
-                />
-                <DiameterCard
-                  label="Średnica podziałowa (d2)"
-                  limits={bolt ? bolt.d2 : null}
-                  unit="mm"
-                  nominal={nominal.d2 as number}
-                  tolClass={bolt ? boltCls : undefined}
-                  digits={3}
-                />
-                <DiameterCard
-                  label="Średnica rdzenia (d3)"
-                  limits={bolt ? bolt.d3 : null}
-                  unit="mm"
-                  nominal={nominal.d3 as number}
-                  tolClass={bolt ? boltCls : undefined}
-                  digits={3}
-                />
-                <PitchCard
-                  label="Skok gwintu (P)"
-                  pitch={parsedP!}
-                  unit="mm"
-                  digits={3}
-                />
-                <DepthCard
-                  label="Głębokość nacinania (h3)"
-                  depth={nominal.h3 as number}
-                  unit="mm"
-                  note="h3 = P/2 + ac"
-                  digits={3}
-                />
-
-                <ClassPicker
-                  title="Klasa tolerancji śruby"
-                  options={BOLT_CLASSES}
-                  value={boltCls}
-                  onChange={(v) => setBoltCls(v as BoltClass)}
-                />
-
-                {!bolt && (
-                  <p className="text-xs text-zinc-500 text-center py-3 leading-relaxed">
-                    Tolerancje ISO 2903 dotyczą średnic 5,6–355 mm i znormalizowanych skoków
-                    (1,5; 2; 3; 4; 5; 6; 7; 8; 9; 10; 12; 14; 16; 18; 20; 22; 24; 28; 32; 36; 40; 44 mm).
-                  </p>
-                )}
-
-                {bolt && (
-                  <p className="text-center text-sm font-semibold text-emerald-400">
-                    Tr {parsedD} × {parsedP} – {bolt.cls}
-                  </p>
-                )}
+        <Tabs value={threadTab} onValueChange={(value) => setThreadTab(value as 'external' | 'internal')} className="w-full">
+          <div className="lg:grid lg:grid-cols-[290px_1fr] lg:gap-6 lg:items-start space-y-5 lg:space-y-0">
+            {/* Lewa kolumna: wybór i kontrolki (sticky na PC) */}
+            <div className="space-y-4 lg:sticky lg:top-4 bg-zinc-900/40 border border-zinc-800/80 rounded-2xl p-4">
+              <div className="grid grid-cols-2 gap-2">
+                <div className="flex flex-col">
+                  <label className="block text-xs font-semibold text-zinc-400 mb-1.5 uppercase tracking-wider">
+                    Średnica (d)
+                  </label>
+                  <input
+                    type="text"
+                    inputMode="decimal"
+                    pattern="^[0-9]*[.,]?[0-9]*$"
+                    onFocus={selectOnFocus}
+                    value={dInput}
+                    placeholder="np. 20"
+                    onChange={(e) => setDInput(sanitizeDecimal(e.target.value))}
+                    className="w-full bg-zinc-900/80 border border-zinc-700 rounded-xl px-3 py-3 text-zinc-100 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-base md:text-sm md:py-2 md:px-3 md:rounded-lg"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <label className="block text-xs font-semibold text-zinc-400 mb-1.5 uppercase tracking-wider">
+                    Skok (P)
+                  </label>
+                  <input
+                    type="text"
+                    inputMode="decimal"
+                    pattern="^[0-9]*[.,]?[0-9]*$"
+                    onFocus={selectOnFocus}
+                    value={pInput}
+                    placeholder="np. 4"
+                    onChange={(e) => setPInput(sanitizeDecimal(e.target.value))}
+                    className="w-full bg-zinc-900/80 border border-zinc-700 rounded-xl px-3 py-3 text-zinc-100 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-base md:text-sm md:py-2 md:px-3 md:rounded-lg"
+                  />
+                </div>
               </div>
-            </TabsContent>
 
-            <TabsContent value="internal">
-              <div className="space-y-3 mt-3">
-                <DiameterCard
-                  label="Średnica zewn. w bruzdach (D4)"
-                  limits={
-                    nut
-                      ? { max: Number((nominal.D4 as number).toFixed(3)), min: nut.D4min, tol: Number(((nominal.D4 as number) - nut.D4min).toFixed(3)) }
-                      : null
-                  }
-                  unit="mm"
-                  nominal={nominal.D4 as number}
-                  tolClass={nut ? nutCls : undefined}
-                  digits={3}
-                  note="min wg normy"
-                />
-                <DiameterCard
-                  label="Średnica podziałowa (D2)"
-                  limits={nut ? nut.D2 : null}
-                  unit="mm"
-                  nominal={nominal.d2 as number}
-                  tolClass={nut ? nutCls : undefined}
-                  digits={3}
-                />
-                <DiameterCard
-                  label="Średnica wewnętrzna (D1)"
-                  limits={nut ? nut.D1 : null}
-                  unit="mm"
-                  nominal={nominal.D1 as number}
-                  tolClass={nut ? nutCls : undefined}
-                  digits={3}
-                />
-                <PitchCard
-                  label="Skok gwintu (P)"
-                  pitch={parsedP!}
-                  unit="mm"
-                  digits={3}
-                />
-                <DepthCard
-                  label="Głębokość nacinania (h3)"
-                  depth={nominal.h3 as number}
-                  unit="mm"
-                  note="h3 = P/2 + ac"
-                  digits={3}
-                />
-                <DrillCard
-                  label="Średnica wiercenia pod nakrętkę"
-                  diameter={nominal.D1 as number}
-                  unit="mm"
-                  note="Równa średnicy wewnętrznej D1"
-                  digits={3}
-                />
+              {designation && nominal && (
+                <>
+                  <div className="text-center pt-1 border-t border-zinc-800/60">
+                    <span className="inline-block px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-400 font-bold text-sm md:text-base tracking-wide border border-emerald-500/30">
+                      {designation}
+                    </span>
+                    <p className="text-zinc-500 text-xs mt-1">Luz wierzchołkowy ac = {L.disp(nominal.ac as number)} {L.unit}</p>
+                  </div>
 
-                <ClassPicker
-                  title="Klasa tolerancji nakrętki"
-                  options={NUT_CLASSES}
-                  value={nutCls}
-                  onChange={(v) => setNutCls(v as NutClass)}
-                />
+                  <TabsList className="w-full bg-zinc-900 border border-zinc-800">
+                    <TabsTrigger value="external" className="flex-1 data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50 text-xs md:text-sm">
+                      🔩 Śruba
+                    </TabsTrigger>
+                    <TabsTrigger value="internal" className="flex-1 data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50 text-xs md:text-sm">
+                      🔧 Nakrętka
+                    </TabsTrigger>
+                  </TabsList>
 
-                {!nut && (
-                  <p className="text-xs text-zinc-500 text-center py-3 leading-relaxed">
-                    Tolerancje ISO 2903 dotyczą średnic 5,6–355 mm i znormalizowanych skoków
-                    (1,5; 2; 3; 4; 5; 6; 7; 8; 9; 10; 12; 14; 16; 18; 20; 22; 24; 28; 32; 36; 40; 44 mm).
+                  {/* Klasa tolerancji */}
+                  <div className="pt-2 border-t border-zinc-800/60">
+                    {threadTab === 'external' ? (
+                      <div>
+                        <ClassPicker
+                          title="Klasa tolerancji śruby"
+                          options={BOLT_CLASSES}
+                          value={boltCls}
+                          onChange={(v) => setBoltCls(v as BoltClass)}
+                        />
+                        {bolt && (
+                          <p className="text-center text-xs font-semibold text-emerald-400 mt-2">
+                            Tr {parsedD} × {parsedP} – {bolt.cls}
+                          </p>
+                        )}
+                      </div>
+                    ) : (
+                      <div>
+                        <ClassPicker
+                          title="Klasa tolerancji nakrętki"
+                          options={NUT_CLASSES}
+                          value={nutCls}
+                          onChange={(v) => setNutCls(v as NutClass)}
+                        />
+                        {nut && (
+                          <p className="text-center text-xs font-semibold text-emerald-400 mt-2">
+                            Tr {parsedD} × {parsedP} – {nut.cls}
+                          </p>
+                        )}
+                      </div>
+                    )}
+                  </div>
+
+                  <p className="text-zinc-500 text-[11px] text-center pt-2 border-t border-zinc-800/60 leading-relaxed">
+                    Wymiary wg DIN 103 · Tolerancje wg ISO 2903
                   </p>
-                )}
+                </>
+              )}
+            </div>
 
-                {nut && (
-                  <p className="text-center text-sm font-semibold text-emerald-400">
-                    Tr {parsedD} × {parsedP} – {nut.cls}
-                  </p>
-                )}
-              </div>
-            </TabsContent>
+            {/* Prawa kolumna: karty wyników */}
+            <div className="min-w-0">
+              {nominal ? (
+                <>
+                  <TabsContent value="external" className="mt-0">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <DiameterCard
+                        label="Średnica zewnętrzna (d)"
+                        limits={bolt ? bolt.d : null}
+                        unit="mm"
+                        nominal={nominal.d as number}
+                        tolClass={bolt ? boltCls : undefined}
+                        digits={3}
+                      />
+                      <DiameterCard
+                        label="Średnica podziałowa (d2)"
+                        limits={bolt ? bolt.d2 : null}
+                        unit="mm"
+                        nominal={nominal.d2 as number}
+                        tolClass={bolt ? boltCls : undefined}
+                        digits={3}
+                      />
+                      <DiameterCard
+                        label="Średnica rdzenia (d3)"
+                        limits={bolt ? bolt.d3 : null}
+                        unit="mm"
+                        nominal={nominal.d3 as number}
+                        tolClass={bolt ? boltCls : undefined}
+                        digits={3}
+                      />
+                      <PitchCard
+                        label="Skok gwintu (P)"
+                        pitch={parsedP!}
+                        unit="mm"
+                        digits={3}
+                      />
+                      <div className="md:col-span-2">
+                        <DepthCard
+                          label="Głębokość nacinania (h3)"
+                          depth={nominal.h3 as number}
+                          unit="mm"
+                          note="h3 = P/2 + ac"
+                          digits={3}
+                        />
+                      </div>
+                      {!bolt && (
+                        <div className="md:col-span-2">
+                          <p className="text-xs text-zinc-500 text-center py-2 leading-relaxed">
+                            Tolerancje ISO 2903 dotyczą średnic 5,6–355 mm i znormalizowanych skoków.
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  </TabsContent>
 
-            <p className="text-zinc-600 text-xs text-center mt-4">
-              Wymiary nominalne wg DIN 103 · tolerancje wg ISO 2903 · Profil symetryczny 30°
-            </p>
-            <p className="text-zinc-600 text-[11px] text-center mt-1 leading-relaxed">
-              Tolerancje dla gwintów jednozwojnych, grupa długości zazwyczaj N (7H/7e). Przy gwincie
-              wielokrotnym tolerancje średnicy podziałowej trzeba zwiększyć wg normy.
-            </p>
-          </Tabs>
-        )}
-
-        {(parsedD === null || parsedP === null) && (
-          <p className="text-center text-zinc-500 py-10">
-            Wpisz średnicę nominalną i skok, aby zobaczyć wymiary gwintu.
-          </p>
-        )}
+                  <TabsContent value="internal" className="mt-0">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <DiameterCard
+                        label="Średnica zewn. w bruzdach (D4)"
+                        limits={
+                          nut
+                            ? { max: Number((nominal.D4 as number).toFixed(3)), min: nut.D4min, tol: Number(((nominal.D4 as number) - nut.D4min).toFixed(3)) }
+                            : null
+                        }
+                        unit="mm"
+                        nominal={nominal.D4 as number}
+                        tolClass={nut ? nutCls : undefined}
+                        digits={3}
+                        note="min wg normy"
+                      />
+                      <DiameterCard
+                        label="Średnica podziałowa (D2)"
+                        limits={nut ? nut.D2 : null}
+                        unit="mm"
+                        nominal={nominal.d2 as number}
+                        tolClass={nut ? nutCls : undefined}
+                        digits={3}
+                      />
+                      <DiameterCard
+                        label="Średnica wewnętrzna (D1)"
+                        limits={nut ? nut.D1 : null}
+                        unit="mm"
+                        nominal={nominal.D1 as number}
+                        tolClass={nut ? nutCls : undefined}
+                        digits={3}
+                      />
+                      <PitchCard
+                        label="Skok gwintu (P)"
+                        pitch={parsedP!}
+                        unit="mm"
+                        digits={3}
+                      />
+                      <DepthCard
+                        label="Głębokość nacinania (h3)"
+                        depth={nominal.h3 as number}
+                        unit="mm"
+                        note="h3 = P/2 + ac"
+                        digits={3}
+                      />
+                      <DrillCard
+                        label="Średnica wiercenia pod nakrętkę"
+                        diameter={nominal.D1 as number}
+                        unit="mm"
+                        note="Równa średnicy wewnętrznej D1"
+                        digits={3}
+                      />
+                      {!nut && (
+                        <div className="md:col-span-2">
+                          <p className="text-xs text-zinc-500 text-center py-2 leading-relaxed">
+                            Tolerancje ISO 2903 dotyczą średnic 5,6–355 mm i znormalizowanych skoków.
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  </TabsContent>
+                </>
+              ) : (
+                <div className="text-center text-zinc-500 py-16 bg-zinc-900/20 border border-dashed border-zinc-800 rounded-2xl">
+                  Wpisz średnicę nominalną i skok, aby zobaczyć wymiary gwintu.
+                </div>
+              )}
+            </div>
+          </div>
+        </Tabs>
       </div>
       <ClearFab onClear={() => { setDInput(''); setPInput(''); }} />
     </PageLayout>

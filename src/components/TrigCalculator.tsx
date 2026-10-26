@@ -224,110 +224,128 @@ const TrigCalculator = () => {
       </div>
 
       {s.tab === 'right' && (
-        <>
-          <div className="glass-module">
-            <SectionTitle>{t('trig.rightTitle')}</SectionTitle>
-            <div className="grid grid-cols-2 gap-4">
-              <InputField label={`a [${u.length}]`} value={s.rA} onChange={set('rA')} />
-              <InputField label={`b [${u.length}]`} value={s.rB} onChange={set('rB')} />
-              <InputField label={`c [${u.length}] (${t('trig.hyp')})`} value={s.rC} onChange={set('rC')} />
-              <div className="hidden sm:block" />
-              <InputField label="α [°]" value={s.rAlpha} onChange={set('rAlpha')} />
-              <InputField label="β [°]" value={s.rBeta} onChange={set('rBeta')} />
-            </div>
-            <p className="text-xs text-zinc-500 mt-4 leading-relaxed">{t('trig.rightHint')}</p>
-            <RightTriangleDiagram
-              right={right}
-              values={{ a: n('rA'), b: n('rB'), c: n('rC'), alpha: n('rAlpha'), beta: n('rBeta') }}
-              unitLabel={u.length}
-            />
-          </div>
-          {right ? (
+        <div className="lg:grid lg:grid-cols-[340px_1fr] lg:gap-6 lg:items-start space-y-4 lg:space-y-0">
+          <div className="space-y-4 lg:sticky lg:top-4">
             <div className="glass-module">
-              <SectionTitle>{t('common.result')}</SectionTitle>
-              <ResultRow label="a" value={fmt(right.a, 4)} unit={u.length} strong />
-              <ResultRow label="b" value={fmt(right.b, 4)} unit={u.length} strong />
-              <ResultRow label="c" value={fmt(right.c, 4)} unit={u.length} strong />
-              {angleRow('α', right.alpha)}
-              {angleRow('β', right.beta)}
-              {dmsRow('α (DMS)', right.alpha)}
-              {dmsRow('β (DMS)', right.beta)}
-              <ResultRow label={t('trig.area')} value={fmt(right.area, 4)} unit={`${u.length}²`} />
-              <ResultRow label={t('trig.slope')} value={fmt(right.slopePct, 3)} unit="%" />
+              <SectionTitle>{t('trig.rightTitle')}</SectionTitle>
+              <div className="grid grid-cols-2 gap-4">
+                <InputField label={`a [${u.length}]`} value={s.rA} onChange={set('rA')} />
+                <InputField label={`b [${u.length}]`} value={s.rB} onChange={set('rB')} />
+                <InputField label={`c [${u.length}] (${t('trig.hyp')})`} value={s.rC} onChange={set('rC')} />
+                <div className="hidden sm:block" />
+                <InputField label="α [°]" value={s.rAlpha} onChange={set('rAlpha')} />
+                <InputField label="β [°]" value={s.rBeta} onChange={set('rBeta')} />
+              </div>
+              <p className="text-xs text-zinc-500 mt-4 leading-relaxed">{t('trig.rightHint')}</p>
             </div>
-          ) : (
-            (s.rA || s.rB || s.rC || s.rAlpha || s.rBeta) && (
-              <Banner tone="warn">{t('trig.needMore')}</Banner>
-            )
-          )}
-        </>
+          </div>
+          <div className="space-y-4">
+            <div className="glass-module">
+              <RightTriangleDiagram
+                right={right}
+                values={{ a: n('rA'), b: n('rB'), c: n('rC'), alpha: n('rAlpha'), beta: n('rBeta') }}
+                unitLabel={u.length}
+              />
+            </div>
+            {right ? (
+              <div className="glass-module">
+                <SectionTitle>{t('common.result')}</SectionTitle>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
+                  <ResultRow label="a" value={fmt(right.a, 4)} unit={u.length} strong />
+                  <ResultRow label="b" value={fmt(right.b, 4)} unit={u.length} strong />
+                  <ResultRow label="c" value={fmt(right.c, 4)} unit={u.length} strong />
+                  {angleRow('α', right.alpha)}
+                  {angleRow('β', right.beta)}
+                  {dmsRow('α (DMS)', right.alpha)}
+                  {dmsRow('β (DMS)', right.beta)}
+                  <ResultRow label={t('trig.area')} value={fmt(right.area, 4)} unit={`${u.length}²`} />
+                  <ResultRow label={t('trig.slope')} value={fmt(right.slopePct, 3)} unit="%" />
+                </div>
+              </div>
+            ) : (
+              (s.rA || s.rB || s.rC || s.rAlpha || s.rBeta) && (
+                <Banner tone="warn">{t('trig.needMore')}</Banner>
+              )
+            )}
+          </div>
+        </div>
       )}
 
       {s.tab === 'oblique' && (
-        <>
-          <div className="glass-module">
-            <SectionTitle>{t('trig.obliqueTitle')}</SectionTitle>
-            <div className="grid grid-cols-3 gap-3">
-              <InputField label={`a [${u.length}]`} value={s.oa} onChange={set('oa')} />
-              <InputField label={`b [${u.length}]`} value={s.ob} onChange={set('ob')} />
-              <InputField label={`c [${u.length}]`} value={s.oc} onChange={set('oc')} />
-              <InputField label="A [°]" value={s.oA} onChange={set('oA')} />
-              <InputField label="B [°]" value={s.oB} onChange={set('oB')} />
-              <InputField label="C [°]" value={s.oC} onChange={set('oC')} />
-            </div>
-            <p className="text-xs text-zinc-500 mt-4 leading-relaxed">{t('trig.obliqueHint')}</p>
-          </div>
-          {oblique.first ? (
+        <div className="lg:grid lg:grid-cols-[340px_1fr] lg:gap-6 lg:items-start space-y-4 lg:space-y-0">
+          <div className="space-y-4 lg:sticky lg:top-4">
             <div className="glass-module">
-              <SectionTitle>{t('common.result')}</SectionTitle>
-              {oblique.second && (
-                <div className="mb-4">
-                  <Banner tone="warn">{t('trig.ambiguous')}</Banner>
-                </div>
-              )}
-              {renderOblique(oblique.first, oblique.second ? t('trig.solution1') : undefined)}
-              {oblique.second && (
-                <div className="mt-4">{renderOblique(oblique.second, t('trig.solution2'))}</div>
-              )}
+              <SectionTitle>{t('trig.obliqueTitle')}</SectionTitle>
+              <div className="grid grid-cols-3 gap-3">
+                <InputField label={`a [${u.length}]`} value={s.oa} onChange={set('oa')} />
+                <InputField label={`b [${u.length}]`} value={s.ob} onChange={set('ob')} />
+                <InputField label={`c [${u.length}]`} value={s.oc} onChange={set('oc')} />
+                <InputField label="A [°]" value={s.oA} onChange={set('oA')} />
+                <InputField label="B [°]" value={s.oB} onChange={set('oB')} />
+                <InputField label="C [°]" value={s.oC} onChange={set('oC')} />
+              </div>
+              <p className="text-xs text-zinc-500 mt-4 leading-relaxed">{t('trig.obliqueHint')}</p>
             </div>
-          ) : (
-            (s.oa || s.ob || s.oc || s.oA || s.oB || s.oC) && (
-              <Banner tone="warn">{t('trig.needMoreOblique')}</Banner>
-            )
-          )}
-        </>
+          </div>
+          <div className="space-y-4">
+            {oblique.first ? (
+              <div className="glass-module">
+                <SectionTitle>{t('common.result')}</SectionTitle>
+                {oblique.second && (
+                  <div className="mb-4">
+                    <Banner tone="warn">{t('trig.ambiguous')}</Banner>
+                  </div>
+                )}
+                {renderOblique(oblique.first, oblique.second ? t('trig.solution1') : undefined)}
+                {oblique.second && (
+                  <div className="mt-4">{renderOblique(oblique.second, t('trig.solution2'))}</div>
+                )}
+              </div>
+            ) : (
+              (s.oa || s.ob || s.oc || s.oA || s.oB || s.oC) && (
+                <Banner tone="warn">{t('trig.needMoreOblique')}</Banner>
+              )
+            )}
+          </div>
+        </div>
       )}
 
       {s.tab === 'points' && (
-        <>
-          <div className="glass-module">
-            <SectionTitle>{t('trig.pointsTitle')}</SectionTitle>
-            <div className="grid grid-cols-2 gap-4">
-              <InputField label={`X1 [${u.length}]`} value={s.x1} onChange={set('x1')} inputMode="text" />
-              <InputField label={`Y1 [${u.length}]`} value={s.y1} onChange={set('y1')} inputMode="text" />
-              <InputField label={`X2 [${u.length}]`} value={s.x2} onChange={set('x2')} inputMode="text" />
-              <InputField label={`Y2 [${u.length}]`} value={s.y2} onChange={set('y2')} inputMode="text" />
+        <div className="lg:grid lg:grid-cols-[340px_1fr] lg:gap-6 lg:items-start space-y-4 lg:space-y-0">
+          <div className="space-y-4 lg:sticky lg:top-4">
+            <div className="glass-module">
+              <SectionTitle>{t('trig.pointsTitle')}</SectionTitle>
+              <div className="grid grid-cols-2 gap-4">
+                <InputField label={`X1 [${u.length}]`} value={s.x1} onChange={set('x1')} inputMode="text" />
+                <InputField label={`Y1 [${u.length}]`} value={s.y1} onChange={set('y1')} inputMode="text" />
+                <InputField label={`X2 [${u.length}]`} value={s.x2} onChange={set('x2')} inputMode="text" />
+                <InputField label={`Y2 [${u.length}]`} value={s.y2} onChange={set('y2')} inputMode="text" />
+              </div>
             </div>
           </div>
-          {pts && (
-            <div className="glass-module">
-              <SectionTitle>{t('common.result')}</SectionTitle>
-              <ResultRow label={t('trig.distance')} value={fmt(pts.dist, 4)} unit={u.length} strong />
-              {angleRow(t('trig.angleX'), pts.angle)}
-              {dmsRow(t('trig.angleX') + ' (DMS)', pts.angle)}
-              <ResultRow label="ΔX" value={fmt(pts.dx, 4)} unit={u.length} />
-              <ResultRow label="ΔY" value={fmt(pts.dy, 4)} unit={u.length} />
-              <ResultRow label={t('trig.midpoint')} value={`X${fmt(pts.mx, 3)}  Y${fmt(pts.my, 3)}`} />
-              {pts.slope !== null && (
-                <ResultRow label={t('trig.slope')} value={fmt(pts.slope, 3)} unit="%" />
-              )}
-            </div>
-          )}
-        </>
+          <div className="space-y-4">
+            {pts && (
+              <div className="glass-module">
+                <SectionTitle>{t('common.result')}</SectionTitle>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
+                  <ResultRow label={t('trig.distance')} value={fmt(pts.dist, 4)} unit={u.length} strong />
+                  {angleRow(t('trig.angleX'), pts.angle)}
+                  {dmsRow(t('trig.angleX') + ' (DMS)', pts.angle)}
+                  <ResultRow label="ΔX" value={fmt(pts.dx, 4)} unit={u.length} />
+                  <ResultRow label="ΔY" value={fmt(pts.dy, 4)} unit={u.length} />
+                  <ResultRow label={t('trig.midpoint')} value={`X${fmt(pts.mx, 3)}  Y${fmt(pts.my, 3)}`} />
+                  {pts.slope !== null && (
+                    <ResultRow label={t('trig.slope')} value={fmt(pts.slope, 3)} unit="%" />
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
       )}
 
       {s.tab === 'polar' && (
-        <>
+        <div className="lg:grid lg:grid-cols-2 lg:gap-6 lg:items-start space-y-4 lg:space-y-0">
           <div className="glass-module">
             <SectionTitle>{t('trig.polarToXY')}</SectionTitle>
             <div className="grid grid-cols-2 gap-4">
@@ -355,7 +373,7 @@ const TrigCalculator = () => {
               </div>
             )}
           </div>
-        </>
+        </div>
       )}
 
       <ClearFab onClear={reset} />

@@ -98,146 +98,159 @@ const MaterialsPage = () => {
   const shown = list.slice(0, limit);
 
   return (
-    <PageLayout title={t('mat.title')}>
-      <div className="space-y-4 max-w-xl mx-auto">
-        <InputField
-          label={t('mat.search')}
-          value={s.q}
-          onChange={(e) => setS((p) => ({ ...p, q: e.target.value }))}
-          numeric={false}
-          placeholder="NC11LV, 2H13, PA4, 1.2379, 1045, SUS304…"
-        />
+    <PageLayout title={t('mat.title')} wideDesktop>
+      <div className="lg:grid lg:grid-cols-[280px_1fr] lg:gap-6 lg:items-start space-y-4 lg:space-y-0">
+        {/* Left Column: Search & Group Filters */}
+        <div className="space-y-4 lg:sticky lg:top-4">
+          <div className="glass-module space-y-4">
+            <InputField
+              label={t('mat.search')}
+              value={s.q}
+              onChange={(e) => setS((p) => ({ ...p, q: e.target.value }))}
+              numeric={false}
+              placeholder="NC11LV, 2H13, PA4, 1.2379, 1045…"
+            />
 
-        <div className="flex flex-wrap gap-2">
-          <button
-            type="button"
-            onClick={() => setS((p) => ({ ...p, group: 'all' }))}
-            className={`px-3 py-2 rounded-xl font-bold text-xs transition-all border ${
-              s.group === 'all'
-                ? 'bg-cyan-600 border-cyan-500 text-white'
-                : 'bg-zinc-900 border-zinc-800 text-zinc-400 hover:border-zinc-700'
-            }`}
-          >
-            {t('mat.all')}
-          </button>
-          {MAT_GROUPS.map((g) => (
-            <button
-              key={g}
-              type="button"
-              onClick={() => setS((p) => ({ ...p, group: g }))}
-              className={`px-3 py-2 rounded-xl font-bold text-xs transition-all border ${
-                s.group === g ? GROUP_STYLE[g].on : GROUP_STYLE[g].off
-              }`}
-            >
-              {g} · {t(`mat.groups.${g}`)}
-            </button>
-          ))}
+            <div>
+              <span className="block text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider">
+                Grupa materiałowa
+              </span>
+              <div className="flex flex-wrap lg:grid lg:grid-cols-1 gap-1.5">
+                <button
+                  type="button"
+                  onClick={() => setS((p) => ({ ...p, group: 'all' }))}
+                  className={`px-3 py-2 rounded-xl font-bold text-xs transition-all border text-left ${
+                    s.group === 'all'
+                      ? 'bg-cyan-600 border-cyan-500 text-white'
+                      : 'bg-zinc-900 border-zinc-800 text-zinc-400 hover:border-zinc-700'
+                  }`}
+                >
+                  {t('mat.all')}
+                </button>
+                {MAT_GROUPS.map((g) => (
+                  <button
+                    key={g}
+                    type="button"
+                    onClick={() => setS((p) => ({ ...p, group: g }))}
+                    className={`px-3 py-2 rounded-xl font-bold text-xs transition-all border text-left ${
+                      s.group === g ? GROUP_STYLE[g].on : GROUP_STYLE[g].off
+                    }`}
+                  >
+                    {g} · {t(`mat.groups.${g}`)}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <p className="text-xs text-zinc-500">
+              {t('mat.count', { n: list.length })}
+            </p>
+          </div>
         </div>
 
-        <p className="text-xs text-zinc-500">
-          {t('mat.count', { n: list.length })}
-        </p>
-
-        <div className="space-y-3">
-          {shown.map((m) => {
-            const st = GROUP_STYLE[m.group];
-            const eqEntries = CATALOG_COLUMNS.filter((c) => m.eq[c]).map((c) => [EQ_LABEL[c], m.eq[c]] as const);
-            return (
-              <div key={m.id} className={`rounded-xl border p-4 ${st.card}`}>
-                <div className="flex items-start justify-between gap-3">
-                  <p className="font-bold text-zinc-100 break-words">{m.name}</p>
-                  <div className="flex shrink-0 gap-1">
-                    {m.groups.map((g) => (
-                      <span
-                        key={g}
-                        className={`text-xs font-bold px-2 py-0.5 rounded-full border ${GROUP_STYLE[g].badge}`}
-                      >
-                        {g}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                {m.cmc.length > 0 && (
-                  <p className="mt-1 text-[11px] text-zinc-500">
-                    {t('mat.cmc')}: {m.cmc.join(' · ')}
-                  </p>
-                )}
-                <div className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
-                  <div>
-                    <p className="text-xs text-zinc-500">{t('mat.en')}</p>
-                    <p className="text-zinc-300 break-words">{m.en || '—'}</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-zinc-500">{t('mat.pn')}</p>
-                    <p className="text-zinc-300">{m.pn || '—'}</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-zinc-500">{t('mat.us')}</p>
-                    <p className="text-zinc-300 break-words">{m.us}</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-zinc-500">{t('mat.rho')} [g/cm³]</p>
-                    {m.rho === null ? (
-                      <span className="text-zinc-600">—</span>
-                    ) : (
-                      <CopyableValue value={String(m.rho)}>
-                        <span className="text-emerald-400 font-semibold">{m.rho}</span>
-                      </CopyableValue>
-                    )}
-                  </div>
-                  <div>
-                    <p className="text-xs text-zinc-500">{t('mat.alpha')} [µm/(m·K)]</p>
-                    {m.alpha === null ? (
-                      <span className="text-zinc-600">—</span>
-                    ) : (
-                      <CopyableValue value={String(m.alpha)}>
-                        <span className="text-emerald-400 font-semibold">{m.alpha}</span>
-                      </CopyableValue>
-                    )}
-                  </div>
-                </div>
-                {m.alt && <p className="mt-2 text-xs text-zinc-500">{m.alt}</p>}
-                {eqEntries.length > 0 && (
-                  <details className="mt-2 group">
-                    <summary className="cursor-pointer text-xs font-semibold text-cyan-400 select-none">
-                      {t('mat.eqTitle')} ({eqEntries.length})
-                    </summary>
-                    <div className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
-                      {eqEntries.map(([label, value]) => (
-                        <div key={label}>
-                          <span className="text-zinc-500">{label}: </span>
-                          <span className="text-zinc-300 break-words">{value}</span>
-                        </div>
+        {/* Right Column: Material Cards */}
+        <div className="space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {shown.map((m) => {
+              const st = GROUP_STYLE[m.group];
+              const eqEntries = CATALOG_COLUMNS.filter((c) => m.eq[c]).map((c) => [EQ_LABEL[c], m.eq[c]] as const);
+              return (
+                <div key={m.id} className={`rounded-xl border p-4 ${st.card}`}>
+                  <div className="flex items-start justify-between gap-3">
+                    <p className="font-bold text-zinc-100 break-words">{m.name}</p>
+                    <div className="flex shrink-0 gap-1">
+                      {m.groups.map((g) => (
+                        <span
+                          key={g}
+                          className={`text-xs font-bold px-2 py-0.5 rounded-full border ${GROUP_STYLE[g].badge}`}
+                        >
+                          {g}
+                        </span>
                       ))}
                     </div>
-                  </details>
-                )}
-              </div>
-            );
-          })}
-          {list.length === 0 && <p className="text-sm text-zinc-500 text-center py-6">{t('mat.empty')}</p>}
-        </div>
-
-        {list.length > shown.length && (
-          <div className="grid grid-cols-2 gap-2">
-            <button
-              type="button"
-              onClick={() => setLimit((l) => l + PAGE)}
-              className="py-3 rounded-xl font-bold text-sm border bg-zinc-900 border-zinc-800 text-cyan-400 hover:border-zinc-700"
-            >
-              {t('mat.more')}
-            </button>
-            <button
-              type="button"
-              onClick={() => setLimit(list.length)}
-              className="py-3 rounded-xl font-bold text-sm border bg-zinc-900 border-zinc-800 text-zinc-400 hover:border-zinc-700"
-            >
-              {t('mat.showAll', { n: list.length })}
-            </button>
+                  </div>
+                  {m.cmc.length > 0 && (
+                    <p className="mt-1 text-[11px] text-zinc-500">
+                      {t('mat.cmc')}: {m.cmc.join(' · ')}
+                    </p>
+                  )}
+                  <div className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
+                    <div>
+                      <p className="text-xs text-zinc-500">{t('mat.en')}</p>
+                      <p className="text-zinc-300 break-words">{m.en || '—'}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-zinc-500">{t('mat.pn')}</p>
+                      <p className="text-zinc-300">{m.pn || '—'}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-zinc-500">{t('mat.us')}</p>
+                      <p className="text-zinc-300 break-words">{m.us}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-zinc-500">{t('mat.rho')} [g/cm³]</p>
+                      {m.rho === null ? (
+                        <span className="text-zinc-600">—</span>
+                      ) : (
+                        <CopyableValue value={String(m.rho)}>
+                          <span className="text-emerald-400 font-semibold">{m.rho}</span>
+                        </CopyableValue>
+                      )}
+                    </div>
+                    <div>
+                      <p className="text-xs text-zinc-500">{t('mat.alpha')} [µm/(m·K)]</p>
+                      {m.alpha === null ? (
+                        <span className="text-zinc-600">—</span>
+                      ) : (
+                        <CopyableValue value={String(m.alpha)}>
+                          <span className="text-emerald-400 font-semibold">{m.alpha}</span>
+                        </CopyableValue>
+                      )}
+                    </div>
+                  </div>
+                  {m.alt && <p className="mt-2 text-xs text-zinc-500">{m.alt}</p>}
+                  {eqEntries.length > 0 && (
+                    <details className="mt-2 group">
+                      <summary className="cursor-pointer text-xs font-semibold text-cyan-400 select-none">
+                        {t('mat.eqTitle')} ({eqEntries.length})
+                      </summary>
+                      <div className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
+                        {eqEntries.map(([label, value]) => (
+                          <div key={label}>
+                            <span className="text-zinc-500">{label}: </span>
+                            <span className="text-zinc-300 break-words">{value}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </details>
+                  )}
+                </div>
+              );
+            })}
+            {list.length === 0 && <p className="text-sm text-zinc-500 text-center py-6 col-span-2">{t('mat.empty')}</p>}
           </div>
-        )}
 
-        <p className="text-xs text-zinc-600 text-center leading-relaxed px-2">{t('mat.footer')}</p>
+          {list.length > shown.length && (
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => setLimit((l) => l + PAGE)}
+                className="py-3 rounded-xl font-bold text-sm border bg-zinc-900 border-zinc-800 text-cyan-400 hover:border-zinc-700"
+              >
+                {t('mat.more')}
+              </button>
+              <button
+                type="button"
+                onClick={() => setLimit(list.length)}
+                className="py-3 rounded-xl font-bold text-sm border bg-zinc-900 border-zinc-800 text-zinc-400 hover:border-zinc-700"
+              >
+                {t('mat.showAll', { n: list.length })}
+              </button>
+            </div>
+          )}
+
+          <p className="text-xs text-zinc-600 text-center leading-relaxed px-2">{t('mat.footer')}</p>
+        </div>
       </div>
       <ClearFab onClear={reset} />
     </PageLayout>

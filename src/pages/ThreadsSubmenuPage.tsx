@@ -14,18 +14,18 @@ type Tile = {
 
 const tiles: Tile[] = [
   { id: 'metric', labelKey: 'threads.metric', badge: 'M', route: '/threads/metric', color: 'text-cyan-400' },
-  { id: 'helicoil', labelKey: 'threads.helicoil', badge: 'EG M', route: '/threads/helicoil', color: 'text-cyan-400', isNew: true },
+  { id: 'helicoil', labelKey: 'threads.helicoil', badge: 'EG M', route: '/threads/helicoil', color: 'text-cyan-400' },
   { id: 'trapezoidal', labelKey: 'threads.trapezoidal', badge: 'Tr', route: '/threads/trapezoidal', color: 'text-sky-400' },
   { id: 'bsp', labelKey: 'threads.bsp', badge: 'G', route: '/threads/bsp', color: 'text-emerald-400' },
   { id: 'npt', labelKey: 'threads.npt', badge: 'NPT', route: '/threads/npt', color: 'text-rose-400' },
   { id: 'bsw', labelKey: 'threads.bsw', badge: 'BSW', route: '/threads/bsw', color: 'text-amber-400' },
   { id: 'bsf', labelKey: 'threads.bsf', badge: 'BSF', route: '/threads/bsf', color: 'text-violet-400' },
   { id: 'un', labelKey: 'tools:un.menu', badge: 'UN', route: '/threads/un', color: 'text-orange-400' },
-  { id: 'acme', labelKey: 'tools:acme.menu', badge: 'Acme', route: '/threads/acme', color: 'text-pink-400', isNew: true },
-  { id: 'rd', labelKey: 'tools:rd.menu', badge: 'Rd', route: '/threads/rd', color: 'text-teal-400', isNew: true },
-  { id: 'bspt', labelKey: 'tools:bspt.menu', badge: 'R', route: '/threads/bspt', color: 'text-sky-400', isNew: true },
-  { id: 'buttress', labelKey: 'tools:buttress.menu', badge: 'S', route: '/threads/buttress', color: 'text-amber-400', isNew: true },
-  { id: 'pg', labelKey: 'tools:pg.menu', badge: 'Pg', route: '/threads/pg', color: 'text-lime-400', isNew: true },
+  { id: 'acme', labelKey: 'tools:acme.menu', badge: 'Acme', route: '/threads/acme', color: 'text-pink-400' },
+  { id: 'rd', labelKey: 'tools:rd.menu', badge: 'Rd', route: '/threads/rd', color: 'text-teal-400' },
+  { id: 'bspt', labelKey: 'tools:bspt.menu', badge: 'R', route: '/threads/bspt', color: 'text-sky-400' },
+  { id: 'buttress', labelKey: 'tools:buttress.menu', badge: 'S', route: '/threads/buttress', color: 'text-amber-400' },
+  { id: 'pg', labelKey: 'tools:pg.menu', badge: 'Pg', route: '/threads/pg', color: 'text-lime-400' },
 ];
 
 const ThreadsSubmenuPage = () => {

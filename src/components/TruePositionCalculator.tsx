@@ -66,42 +66,48 @@ const TruePositionCalculator = () => {
 
   return (
     <>
-      <div className="glass-module">
-        <h2 className="text-sm uppercase tracking-wider text-zinc-400 mb-4">{t('tp.nominal')}</h2>
-        <div className="grid grid-cols-2 gap-4">
-          <InputField label={`X nom [${u.length}]`} value={inputs.xNom} onChange={set('xNom')} />
-          <InputField label={`Y nom [${u.length}]`} value={inputs.yNom} onChange={set('yNom')} />
-        </div>
-      </div>
+      <div className="lg:grid lg:grid-cols-[340px_1fr] lg:gap-6 lg:items-start space-y-4 lg:space-y-0">
+        {/* Left Column: Inputs */}
+        <div className="space-y-4 lg:sticky lg:top-4">
+          <div className="glass-module">
+            <h2 className="text-sm uppercase tracking-wider text-zinc-400 mb-4">{t('tp.nominal')}</h2>
+            <div className="grid grid-cols-2 gap-4">
+              <InputField label={`X nom [${u.length}]`} value={inputs.xNom} onChange={set('xNom')} />
+              <InputField label={`Y nom [${u.length}]`} value={inputs.yNom} onChange={set('yNom')} />
+            </div>
+          </div>
 
-      <div className="glass-module">
-        <h2 className="text-sm uppercase tracking-wider text-zinc-400 mb-4">{t('tp.actual')}</h2>
-        <div className="grid grid-cols-2 gap-4">
-          <InputField label={`X act [${u.length}]`} value={inputs.xAct} onChange={set('xAct')} />
-          <InputField label={`Y act [${u.length}]`} value={inputs.yAct} onChange={set('yAct')} />
-        </div>
-      </div>
+          <div className="glass-module">
+            <h2 className="text-sm uppercase tracking-wider text-zinc-400 mb-4">{t('tp.actual')}</h2>
+            <div className="grid grid-cols-2 gap-4">
+              <InputField label={`X act [${u.length}]`} value={inputs.xAct} onChange={set('xAct')} />
+              <InputField label={`Y act [${u.length}]`} value={inputs.yAct} onChange={set('yAct')} />
+            </div>
+          </div>
 
-      <div className="glass-module">
-        <h2 className="text-sm uppercase tracking-wider text-zinc-400 mb-4">{t('tp.tolerance')}</h2>
-        <InputField label={`⌀ tol [${u.length}]`} value={inputs.tol} onChange={set('tol')} />
-        <p className="text-xs text-zinc-500 mt-4 mb-3 uppercase tracking-wider">{t('tp.mmc')}</p>
-        <div className="grid grid-cols-2 gap-4">
-          <InputField
-            label={`${t('tp.mmcMin')} [${u.length}]`}
-            value={inputs.mmcMin}
-            onChange={set('mmcMin')}
-          />
-          <InputField
-            label={`${t('tp.mmcAct')} [${u.length}]`}
-            value={inputs.mmcAct}
-            onChange={set('mmcAct')}
-          />
+          <div className="glass-module">
+            <h2 className="text-sm uppercase tracking-wider text-zinc-400 mb-4">{t('tp.tolerance')}</h2>
+            <InputField label={`⌀ tol [${u.length}]`} value={inputs.tol} onChange={set('tol')} />
+            <p className="text-xs text-zinc-500 mt-4 mb-3 uppercase tracking-wider">{t('tp.mmc')}</p>
+            <div className="grid grid-cols-2 gap-4">
+              <InputField
+                label={`${t('tp.mmcMin')} [${u.length}]`}
+                value={inputs.mmcMin}
+                onChange={set('mmcMin')}
+              />
+              <InputField
+                label={`${t('tp.mmcAct')} [${u.length}]`}
+                value={inputs.mmcAct}
+                onChange={set('mmcAct')}
+              />
+            </div>
+          </div>
         </div>
-      </div>
 
-      {result && (
-        <div className="glass-module">
+        {/* Right Column: Result */}
+        <div className="space-y-4">
+          {result && (
+            <div className="glass-module">
           <h2 className="text-sm uppercase tracking-wider text-zinc-400 mb-4">{t('tp.result')}</h2>
 
           <div className="grid grid-cols-2 gap-4 mb-4">
@@ -170,7 +176,9 @@ const TruePositionCalculator = () => {
             </>
           )}
         </div>
-      )}
+          )}
+        </div>
+      </div>
 
       <ClearFab onClear={reset} />
     </>

@@ -156,7 +156,9 @@ const MillChamferCalculator = () => {
 
   return (
     <>
-      <div className="glass-module">
+      <div className="lg:grid lg:grid-cols-[340px_1fr] lg:gap-6 lg:items-start space-y-4 lg:space-y-0">
+        <div className="space-y-4 lg:sticky lg:top-4">
+          <div className="glass-module">
         <div className="grid grid-cols-2 gap-4">
           <InputField label={`${t('inputs.holeD')} [${unit}]`} value={inputs.holeD} onChange={set('holeD')} />
           <InputField label={`${t('inputs.chamfer')} [${unit}]`} value={inputs.chamfer} onChange={set('chamfer')} />
@@ -266,9 +268,11 @@ const MillChamferCalculator = () => {
             {t('program.toolModeIrrelevant')}
           </p>
         )}
+        </div>
       </div>
 
-      {calc ? (
+      <div className="space-y-4">
+        {calc ? (
         <>
           {calc.toolTooSmall && calc.maxChamfer !== null && (
             <div role="alert" className="glass-module border-amber-500/40 bg-amber-500/10">
@@ -450,7 +454,9 @@ const MillChamferCalculator = () => {
         </>
       ) : (
         <p className="py-10 text-center text-zinc-500">{t('empty')}</p>
-      )}
+          )}
+        </div>
+      </div>
 
       <ClearFab onClear={reset} />
     </>

@@ -5,7 +5,7 @@ import MillChamferCalculator from '@/components/MillChamferCalculator';
 const MillChamferPage = () => {
   const { t } = useTranslation('chamfer');
   return (
-    <PageLayout title={t('title')}>
+    <PageLayout title={t('title')} wideDesktop>
       <MillChamferCalculator />
     </PageLayout>
   );

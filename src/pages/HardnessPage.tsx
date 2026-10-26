@@ -5,7 +5,7 @@ import HardnessConverter from '@/components/HardnessConverter';
 const HardnessPage = () => {
   const { t } = useTranslation();
   return (
-  <PageLayout title={t('pages.hardness')}>
+  <PageLayout title={t('pages.hardness')} wideDesktop>
     <HardnessConverter />
   </PageLayout>
 );

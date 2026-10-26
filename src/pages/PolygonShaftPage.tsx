@@ -5,7 +5,7 @@ import PolygonShaftCalculator from '@/components/PolygonShaftCalculator';
 const PolygonShaftPage = () => {
   const { t } = useTranslation();
   return (
-  <PageLayout title={t('pages.polygon')}>
+  <PageLayout title={t('pages.polygon')} wideDesktop>
     <PolygonShaftCalculator />
   </PageLayout>
 );

@@ -5,7 +5,7 @@ import TrigCalculator from '@/components/TrigCalculator';
 const TrigPage = () => {
   const { t } = useTranslation('tools');
   return (
-    <PageLayout title={t('trig.title')}>
+    <PageLayout title={t('trig.title')} wideDesktop>
       <TrigCalculator />
     </PageLayout>
   );

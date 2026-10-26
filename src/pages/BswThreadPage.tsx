@@ -6,7 +6,7 @@ import PageLayout from '@/components/PageLayout';
 const BswThreadPage = () => {
   const { t } = useTranslation('threadsCalc');
   return (
-    <PageLayout title={t('whitworth.bsw.title')} backRoute="/gwinty">
+    <PageLayout title={t('whitworth.bsw.title')} backRoute="/gwinty" wideDesktop>
       <WhitworthThreadCalculator
         threads={bswThreads}
         sizes={bswSizes}

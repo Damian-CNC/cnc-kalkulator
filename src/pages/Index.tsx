@@ -1,10 +1,11 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { motion, type PanInfo } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { SlidersHorizontal } from 'lucide-react';
+import { SlidersHorizontal, History } from 'lucide-react';
 import { toast } from 'sonner';
 import WakeLockToggle from '@/components/WakeLockToggle';
 import AppFooter from '@/components/AppFooter';
+import ChangelogModal from '@/components/ChangelogModal';
 import useHaptics from '@/hooks/useHaptics';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useMenuLayout } from '@/hooks/useMenuLayout';
@@ -19,6 +20,7 @@ const Index = () => {
   const { t } = useTranslation();
   const { triggerLight } = useHaptics();
   const isMobile = useIsMobile();
+  const [isChangelogOpen, setIsChangelogOpen] = useState(false);
   const {
     items,
     setItems,
@@ -115,7 +117,7 @@ const Index = () => {
         ponieważ spowoduje to asymetrię i przesunięcie baneru ze środka ekranu!
       */}
       <header className="w-full pt-[calc(env(safe-area-inset-top,0px)+1.25rem)] pt-14 md:pt-4 pb-3 mb-6 max-w-4xl md:max-w-6xl grid grid-cols-[2.25rem_1fr_2.25rem] items-center gap-2">
-        {/* Na mobile przycisk trybu edycji (wyłącznie ikona w-9 h-9 dla idealnej symetrii), na PC puste pole wyrównujące */}
+        {/* Na mobile przycisk trybu edycji, na PC przycisk Historii zmian (dokładnie w-9 h-9 dla 100% symetrii) */}
         {isMobile ? (
           <button
             type="button"
@@ -131,7 +133,18 @@ const Index = () => {
             <SlidersHorizontal className="w-4 h-4 text-cyan-400" />
           </button>
         ) : (
-          <span aria-hidden="true" className="w-9 h-9" />
+          <button
+            type="button"
+            onClick={() => {
+              triggerLight();
+              setIsChangelogOpen(true);
+            }}
+            className="flex items-center justify-center w-9 h-9 rounded-xl border border-zinc-800 bg-zinc-900/90 text-zinc-400 hover:text-cyan-300 hover:border-cyan-500/50 hover:bg-zinc-800 transition-all active:scale-95 shadow-sm"
+            aria-label="Historia zmian (Changelog)"
+            title="Historia zmian (Changelog)"
+          >
+            <History className="w-4 h-4 text-cyan-400" />
+          </button>
         )}
 
         {/* Tytuł / baner aplikacji - ZAWSZE IDEALNIE WYCENTROWANY */}
@@ -244,6 +257,7 @@ const Index = () => {
 
       {/* Stopka aplikacji */}
       <AppFooter className={isMobile && isEditMode ? 'pb-24' : ''} />
+      <ChangelogModal open={isChangelogOpen} onClose={() => setIsChangelogOpen(false)} />
     </div>
   );
 };

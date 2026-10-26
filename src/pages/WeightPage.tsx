@@ -5,7 +5,7 @@ import WeightCalculator from '@/components/WeightCalculator';
 const WeightPage = () => {
   const { t } = useTranslation();
   return (
-  <PageLayout title={t('pages.weight')}>
+  <PageLayout title={t('pages.weight')} wideDesktop>
     <WeightCalculator />
   </PageLayout>
 );

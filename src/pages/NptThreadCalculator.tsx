@@ -58,135 +58,149 @@ const NptThreadCalculator = () => {
   }, [selectedSize]);
 
   return (
-    <PageLayout title="Gwinty NPT (ANSI/ASME B1.20.1)" backRoute="/gwinty">
+    <PageLayout title="Gwinty NPT (ANSI/ASME B1.20.1)" backRoute="/gwinty" wideDesktop>
       <div className="space-y-5">
-        <div className="flex flex-col">
-          <label className="block text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider">
-            Rozmiar gwintu
-          </label>
-          <Select value={selectedSize} onValueChange={setSelectedSize}>
-            <SelectTrigger className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-100 text-lg h-auto md:text-sm md:py-2.5 md:px-3 md:h-10 md:rounded-lg">
-              <SelectValue placeholder="Wybierz rozmiar" />
-            </SelectTrigger>
-            <SelectContent className="bg-zinc-900 border-zinc-700 max-h-60">
-              {nptSizes.map((s) => (
-                <SelectItem key={s} value={s} className="text-zinc-100 focus:bg-zinc-800">
-                  NPT {s} — {nptThreads[s].tpi} TPI
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+        <Tabs value={threadTab} onValueChange={(value) => setThreadTab(value as 'external' | 'internal')} className="w-full">
+          <div className="lg:grid lg:grid-cols-[280px_1fr] lg:gap-6 lg:items-start space-y-5 lg:space-y-0">
+            {/* Lewa kolumna: wybór i kontrolki (sticky na PC) */}
+            <div className="space-y-4 lg:sticky lg:top-4 bg-zinc-900/40 border border-zinc-800/80 rounded-2xl p-4">
+              <div className="flex flex-col">
+                <label className="block text-xs font-semibold text-zinc-400 mb-2 uppercase tracking-wider">
+                  Rozmiar gwintu
+                </label>
+                <Select value={selectedSize} onValueChange={setSelectedSize}>
+                  <SelectTrigger className="w-full bg-zinc-900/80 border border-zinc-800 rounded-xl px-4 py-3.5 text-zinc-100 text-base md:text-sm md:py-2 md:px-3 md:h-9 md:rounded-lg">
+                    <SelectValue placeholder="Wybierz rozmiar" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-zinc-900 border-zinc-700 max-h-60">
+                    {nptSizes.map((s) => (
+                      <SelectItem key={s} value={s} className="text-zinc-100 focus:bg-zinc-800">
+                        NPT {s} — {nptThreads[s].tpi} TPI
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
 
-        {result && (
-          <>
-            <div className="text-center">
-              <span className="inline-block px-4 py-1.5 rounded-full bg-emerald-500/15 text-emerald-400 font-bold text-lg tracking-wide border border-emerald-500/30">
-                NPT {selectedSize} — {result.tpi} TPI / {L.disp(result.pitch, 4)} {L.unit}
-              </span>
+              {result && (
+                <>
+                  <div className="text-center pt-1 border-t border-zinc-800/60">
+                    <span className="inline-block px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-400 font-bold text-sm md:text-base tracking-wide border border-emerald-500/30">
+                      NPT {selectedSize} — {result.tpi} TPI / {L.disp(result.pitch, 4)} {L.unit}
+                    </span>
+                  </div>
+
+                  <TabsList className="w-full bg-zinc-900 border border-zinc-800">
+                    <TabsTrigger value="external" className="flex-1 data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50 text-xs md:text-sm">
+                      🔩 Czop
+                    </TabsTrigger>
+                    <TabsTrigger value="internal" className="flex-1 data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50 text-xs md:text-sm">
+                      🔧 Otwór
+                    </TabsTrigger>
+                  </TabsList>
+
+                  <p className="text-zinc-500 text-[11px] text-center pt-2 border-t border-zinc-800/60 leading-relaxed">
+                    Gwint stożkowy 1:16 (kąt 1°47'). Wymiary na czole detalu.
+                  </p>
+                </>
+              )}
             </div>
 
-            <Tabs value={threadTab} onValueChange={(value) => setThreadTab(value as 'external' | 'internal')} className="w-full">
-              <TabsList className="w-full bg-zinc-900 border border-zinc-800">
-                <TabsTrigger value="external" className="flex-1 data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50">
-                  🔩 Czop (Zewnętrzny)
-                </TabsTrigger>
-                <TabsTrigger value="internal" className="flex-1 data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50">
-                  🔧 Otwór (Wewnętrzny)
-                </TabsTrigger>
-              </TabsList>
+            {/* Prawa kolumna: karty wyników */}
+            <div className="min-w-0">
+              {result ? (
+                <>
+                  <TabsContent value="external" className="mt-0">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <DiameterCard
+                        label="Średnica zewnętrzna na czole (d)"
+                        limits={{ max: result.od, min: result.od }}
+                        unit="mm"
+                        digits={3}
+                      />
+                      <DiameterCard
+                        label="Średnica podziałowa na czole (d2)"
+                        limits={{ max: result.pitchDia, min: result.pitchDia }}
+                        unit="mm"
+                        digits={3}
+                      />
+                      <DiameterCard
+                        label="Średnica rdzenia (d3)"
+                        limits={{ max: result.minor, min: result.minor }}
+                        unit="mm"
+                        digits={3}
+                      />
+                      <PitchCard
+                        label="Skok gwintu (P)"
+                        pitch={result.pitch}
+                        unit="mm"
+                        tpi={result.tpi}
+                        digits={4}
+                      />
+                      <div className="md:col-span-2">
+                        <DepthCard
+                          label="Wysokość profilu gwintu (h3)"
+                          depth={result.h3}
+                          unit="mm"
+                          digits={3}
+                          note="h3 = 0,8 × P"
+                        />
+                      </div>
+                    </div>
+                  </TabsContent>
 
-              <TabsContent value="external">
-                <div className="space-y-3 mt-3">
-                  <DiameterCard
-                    label="Średnica zewnętrzna na czole (d)"
-                    limits={{ max: result.od, min: result.od }}
-                    unit="mm"
-                    digits={3}
-                  />
-                  <DiameterCard
-                    label="Średnica podziałowa na czole (d2)"
-                    limits={{ max: result.pitchDia, min: result.pitchDia }}
-                    unit="mm"
-                    digits={3}
-                  />
-                  <DiameterCard
-                    label="Średnica rdzenia (d3)"
-                    limits={{ max: result.minor, min: result.minor }}
-                    unit="mm"
-                    digits={3}
-                  />
-                  <PitchCard
-                    label="Skok gwintu (P)"
-                    pitch={result.pitch}
-                    unit="mm"
-                    tpi={result.tpi}
-                    digits={4}
-                  />
-                  <DepthCard
-                    label="Wysokość profilu gwintu (h3)"
-                    depth={result.h3}
-                    unit="mm"
-                    digits={3}
-                    note="h3 = 0,8 × P"
-                  />
+                  <TabsContent value="internal" className="mt-0">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <DiameterCard
+                        label="Średnica zewnętrzna na czole (D)"
+                        limits={{ max: result.od, min: result.od }}
+                        unit="mm"
+                        digits={3}
+                      />
+                      <DiameterCard
+                        label="Średnica podziałowa na czole (D2)"
+                        limits={{ max: result.pitchDia, min: result.pitchDia }}
+                        unit="mm"
+                        digits={3}
+                      />
+                      <DiameterCard
+                        label="Średnica wewnętrzna (D1)"
+                        limits={{ max: result.minor, min: result.minor }}
+                        unit="mm"
+                        digits={3}
+                      />
+                      <PitchCard
+                        label="Skok gwintu (P)"
+                        pitch={result.pitch}
+                        unit="mm"
+                        tpi={result.tpi}
+                        digits={4}
+                      />
+                      <DepthCard
+                        label="Wysokość profilu gwintu (h3)"
+                        depth={result.h3}
+                        unit="mm"
+                        digits={3}
+                        note="h3 = 0,8 × P"
+                      />
+                      <DrillCard
+                        label="Wiertło pod gwintownik stożkowy"
+                        diameter={result.tapDrill}
+                        unit="mm"
+                        digits={1}
+                        note="Standardowe zalecenie"
+                      />
+                    </div>
+                  </TabsContent>
+                </>
+              ) : (
+                <div className="text-center text-zinc-500 py-16 bg-zinc-900/20 border border-dashed border-zinc-800 rounded-2xl">
+                  Wybierz rozmiar gwintu NPT z listy po lewej stronie.
                 </div>
-              </TabsContent>
-
-              <TabsContent value="internal">
-                <div className="space-y-3 mt-3">
-                  <DiameterCard
-                    label="Średnica zewnętrzna na czole (D)"
-                    limits={{ max: result.od, min: result.od }}
-                    unit="mm"
-                    digits={3}
-                  />
-                  <DiameterCard
-                    label="Średnica podziałowa na czole (D2)"
-                    limits={{ max: result.pitchDia, min: result.pitchDia }}
-                    unit="mm"
-                    digits={3}
-                  />
-                  <DiameterCard
-                    label="Średnica wewnętrzna (D1)"
-                    limits={{ max: result.minor, min: result.minor }}
-                    unit="mm"
-                    digits={3}
-                  />
-                  <PitchCard
-                    label="Skok gwintu (P)"
-                    pitch={result.pitch}
-                    unit="mm"
-                    tpi={result.tpi}
-                    digits={4}
-                  />
-                  <DepthCard
-                    label="Wysokość profilu gwintu (h3)"
-                    depth={result.h3}
-                    unit="mm"
-                    digits={3}
-                    note="h3 = 0,8 × P"
-                  />
-                  <DrillCard
-                    label="Wiertło pod gwintownik stożkowy"
-                    diameter={result.tapDrill}
-                    unit="mm"
-                    digits={1}
-                    note="Standardowe zalecenie"
-                  />
-                </div>
-              </TabsContent>
-
-              <p className="text-zinc-600 text-xs text-center mt-4 px-2">
-                Gwint stożkowy o zbieżności 1:16 (kąt 1°47'). Wymiary podano dla płaszczyzny bazowej na czole detalu.
-              </p>
-            </Tabs>
-          </>
-        )}
-
-        {!result && (
-          <p className="text-center text-zinc-500 py-10">Wybierz rozmiar gwintu NPT z listy powyżej.</p>
-        )}
+              )}
+            </div>
+          </div>
+        </Tabs>
       </div>
       <ClearFab onClear={() => setSelectedSize('')} />
     </PageLayout>

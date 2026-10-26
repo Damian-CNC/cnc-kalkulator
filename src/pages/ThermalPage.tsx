@@ -55,90 +55,122 @@ const ThermalPage = () => {
       : null;
 
   return (
-    <PageLayout title={t('thermal.title')}>
-      <div className="space-y-6 max-w-xl mx-auto">
-        <div className="grid grid-cols-2 gap-2">
-          {(['part', 'gauge'] as const).map((tab) => (
-            <button
-              key={tab}
-              type="button"
-              onClick={() => setS((p) => ({ ...p, tab }))}
-              className={`py-3 rounded-xl font-bold text-sm transition-all border ${
-                s.tab === tab
-                  ? 'bg-cyan-600 border-cyan-500 text-white'
-                  : 'bg-zinc-900 border-zinc-800 text-zinc-400 hover:border-zinc-700'
-              }`}
-            >
-              {t(`thermal.tabs.${tab}`)}
-            </button>
-          ))}
-        </div>
+    <PageLayout title={t('thermal.title')} wideDesktop>
+      <div className="lg:grid lg:grid-cols-[340px_1fr] lg:gap-6 lg:items-start space-y-4 lg:space-y-0">
+        {/* Left Column: Mode tabs, Material & Inputs */}
+        <div className="space-y-4 lg:sticky lg:top-4">
+          <div className="grid grid-cols-2 gap-2">
+            {(['part', 'gauge'] as const).map((tab) => (
+              <button
+                key={tab}
+                type="button"
+                onClick={() => setS((p) => ({ ...p, tab }))}
+                className={`py-3 rounded-xl font-bold text-sm transition-all border ${
+                  s.tab === tab
+                    ? 'bg-cyan-600 border-cyan-500 text-white'
+                    : 'bg-zinc-900 border-zinc-800 text-zinc-400 hover:border-zinc-700'
+                }`}
+              >
+                {t(`thermal.tabs.${tab}`)}
+              </button>
+            ))}
+          </div>
 
-        <div className="glass-module">
-          <SectionTitle>{t('thermal.partTitle')}</SectionTitle>
-          <SelectField label={t('thermal.material')} value={s.mat} onChange={set('mat')} options={matOptions} />
-          {matAlpha !== null && (
-            <p className="text-xs text-zinc-500 mt-2">
-              α = {matAlpha} µm/(m·K) · {t('thermal.approx')}
-            </p>
-          )}
-        </div>
+          <div className="glass-module">
+            <SectionTitle>{t('thermal.partTitle')}</SectionTitle>
+            <SelectField label={t('thermal.material')} value={s.mat} onChange={set('mat')} options={matOptions} />
+            {matAlpha !== null && (
+              <p className="text-xs text-zinc-500 mt-2">
+                α = {matAlpha} µm/(m·K) · {t('thermal.approx')}
+              </p>
+            )}
+          </div>
 
-        {s.tab === 'part' ? (
-          <>
+          {s.tab === 'part' ? (
             <div className="glass-module">
               <SectionTitle>{t('thermal.measureTitle')}</SectionTitle>
               <div className="grid grid-cols-2 gap-4">
                 <InputField label={`${t('thermal.measured')} [${u.length}]`} value={s.size} onChange={set('size')} inputMode="decimal" />
                 <InputField label={`${t('thermal.temp')} [${tUnit}]`} value={s.temp} onChange={set('temp')} inputMode="decimal" />
               </div>
+
+              <div className="mt-4 pt-4 border-t border-zinc-800">
+                <p className="text-xs uppercase tracking-wider text-zinc-400 mb-2 font-semibold">
+                  {t('thermal.targetTitle')}
+                </p>
+                <div className="grid grid-cols-2 gap-4">
+                  <InputField label={`${t('thermal.nominal', { t: fmt(refShown, 0), unit: tUnit })} [${u.length}]`} value={s.nominal} onChange={set('nominal')} inputMode="decimal" />
+                  <InputField label={`${t('thermal.temp')} [${tUnit}]`} value={s.temp} onChange={set('temp')} inputMode="decimal" />
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="glass-module">
+              <SectionTitle>{t('thermal.gaugeTitle')}</SectionTitle>
+              <SelectField label={t('thermal.gaugeMat')} value={s.gaugeMat} onChange={set('gaugeMat')} options={matOptions} />
+              <div className="grid grid-cols-1 gap-3 mt-4">
+                <InputField label={`${t('thermal.nominal', { t: fmt(refShown, 0), unit: tUnit })} [${u.length}]`} value={s.nominal} onChange={set('nominal')} inputMode="decimal" />
+                <div className="grid grid-cols-2 gap-3">
+                  <InputField label={`${t('thermal.partTemp')} [${tUnit}]`} value={s.partTemp} onChange={set('partTemp')} inputMode="decimal" />
+                  <InputField label={`${t('thermal.gaugeTemp')} [${tUnit}]`} value={s.gaugeTemp} onChange={set('gaugeTemp')} inputMode="decimal" />
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Right Column: Thermal Results & Calculations */}
+        <div className="space-y-4">
+          {s.tab === 'part' ? (
+            <>
               {at20 !== null && dev !== null && (
-                <div className="mt-4 space-y-3">
-                  <BigResult label={t('thermal.at20', { t: fmt(refShown, 0), unit: tUnit })} value={fmt(at20, dg)} unit={u.length} />
-                  <ResultRow label={t('thermal.diff')} value={`${dev >= 0 ? '+' : ''}${fmt(dev, dg)}`} unit={u.length} />
+                <div className="glass-module">
+                  <SectionTitle>{t('thermal.at20', { t: fmt(refShown, 0), unit: tUnit })}</SectionTitle>
+                  <div className="space-y-3">
+                    <BigResult label={t('thermal.at20', { t: fmt(refShown, 0), unit: tUnit })} value={fmt(at20, dg)} unit={u.length} />
+                    <ResultRow label={t('thermal.diff')} value={`${dev >= 0 ? '+' : ''}${fmt(dev, dg)}`} unit={u.length} />
+                  </div>
                 </div>
               )}
-            </div>
 
-            <div className="glass-module">
-              <SectionTitle>{t('thermal.targetTitle')}</SectionTitle>
-              <div className="grid grid-cols-2 gap-4">
-                <InputField label={`${t('thermal.nominal', { t: fmt(refShown, 0), unit: tUnit })} [${u.length}]`} value={s.nominal} onChange={set('nominal')} inputMode="decimal" />
-                <InputField label={`${t('thermal.temp')} [${tUnit}]`} value={s.temp} onChange={set('temp')} inputMode="decimal" />
-              </div>
               {read !== null && (
-                <div className="mt-4">
+                <div className="glass-module">
+                  <SectionTitle>{t('thermal.targetTitle')}</SectionTitle>
                   <BigResult label={t('thermal.reading')} value={fmt(read, dg)} unit={u.length} />
                   <p className="text-xs text-zinc-500 mt-3 leading-relaxed">{t('thermal.readingHint')}</p>
                 </div>
               )}
-            </div>
-          </>
-        ) : (
-          <div className="glass-module">
-            <SectionTitle>{t('thermal.gaugeTitle')}</SectionTitle>
-            <SelectField label={t('thermal.gaugeMat')} value={s.gaugeMat} onChange={set('gaugeMat')} options={matOptions} />
-            <div className="grid grid-cols-2 gap-4 mt-4">
-              <InputField label={`${t('thermal.nominal', { t: fmt(refShown, 0), unit: tUnit })} [${u.length}]`} value={s.nominal} onChange={set('nominal')} inputMode="decimal" />
-              <InputField label={`${t('thermal.partTemp')} [${tUnit}]`} value={s.partTemp} onChange={set('partTemp')} inputMode="decimal" />
-              <InputField label={`${t('thermal.gaugeTemp')} [${tUnit}]`} value={s.gaugeTemp} onChange={set('gaugeTemp')} inputMode="decimal" />
-            </div>
-            {gaugeRead !== null && nominal && (
-              <div className="mt-4 space-y-3">
-                <BigResult label={t('thermal.gaugeReading')} value={fmt(gaugeRead, dg)} unit={u.length} />
-                <ResultRow
-                  label={t('thermal.gaugeError')}
-                  value={`${gaugeRead - nominal >= 0 ? '+' : ''}${fmt(gaugeRead - nominal, dg)}`}
-                  unit={u.length}
-                  strong
-                />
-                <Banner tone="warn">{t('thermal.gaugeHint')}</Banner>
-              </div>
-            )}
-          </div>
-        )}
 
-        <p className="text-xs text-zinc-600 text-center leading-relaxed px-2">{t('thermal.footer')}</p>
+              {at20 === null && read === null && (
+                <div className="glass-module p-8 text-center text-zinc-500 text-sm">
+                  {t('thermal.approx')}
+                </div>
+              )}
+            </>
+          ) : (
+            <>
+              {gaugeRead !== null && nominal ? (
+                <div className="glass-module space-y-3">
+                  <SectionTitle>{t('thermal.gaugeReading')}</SectionTitle>
+                  <BigResult label={t('thermal.gaugeReading')} value={fmt(gaugeRead, dg)} unit={u.length} />
+                  <ResultRow
+                    label={t('thermal.gaugeError')}
+                    value={`${gaugeRead - nominal >= 0 ? '+' : ''}${fmt(gaugeRead - nominal, dg)}`}
+                    unit={u.length}
+                    strong
+                  />
+                  <Banner tone="warn">{t('thermal.gaugeHint')}</Banner>
+                </div>
+              ) : (
+                <div className="glass-module p-8 text-center text-zinc-500 text-sm">
+                  {t('thermal.approx')}
+                </div>
+              )}
+            </>
+          )}
+
+          <p className="text-xs text-zinc-600 text-center leading-relaxed px-2">{t('thermal.footer')}</p>
+        </div>
       </div>
       <ClearFab onClear={reset} />
     </PageLayout>

@@ -58,7 +58,7 @@ export const LUCIDE_ICONS: unknown[] = [
 
 export const ALL_TILES: TileDefinition[] = [
   { id: 'parameters', labelKey: 'tiles.parameters', icon: Settings, route: '/parametry' },
-  { id: 'calc', labelKey: 'tools:calc.tile', icon: Calculator, route: '/kalkulator', isNew: true },
+  { id: 'calc', labelKey: 'tools:calc.tile', icon: Calculator, route: '/kalkulator' },
   { id: 'roughness', labelKey: 'tiles.roughness', icon: Waves, route: '/chropowatosc' },
   { id: 'tolerances', labelKey: 'tiles.tolerances', icon: Ruler, route: '/tolerancje' },
   { id: 'threads', labelKey: 'tiles.threads', icon: ThreadIcon, route: '/gwinty' },
@@ -70,16 +70,16 @@ export const ALL_TILES: TileDefinition[] = [
   { id: 'pcd', labelKey: 'tiles.pcd', icon: PcdIcon, route: '/pcd' },
   { id: 'linearHoles', labelKey: 'tiles.linearHoles', icon: AngledHolesIcon, route: '/otwory-liniowe' },
   { id: 'truePosition', labelKey: 'tiles.truePosition', icon: Target, route: '/true-position' },
-  { id: 'trig', labelKey: 'tools:trig.tile', icon: Triangle, route: '/trygonometria', isNew: true },
+  { id: 'trig', labelKey: 'tools:trig.tile', icon: Triangle, route: '/trygonometria' },
   { id: 'seger', labelKey: 'tiles.seger', icon: CirclipIcon, route: '/rowki-segera' },
   { id: 'keyways', labelKey: 'tiles.keyways', icon: KeywayIcon, route: '/wpusty' },
   { id: 'oring', labelKey: 'tiles.oring', icon: ORingIcon, route: '/rowki-oring' },
   { id: 'din509', labelKey: 'tiles.din509', icon: UndercutIcon, route: '/podciecia-din509' },
-  { id: 'boltHoles', labelKey: 'tools:holes.tile', icon: BoltHoleIcon, route: '/otwory-pod-sruby', isNew: true },
+  { id: 'boltHoles', labelKey: 'tools:holes.tile', icon: BoltHoleIcon, route: '/otwory-pod-sruby' },
   { id: 'weight', labelKey: 'tiles.weight', icon: Scale, route: '/waga' },
   { id: 'hardness', labelKey: 'tiles.hardness', icon: Gem, route: '/twardosc' },
-  { id: 'materialsDb', labelKey: 'tools:mat.tile', icon: Database, route: '/baza-materialow', isNew: true },
-  { id: 'thermal', labelKey: 'tools:thermal.tile', icon: Thermometer, route: '/korekcja-temperaturowa', isNew: true },
+  { id: 'materialsDb', labelKey: 'tools:mat.tile', icon: Database, route: '/baza-materialow' },
+  { id: 'thermal', labelKey: 'tools:thermal.tile', icon: Thermometer, route: '/korekcja-temperaturowa' },
 ];
 
 export const TILE_MAP = new Map<string, TileDefinition>(

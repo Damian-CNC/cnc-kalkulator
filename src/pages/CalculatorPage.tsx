@@ -178,85 +178,96 @@ const CalculatorPage = () => {
   );
 
   return (
-    <PageLayout title={t('calc.title')} fullScreenMobile>
-      <div className="max-w-sm w-full mx-auto flex flex-col flex-1 h-full min-h-0 justify-between md:min-h-[calc(100dvh-8.5rem)] md:pb-2">
-        {/* trzy ostatnie wyniki */}
-        <div className="flex gap-1.5 sm:gap-2 mb-1 shrink-0 min-h-[1.75rem] sm:min-h-[2.25rem]" aria-label={t('calc.history')}>
-          {s.history.map((h, i) => (
-            <button
-              key={`${h}-${i}`}
-              type="button"
-              onPointerDown={() => {
-                longPressed.current = false;
-                pressTimer.current = window.setTimeout(() => {
-                  longPressed.current = true;
-                  copyToClipboard(h.replace('−', '-'));
-                }, 550);
-              }}
-              onPointerUp={() => window.clearTimeout(pressTimer.current)}
-              onPointerLeave={() => window.clearTimeout(pressTimer.current)}
-              onPointerCancel={() => window.clearTimeout(pressTimer.current)}
-              onContextMenu={(e) => e.preventDefault()}
-              onClick={() => {
-                if (longPressed.current) {
-                  longPressed.current = false;
-                  return;
-                }
-                triggerLight();
-                insertValue(h);
-              }}
-              className="flex-1 min-w-0 truncate px-2.5 py-1 sm:px-3 sm:py-2 rounded-full bg-zinc-900 border border-zinc-800 text-xs sm:text-sm font-semibold text-cyan-400 hover:border-cyan-600/60 active:scale-95 transition-all"
-            >
-              {formatNumber(toNum(h), dec)}
-            </button>
-          ))}
-        </div>
-        <p className="text-[10px] sm:text-[11px] text-zinc-600 mb-1 sm:mb-2 text-right shrink-0">{t('calc.hint')}</p>
+    <PageLayout title={t('calc.title')} fullScreenMobile wideDesktop>
+      <div className="w-full md:max-w-3xl mx-auto flex flex-col md:grid md:grid-cols-[260px_1fr] md:gap-8 md:items-center flex-1 h-full min-h-0 justify-between md:justify-center md:py-4">
+        {/* Lewa kolumna na PC (panel historii i wskazówek) / Górny pasek na mobile */}
+        <div className="md:bg-zinc-900/50 md:border md:border-zinc-800/80 md:rounded-3xl md:p-5 md:space-y-4">
+          <p className="hidden md:block text-xs uppercase tracking-wider text-zinc-400 font-bold mb-2">
+            {t('calc.history', { defaultValue: 'Ostatnie wyniki' })}
+          </p>
 
-        {/* dolna część: wyrażenie, wynik i klawiatura przy dole ekranu */}
-        <div className="mt-auto" />
-        <div className="px-2 pb-1 sm:pb-2 md:pb-4 text-right flex-1 min-h-0 flex flex-col justify-end">
-          <div className="min-h-[1.25rem] sm:min-h-[1.5rem] md:min-h-[1.75rem] text-sm sm:text-base md:text-lg text-zinc-400 overflow-x-auto whitespace-nowrap [scrollbar-width:none]">
-            {s.expr && (hasStructure || s.done) ? `${showExpr(s.expr)}${s.done ? ' =' : ''}` : '\u00A0'}
-          </div>
-          <div className={`${sizeCls} font-light text-white leading-tight min-h-[2.5rem] sm:min-h-[3.5rem] md:min-h-[4.5rem] flex items-end justify-end`}>
-            {copyValue !== null && !error ? (
-              <CopyableValue value={copyValue}>{bigText}</CopyableValue>
-            ) : (
-              <span>{bigText || '\u00A0'}</span>
+          {/* trzy ostatnie wyniki na mobile / lista na PC */}
+          <div className="flex md:flex-col gap-1.5 sm:gap-2 mb-1 shrink-0 min-h-[1.75rem] sm:min-h-[2.25rem]" aria-label={t('calc.history')}>
+            {s.history.map((h, i) => (
+              <button
+                key={`${h}-${i}`}
+                type="button"
+                onPointerDown={() => {
+                  longPressed.current = false;
+                  pressTimer.current = window.setTimeout(() => {
+                    longPressed.current = true;
+                    copyToClipboard(h.replace('−', '-'));
+                  }, 550);
+                }}
+                onPointerUp={() => window.clearTimeout(pressTimer.current)}
+                onPointerLeave={() => window.clearTimeout(pressTimer.current)}
+                onPointerCancel={() => window.clearTimeout(pressTimer.current)}
+                onContextMenu={(e) => e.preventDefault()}
+                onClick={() => {
+                  if (longPressed.current) {
+                    longPressed.current = false;
+                    return;
+                  }
+                  triggerLight();
+                  insertValue(h);
+                }}
+                className="flex-1 md:flex-initial md:w-full text-center md:text-left truncate px-2.5 py-1 sm:px-3 sm:py-2 md:py-2.5 rounded-full md:rounded-xl bg-zinc-900 border border-zinc-800 text-xs sm:text-sm font-semibold text-cyan-400 hover:border-cyan-600/60 active:scale-95 transition-all shadow-sm"
+              >
+                {formatNumber(toNum(h), dec)}
+              </button>
+            ))}
+            {s.history.length === 0 && (
+              <p className="hidden md:block text-xs text-zinc-600 italic py-4">Brak historii obliczeń</p>
             )}
           </div>
+          <p className="text-[10px] sm:text-[11px] text-zinc-600 mb-1 sm:mb-2 text-right md:text-left shrink-0">{t('calc.hint')}</p>
         </div>
 
-        {/* klawiatura */}
-        <div className="grid grid-cols-4 gap-2 sm:gap-2.5 md:gap-3 shrink-0 pb-[max(0.25rem,env(safe-area-inset-bottom,0px))]">
-          <Key label="AC" kind="fn" onPress={clear} aria="AC" />
-          <Key label={<BackspaceIcon className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />} kind="fn" onPress={backspace} aria="Backspace" />
-          <Key label="(" kind="fn" onPress={() => paren('(')} />
-          <Key label=")" kind="fn" onPress={() => paren(')')} />
+        {/* Prawa kolumna: wyrażenie, wynik i klawiatura */}
+        <div className="max-w-sm w-full mx-auto md:mx-0 flex flex-col justify-end">
+          <div className="px-2 pb-1 sm:pb-2 md:pb-3 text-right flex flex-col justify-end">
+            <div className="min-h-[1.25rem] sm:min-h-[1.5rem] md:min-h-[1.75rem] text-sm sm:text-base md:text-lg text-zinc-400 overflow-x-auto whitespace-nowrap [scrollbar-width:none]">
+              {s.expr && (hasStructure || s.done) ? `${showExpr(s.expr)}${s.done ? ' =' : ''}` : '\u00A0'}
+            </div>
+            <div className={`${sizeCls} font-light text-white leading-tight min-h-[2.5rem] sm:min-h-[3.5rem] md:min-h-[4rem] flex items-end justify-end`}>
+              {copyValue !== null && !error ? (
+                <CopyableValue value={copyValue}>{bigText}</CopyableValue>
+              ) : (
+                <span>{bigText || '\u00A0'}</span>
+              )}
+            </div>
+          </div>
 
-          <Key label="7" onPress={() => digit('7')} />
-          <Key label="8" onPress={() => digit('8')} />
-          <Key label="9" onPress={() => digit('9')} />
-          <Key label="÷" kind="op" onPress={() => operator('÷')} active={!s.done && lastOp === '÷'} />
+          {/* klawiatura */}
+          <div className="grid grid-cols-4 gap-2 sm:gap-2.5 md:gap-2.5 shrink-0 pb-[max(0.25rem,env(safe-area-inset-bottom,0px))]">
+            <Key label="AC" kind="fn" onPress={clear} aria="AC" />
+            <Key label={<BackspaceIcon className="w-5 h-5 sm:w-6 sm:h-6 md:w-6 md:h-6" />} kind="fn" onPress={backspace} aria="Backspace" />
+            <Key label="(" kind="fn" onPress={() => paren('(')} />
+            <Key label=")" kind="fn" onPress={() => paren(')')} />
 
-          <Key label="4" onPress={() => digit('4')} />
-          <Key label="5" onPress={() => digit('5')} />
-          <Key label="6" onPress={() => digit('6')} />
-          <Key label="×" kind="op" onPress={() => operator('×')} active={!s.done && lastOp === '×'} />
+            <Key label="7" onPress={() => digit('7')} />
+            <Key label="8" onPress={() => digit('8')} />
+            <Key label="9" onPress={() => digit('9')} />
+            <Key label="÷" kind="op" onPress={() => operator('÷')} active={!s.done && lastOp === '÷'} />
 
-          <Key label="1" onPress={() => digit('1')} />
-          <Key label="2" onPress={() => digit('2')} />
-          <Key label="3" onPress={() => digit('3')} />
-          <Key label="−" kind="op" onPress={() => operator('−')} active={!s.done && lastOp === '−'} />
+            <Key label="4" onPress={() => digit('4')} />
+            <Key label="5" onPress={() => digit('5')} />
+            <Key label="6" onPress={() => digit('6')} />
+            <Key label="×" kind="op" onPress={() => operator('×')} active={!s.done && lastOp === '×'} />
 
-          <Key label="0" onPress={() => digit('0')} />
-          <Key label={dec} onPress={decimal} />
-          <Key label="%" kind="fn" onPress={percent} />
-          <Key label="+" kind="op" onPress={() => operator('+')} active={!s.done && lastOp === '+'} />
+            <Key label="1" onPress={() => digit('1')} />
+            <Key label="2" onPress={() => digit('2')} />
+            <Key label="3" onPress={() => digit('3')} />
+            <Key label="−" kind="op" onPress={() => operator('−')} active={!s.done && lastOp === '−'} />
 
-          <Key label="±" kind="fn" onPress={toggleSign} aria={t('calc.sign')} />
-          <Key label="=" kind="op" wide onPress={equals} />
+            <Key label="0" onPress={() => digit('0')} />
+            <Key label={dec} onPress={decimal} />
+            <Key label="%" kind="fn" onPress={percent} />
+            <Key label="+" kind="op" onPress={() => operator('+')} active={!s.done && lastOp === '+'} />
+
+            <Key label="±" kind="fn" onPress={toggleSign} aria={t('calc.sign')} />
+            <Key label="=" kind="op" wide onPress={equals} />
+          </div>
         </div>
       </div>
     </PageLayout>

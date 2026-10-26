@@ -48,174 +48,179 @@ const TolerancesPage = () => {
   };
 
   return (
-    <PageLayout title={t('pages.tolerances', { ns: 'translation' })}>
-      <div className="space-y-5">
-        {/* Nominal dimension input */}
-        <div className="flex flex-col">
-          <label className="block text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider">{t('nominalDimension').replace('(mm)', `(${L.unit})`)}</label>
-          <input
-            type="text"
-            inputMode="decimal"
-                pattern="^[0-9]*[.,]?[0-9]*$"
-                onFocus={selectOnFocus}
-            placeholder={t('nominalPlaceholder')}
-            value={nominalInput}
-            onChange={(e) => setNominalInput(sanitizeDecimal(e.target.value))}
-            className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500/50 transition-all text-lg md:text-sm md:py-2.5 md:px-3 md:rounded-lg text-center font-bold"
-          />
-        </div>
-
-        {/* Hole / Shaft toggle */}
-        <div className="grid grid-cols-2 gap-2">
-          <button
-            onClick={() => handleTypeChange(true)}
-            className={`py-3 rounded-xl text-sm font-bold transition-colors border ${
-              isHole
-                ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-400'
-                : 'bg-zinc-900 border-zinc-700 text-zinc-500'
-            }`}
-          >
-            {t('hole')}
-          </button>
-          <button
-            onClick={() => handleTypeChange(false)}
-            className={`py-3 rounded-xl text-sm font-bold transition-colors border ${
-              !isHole
-                ? 'bg-cyan-500/20 border-cyan-500/50 text-cyan-400'
-                : 'bg-zinc-900 border-zinc-700 text-zinc-500'
-            }`}
-          >
-            {t('shaft')}
-          </button>
-        </div>
-
-        {/* Letter + IT grade selectors */}
-        <div className="grid grid-cols-2 gap-3">
-          <div className="flex flex-col gap-1.5">
-            <label className="text-zinc-400 text-sm font-medium">{t('toleranceLetter')}</label>
-            <Select value={selectedLetter} onValueChange={setSelectedLetter}>
-              <SelectTrigger className="bg-zinc-900 border-zinc-700 text-zinc-100">
-                <SelectValue placeholder={t('letterPlaceholder')} />
-              </SelectTrigger>
-              <SelectContent className="bg-zinc-900 border-zinc-700 max-h-60">
-                {letters.map((l) => (
-                  <SelectItem key={l} value={l} className="text-zinc-100 focus:bg-zinc-800">
-                    {l}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+    <PageLayout title={t('pages.tolerances', { ns: 'translation' })} wideDesktop>
+      <div className="lg:grid lg:grid-cols-[320px_1fr] lg:gap-6 lg:items-start space-y-5 lg:space-y-0">
+        {/* Left Column: Inputs & Controls */}
+        <div className="space-y-4 lg:sticky lg:top-4">
+          {/* Nominal dimension input */}
+          <div className="flex flex-col">
+            <label className="block text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider">{t('nominalDimension').replace('(mm)', `(${L.unit})`)}</label>
+            <input
+              type="text"
+              inputMode="decimal"
+              pattern="^[0-9]*[.,]?[0-9]*$"
+              onFocus={selectOnFocus}
+              placeholder={t('nominalPlaceholder')}
+              value={nominalInput}
+              onChange={(e) => setNominalInput(sanitizeDecimal(e.target.value))}
+              className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500/50 transition-all text-lg md:text-sm md:py-2.5 md:px-3 md:rounded-lg text-center font-bold"
+            />
           </div>
 
-          <div className="flex flex-col gap-1.5">
-            <label className="text-zinc-400 text-sm font-medium">{t('itClass')}</label>
-            <Select value={selectedIT} onValueChange={setSelectedIT}>
-              <SelectTrigger className="bg-zinc-900 border-zinc-700 text-zinc-100">
-                <SelectValue placeholder={t('itPlaceholder')} />
-              </SelectTrigger>
-              <SelectContent className="bg-zinc-900 border-zinc-700 max-h-60">
-                {IT_GRADES.map((g) => (
-                  <SelectItem key={g} value={String(g)} className="text-zinc-100 focus:bg-zinc-800">
-                    IT{g}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+          {/* Hole / Shaft toggle */}
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              onClick={() => handleTypeChange(true)}
+              className={`py-3 rounded-xl text-sm font-bold transition-colors border ${
+                isHole
+                  ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-400'
+                  : 'bg-zinc-900 border-zinc-700 text-zinc-500'
+              }`}
+            >
+              {t('hole')}
+            </button>
+            <button
+              onClick={() => handleTypeChange(false)}
+              className={`py-3 rounded-xl text-sm font-bold transition-colors border ${
+                !isHole
+                  ? 'bg-cyan-500/20 border-cyan-500/50 text-cyan-400'
+                  : 'bg-zinc-900 border-zinc-700 text-zinc-500'
+              }`}
+            >
+              {t('shaft')}
+            </button>
           </div>
-        </div>
 
-        {/* Result display */}
-        {result && (
-          <div className="space-y-3">
-            {/* Designation badge */}
-            <div className="text-center">
-              <span className="inline-block px-5 py-2 rounded-full bg-emerald-500/15 text-emerald-400 font-black text-xl tracking-wider border border-emerald-500/30">
-                {result.designation}
-              </span>
+          {/* Letter + IT grade selectors */}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="flex flex-col gap-1.5">
+              <label className="text-zinc-400 text-sm font-medium">{t('toleranceLetter')}</label>
+              <Select value={selectedLetter} onValueChange={setSelectedLetter}>
+                <SelectTrigger className="bg-zinc-900 border-zinc-700 text-zinc-100">
+                  <SelectValue placeholder={t('letterPlaceholder')} />
+                </SelectTrigger>
+                <SelectContent className="bg-zinc-900 border-zinc-700 max-h-60">
+                  {letters.map((l) => (
+                    <SelectItem key={l} value={l} className="text-zinc-100 focus:bg-zinc-800">
+                      {l}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
-            {/* Range info */}
-            <p className="text-center text-zinc-500 text-xs">
-              {t('rangeInfo', { range: result.rangeLabel, it: selectedIT, value: result.itValue })}
+            <div className="flex flex-col gap-1.5">
+              <label className="text-zinc-400 text-sm font-medium">{t('itClass')}</label>
+              <Select value={selectedIT} onValueChange={setSelectedIT}>
+                <SelectTrigger className="bg-zinc-900 border-zinc-700 text-zinc-100">
+                  <SelectValue placeholder={t('itPlaceholder')} />
+                </SelectTrigger>
+                <SelectContent className="bg-zinc-900 border-zinc-700 max-h-60">
+                  {IT_GRADES.map((g) => (
+                    <SelectItem key={g} value={String(g)} className="text-zinc-100 focus:bg-zinc-800">
+                      IT{g}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: Result display */}
+        <div className="space-y-4">
+          {result && (
+            <div className="space-y-3">
+              {/* Designation badge */}
+              <div className="text-center">
+                <span className="inline-block px-5 py-2 rounded-full bg-emerald-500/15 text-emerald-400 font-black text-xl tracking-wider border border-emerald-500/30">
+                  {result.designation}
+                </span>
+              </div>
+
+              {/* Range info */}
+              <p className="text-center text-zinc-500 text-xs">
+                {t('rangeInfo', { range: result.rangeLabel, it: selectedIT, value: result.itValue })}
+              </p>
+
+              {/* Deviations card */}
+              <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
+                <p className="text-zinc-400 text-sm font-medium mb-3">{t('deviations')}</p>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="text-center">
+                    <span className="text-xs text-zinc-500 uppercase tracking-wider">{t('upperDeviation')}</span>
+                    <p className="text-2xl font-bold text-emerald-400">
+                      {result.upperDeviation_um > 0 ? '+' : ''}{umOut(result.upperDeviation_um)} <span className="text-sm text-zinc-500">{umUnit}</span>
+                    </p>
+                    <p className="text-xs text-zinc-600 mt-0.5">
+                      {result.upperDeviation_mm > 0 ? '+' : ''}{mmOut(result.upperDeviation_mm)} {L.unit}
+                    </p>
+                  </div>
+                  <div className="text-center">
+                    <span className="text-xs text-zinc-500 uppercase tracking-wider">{t('lowerDeviation')}</span>
+                    <p className="text-2xl font-bold text-amber-400">
+                      {result.lowerDeviation_um > 0 ? '+' : ''}{umOut(result.lowerDeviation_um)} <span className="text-sm text-zinc-500">{umUnit}</span>
+                    </p>
+                    <p className="text-xs text-zinc-600 mt-0.5">
+                      {result.lowerDeviation_mm > 0 ? '+' : ''}{mmOut(result.lowerDeviation_mm)} {L.unit}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Final dimensions card */}
+              <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4">
+                <p className="text-cyan-300 text-sm font-medium mb-3">{t('finalDimension')}</p>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="text-center">
+                    <span className="text-xs text-zinc-500 uppercase tracking-wider">{t('max')}</span>
+                    <p className="text-2xl md:text-3xl font-bold text-emerald-400"><CopyableValue value={mmOut(result.dimMax)}>{mmOut(result.dimMax)}</CopyableValue></p>
+                    <span className="text-xs text-zinc-500">{L.unit}</span>
+                  </div>
+                  <div className="text-center">
+                    <span className="text-xs text-zinc-500 uppercase tracking-wider">{t('min')}</span>
+                    <p className="text-2xl md:text-3xl font-bold text-amber-400"><CopyableValue value={mmOut(result.dimMin)}>{mmOut(result.dimMin)}</CopyableValue></p>
+                    <span className="text-xs text-zinc-500">{L.unit}</span>
+                  </div>
+                </div>
+                {/* Środek tolerancji */}
+                <div className="border-t border-cyan-800/30 mt-4 pt-3">
+                  <p className="text-xs text-zinc-500 text-center mb-1">{t('toleranceCenter')}</p>
+                  <p className="text-3xl md:text-4xl font-black text-cyan-400 text-center">
+                    <CopyableValue value={mmOut((result.dimMax + result.dimMin) / 2)}>{mmOut((result.dimMax + result.dimMin) / 2)}</CopyableValue> <span className="text-sm font-normal text-zinc-500">{L.unit}</span>
+                  </p>
+                  <div className="relative mt-3 h-2 rounded-full bg-zinc-700/50">
+                    <div className="absolute inset-y-0 left-0 right-0 rounded-full bg-gradient-to-r from-amber-500/40 via-cyan-500/40 to-emerald-500/40" />
+                    <div className="absolute top-1/2 -translate-y-1/2 left-0 w-2.5 h-2.5 rounded-full bg-amber-400 border border-zinc-900" />
+                    <div className="absolute top-1/2 -translate-y-1/2 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 border border-zinc-900" />
+                    <div className="absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-cyan-400 border-2 border-zinc-900 shadow-lg shadow-cyan-500/30" style={{ left: '50%', transform: 'translate(-50%, -50%)' }} />
+                  </div>
+                  <div className="flex justify-between mt-1">
+                    <span className="text-[10px] text-amber-500/70">MIN</span>
+                    <span className="text-[10px] text-cyan-400 font-bold">{t('aimHere')}</span>
+                    <span className="text-[10px] text-emerald-500/70">MAX</span>
+                  </div>
+                </div>
+              </div>
+
+              <p className="text-zinc-600 text-xs text-center">
+                {t('footerNote')}
+              </p>
+            </div>
+          )}
+
+          {parsedNominal !== null && !result && (
+            <p className="text-center text-amber-400/70 py-6 text-sm">
+              {t('noDataForCombination')}
             </p>
+          )}
 
-            {/* Deviations card */}
-            <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
-              <p className="text-zinc-400 text-sm font-medium mb-3">{t('deviations')}</p>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="text-center">
-                  <span className="text-xs text-zinc-500 uppercase tracking-wider">{t('upperDeviation')}</span>
-                  <p className="text-2xl font-bold text-emerald-400">
-                    {result.upperDeviation_um > 0 ? '+' : ''}{umOut(result.upperDeviation_um)} <span className="text-sm text-zinc-500">{umUnit}</span>
-                  </p>
-                  <p className="text-xs text-zinc-600 mt-0.5">
-                    {result.upperDeviation_mm > 0 ? '+' : ''}{mmOut(result.upperDeviation_mm)} {L.unit}
-                  </p>
-                </div>
-                <div className="text-center">
-                  <span className="text-xs text-zinc-500 uppercase tracking-wider">{t('lowerDeviation')}</span>
-                  <p className="text-2xl font-bold text-amber-400">
-                    {result.lowerDeviation_um > 0 ? '+' : ''}{umOut(result.lowerDeviation_um)} <span className="text-sm text-zinc-500">{umUnit}</span>
-                  </p>
-                  <p className="text-xs text-zinc-600 mt-0.5">
-                    {result.lowerDeviation_mm > 0 ? '+' : ''}{mmOut(result.lowerDeviation_mm)} {L.unit}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Final dimensions card */}
-            <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4">
-              <p className="text-cyan-300 text-sm font-medium mb-3">{t('finalDimension')}</p>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="text-center">
-                  <span className="text-xs text-zinc-500 uppercase tracking-wider">{t('max')}</span>
-                  <p className="text-2xl md:text-3xl font-bold text-emerald-400"><CopyableValue value={mmOut(result.dimMax)}>{mmOut(result.dimMax)}</CopyableValue></p>
-                  <span className="text-xs text-zinc-500">{L.unit}</span>
-                </div>
-                <div className="text-center">
-                  <span className="text-xs text-zinc-500 uppercase tracking-wider">{t('min')}</span>
-                  <p className="text-2xl md:text-3xl font-bold text-amber-400"><CopyableValue value={mmOut(result.dimMin)}>{mmOut(result.dimMin)}</CopyableValue></p>
-                  <span className="text-xs text-zinc-500">{L.unit}</span>
-                </div>
-              </div>
-              {/* Środek tolerancji */}
-              <div className="border-t border-cyan-800/30 mt-4 pt-3">
-                <p className="text-xs text-zinc-500 text-center mb-1">{t('toleranceCenter')}</p>
-                <p className="text-3xl md:text-4xl font-black text-cyan-400 text-center">
-                  <CopyableValue value={mmOut((result.dimMax + result.dimMin) / 2)}>{mmOut((result.dimMax + result.dimMin) / 2)}</CopyableValue> <span className="text-sm font-normal text-zinc-500">{L.unit}</span>
-                </p>
-                <div className="relative mt-3 h-2 rounded-full bg-zinc-700/50">
-                  <div className="absolute inset-y-0 left-0 right-0 rounded-full bg-gradient-to-r from-amber-500/40 via-cyan-500/40 to-emerald-500/40" />
-                  <div className="absolute top-1/2 -translate-y-1/2 left-0 w-2.5 h-2.5 rounded-full bg-amber-400 border border-zinc-900" />
-                  <div className="absolute top-1/2 -translate-y-1/2 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 border border-zinc-900" />
-                  <div className="absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-cyan-400 border-2 border-zinc-900 shadow-lg shadow-cyan-500/30" style={{ left: '50%', transform: 'translate(-50%, -50%)' }} />
-                </div>
-                <div className="flex justify-between mt-1">
-                  <span className="text-[10px] text-amber-500/70">MIN</span>
-                  <span className="text-[10px] text-cyan-400 font-bold">{t('aimHere')}</span>
-                  <span className="text-[10px] text-emerald-500/70">MAX</span>
-                </div>
-              </div>
-            </div>
-
-            <p className="text-zinc-600 text-xs text-center">
-              {t('footerNote')}
+          {parsedNominal === null && (
+            <p className="text-center text-zinc-500 py-10">
+              {t('enterNominalPrompt')}
             </p>
-          </div>
-        )}
-
-        {parsedNominal !== null && !result && (
-          <p className="text-center text-amber-400/70 py-6 text-sm">
-            {t('noDataForCombination')}
-          </p>
-        )}
-
-        {parsedNominal === null && (
-          <p className="text-center text-zinc-500 py-10">
-            {t('enterNominalPrompt')}
-          </p>
-        )}
+          )}
+        </div>
       </div>
       <ClearFab onClear={() => { setNominalInput(''); setSelectedLetter('h'); setSelectedIT('7'); }} />
     </PageLayout>
