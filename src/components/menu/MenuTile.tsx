@@ -201,7 +201,7 @@ export const MenuTile = ({
       {/* Ikona kafelka */}
       <Icon
         className="w-[60px] h-[60px] md:w-[67px] md:h-[67px] text-cyan-400 shrink-0 pointer-events-none transition-transform"
-        strokeWidth={isLucide ? 0.85 : 2.25}
+        strokeWidth={isLucide ? 1.75 : 2.25}
       />
 
       {/* Tytuł kafelka */}

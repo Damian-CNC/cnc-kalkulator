@@ -41,7 +41,7 @@ const AppFooter = ({ className = '' }: { className?: string }) => {
 
   return (
     <footer
-      className={`w-full max-w-4xl mt-10 pt-6 border-t border-zinc-800/80 flex flex-col items-center gap-4 pb-[max(1rem,env(safe-area-inset-bottom))] ${className}`}
+      className={`w-full max-w-4xl mx-auto mt-10 pt-6 border-t border-zinc-800/80 flex flex-col items-center gap-4 pb-[max(1rem,env(safe-area-inset-bottom))] ${className}`}
     >
       <div className="flex flex-wrap items-center justify-center gap-2">
         <LanguageSwitcher btnClass={BTN} txtClass={TXT} iconClass={ICON} />

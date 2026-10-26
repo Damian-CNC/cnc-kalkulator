@@ -25,6 +25,10 @@ import {
   KeywayIcon,
   ORingIcon,
   BoltHoleIcon,
+  WeightIcon,
+  HardnessIcon,
+  MaterialsDbIcon,
+  ThermalIcon,
 } from '@/components/icons/CncIcons';
 
 export type TileDefinition = {
@@ -48,12 +52,8 @@ export const LUCIDE_ICONS: unknown[] = [
   Waves,
   Ruler,
   Target,
-  Scale,
-  Gem,
   Triangle,
   Calculator,
-  Thermometer,
-  Database,
 ];
 
 export const ALL_TILES: TileDefinition[] = [
@@ -76,10 +76,10 @@ export const ALL_TILES: TileDefinition[] = [
   { id: 'oring', labelKey: 'tiles.oring', icon: ORingIcon, route: '/rowki-oring' },
   { id: 'din509', labelKey: 'tiles.din509', icon: UndercutIcon, route: '/podciecia-din509' },
   { id: 'boltHoles', labelKey: 'tools:holes.tile', icon: BoltHoleIcon, route: '/otwory-pod-sruby' },
-  { id: 'weight', labelKey: 'tiles.weight', icon: Scale, route: '/waga' },
-  { id: 'hardness', labelKey: 'tiles.hardness', icon: Gem, route: '/twardosc' },
-  { id: 'materialsDb', labelKey: 'tools:mat.tile', icon: Database, route: '/baza-materialow' },
-  { id: 'thermal', labelKey: 'tools:thermal.tile', icon: Thermometer, route: '/korekcja-temperaturowa' },
+  { id: 'weight', labelKey: 'tiles.weight', icon: WeightIcon, route: '/waga' },
+  { id: 'hardness', labelKey: 'tiles.hardness', icon: HardnessIcon, route: '/twardosc' },
+  { id: 'materialsDb', labelKey: 'tools:mat.tile', icon: MaterialsDbIcon, route: '/baza-materialow' },
+  { id: 'thermal', labelKey: 'tools:thermal.tile', icon: ThermalIcon, route: '/korekcja-temperaturowa' },
 ];
 
 export const TILE_MAP = new Map<string, TileDefinition>(

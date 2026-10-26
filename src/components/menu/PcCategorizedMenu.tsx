@@ -30,7 +30,7 @@ export const PcCategorizedMenu = () => {
         )}
         <Icon
           className="w-[46px] h-[46px] text-cyan-400 group-hover:scale-105 transition-transform duration-150 shrink-0"
-          strokeWidth={isLucide ? 0.9 : 2.25}
+          strokeWidth={isLucide ? 1.75 : 2.25}
         />
         <span className="text-xs font-semibold text-zinc-200 group-hover:text-white leading-tight line-clamp-2 px-0.5">
           {t(tile.labelKey)}
@@ -51,10 +51,11 @@ export const PcCategorizedMenu = () => {
 
   return (
     <div className="w-full max-w-6xl flex flex-col gap-4 mb-10 animate-in fade-in duration-300">
-      {/* RZĄD 1 (3 równe kolumny Bento): Podstawowe & Obróbka (3) | Gwinty i Pasowania (3) | Materiały (4) */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {/* Bento 1: Podstawowe & Obróbka */}
-        <section className="bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-4 flex flex-col gap-3 shadow-sm hover:border-zinc-700/60 transition-colors">
+      {/* RZĄD 1 (3 proporcjonalne panele Bento): Podstawowe & Obróbka (3 kafelki, span 3) | Gwinty i Pasowania (3 kafelki, span 3) | Materiały (4 kafelki, span 4) */}
+      {/* Siatka 10 kolumn sprawia, że kafelki we wszystkich trzech sekcjach mają DOKŁADNIE taki sam rozmiar! */}
+      <div className="grid grid-cols-1 md:grid-cols-10 gap-4">
+        {/* Bento 1: Podstawowe & Obróbka (span 3) */}
+        <section className="md:col-span-3 bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-4 flex flex-col gap-3 shadow-sm hover:border-zinc-700/60 transition-colors">
           <div className="flex items-center justify-between pb-1.5 border-b border-zinc-800/50">
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
@@ -71,8 +72,8 @@ export const PcCategorizedMenu = () => {
           </div>
         </section>
 
-        {/* Bento 2: Gwinty i Pasowania */}
-        <section className="bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-4 flex flex-col gap-3 shadow-sm hover:border-zinc-700/60 transition-colors">
+        {/* Bento 2: Gwinty i Pasowania (span 3) */}
+        <section className="md:col-span-3 bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-4 flex flex-col gap-3 shadow-sm hover:border-zinc-700/60 transition-colors">
           <div className="flex items-center justify-between pb-1.5 border-b border-zinc-800/50">
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
@@ -89,8 +90,8 @@ export const PcCategorizedMenu = () => {
           </div>
         </section>
 
-        {/* Bento 3: Materiały */}
-        <section className="bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-4 flex flex-col gap-3 shadow-sm hover:border-zinc-700/60 transition-colors">
+        {/* Bento 3: Materiały (span 4) */}
+        <section className="md:col-span-4 bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-4 flex flex-col gap-3 shadow-sm hover:border-zinc-700/60 transition-colors">
           <div className="flex items-center justify-between pb-1.5 border-b border-zinc-800/50">
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
@@ -102,7 +103,7 @@ export const PcCategorizedMenu = () => {
               {materialsTiles.length}
             </span>
           </div>
-          <div className="grid grid-cols-4 gap-2">
+          <div className="grid grid-cols-4 gap-2.5">
             {materialsTiles.map(renderTile)}
           </div>
         </section>

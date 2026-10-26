@@ -299,4 +299,88 @@ export const BoltHoleIcon = memo((p: CncIconProps) => (
     <path d="M20 9 V15 M44 9 V15" strokeWidth={1.5} />
   </Base>
 ));
+BoltHoleIcon.displayName = 'BoltHoleIcon';
+
+/* ------------------------------------------------------------------ */
+/* 14. Waga materiału — wałek / profil z wymiarami i symbolem masy   */
+/* ------------------------------------------------------------------ */
+export const WeightIcon = memo((p: CncIconProps) => (
+  <Base {...p}>
+    {/* Bryła wałka w perspektywie technicznej */}
+    <ellipse cx="32" cy="18" rx="20" ry="8" {...FILL} />
+    <ellipse cx="32" cy="18" rx="20" ry="8" />
+    <path d="M12 18 V44 C12 48.5 21 52 32 52 C43 48.5 52 44 52 44 V18" />
+    <path d="M12 31 C12 35.5 21 39 32 39 C43 35.5 52 31 52 31" opacity={0.4} strokeDasharray="3 2" />
+    <path d="M12 44 C12 48.5 21 52 32 52 C43 48.5 52 44 52 44" {...FILL} />
+    {/* Oś symetrii */}
+    <line x1="32" y1="6" x2="32" y2="58" {...axisProps} />
+    {/* Strzałka wymiaru długości */}
+    <path d="M57 18 V44 M55 20 L57 18 L59 20 M55 42 L57 44 L59 42" strokeWidth={1.5} />
+  </Base>
+));
+WeightIcon.displayName = 'WeightIcon';
+
+/* ------------------------------------------------------------------ */
+/* 15. Twardość materiału — wgłębnik stożkowy Rockwell HRC / Vickers   */
+/* ------------------------------------------------------------------ */
+export const HardnessIcon = memo((p: CncIconProps) => (
+  <Base {...p}>
+    {/* Próbka materiału (blok w przekroju) */}
+    <path d="M6 38 H24 L32 46 L40 38 H58 V58 H6 Z" {...FILL} />
+    <path d="M6 38 H24 L32 46 L40 38 H58 V58 H6 Z" />
+    {/* Oś symetrii wgłębnika */}
+    <line x1="32" y1="2" x2="32" y2="62" {...axisProps} />
+    {/* Diamentowy wgłębnik stożkowy 120° z uchwytem */}
+    <rect x="23" y="6" width="18" height="16" rx="1.5" fill="currentColor" fillOpacity={0.35} />
+    <path d="M23 22 L32 37 L41 22 Z" fill="currentColor" fillOpacity={0.5} />
+    <path d="M23 6 H41 V22 L32 37 L23 22 Z" />
+    {/* Strzałki nacisku siły pomiarowej F */}
+    <path d="M15 12 V24 M12 21 L15 24 L18 21" strokeWidth={1.5} />
+    <path d="M49 12 V24 M46 21 L49 24 L52 21" strokeWidth={1.5} />
+  </Base>
+));
+HardnessIcon.displayName = 'HardnessIcon';
+
+/* ------------------------------------------------------------------ */
+/* 16. Baza materiałów — wiązka profili hutniczych (okrągły, kwadrat, hex) */
+/* ------------------------------------------------------------------ */
+export const MaterialsDbIcon = memo((p: CncIconProps) => (
+  <Base {...p}>
+    {/* Przekroje różnych gatunków profili hutniczych */}
+    {/* Profil okrągły */}
+    <circle cx="21" cy="41" r="14" {...FILL} />
+    <circle cx="21" cy="41" r="14" />
+    <line x1="7" y1="41" x2="35" y2="41" {...axisProps} />
+    <line x1="21" y1="27" x2="21" y2="55" {...axisProps} />
+    {/* Profil kwadratowy z fazowanymi rogami */}
+    <rect x="37" y="27" width="20" height="20" rx="2" {...FILL} />
+    <rect x="37" y="27" width="20" height="20" rx="2" />
+    {/* Profil sześciokątny (pręt sześciokątny) */}
+    <polygon points="32,8 43,14 43,26 32,32 21,26 21,14" fill="currentColor" fillOpacity={0.3} />
+    <polygon points="32,8 43,14 43,26 32,32 21,26 21,14" />
+  </Base>
+));
+MaterialsDbIcon.displayName = 'MaterialsDbIcon';
+
+/* ------------------------------------------------------------------ */
+/* 17. Rozszerzalność temperaturowa — kołek pomiarowy ze skalą i delta */
+/* ------------------------------------------------------------------ */
+export const ThermalIcon = memo((p: CncIconProps) => (
+  <Base {...p}>
+    {/* Bazowy detal w przekroju */}
+    <path d="M8 22 H44 V46 H8 Z" {...FILL} />
+    <path d="M8 22 H44 V46 H8 Z" />
+    {/* Rozszerzenie termiczne (obrys kreskowany + delta) */}
+    <path d="M44 22 H56 V46 H44" strokeDasharray="3 2" />
+    <line x1="2" y1="34" x2="62" y2="34" {...axisProps} />
+    {/* Wymiar rozszerzalności delta L */}
+    <path d="M44 14 H56 M44 11 V17 M56 11 V17" strokeWidth={1.5} />
+    {/* Symbol temperatury / skali */}
+    <circle cx="20" cy="53" r="3.5" fill="currentColor" fillOpacity={0.4} />
+    <path d="M18.5 50 V47 H21.5 V50" />
+    <path d="M26 49 L29 53 L32 49" strokeWidth={1.5} />
+  </Base>
+));
+ThermalIcon.displayName = 'ThermalIcon';
+
 

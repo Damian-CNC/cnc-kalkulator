@@ -61,15 +61,15 @@ const PageLayout = ({
     <div
       className={
         fullScreenMobile
-          ? 'h-[100dvh] max-h-[100dvh] overflow-hidden flex flex-col bg-background text-zinc-100 pt-[calc(env(safe-area-inset-top,0px)+0.25rem)] md:pt-12 md:min-h-screen md:h-auto md:max-h-none md:overflow-x-hidden md:overflow-y-visible'
-          : 'min-h-screen flex flex-col bg-background text-zinc-100 overflow-x-hidden pt-[calc(env(safe-area-inset-top,0px)+0.5rem)] pt-14 md:pt-12'
+          ? 'h-[100dvh] max-h-[100dvh] overflow-hidden flex flex-col bg-background text-zinc-100 pt-[calc(env(safe-area-inset-top,0px)+0.25rem)] md:pt-3 lg:pt-1.5 md:min-h-screen md:h-auto md:max-h-none md:overflow-x-hidden md:overflow-y-visible'
+          : 'min-h-screen flex flex-col bg-background text-zinc-100 overflow-x-hidden pt-[calc(env(safe-area-inset-top,0px)+0.5rem)] pt-14 md:pt-3 lg:pt-1.5'
       }
     >
       <header
         className={
           fullScreenMobile
-            ? `flex items-center gap-3 mb-1 sm:mb-2 mt-0 px-3 py-1.5 shrink-0 ${wideDesktop ? 'max-w-2xl md:max-w-6xl' : 'max-w-2xl'} mx-auto w-full md:gap-4 md:mb-6 md:sm:mb-8 md:mt-2 md:p-4 md:sm:p-6 md:pb-0`
-            : `flex items-center gap-4 mb-6 sm:mb-8 mt-2 p-4 sm:p-6 pb-0 ${wideDesktop ? 'max-w-2xl md:max-w-6xl' : 'max-w-2xl'} mx-auto w-full`
+            ? `flex items-center gap-3 mb-1 sm:mb-2 mt-0 px-3 py-1.5 shrink-0 ${wideDesktop ? 'max-w-2xl md:max-w-6xl' : 'max-w-2xl'} mx-auto w-full md:gap-4 md:mb-2 lg:mb-2.5 md:mt-0 md:px-4 md:py-1.5 md:pb-0`
+            : `flex items-center gap-4 mb-4 sm:mb-6 md:mb-2 lg:mb-2.5 mt-1 md:mt-0 p-4 sm:p-6 md:px-4 md:py-1.5 pb-0 ${wideDesktop ? 'max-w-2xl md:max-w-6xl' : 'max-w-2xl'} mx-auto w-full`
         }
       >
         <button
@@ -104,18 +104,20 @@ const PageLayout = ({
       <main
         className={
           fullScreenMobile
-            ? `flex-1 min-h-0 w-full ${wideDesktop ? 'max-w-4xl md:max-w-6xl' : 'max-w-4xl md:max-w-2xl'} mx-auto px-3 pt-0 pb-[max(0.5rem,env(safe-area-inset-bottom))] overflow-hidden flex flex-col md:px-4 md:pt-4 md:pb-[calc(5rem+env(safe-area-inset-bottom))] md:overflow-visible md:flex-initial`
-            : `flex-1 w-full ${wideDesktop ? 'max-w-4xl md:max-w-6xl' : 'max-w-4xl md:max-w-2xl'} mx-auto px-4 pt-4 pb-[calc(5rem+env(safe-area-inset-bottom))]`
+            ? `flex-1 min-h-0 w-full ${wideDesktop ? 'max-w-4xl md:max-w-6xl' : 'max-w-4xl md:max-w-2xl'} mx-auto px-3 pt-0 pb-[max(0.5rem,env(safe-area-inset-bottom))] overflow-hidden flex flex-col md:px-4 md:pt-2 md:pb-[calc(5rem+env(safe-area-inset-bottom))] md:overflow-visible md:flex-initial`
+            : `flex-1 w-full ${wideDesktop ? 'max-w-4xl md:max-w-6xl' : 'max-w-4xl md:max-w-2xl'} mx-auto px-4 pt-3 md:pt-1.5 lg:pt-0 pb-[calc(5rem+env(safe-area-inset-bottom))] flex flex-col`
         }
       >
         {children}
-        {fullScreenMobile ? (
-          <div className="hidden md:block w-full">
+        <div className="w-full flex justify-center mt-auto">
+          {fullScreenMobile ? (
+            <div className="hidden md:block w-full">
+              <AppFooter />
+            </div>
+          ) : (
             <AppFooter />
-          </div>
-        ) : (
-          <AppFooter />
-        )}
+          )}
+        </div>
       </main>
     </div>
   );
