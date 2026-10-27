@@ -190,9 +190,12 @@ HexDiagonalIcon.displayName = 'HexDiagonalIcon';
 /* ------------------------------------------------------------------ */
 export const UndercutIcon = memo((p: CncIconProps) => (
   <Base {...p}>
-    <path d="M4 56 V16 H27 V33 Q27 39 33 39 L44 29 H60 V56 Z" {...FILL} />
-    <path d="M4 56 V16 H27 V33 Q27 39 33 39 L44 29 H60 V56" />
-    <line x1="2" y1="56" x2="62" y2="56" {...axisProps} />
+    {/* Powiększony profil DIN 509 wypełniający siatkę 64x64 */}
+    <path d="M4 58 V10 H25 V30 Q25 38 33 38 L44 26 H60 V58 Z" {...FILL} />
+    <path d="M4 58 V10 H25 V30 Q25 38 33 38 L44 26 H60 V58" />
+    <line x1="2" y1="58" x2="62" y2="58" {...axisProps} />
+    {/* Zaznaczenie łuku promienia podcięcia */}
+    <path d="M29 34 A4 4 0 0 0 35 34" strokeWidth={1.5} opacity={0.8} />
   </Base>
 ));
 UndercutIcon.displayName = 'UndercutIcon';
@@ -246,14 +249,17 @@ AngledHolesIcon.displayName = 'AngledHolesIcon';
 /* ------------------------------------------------------------------ */
 export const CirclipIcon = memo((p: CncIconProps) => (
   <Base {...p}>
-    {/* pierścień zewnętrzny (DIN 471): otwarty u góry, z uszami na szczypce */}
+    {/* Powiększony pierścień zewnętrzny Segera wypełniający kadr */}
     <path
-      d="M45 4 L42.57 13.34 A25 25 0 1 1 21.43 13.34 L19 4 H28 L25.45 21.95 A15.5 15.5 0 1 0 38.55 21.95 L36 4 Z"
+      d="M47 3 L44.3 12.8 A28 28 0 1 1 19.7 12.8 L17 3 H28.5 L25.5 21 A18 18 0 1 0 38.5 21 L35.5 3 Z"
       fill="currentColor"
-      fillOpacity={0.2}
+      fillOpacity={0.25}
     />
-    <circle cx="23.5" cy="9.5" r="2.4" strokeWidth={2} />
-    <circle cx="40.5" cy="9.5" r="2.4" strokeWidth={2} />
+    <path
+      d="M47 3 L44.3 12.8 A28 28 0 1 1 19.7 12.8 L17 3 H28.5 L25.5 21 A18 18 0 1 0 38.5 21 L35.5 3 Z"
+    />
+    <circle cx="22.5" cy="8.5" r="2.8" strokeWidth={2} fill="currentColor" fillOpacity={0.4} />
+    <circle cx="41.5" cy="8.5" r="2.8" strokeWidth={2} fill="currentColor" fillOpacity={0.4} />
   </Base>
 ));
 CirclipIcon.displayName = 'CirclipIcon';
@@ -263,13 +269,14 @@ CirclipIcon.displayName = 'CirclipIcon';
 /* ------------------------------------------------------------------ */
 export const KeywayIcon = memo((p: CncIconProps) => (
   <Base {...p}>
-    <path d="M25 17 A22 22 0 1 0 39 17 V23 H25 Z" {...FILL} />
-    {/* wałek z rowkiem */}
-    <path d="M25 17 A22 22 0 1 0 39 17" />
-    {/* wpust */}
-    <rect x="25" y="7" width="14" height="16" rx="1" fill="currentColor" fillOpacity={0.4} />
-    {/* środek */}
-    <path d="M28 40 H36 M32 36 V44" strokeWidth={1.75} />
+    {/* Powiększony wałek z rowkiem wpustowym */}
+    <path d="M23 15 A26.5 26.5 0 1 0 41 15 V23 H23 Z" {...FILL} />
+    <path d="M23 15 A26.5 26.5 0 1 0 41 15" />
+    {/* Wpust pryzmowy w rowku */}
+    <rect x="23" y="4" width="18" height="19" rx="1.5" fill="currentColor" fillOpacity={0.45} />
+    <rect x="23" y="4" width="18" height="19" rx="1.5" />
+    {/* Znacznik środka / osi symetrii */}
+    <path d="M26 38 H38 M32 32 V44" strokeWidth={1.75} />
   </Base>
 ));
 KeywayIcon.displayName = 'KeywayIcon';
@@ -279,12 +286,14 @@ KeywayIcon.displayName = 'KeywayIcon';
 /* ------------------------------------------------------------------ */
 export const ORingIcon = memo((p: CncIconProps) => (
   <Base {...p}>
-    <path d="M4 56 V26 H20 V42 H44 V26 H60 V56 Z" {...FILL} />
-    <path d="M4 56 V26 H20 V42 H44 V26 H60 V56" />
-    <line x1="2" y1="56" x2="62" y2="56" {...axisProps} />
-    {/* o-ring w rowku */}
-    <circle cx="32" cy="33" r="9" fill="currentColor" fillOpacity={0.45} />
-    <circle cx="32" cy="33" r="3" strokeWidth={1.5} opacity={0.6} />
+    {/* Powiększony detal i rowek o-ring na pełną wysokość kadru */}
+    <path d="M4 58 V14 H18 V38 H46 V14 H60 V58 Z" {...FILL} />
+    <path d="M4 58 V14 H18 V38 H46 V14 H60 V58" />
+    <line x1="2" y1="58" x2="62" y2="58" {...axisProps} />
+    {/* Pierścień O-ring o dużej czytelności w rowku */}
+    <circle cx="32" cy="27" r="12" fill="currentColor" fillOpacity={0.45} />
+    <circle cx="32" cy="27" r="12" />
+    <circle cx="32" cy="27" r="4.5" strokeWidth={1.5} opacity={0.6} />
   </Base>
 ));
 ORingIcon.displayName = 'ORingIcon';
@@ -292,11 +301,16 @@ ORingIcon.displayName = 'ORingIcon';
 /** Przekrój płyty z otworem przelotowym i wytoczeniem pod łeb śruby. */
 export const BoltHoleIcon = memo((p: CncIconProps) => (
   <Base {...p}>
-    <path d="M6 18 H20 V30 H26 V54 H6 Z" fill="currentColor" fillOpacity={0.2} />
-    <path d="M58 18 H44 V30 H38 V54 H58 Z" fill="currentColor" fillOpacity={0.2} />
-    <path d="M32 8 V60" strokeDasharray={AXIS} strokeWidth={1.5} />
-    <path d="M20 12 H44" strokeWidth={1.5} />
-    <path d="M20 9 V15 M44 9 V15" strokeWidth={1.5} />
+    {/* Powiększone pogłębienie walcowe pod łeb śruby */}
+    <path d="M4 12 H18 V28 H25 V56 H4 Z" fill="currentColor" fillOpacity={0.25} />
+    <path d="M4 12 H18 V28 H25 V56 H4 Z" />
+    <path d="M60 12 H46 V28 H39 V56 H60 Z" fill="currentColor" fillOpacity={0.25} />
+    <path d="M60 12 H46 V28 H39 V56 H60 Z" />
+    {/* Oś symetrii otworu */}
+    <path d="M32 4 V60" strokeDasharray={AXIS} strokeWidth={1.5} />
+    {/* Linia wymiarowa łba */}
+    <path d="M18 6 H46" strokeWidth={1.5} />
+    <path d="M18 3 V9 M46 3 V9" strokeWidth={1.5} />
   </Base>
 ));
 BoltHoleIcon.displayName = 'BoltHoleIcon';

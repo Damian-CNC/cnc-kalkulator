@@ -130,6 +130,7 @@ export const MenuTile = ({
 
   const Icon = tile.icon;
   const isLucide = LUCIDE_ICONS.includes(Icon);
+  const isStandardPart = ['seger', 'keyways', 'oring', 'din509', 'boltHoles'].includes(tile.id);
   const jiggleClass = isEditMode
     ? index % 2 === 0
       ? 'animate-jiggle'
@@ -200,7 +201,11 @@ export const MenuTile = ({
 
       {/* Ikona kafelka */}
       <Icon
-        className="w-[60px] h-[60px] md:w-[67px] md:h-[67px] text-cyan-400 shrink-0 pointer-events-none transition-transform"
+        className={`${
+          isStandardPart
+            ? 'w-[68px] h-[68px] md:w-[75px] md:h-[75px]'
+            : 'w-[60px] h-[60px] md:w-[67px] md:h-[67px]'
+        } text-cyan-400 shrink-0 pointer-events-none transition-transform`}
         strokeWidth={isLucide ? 1.75 : 2.25}
       />
 

@@ -13,9 +13,14 @@ export const PcCategorizedMenu = () => {
     navigate(route);
   };
 
+  const STANDARD_PART_IDS = ['seger', 'keyways', 'oring', 'din509', 'boltHoles'];
+
   const renderTile = (tile: TileDefinition) => {
     const Icon = tile.icon;
     const isLucide = LUCIDE_ICONS.includes(Icon);
+    const isStandardPart = STANDARD_PART_IDS.includes(tile.id);
+    const iconSizeClass = isStandardPart ? 'w-[52px] h-[52px]' : 'w-[44px] h-[44px]';
+
     return (
       <button
         key={tile.id}
@@ -31,7 +36,7 @@ export const PcCategorizedMenu = () => {
         {/* Wyśrodkowana strefa ikony: stała wysokość i flex-1, dzięki czemu ikony są w 100% na tej samej wysokości poziomej */}
         <div className="flex-1 w-full flex items-center justify-center pt-1">
           <Icon
-            className="w-[44px] h-[44px] text-cyan-400 group-hover:scale-105 transition-transform duration-150 shrink-0"
+            className={`${iconSizeClass} text-cyan-400 group-hover:scale-105 transition-transform duration-150 shrink-0`}
             strokeWidth={isLucide ? 1.75 : 2.25}
           />
         </div>
