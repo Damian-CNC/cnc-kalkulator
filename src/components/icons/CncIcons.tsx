@@ -205,20 +205,20 @@ UndercutIcon.displayName = 'UndercutIcon';
 /* ------------------------------------------------------------------ */
 const PCD_HOLES: Array<[number, number]> = [0, 1, 2, 3, 4].map((i) => {
   const a = ((-90 + i * 72) * Math.PI) / 180;
-  return [Number((32 + 17 * Math.cos(a)).toFixed(2)), Number((32 + 17 * Math.sin(a)).toFixed(2))];
+  return [Number((32 + 16 * Math.cos(a)).toFixed(2)), Number((32 + 16 * Math.sin(a)).toFixed(2))];
 });
 
 export const PcdIcon = memo((p: CncIconProps) => (
   <Base {...p}>
     {/* obrys tarczy */}
-    <circle cx="32" cy="32" r="29" strokeWidth={2} opacity={0.55} />
-    {/* okrąg konstrukcyjny (średnica podziałowa) — łuki między otworami */}
-    <path d="M38.09 16.13 A17 17 0 0 1 45.21 21.30 M48.98 32.89 A17 17 0 0 1 46.26 41.26 M36.40 48.42 A17 17 0 0 1 27.60 48.42 M17.74 41.26 A17 17 0 0 1 15.02 32.89 M18.79 21.30 A17 17 0 0 1 25.91 16.13" strokeWidth={1.75} strokeLinecap="butt" />
+    <circle cx="32" cy="32" r="26" strokeWidth={1.75} opacity={0.55} />
+    {/* okrąg konstrukcyjny (średnica podziałowa) */}
+    <circle cx="32" cy="32" r="16" strokeWidth={1.5} strokeDasharray="4 3" opacity={0.65} />
     {PCD_HOLES.map(([x, y]) => (
-      <circle key={`${x}-${y}`} cx={x} cy={y} r="5.5" fill="currentColor" fillOpacity={0.25} />
+      <circle key={`${x}-${y}`} cx={x} cy={y} r="4.8" fill="currentColor" fillOpacity={0.25} />
     ))}
     {/* środek */}
-    <path d="M27 32 H37 M32 27 V37" strokeWidth={1.75} />
+    <path d="M28 32 H36 M32 28 V36" strokeWidth={1.5} />
   </Base>
 ));
 PcdIcon.displayName = 'PcdIcon';

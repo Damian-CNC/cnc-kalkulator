@@ -13,13 +13,10 @@ export const PcCategorizedMenu = () => {
     navigate(route);
   };
 
-  const STANDARD_PART_IDS = ['seger', 'keyways', 'oring', 'din509', 'boltHoles'];
-
   const renderTile = (tile: TileDefinition) => {
     const Icon = tile.icon;
     const isLucide = LUCIDE_ICONS.includes(Icon);
-    const isStandardPart = STANDARD_PART_IDS.includes(tile.id);
-    const iconSizeClass = isStandardPart ? 'w-[52px] h-[52px]' : 'w-[44px] h-[44px]';
+    const iconSizeClass = 'w-[44px] h-[44px]';
 
     return (
       <button
@@ -120,40 +117,41 @@ export const PcCategorizedMenu = () => {
         </section>
       </div>
 
-      {/* RZĄD 2 (2 szerokie panele Bento): Geometria (8 kafelków, 4x2) | Części Znormalizowane (5 kafelków) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-        {/* Bento 4: Geometria (7 kolumn) */}
-        <section className="lg:col-span-7 bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-4 flex flex-col gap-3 shadow-sm hover:border-zinc-700/60 transition-colors">
-          <div className="flex items-center justify-between pb-1.5 border-b border-zinc-800/50">
-            <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
-              <h2 className="text-zinc-300 text-xs font-bold uppercase tracking-wider">
+      {/* RZĄD 2 (2 proporcjonalne panele Bento): Geometria (9 kafelków, span 6) | Części Znormalizowane (5 kafelków, span 4) */}
+      {/* Siatka 10 kolumn: idealnie wyrównana z Rzędem 1, kafelki mają znormalizowany rozmiar taki jak w Podstawowe */}
+      <div className="grid grid-cols-1 md:grid-cols-10 gap-4">
+        {/* Bento 4: Geometria (span 6) */}
+        <section className="md:col-span-6 bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-4 flex flex-col gap-3 shadow-sm hover:border-zinc-700/60 transition-colors">
+          <div className="h-7 flex items-center justify-between pb-1.5 border-b border-zinc-800/50">
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="w-1.5 h-1.5 rounded-full bg-sky-400 shrink-0" />
+              <h2 className="text-zinc-300 text-xs font-bold uppercase tracking-wider truncate">
                 {t('sections.geometry')}
               </h2>
             </div>
-            <span className="text-[10px] font-mono text-zinc-500 bg-zinc-800/60 px-2 py-0.5 rounded-md border border-zinc-700/40">
+            <span className="text-[10px] font-mono text-zinc-500 bg-zinc-800/60 px-2 py-0.5 rounded-md border border-zinc-700/40 shrink-0">
               {geometryTiles.length}
             </span>
           </div>
-          <div className="grid grid-cols-3 gap-2.5">
+          <div className="grid grid-cols-3 sm:grid-cols-5 gap-2.5">
             {geometryTiles.map(renderTile)}
           </div>
         </section>
 
-        {/* Bento 5: Części Znormalizowane (5 kolumn) */}
-        <section className="lg:col-span-5 bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-4 flex flex-col gap-3 shadow-sm hover:border-zinc-700/60 transition-colors">
-          <div className="flex items-center justify-between pb-1.5 border-b border-zinc-800/50">
-            <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-violet-400" />
-              <h2 className="text-zinc-300 text-xs font-bold uppercase tracking-wider">
+        {/* Bento 5: Części Znormalizowane (span 4) */}
+        <section className="md:col-span-4 bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-4 flex flex-col gap-3 shadow-sm hover:border-zinc-700/60 transition-colors">
+          <div className="h-7 flex items-center justify-between pb-1.5 border-b border-zinc-800/50">
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="w-1.5 h-1.5 rounded-full bg-violet-400 shrink-0" />
+              <h2 className="text-zinc-300 text-xs font-bold uppercase tracking-wider truncate">
                 {t('sections.standardParts')}
               </h2>
             </div>
-            <span className="text-[10px] font-mono text-zinc-500 bg-zinc-800/60 px-2 py-0.5 rounded-md border border-zinc-700/40">
+            <span className="text-[10px] font-mono text-zinc-500 bg-zinc-800/60 px-2 py-0.5 rounded-md border border-zinc-700/40 shrink-0">
               {standardPartsTiles.length}
             </span>
           </div>
-          <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-3 xl:grid-cols-5 gap-2.5">
+          <div className="grid grid-cols-3 gap-2.5">
             {standardPartsTiles.map(renderTile)}
           </div>
         </section>
