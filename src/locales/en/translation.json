@@ -45,6 +45,7 @@
     "hardness": "Hardness",
     "iso2768": "ISO 2768 Tolerances",
     "pcd": "Bolt Circle (PCD)",
+    "pcdMeasure": "PCD Measure",
     "linearHoles": "Angled Hole Row",
     "truePosition": "True Position"
   },
@@ -64,6 +65,7 @@
     "hardness": "Hardness Converter",
     "iso2768": "ISO 2768 Tolerances",
     "pcd": "Bolt Circle Calculator",
+    "pcdMeasure": "PCD Measurement (Bolt Circle)",
     "linearHoles": "Angled Hole Row",
     "truePosition": "True Position Calculator"
   },

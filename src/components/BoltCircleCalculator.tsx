@@ -1,6 +1,7 @@
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Copy } from 'lucide-react';
+import { Copy, Ruler, ArrowRight } from 'lucide-react';
 import InputField from '@/components/InputField';
 import ClearFab from '@/components/ClearFab';
 import usePersistedState from '@/hooks/usePersistedState';
@@ -15,8 +16,23 @@ const INITIAL: Shape = { d: '', n: '', a0: '', x0: '', y0: '' };
 const BoltCircleCalculator = () => {
   const { t } = useTranslation('milling');
   const { u } = useUnits();
-  const { triggerSuccess } = useHaptics();
+  const navigate = useNavigate();
+  const { triggerSuccess, triggerLight } = useHaptics();
+  const [searchParams] = useSearchParams();
   const [inputs, setInputs, reset] = usePersistedState<Shape>('pcd', INITIAL);
+
+  // Odczyt parametrów z URL (np. po przejściu z kalkulatora pomiaru PCD)
+  useEffect(() => {
+    const dParam = searchParams.get('d');
+    const nParam = searchParams.get('n');
+    if (dParam || nParam) {
+      setInputs((prev) => ({
+        ...prev,
+        ...(dParam ? { d: dParam } : {}),
+        ...(nParam ? { n: nParam } : {}),
+      }));
+    }
+  }, [searchParams, setInputs]);
 
   const set = (k: keyof Shape) => (e: React.ChangeEvent<HTMLInputElement>) =>
     setInputs((s) => ({ ...s, [k]: e.target.value }));
@@ -65,7 +81,22 @@ const BoltCircleCalculator = () => {
       <div className="lg:grid lg:grid-cols-[320px_1fr] lg:gap-6 lg:items-start space-y-4 lg:space-y-0">
         {/* Left Column: Inputs */}
         <div className="space-y-4 lg:sticky lg:top-4">
-          <div className="glass-module">
+          <div className="glass-module space-y-4">
+            <button
+              type="button"
+              onClick={() => {
+                triggerLight();
+                navigate('/pomiar-pcd');
+              }}
+              className="w-full flex items-center justify-between px-3 py-2 rounded-xl border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 text-xs font-semibold hover:bg-cyan-500/20 active:scale-98 transition-all group"
+            >
+              <div className="flex items-center gap-2">
+                <Ruler className="w-4 h-4 text-cyan-400 group-hover:scale-110 transition-transform" />
+                <span>{t('pcd.measureLink')}</span>
+              </div>
+              <ArrowRight className="w-3.5 h-3.5 text-cyan-400 shrink-0 group-hover:translate-x-0.5 transition-transform" />
+            </button>
+
             <div className="grid grid-cols-2 gap-4">
               <InputField label={`${t('pcd.d')} [${u.length}]`} value={inputs.d} onChange={set('d')} />
               <InputField label={t('pcd.n')} value={inputs.n} onChange={set('n')} inputMode="numeric" />

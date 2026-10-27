@@ -224,6 +224,37 @@ export const PcdIcon = memo((p: CncIconProps) => (
 PcdIcon.displayName = 'PcdIcon';
 
 /* ------------------------------------------------------------------ */
+/* 8b. Pomiar PCD — okrąg podziałowy z wymiarem rozstawu dwóch otworów */
+/* ------------------------------------------------------------------ */
+export const PcdMeasureIcon = memo((p: CncIconProps) => (
+  <Base {...p}>
+    {/* okrąg konstrukcyjny (średnica podziałowa) */}
+    <circle cx="32" cy="35" r="22" strokeWidth={1.75} strokeDasharray="4 3" opacity={0.5} />
+    {/* otwory podziałowe wokół okręgu */}
+    <circle cx="54" cy="35" r="3.5" fill="currentColor" fillOpacity={0.25} />
+    <circle cx="43" cy="54" r="3.5" fill="currentColor" fillOpacity={0.25} />
+    <circle cx="21" cy="54" r="3.5" fill="currentColor" fillOpacity={0.25} />
+    <circle cx="10" cy="35" r="3.5" fill="currentColor" fillOpacity={0.25} />
+    {/* dwa górne otwory podlegające pomiarowi rozstawu */}
+    <circle cx="21" cy="16" r="4.8" fill="currentColor" fillOpacity={0.4} strokeWidth={2} />
+    <circle cx="43" cy="16" r="4.8" fill="currentColor" fillOpacity={0.4} strokeWidth={2} />
+    {/* linie pomocnicze wymiarowe w górę */}
+    <line x1="21" y1="16" x2="21" y2="7" strokeWidth={1.5} strokeDasharray="2 2" opacity={0.65} />
+    <line x1="43" y1="16" x2="43" y2="7" strokeWidth={1.5} strokeDasharray="2 2" opacity={0.65} />
+    {/* linia wymiarowa ze strzałkami (rozstaw C) */}
+    <line x1="21" y1="9" x2="43" y2="9" strokeWidth={2} />
+    <path d="M24 7 L21 9 L24 11" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M40 7 L43 9 L40 11" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" />
+    {/* środki dwóch mierzonych otworów */}
+    <path d="M19 16 H23 M21 14 V18" strokeWidth={1.5} />
+    <path d="M41 16 H45 M43 14 V18" strokeWidth={1.5} />
+    {/* krzyżak środka okręgu podziałowego */}
+    <path d="M28 35 H36 M32 31 V39" strokeWidth={1.5} opacity={0.6} />
+  </Base>
+));
+PcdMeasureIcon.displayName = 'PcdMeasureIcon';
+
+/* ------------------------------------------------------------------ */
 /* 9. Otwory pod kątem — linia ~30° z kilkoma otworami                 */
 /* ------------------------------------------------------------------ */
 export const AngledHolesIcon = memo((p: CncIconProps) => (

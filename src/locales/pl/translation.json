@@ -45,6 +45,7 @@
     "hardness": "Twardość",
     "iso2768": "Tolerancje ISO 2768",
     "pcd": "Podziałka PCD",
+    "pcdMeasure": "Pomiar PCD",
     "linearHoles": "Otwory pod kątem",
     "truePosition": "Pozycja rzeczywista"
   },
@@ -64,6 +65,7 @@
     "hardness": "Konwerter Twardości",
     "iso2768": "Tolerancje ISO 2768",
     "pcd": "Podziałka otworów na okręgu",
+    "pcdMeasure": "Pomiar średnicy podziałowej (PCD)",
     "linearHoles": "Rząd otworów pod kątem",
     "truePosition": "Pozycja rzeczywista (True Position)"
   },

@@ -135,7 +135,7 @@ export const PcCategorizedMenu = () => {
               {geometryTiles.length}
             </span>
           </div>
-          <div className="grid grid-cols-4 gap-2.5">
+          <div className="grid grid-cols-3 gap-2.5">
             {geometryTiles.map(renderTile)}
           </div>
         </section>

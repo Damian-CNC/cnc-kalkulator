@@ -45,6 +45,7 @@
     "hardness": "Härte",
     "iso2768": "ISO 2768 Toleranzen",
     "pcd": "Lochkreis (PCD)",
+    "pcdMeasure": "PCD-Messung",
     "linearHoles": "Bohrreihe im Winkel",
     "truePosition": "Wahre Position"
   },
@@ -64,6 +65,7 @@
     "hardness": "Härteumrechner",
     "iso2768": "ISO 2768 Toleranzen",
     "pcd": "Lochkreis-Rechner",
+    "pcdMeasure": "Lochkreis aus Messung (PCD)",
     "linearHoles": "Bohrreihe im Winkel",
     "truePosition": "Wahre Position (True Position)"
   },

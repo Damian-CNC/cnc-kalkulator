@@ -45,6 +45,7 @@ const SegerGroovesPage = page(() => import("@/pages/SegerGroovesPage"));
 const KeywaysPage = page(() => import("@/pages/KeywaysPage"));
 const ORingGroovesPage = page(() => import("@/pages/ORingGroovesPage"));
 const BoltCirclePage = page(() => import("@/pages/BoltCirclePage"));
+const PcdMeasurePage = page(() => import("@/pages/PcdMeasurePage"));
 const LinearHolesPage = page(() => import("@/pages/LinearHolesPage"));
 const TruePositionPage = page(() => import("@/pages/TruePositionPage"));
 const MillChamferPage = page(() => import("@/pages/MillChamferPage"));
@@ -262,6 +263,8 @@ const AnimatedRoutes = () => {
               <Route path="/feather-keys" element={<KeywaysPage />} />
               <Route path="/oring" element={<ORingGroovesPage />} />
               <Route path="/pcd" element={<BoltCirclePage />} />
+              <Route path="/pomiar-pcd" element={<PcdMeasurePage />} />
+              <Route path="/pcd-measure" element={<PcdMeasurePage />} />
               <Route path="/otwory-liniowe" element={<LinearHolesPage />} />
               <Route path="/true-position" element={<TruePositionPage />} />
               <Route path="/faza-frezem" element={<MillChamferPage />} />

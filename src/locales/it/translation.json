@@ -45,6 +45,7 @@
     "hardness": "Durezza",
     "iso2768": "Tolleranze ISO 2768",
     "pcd": "Cerchio fori (PCD)",
+    "pcdMeasure": "Misura PCD",
     "linearHoles": "Fila di fori inclinata",
     "truePosition": "Posizione reale"
   },
@@ -64,6 +65,7 @@
     "hardness": "Convertitore Durezza",
     "iso2768": "Tolleranze ISO 2768",
     "pcd": "Calcolatore cerchio fori",
+    "pcdMeasure": "Diametro cerchio fori da misura (PCD)",
     "linearHoles": "Fila di fori inclinata",
     "truePosition": "Posizione reale (True Position)"
   },
