@@ -44,6 +44,7 @@
     "weight": "Weight",
     "hardness": "Hardness",
     "iso2768": "ISO 2768 Tolerances",
+    "helixAngle": "Helix Angle & Shim",
     "pcd": "Bolt Circle (PCD)",
     "pcdMeasure": "PCD Measure",
     "linearHoles": "Angled Hole Row",
@@ -64,6 +65,7 @@
     "weight": "Weight Calculator",
     "hardness": "Hardness Converter",
     "iso2768": "ISO 2768 Tolerances",
+    "helixAngle": "Thread Helix Angle & Anvil Shim",
     "pcd": "Bolt Circle Calculator",
     "pcdMeasure": "PCD Measurement (Bolt Circle)",
     "linearHoles": "Angled Hole Row",
@@ -76,7 +78,8 @@
     "bsp": "BSP Pipe Threads (G)",
     "npt": "NPT Threads (ANSI)",
     "bsw": "BSW Threads (Whitworth)",
-    "bsf": "BSF Threads (British Fine)"
+    "bsf": "BSF Threads (British Fine)",
+    "helixAngle": "Helix Angle & Anvil Shim"
   },
   "params": {
     "speedModule": "Spindle speed & cutting speed",

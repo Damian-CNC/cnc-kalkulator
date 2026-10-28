@@ -26,6 +26,7 @@ const tiles: Tile[] = [
   { id: 'bspt', labelKey: 'tools:bspt.menu', badge: 'R', route: '/threads/bspt', color: 'text-sky-400' },
   { id: 'buttress', labelKey: 'tools:buttress.menu', badge: 'S', route: '/threads/buttress', color: 'text-amber-400' },
   { id: 'pg', labelKey: 'tools:pg.menu', badge: 'Pg', route: '/threads/pg', color: 'text-lime-400' },
+  { id: 'helixAngle', labelKey: 'threads.helixAngle', badge: 'λ', route: '/kat-linii-srubowej', color: 'text-amber-400', isNew: true },
 ];
 
 const ThreadsSubmenuPage = () => {

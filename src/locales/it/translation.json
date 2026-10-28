@@ -44,6 +44,7 @@
     "weight": "Peso",
     "hardness": "Durezza",
     "iso2768": "Tolleranze ISO 2768",
+    "helixAngle": "Angolo d'elica & Sottomussa",
     "pcd": "Cerchio fori (PCD)",
     "pcdMeasure": "Misura PCD",
     "linearHoles": "Fila di fori inclinata",
@@ -64,6 +65,7 @@
     "weight": "Calcolatore Peso",
     "hardness": "Convertitore Durezza",
     "iso2768": "Tolleranze ISO 2768",
+    "helixAngle": "Angolo d'elica del filetto & Sottomussa",
     "pcd": "Calcolatore cerchio fori",
     "pcdMeasure": "Diametro cerchio fori da misura (PCD)",
     "linearHoles": "Fila di fori inclinata",
@@ -76,7 +78,8 @@
     "bsp": "Filettature Gas BSP (G)",
     "npt": "Filettature NPT (ANSI)",
     "bsw": "Filettature BSW (Whitworth)",
-    "bsf": "Filettature BSF (British Fine)"
+    "bsf": "Filettature BSF (British Fine)",
+    "helixAngle": "Angolo d'elica & Sottomussa"
   },
   "params": {
     "speedModule": "Velocità mandrino e di taglio",

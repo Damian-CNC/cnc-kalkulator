@@ -21,6 +21,7 @@ import {
   UndercutIcon,
   PcdIcon,
   PcdMeasureIcon,
+  HelixAngleIcon,
   AngledHolesIcon,
   CirclipIcon,
   KeywayIcon,
@@ -64,6 +65,7 @@ export const ALL_TILES: TileDefinition[] = [
   { id: 'tolerances', labelKey: 'tiles.tolerances', icon: Ruler, route: '/tolerancje' },
   { id: 'threads', labelKey: 'tiles.threads', icon: ThreadIcon, route: '/gwinty' },
   { id: 'iso2768', labelKey: 'tiles.iso2768', icon: CaliperIcon, route: '/tolerancje-iso-2768' },
+  { id: 'helixAngle', labelKey: 'tiles.helixAngle', icon: HelixAngleIcon, route: '/kat-linii-srubowej' },
   { id: 'taper', labelKey: 'tiles.taper', icon: LatheChamferIcon, route: '/kalkulator-stozkow' },
   { id: 'millChamfer', labelKey: 'chamfer:tile', icon: MillChamferIcon, route: '/faza-frezem' },
   { id: 'cone', labelKey: 'tiles.cone', icon: DrillIcon, route: '/stozek' },
@@ -119,6 +121,7 @@ export const MENU_SECTIONS: MenuSection[] = [
       TILE_MAP.get('tolerances')!,
       TILE_MAP.get('threads')!,
       TILE_MAP.get('iso2768')!,
+      TILE_MAP.get('helixAngle')!,
     ],
   },
   {

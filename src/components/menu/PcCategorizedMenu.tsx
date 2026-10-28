@@ -59,9 +59,9 @@ export const PcCategorizedMenu = () => {
 
   return (
     <div className="w-full max-w-6xl flex flex-col gap-4 mb-10 animate-in fade-in duration-300">
-      {/* RZĄD 1 (3 proporcjonalne panele Bento): Podstawowe (3 kafelki, span 3) | Gwinty i Pasowania (3 kafelki, span 3) | Materiały (4 kafelki, span 4) */}
-      {/* Siatka 10 kolumn sprawia, że kafelki we wszystkich trzech sekcjach mają DOKŁADNIE taki sam rozmiar! */}
-      <div className="grid grid-cols-1 md:grid-cols-10 gap-4">
+      {/* RZĄD 1 (3 proporcjonalne panele Bento): Podstawowe (3 kafelki, span 3) | Gwinty i Pasowania (4 kafelki, span 4) | Materiały (4 kafelki, span 4) */}
+      {/* Siatka 11 kolumn sprawia, że kafelki we wszystkich trzech sekcjach mają DOKŁADNIE taki sam rozmiar! */}
+      <div className="grid grid-cols-1 md:grid-cols-11 gap-4">
         {/* Bento 1: Podstawowe (span 3) */}
         <section className="md:col-span-3 bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-4 flex flex-col gap-3 shadow-sm hover:border-zinc-700/60 transition-colors">
           <div className="h-7 flex items-center justify-between pb-1.5 border-b border-zinc-800/50">
@@ -80,8 +80,8 @@ export const PcCategorizedMenu = () => {
           </div>
         </section>
 
-        {/* Bento 2: Gwinty i Pasowania (span 3) */}
-        <section className="md:col-span-3 bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-4 flex flex-col gap-3 shadow-sm hover:border-zinc-700/60 transition-colors">
+        {/* Bento 2: Gwinty i Pasowania (span 4) */}
+        <section className="md:col-span-4 bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-4 flex flex-col gap-3 shadow-sm hover:border-zinc-700/60 transition-colors">
           <div className="h-7 flex items-center justify-between pb-1.5 border-b border-zinc-800/50">
             <div className="flex items-center gap-2 min-w-0">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />
@@ -93,7 +93,7 @@ export const PcCategorizedMenu = () => {
               {threadsTiles.length}
             </span>
           </div>
-          <div className="grid grid-cols-3 gap-2.5">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
             {threadsTiles.map(renderTile)}
           </div>
         </section>
@@ -117,9 +117,9 @@ export const PcCategorizedMenu = () => {
         </section>
       </div>
 
-      {/* RZĄD 2 (2 proporcjonalne panele Bento): Geometria (9 kafelków, span 6) | Części Znormalizowane (5 kafelków, span 4) */}
-      {/* Siatka 10 kolumn: idealnie wyrównana z Rzędem 1, kafelki mają znormalizowany rozmiar taki jak w Podstawowe */}
-      <div className="grid grid-cols-1 md:grid-cols-10 gap-4">
+      {/* RZĄD 2 (2 proporcjonalne panele Bento): Geometria (9 kafelków, span 6) | Części Znormalizowane (5 kafelków, span 5) */}
+      {/* Siatka 11 kolumn: idealnie wyrównana z Rzędem 1, kafelki mają znormalizowany rozmiar taki jak w Podstawowe */}
+      <div className="grid grid-cols-1 md:grid-cols-11 gap-4">
         {/* Bento 4: Geometria (span 6) */}
         <section className="md:col-span-6 bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-4 flex flex-col gap-3 shadow-sm hover:border-zinc-700/60 transition-colors">
           <div className="h-7 flex items-center justify-between pb-1.5 border-b border-zinc-800/50">
@@ -138,8 +138,8 @@ export const PcCategorizedMenu = () => {
           </div>
         </section>
 
-        {/* Bento 5: Części Znormalizowane (span 4) */}
-        <section className="md:col-span-4 bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-4 flex flex-col gap-3 shadow-sm hover:border-zinc-700/60 transition-colors">
+        {/* Bento 5: Części Znormalizowane (span 5) */}
+        <section className="md:col-span-5 bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-4 flex flex-col gap-3 shadow-sm hover:border-zinc-700/60 transition-colors">
           <div className="h-7 flex items-center justify-between pb-1.5 border-b border-zinc-800/50">
             <div className="flex items-center gap-2 min-w-0">
               <span className="w-1.5 h-1.5 rounded-full bg-violet-400 shrink-0" />
@@ -151,7 +151,7 @@ export const PcCategorizedMenu = () => {
               {standardPartsTiles.length}
             </span>
           </div>
-          <div className="grid grid-cols-3 gap-2.5">
+          <div className="grid grid-cols-3 sm:grid-cols-5 gap-2.5">
             {standardPartsTiles.map(renderTile)}
           </div>
         </section>

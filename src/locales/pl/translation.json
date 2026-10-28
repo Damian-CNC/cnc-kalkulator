@@ -44,6 +44,7 @@
     "weight": "Waga",
     "hardness": "Twardość",
     "iso2768": "Tolerancje ISO 2768",
+    "helixAngle": "Kąt wzniosu & Shim",
     "pcd": "Podziałka PCD",
     "pcdMeasure": "Pomiar PCD",
     "linearHoles": "Otwory pod kątem",
@@ -64,6 +65,7 @@
     "weight": "Kalkulator Wagi",
     "hardness": "Konwerter Twardości",
     "iso2768": "Tolerancje ISO 2768",
+    "helixAngle": "Kąt linii śrubowej & Płytka podporowa",
     "pcd": "Podziałka otworów na okręgu",
     "pcdMeasure": "Pomiar średnicy podziałowej (PCD)",
     "linearHoles": "Rząd otworów pod kątem",
@@ -76,7 +78,8 @@
     "bsp": "Gwinty Rurowe BSP (G)",
     "npt": "Gwinty NPT (ANSI)",
     "bsw": "Gwinty BSW (Whitworth)",
-    "bsf": "Gwinty BSF (British Fine)"
+    "bsf": "Gwinty BSF (British Fine)",
+    "helixAngle": "Kąt linii śrubowej & Shim"
   },
   "params": {
     "speedModule": "Obroty & prędkość skrawania",

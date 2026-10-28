@@ -255,6 +255,46 @@ export const PcdMeasureIcon = memo((p: CncIconProps) => (
 PcdMeasureIcon.displayName = 'PcdMeasureIcon';
 
 /* ------------------------------------------------------------------ */
+/* 8c. Kąt linii śrubowej & Płytka podporowa (Thread Helix & Shim)     */
+/* ------------------------------------------------------------------ */
+export const HelixAngleIcon = memo((p: CncIconProps) => (
+  <Base {...p}>
+    {/* Zarys zębów gwintu w przekroju */}
+    <path
+      d="M4 18 L14 38 L24 18 L34 38 L44 18 L54 38 L60 26"
+      strokeWidth={1.75}
+      opacity={0.35}
+    />
+    {/* Linia odniesienia pozioma */}
+    <line x1="6" y1="52" x2="58" y2="52" strokeWidth={1.5} strokeDasharray="3 2" opacity={0.6} />
+    {/* Płytka skrawająca nachylona pod kątem wzniosu gwintu */}
+    <g transform="translate(32 36) rotate(-14) translate(-32 -36)">
+      {/* Płytka trójkątna w przekroju */}
+      <polygon
+        points="32,16 46,44 18,44"
+        fill="currentColor"
+        fillOpacity={0.25}
+        strokeWidth={2}
+      />
+      {/* Otwór centralny płytki */}
+      <circle cx="32" cy="35" r="3.2" strokeWidth={1.5} />
+      {/* Płytka podporowa (shim) pod spodem */}
+      <polygon
+        points="16,46 48,46 46,53 18,53"
+        fill="currentColor"
+        fillOpacity={0.45}
+        strokeWidth={1.75}
+      />
+    </g>
+    {/* Łuk kąta wzniosu lambda na dole po prawej */}
+    <path d="M42 52 A16 16 0 0 0 40 45" strokeWidth={1.75} />
+    {/* Symbol lambda */}
+    <path d="M48 44 L44 54 M45 48 L49 54" strokeWidth={1.5} strokeLinecap="round" />
+  </Base>
+));
+HelixAngleIcon.displayName = 'HelixAngleIcon';
+
+/* ------------------------------------------------------------------ */
 /* 9. Otwory pod kątem — linia ~30° z kilkoma otworami                 */
 /* ------------------------------------------------------------------ */
 export const AngledHolesIcon = memo((p: CncIconProps) => (

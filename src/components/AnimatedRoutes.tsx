@@ -46,6 +46,7 @@ const KeywaysPage = page(() => import("@/pages/KeywaysPage"));
 const ORingGroovesPage = page(() => import("@/pages/ORingGroovesPage"));
 const BoltCirclePage = page(() => import("@/pages/BoltCirclePage"));
 const PcdMeasurePage = page(() => import("@/pages/PcdMeasurePage"));
+const ThreadHelixPage = page(() => import("@/pages/ThreadHelixPage"));
 const LinearHolesPage = page(() => import("@/pages/LinearHolesPage"));
 const TruePositionPage = page(() => import("@/pages/TruePositionPage"));
 const MillChamferPage = page(() => import("@/pages/MillChamferPage"));
@@ -265,6 +266,9 @@ const AnimatedRoutes = () => {
               <Route path="/pcd" element={<BoltCirclePage />} />
               <Route path="/pomiar-pcd" element={<PcdMeasurePage />} />
               <Route path="/pcd-measure" element={<PcdMeasurePage />} />
+              <Route path="/kat-linii-srubowej" element={<ThreadHelixPage />} />
+              <Route path="/helix-angle" element={<ThreadHelixPage />} />
+              <Route path="/plytka-podporowa" element={<ThreadHelixPage />} />
               <Route path="/otwory-liniowe" element={<LinearHolesPage />} />
               <Route path="/true-position" element={<TruePositionPage />} />
               <Route path="/faza-frezem" element={<MillChamferPage />} />

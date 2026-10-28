@@ -44,6 +44,7 @@
     "weight": "Gewicht",
     "hardness": "Härte",
     "iso2768": "ISO 2768 Toleranzen",
+    "helixAngle": "Steigungswinkel & Shim",
     "pcd": "Lochkreis (PCD)",
     "pcdMeasure": "PCD-Messung",
     "linearHoles": "Bohrreihe im Winkel",
@@ -64,6 +65,7 @@
     "weight": "Gewichtsrechner",
     "hardness": "Härteumrechner",
     "iso2768": "ISO 2768 Toleranzen",
+    "helixAngle": "Gewindesteigungswinkel & Unterlegplatte",
     "pcd": "Lochkreis-Rechner",
     "pcdMeasure": "Lochkreis aus Messung (PCD)",
     "linearHoles": "Bohrreihe im Winkel",
@@ -76,7 +78,8 @@
     "bsp": "BSP-Rohrgewinde (G)",
     "npt": "NPT-Gewinde (ANSI)",
     "bsw": "BSW-Gewinde (Whitworth)",
-    "bsf": "BSF-Gewinde (British Fine)"
+    "bsf": "BSF-Gewinde (British Fine)",
+    "helixAngle": "Steigungswinkel & Unterlegplatte"
   },
   "params": {
     "speedModule": "Drehzahl & Schnittgeschwindigkeit",

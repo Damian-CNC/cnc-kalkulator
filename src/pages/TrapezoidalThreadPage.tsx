@@ -1,4 +1,6 @@
 import { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Ruler, ArrowRight } from 'lucide-react';
 import PageLayout from '@/components/PageLayout';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { sanitizeDecimal, selectOnFocus } from '@/lib/numericInput';
@@ -26,6 +28,7 @@ const getCrestClearance = (P: number): number => {
 };
 
 const TrapezoidalThreadPage = () => {
+  const navigate = useNavigate();
   const [dInput, setDInput] = usePersistedState<string>('trap-d', '');
   const [pInput, setPInput] = usePersistedState<string>('trap-p', '');
   const L = useLength('mm');
@@ -180,6 +183,20 @@ const TrapezoidalThreadPage = () => {
                   </p>
                 </>
               )}
+
+              <div className="pt-2 border-t border-zinc-800/60">
+                <button
+                  type="button"
+                  onClick={() => navigate('/kat-linii-srubowej')}
+                  className="w-full flex items-center justify-between px-3 py-2 rounded-xl border border-amber-500/30 bg-amber-500/10 text-amber-300 text-xs font-semibold hover:bg-amber-500/20 active:scale-98 transition-all group"
+                >
+                  <div className="flex items-center gap-2">
+                    <Ruler className="w-4 h-4 text-amber-400 group-hover:scale-110 transition-transform" />
+                    <span>Kąt wzniosu & Płytka podporowa</span>
+                  </div>
+                  <ArrowRight className="w-3.5 h-3.5 text-amber-400 shrink-0 group-hover:translate-x-0.5 transition-transform" />
+                </button>
+              </div>
             </div>
 
             {/* Prawa kolumna: karty wyników */}
