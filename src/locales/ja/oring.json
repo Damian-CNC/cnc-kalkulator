@@ -1,0 +1,20 @@
+{
+  "modeRadial": "静的・ラジアル（円筒面）",
+  "modeAxial": "静的・アキシャル（平面）",
+  "modeDynamic": "動的（運動用）",
+  "cordThickness": "Oリング線径 d₂ [mm]",
+  "sealType": "シール形式",
+  "grooveDimensions": "溝寸法",
+  "depthT": "溝深さ t",
+  "rangeT": "深さ範囲 t",
+  "widthB0": "溝幅 b（バックアップリングなし）",
+  "widthB1": "b — バックアップリング1個",
+  "widthB2": "b — バックアップリング2個",
+  "squeeze": "つぶし代",
+  "radiusR1": "底部コーナーR r₁",
+  "radiusR2": "エッジコーナーR r₂",
+  "chamfer": "導入面取り 15°、長さ",
+  "fillRatio": "溝充填率",
+  "diagram": "溝概略図",
+  "note": "ISO 3601-2 に準拠した参考値。推奨溝充填率: 70〜85 %。"
+}

@@ -1,0 +1,16 @@
+{
+  "diameter": "Diámetro del eje / agujero d [mm]",
+  "widthFit": "Ajuste de anchura b",
+  "outOfRange": "Sin datos para este diámetro. Rango estándar del módulo: 6–75 mm.",
+  "keyDims": "Chaveta b × h",
+  "grooveWidth": "Anchura del chavetero {{fit}}: {{b}} mm ({{upper}} / {{lower}})",
+  "shaft": "Eje",
+  "hub": "Cubo",
+  "depthT1": "Profundidad t₁",
+  "controlDim1": "Cota de control d − t₁",
+  "depthT2": "Profundidad t₂",
+  "controlDim2": "Cota de control d + t₂",
+  "diagram": "Esquema",
+  "hubLabel": "cubo",
+  "table": "Tabla DIN 6885"
+}

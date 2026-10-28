@@ -1,0 +1,15 @@
+{
+  "modeForward": "送り量から表面粗さを計算",
+  "modeReverse": "目標Raから送り量を計算",
+  "cornerRadius": "ノーズR rε [mm]",
+  "feed": "送り f / fz [mm/rev]",
+  "targetRa": "目標 Ra [µm]",
+  "positiveValuesRequired": "正の数値を入力してください。",
+  "surfaceClass": "表面粗さ区分:",
+  "finishing": "仕上げ加工",
+  "standard": "標準",
+  "rough": "荒加工",
+  "isoClasses": "ISO粗さ記号 N1〜N12",
+  "theoreticalFormulas": "理論計算式: Rz ≈ f² / (8·rε) · 1000 · Ra ≈ f² / (32·rε) · 1000",
+  "perRev": "回転"
+}

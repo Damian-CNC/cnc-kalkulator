@@ -1,0 +1,62 @@
+{
+  "tile": "Zrazenie hrán frézou",
+  "title": "Zrazenie hrany na frézke",
+  "inputs": {
+    "holeD": "Priemer diery",
+    "chamfer": "Šírka skosenia (z výkresu)",
+    "toolD": "Priemer zrážača hrán",
+    "angle": "Uhol nástroja (od osi)",
+    "angleHint": "Polovica vrcholového uhla: 30° = nástroj 60°, 45° = 90°, 60° = 120°.",
+    "safety": "Bezpečnostný prídavok"
+  },
+  "results": {
+    "title": "Výsledky",
+    "depth": "Zábeh v osi Z (špička nástroja)",
+    "depthNote": "Hĺbka skosenia {{h}} + prídavok {{s}}",
+    "topDia": "Priemer diery po zrazení",
+    "chamferDepth": "Hĺbka skosenia",
+    "reqTool": "Požadovaný pracovný priemer nástroja",
+    "drLabel": "Korekcia opotrebenia (DR / OFFN)",
+    "drNote": "Tabuľka: R {{r0}} (Ø {{d0}}) + korekcia = aktívny R {{ra}} (Ø {{da}}). Zadajte korekciu v polomere alebo v priemere — podľa toho, v čom pracuje váš riadiaci systém.",
+    "drMissing": "Zadajte priemer zapísaný v tabuľke nástrojov pre výpočet korekcie.",
+    "chamferNoDr": "Nástroj na zrážanie s vlastnou geometriou: niektoré riadiace systémy počítajú záber tohto typu nástroja podľa jeho uhla, nie cez jednoduchý polomer. Považujte hodnotu vyššie za referenčnú a overte ju podľa cyklu/dokumentácie k nástroju.",
+    "contourDia": "Priemer na naprogramovanie",
+    "contourDiaNote": "Toto je priemer diery (jej hrana). Naprogramujte kontúru tohto priemeru a zapnite korekciu polomeru.",
+    "centerDia": "Priemer dráhy stredu nástroja",
+    "centerDiaNote": "Naprogramujte dráhu osi nástroja s týmto priemerom (polomer {{r}} od osi diery). Korekcia polomeru vypnutá (G40).",
+    "drRadius": "v polomere",
+    "drDiameter": "v priemere",
+    "axisPath": "Dráha osi nástroja (po korekcii)"
+  },
+  "warnings": {
+    "toolTooSmall": "Zrážač je príliš malý. Na toto skosenie je potrebný pracovný priemer aspoň {{required}}, nástroj má {{tool}}. Najväčšie skosenie pre tento nástroj: {{max}}.",
+    "safetyTooBig": "Bezpečnostný prídavok je pre túto dieru príliš veľký (max {{max}}). Zmenšite ho.",
+    "invalidAngle": "Uhol nástroja musí byť v rozsahu 1° až 89°.",
+    "drPositive": "Korekcia je kladná — zväčšuje polomer nad hodnotu v tabuľke. Ide o neobvyklú situáciu, pred spustením dvakrát skontrolujte."
+  },
+  "status": {
+    "toolOk": "Nástroj je vyhovujúci (využíva {{used}} z {{tool}} priemeru).",
+    "toolMissing": "Zadajte priemer zrážača hrán na overenie, či je dostatočný."
+  },
+  "empty": "Zadajte priemer diery a šírku skosenia, aby sa zobrazili výsledky.",
+  "diagramTitle": "Prierez",
+  "note": "Predpokladá sa ostrá špička nástroja a nulový bod Z na špičke. Pri nepriechodnej diere sa uistite, že jej hĺbka je väčšia ako Z.",
+  "program": {
+    "title": "Spôsob programovania",
+    "toolModeLabel": "Popis nástroja v riadiacom systéme",
+    "toolModeChamfer": "Zrážač hrán (vlastná geometria v tabuľke)",
+    "toolModeEndmill": "Valcová fréza (nominálny priemer v tabuľke)",
+    "toolModeInfoTitle": "Zrážač hrán alebo stopková fréza?",
+    "toolModeInfoChamfer": "Zrážač hrán: riadiaci systém pozná uhol a geometriu nástroja (samostatný typ v tabuľke). Manuálna korekcia DR zvyčajne nie je potrebná — overte si však v dokumentácii systému, ako s takýmto nástrojom počíta.",
+    "toolModeInfoEndmill": "Valcová fréza: zrážač je zapísaný v tabuľke ako bežná stopková fréza, napr. „Fréza 8” = polomer 4 mm. Reálny pracovný polomer je iný než v tabuľke, preto je potrebná korekcia (Heidenhain: DR; Haas/Fanuc: korekcia polomeru/opotrebenie; Sinumerik: OFFN; Mazatrol: zvyčajne iný priemer v údajoch nástroja).",
+    "toolModeIrrelevant": "V režime „Stred (bez korekcie)” táto voľba nemení výsledok — má význam len pri kompenzácii polomeru.",
+    "tableDia": "Priemer zapísaný v tabuľke (napr. „Fréza 8”)",
+    "pathModeLabel": "Dráha nástroja v programe",
+    "pathModeCenter": "Stred — bez kompenzácie polomeru",
+    "pathModeComp": "Kompenzácia polomeru (RL/RR, G41/G42)",
+    "pathModeInfoTitle": "Stred nástroja alebo kompenzácia?",
+    "pathModeInfoCenter": "Stred (bez kompenzácie): v programe zadávate priamo polomer dráhy osi nástroja. Kompenzácia je vypnutá (G40).",
+    "pathModeInfoComp": "Kompenzácia: v programe zadávate kontúru samotnej hrany diery a riadiaci systém sám odsadí nástroj o jeho aktívny polomer. Heidenhain: RL/RR + DR. Haas/Fanuc: G41/G42 + korekcia polomeru (D). Sinumerik: G41/G42 + OFFN. Mazatrol: zvyčajne stačí zadať priemer v údajoch nástroja."
+  },
+  "verifyNote": "Pred spustením na plný posuv overte pozíciu v režime jednotlivých blokov (single block) alebo v simulácii."
+}

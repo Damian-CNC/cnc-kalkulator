@@ -1,0 +1,70 @@
+{
+  "title": "Calculadora de peso en bruto",
+  "shapes": {
+    "rod": "Barra redonda",
+    "tube": "Tubo",
+    "flat": "Pletina",
+    "square": "Barra cuadrada",
+    "hex": "Barra hexagonal",
+    "rhs": "Tubo rectangular",
+    "angle": "Perfil angular (L)",
+    "channel": "Perfil en U",
+    "tee": "Perfil en T",
+    "ibeam": "Perfil en I"
+  },
+  "fields": {
+    "shape": "Forma del material en bruto",
+    "outerDiameter": "Diámetro exterior [mm]",
+    "innerDiameter": "Diámetro interior [mm]",
+    "length": "Longitud [mm]",
+    "dimensionA": "Dimensión A [mm]",
+    "dimensionB": "Dimensión B [mm]",
+    "material": "Material",
+    "materialSelect": "Seleccionar material",
+    "quantity": "Cantidad",
+    "side": "Lado a [mm]",
+    "acrossFlats": "Entrecaras s [mm]",
+    "height": "Altura H [mm]",
+    "width": "Anchura B [mm]",
+    "wallThickness": "Espesor de pared g [mm]",
+    "legA": "Ala A [mm]",
+    "legB": "Ala B [mm]",
+    "flangeWidth": "Anchura del ala B [mm]",
+    "flangeThickness": "Espesor del ala t [mm]",
+    "webThickness": "Espesor del alma s [mm]"
+  },
+  "result": {
+    "totalWeight": "Peso total",
+    "pieces": "uds.",
+    "volume": "Volumen",
+    "density": "Densidad",
+    "invalid": "Introduce valores válidos"
+  },
+  "clear": "Borrar",
+  "inventory": {
+    "title": "Inventario",
+    "add": "Añadir a la lista",
+    "added": "Elemento añadido a la lista",
+    "empty": "La lista está vacía — añade tu primer elemento.",
+    "remove": "Eliminar elemento",
+    "clearList": "Vaciar lista",
+    "confirmClear": "¿Vaciar toda la lista?",
+    "cleared": "Lista vaciada",
+    "totalWeight": "Peso total",
+    "totalPieces": "Piezas totales"
+  },
+  "materialGroups": {
+    "steel": "Acero estructural (C45, 42CrMo4, S355)",
+    "stainless": "Acero inoxidable / resistente a ácidos (304, 316, 1.4301)",
+    "toolSteel": "Acero para herramientas (D2, O2, trabajo en frío)",
+    "castIron": "Fundición (GJL-250, GJS-500)",
+    "aluminium": "Aluminio (6082, 7075, aleaciones)",
+    "brass": "Latón (CuZn39Pb3)",
+    "bronze": "Bronce (RG7 / B101)",
+    "copper": "Cobre puro (Cu-ETP)",
+    "pomc": "POM-C / Poliacetal",
+    "pa6": "PA6 / Poliamida",
+    "ptfe": "PTFE / Teflón",
+    "peek": "PEEK"
+  }
+}

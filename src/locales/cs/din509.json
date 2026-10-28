@@ -1,0 +1,33 @@
+{
+  "type": "Tvar {{type}}",
+  "entryAngle": "Úhel náběhu:",
+  "exitAngle": "Úhel výběhu:",
+  "radiusR": "r — Poloměr zápichu [mm]",
+  "depthT1": "t₁ — Válcová hloubka [mm]",
+  "select": "— zvolte —",
+  "dimensionsTitle": "Rozměry dle DIN 509",
+  "widthF": "f — Šířka zápichu",
+  "offsetG": "g — Výška na čele",
+  "depthT2": "t₂ — Hloubka na čele",
+  "drawingMark": "Označení na výkrese",
+  "diameterD1": "d₁ — Doporučený průměr",
+  "dimensionsTable": "Tabulka rozměrů DIN 509",
+  "drawingAlt": "Technický výkres DIN 509 tvar {{type}}",
+  "radiusTolerance": "Řada 1 / Řada 2 · tolerance ±0,1 mm",
+  "depthT1Tolerance": "Zápich do průměru hřídele · tolerance +0,1 / 0 mm",
+  "depthT2Tolerance": "Zápich do čela · tolerance +0,05 / 0 mm",
+  "widthFTolerance": "Šířka přechodu · tolerance +0,2 / 0 mm",
+  "offsetGNote": "Přechod na čele · pouze tvary F, G a H",
+  "diameterNote": "Doporučený rozsah průměrů dle normy",
+  "loads": { "normal": "běžné namáhání", "alternating": "zvýšené střídavé namáhání" },
+  "descriptions": {
+    "E": "Pro válcové plochy určené k dalšímu obrábění (broušení). Zápich je proveden pouze na průměru hřídele; čelo zůstává rovné (90°).",
+    "F": "Pro válcové plochy s kolmým čelem (současné broušení hřídele i dosedacího čela).",
+    "G": "Kompaktní válcový a čelní odlehčovací zápich s úhlem náběhu 55° (např. pro vyměnitelné břitové destičky VBD).",
+    "H": "Válcový a čelní zápich se vstupním úhlem 60° a výstupním úhlem 15° – používá se při vyšším střídavém namáhání."
+  },
+  "axis": "osa",
+  "chooseHintPrefix": "Zvolte",
+  "chooseHintMiddle": "a",
+  "chooseHintSuffix": " pro zobrazení zbývajících rozměrů."
+}

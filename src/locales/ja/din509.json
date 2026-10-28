@@ -1,0 +1,36 @@
+{
+  "type": "タイプ {{type}}",
+  "entryAngle": "切込み角:",
+  "exitAngle": "逃げ角:",
+  "radiusR": "r — 逃げ溝R [mm]",
+  "depthT1": "t₁ — 円筒部深さ [mm]",
+  "select": "— 選択 —",
+  "dimensionsTitle": "DIN 509 規格寸法",
+  "widthF": "f — 逃げ溝幅",
+  "offsetG": "g — 端面高さ",
+  "depthT2": "t₂ — 端面部深さ",
+  "drawingMark": "図面指示記号",
+  "diameterD1": "d₁ — 推奨軸径",
+  "dimensionsTable": "DIN 509 寸法表",
+  "drawingAlt": "DIN 509 形状 {{type}} 技術図面",
+  "radiusTolerance": "シリーズ 1 / シリーズ 2 · 公差 ±0.1 mm",
+  "depthT1Tolerance": "軸径への切込み量 · 公差 +0.1 / 0 mm",
+  "depthT2Tolerance": "端面への切込み量 · 公差 +0.05 / 0 mm",
+  "widthFTolerance": "溝幅 · 公差 +0.2 / 0 mm",
+  "offsetGNote": "端面移行部 · 形状 F, G, H のみ",
+  "diameterNote": "規格による推奨軸径範囲",
+  "loads": {
+    "normal": "通常荷重",
+    "alternating": "高交番荷重"
+  },
+  "descriptions": {
+    "E": "研削加工などの後加工を行う円筒面用。逃げ溝は軸の外径面のみに加工され、端面は直角平面（90°）のままとなります。",
+    "F": "直角端面を持つ円筒面用（軸外径と段付き端面を同時研削する場合）。",
+    "G": "切込み角55°のコンパクトな円筒・端面逃げ溝（旋削用インサートチップ加工等に好適）。",
+    "H": "切込み角60°・逃げ角15°の円筒・端面逃げ溝。高い交番荷重を受ける部位に使用。"
+  },
+  "axis": "中心軸",
+  "chooseHintPrefix": "寸法 ",
+  "chooseHintMiddle": "と",
+  "chooseHintSuffix": " を選択すると、残りの寸法が表示されます。"
+}

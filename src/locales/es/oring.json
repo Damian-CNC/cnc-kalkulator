@@ -1,0 +1,20 @@
+{
+  "modeRadial": "Estático radial",
+  "modeAxial": "Estático axial",
+  "modeDynamic": "Dinámico",
+  "cordThickness": "Espesor del cordón d₂ [mm]",
+  "sealType": "Tipo de junta",
+  "grooveDimensions": "Dimensiones de la ranura",
+  "depthT": "Profundidad t",
+  "rangeT": "Rango t",
+  "widthB0": "Anchura b (sin apoyo)",
+  "widthB1": "b — 1 anillo antiextrusión",
+  "widthB2": "b — 2 anillos",
+  "squeeze": "Compresión",
+  "radiusR1": "Radio de fondo r₁",
+  "radiusR2": "Radio de arista r₂",
+  "chamfer": "Chaflán de entrada 15°, longitud",
+  "fillRatio": "Grado de llenado de la ranura",
+  "diagram": "Esquema del alojamiento",
+  "note": "Valores aproximados según ISO 3601-2. Llenado recomendado de ranura: 70–85 %."
+}

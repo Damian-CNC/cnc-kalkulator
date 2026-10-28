@@ -1,0 +1,15 @@
+{
+  "modeForward": "Drsnost z posuvu",
+  "modeReverse": "Posuv z cílového Ra",
+  "cornerRadius": "Poloměr špičky rε [mm]",
+  "feed": "Posuv f / fz [mm/ot]",
+  "targetRa": "Cílové Ra [µm]",
+  "positiveValuesRequired": "Zadejte kladné hodnoty.",
+  "surfaceClass": "Třída povrchu:",
+  "finishing": "Dokončovací",
+  "standard": "Standardní",
+  "rough": "Hrubovací",
+  "isoClasses": "Třídy ISO N1–N12",
+  "theoreticalFormulas": "Teoretické vzorce: Rz ≈ f² / (8·rε) · 1000 · Ra ≈ f² / (32·rε) · 1000",
+  "perRev": "ot"
+}

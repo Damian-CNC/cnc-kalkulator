@@ -1,0 +1,62 @@
+{
+  "tile": "Sražení frézou",
+  "title": "Sražení na frézce",
+  "inputs": {
+    "holeD": "Průměr otvoru",
+    "chamfer": "Šířka sražení (z výkresu)",
+    "toolD": "Průměr srážecí frézy",
+    "angle": "Úhel nástroje (od osy)",
+    "angleHint": "Polovina vrcholového úhlu: 30° = fréza 60°, 45° = 90°, 60° = 120°.",
+    "safety": "Bezpečnostní přesah"
+  },
+  "results": {
+    "title": "Výsledky",
+    "depth": "Hloubka zapíchnutí Z (špička nástroje)",
+    "depthNote": "Hloubka sražení {{h}} + přesah {{s}}",
+    "topDia": "Průměr otvoru po sražení",
+    "chamferDepth": "Hloubka sražení",
+    "reqTool": "Požadovaný pracovní průměr nástroje",
+    "drLabel": "Korekce opotřebení (DR / OFFN)",
+    "drNote": "Tabulka: R {{r0}} (Ø {{d0}}) + korekce = aktivní R {{ra}} (Ø {{da}}). Zadejte korekci v poloměru nebo v průměru podle toho, v čem pracuje váš řídicí systém.",
+    "drMissing": "Zadejte průměr zapsaný v tabulce pro výpočet korekce.",
+    "chamferNoDr": "Srážecí fréza s vlastní geometrií: některé řídicí systémy počítají záběr tohoto nástroje podle vlastního úhlu, nikoli prostého poloměru. Výše uvedenou hodnotu berte jako orientační a ověřte ji dle cyklu/dokumentace pro daný nástroj.",
+    "contourDia": "Průměr pro naprogramování",
+    "contourDiaNote": "Jedná se o průměr otvoru (jeho hranu). Naprogramujte konturu o tomto průměru a zapněte korekci poloměru.",
+    "centerDia": "Průměr dráhy středu nástroje",
+    "centerDiaNote": "Naprogramujte dráhu osy nástroje o tomto průměru (poloměr {{r}} od osy otvoru). Korekce poloměru vypnuta (G40).",
+    "drRadius": "v poloměru",
+    "drDiameter": "v průměru",
+    "axisPath": "Dráha osy nástroje (po korekci)"
+  },
+  "warnings": {
+    "toolTooSmall": "Srážecí fréza je příliš malá. Pro toto sražení je nutný pracovní průměr alespoň {{required}}, nástroj má {{tool}}. Největší sražení pro tento nástroj: {{max}}.",
+    "safetyTooBig": "Bezpečnostní přesah je pro tento otvor příliš velký (max. {{max}}). Zmenšete jej.",
+    "invalidAngle": "Úhel nástroje musí být v rozmezí 1° až 89°.",
+    "drPositive": "Korekce je kladná — zvětšuje poloměr nad hodnotu z tabulky. To je neobvyklé, před spuštěním raději zkontrolujte."
+  },
+  "status": {
+    "toolOk": "Nástroj je dostatečný (využívá {{used}} z {{tool}} průměru).",
+    "toolMissing": "Zadejte průměr srážecí frézy pro ověření, zda je dostatečný."
+  },
+  "empty": "Zadejte průměr otvoru a šířku sražení pro zobrazení výsledků.",
+  "diagramTitle": "Řez",
+  "note": "Předpokládá se ostrá špička nástroje a nulový bod Z na špičce. U slepých otvorů se ujistěte, že je otvor hlubší než Z.",
+  "program": {
+    "title": "Způsob programování",
+    "toolModeLabel": "Definice nástroje v řídicím systému",
+    "toolModeChamfer": "Srážecí fréza (vlastní geometrie v tabulce)",
+    "toolModeEndmill": "Stopková fréza (nominální průměr v tabulce)",
+    "toolModeInfoTitle": "Srážecí fréza nebo stopková fréza?",
+    "toolModeInfoChamfer": "Srážecí fréza: řídicí systém zná úhel a geometrii nástroje (samostatný záznam v tabulce). Ruční korekce DR obvykle není nutná, ale zkontrolujte v dokumentaci vašeho systému, jak tento nástroj zpracovává.",
+    "toolModeInfoEndmill": "Stopková fréza: srážecí fréza je v tabulce zapsána jako běžná stopková fréza, např. „Fréza 8” = poloměr 4 mm. Skutečný pracovní poloměr se liší od tabulkového, proto je nutná korekce (Heidenhain: DR; Haas/Fanuc: korekce poloměru / wear offset; Sinumerik: OFFN; Mazatrol: obvykle jiný průměr v datech nástroje).",
+    "toolModeIrrelevant": "V režimu „Střed (bez korekce)” tato volba výsledek nemění — uplatní se pouze při korekci poloměru.",
+    "tableDia": "Průměr zapsaný v tabulce (např. „Fréza 8”)",
+    "pathModeLabel": "Dráha nástroje v programu",
+    "pathModeCenter": "Střed — bez korekce poloměru",
+    "pathModeComp": "Korekce poloměru (RL/RR, G41/G42)",
+    "pathModeInfoTitle": "Střed nástroje nebo korekce?",
+    "pathModeInfoCenter": "Střed (bez korekce): program přímo zadává poloměr dráhy osy nástroje. Korekce je vypnuta (G40).",
+    "pathModeInfoComp": "Korekce: program zadává samotnou konturu hrany otvoru a řídicí systém sám odsadí nástroj o aktivní poloměr. Heidenhain: RL/RR + DR. Haas/Fanuc: G41/G42 + korekce poloměru (D). Sinumerik: G41/G42 + OFFN. Mazatrol: obvykle stačí zadat průměr nástroje v datech nástroje."
+  },
+  "verifyNote": "Před spuštěním na plný posuv ověřte polohu v krokovém režimu (single block) nebo v simulaci."
+}

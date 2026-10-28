@@ -31,6 +31,13 @@
       "update": "Update",
       "fix": "Fix"
     },
+    "v310": [
+      "New Thread Helix Angle and Anvil Shim calculator for thread turning with flank collision clearance check",
+      "New Pitch Circle Diameter (PCD) measurement calculator using calipers with step-by-step measurement guide",
+      "Added 4 new languages: Spanish (ES), Japanese (JA), Czech (CS), and Slovak (SK)",
+      "Unified PC Bento menu grid, normalized icon sizing across all categories, and optimized desktop workspace",
+      "Dedicated horizontal Split View layout for True Position calculator"
+    ],
     "v300": [
       "New desktop PC (1080p) interface: Bento Master Grid on home screen and Split View (left: controls, right: results) for all calculators",
       "Optimized proportions and scaling for 1080p desktop workshop screens",

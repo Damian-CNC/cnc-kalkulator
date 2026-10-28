@@ -1,0 +1,12 @@
+{
+  "hex": "Hexágono",
+  "square": "Cuadrado",
+  "fields": {
+    "s": "Entrecaras S [mm]",
+    "d": "Diagonal / Diámetro mín. eje D [mm]"
+  },
+  "formula": {
+    "hex": "Hexágono: D = 2·S / √3",
+    "square": "Cuadrado: D = S · √2"
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "title": "Kalkulačka hmotnosti polotovaru",
+  "shapes": {
+    "rod": "Kruhová tyč (guľatina)",
+    "tube": "Rúrka",
+    "flat": "Plochá tyč (pásovina)",
+    "square": "Štvorcová tyč",
+    "hex": "Šesťhranná tyč",
+    "rhs": "Jäkel / Dutý profil",
+    "angle": "Uholník (L-profil)",
+    "channel": "U-profil",
+    "tee": "T-profil",
+    "ibeam": "I-profil"
+  },
+  "fields": {
+    "shape": "Tvar polotovaru",
+    "outerDiameter": "Vonkajší priemer [mm]",
+    "innerDiameter": "Vnútorný priemer [mm]",
+    "length": "Dĺžka [mm]",
+    "dimensionA": "Rozmer A [mm]",
+    "dimensionB": "Rozmer B [mm]",
+    "material": "Materiál",
+    "materialSelect": "Vyberte materiál",
+    "quantity": "Počet kusov",
+    "side": "Strana a [mm]",
+    "acrossFlats": "Rozmer kľúča s [mm]",
+    "height": "Výška H [mm]",
+    "width": "Šírka B [mm]",
+    "wallThickness": "Hrúbka steny g [mm]",
+    "legA": "Rameno A [mm]",
+    "legB": "Rameno B [mm]",
+    "flangeWidth": "Šírka príruby B [mm]",
+    "flangeThickness": "Hrúbka príruby t [mm]",
+    "webThickness": "Hrúbka stojiny s [mm]"
+  },
+  "result": {
+    "totalWeight": "Celková hmotnosť",
+    "pieces": "ks",
+    "volume": "Objem",
+    "density": "Hustota",
+    "invalid": "Zadajte platné hodnoty"
+  },
+  "clear": "Vymazať",
+  "inventory": {
+    "title": "Súpis materiálu",
+    "add": "Pridať do zoznamu",
+    "added": "Položka bola pridaná do zoznamu",
+    "empty": "Zoznam je prázdny — pridajte prvú položku.",
+    "remove": "Odstrániť položku",
+    "clearList": "Vyčistiť zoznam",
+    "confirmClear": "Naozaj chcete vymazať celý zoznam?",
+    "cleared": "Zoznam bol vyčistený",
+    "totalWeight": "Celková hmotnosť",
+    "totalPieces": "Celkový počet kusov"
+  },
+  "materialGroups": {
+    "steel": "Konštrukčná oceľ (C45, 42CrMo4, S355)",
+    "stainless": "Nerezová / Žiaruvzdorná oceľ (304, 316, 1.4301)",
+    "toolSteel": "Nástrojová oceľ (D2, O2, na prácu za studena)",
+    "castIron": "Liatina sivá / tvárna (GJL-250, GJS-500)",
+    "aluminium": "Hliník (6082, 7075, zliatiny)",
+    "brass": "Mosadz (CuZn39Pb3, Ms58)",
+    "bronze": "Bronz (RG7 / CuSn7Zn4Pb7)",
+    "copper": "Čistá meď (Cu-ETP)",
+    "pomc": "POM-C / Polyacetál",
+    "pa6": "PA6 / Polyamid (Silon)",
+    "ptfe": "PTFE / Teflon",
+    "peek": "PEEK"
+  }
+}

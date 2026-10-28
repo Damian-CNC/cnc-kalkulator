@@ -1,0 +1,22 @@
+{
+  "nominalDimension": "基準寸法 (mm)",
+  "nominalPlaceholder": "例: 25",
+  "hole": "🕳️ 穴 (A〜ZC)",
+  "shaft": "🔩 軸 (a〜zc)",
+  "toleranceLetter": "公差域クラス記号",
+  "letterPlaceholder": "記号",
+  "itClass": "IT公差等級",
+  "itPlaceholder": "IT",
+  "rangeInfo": "寸法区分: {{range}} mm · IT{{it}} = {{value}} μm",
+  "deviations": "寸法許容差",
+  "upperDeviation": "上の寸法許容差 (ES/es)",
+  "lowerDeviation": "下の寸法許容差 (EI/ei)",
+  "finalDimension": "許容限界寸法",
+  "max": "最大",
+  "min": "最小",
+  "toleranceCenter": "公差中央値（狙い値）",
+  "aimHere": "↑ ここを狙う",
+  "footerNote": "ISO 286-1（JIS B 0401）準拠の計算 · 標準公差単位 i = 0.45·D¹ᐟ³ + 0.001·D",
+  "noDataForCombination": "この組み合わせのデータはありません。寸法範囲（0〜3150 mm）を確認してください。",
+  "enterNominalPrompt": "公差を計算するには基準寸法を入力してください。"
+}

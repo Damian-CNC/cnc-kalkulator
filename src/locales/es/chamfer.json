@@ -1,0 +1,62 @@
+{
+  "tile": "Chaflán fresado",
+  "title": "Achaflanado en fresadora",
+  "inputs": {
+    "holeD": "Diámetro del agujero",
+    "chamfer": "Anchura del chaflán (según plano)",
+    "toolD": "Diámetro de la fresa de achaflanar",
+    "angle": "Ángulo de la herramienta (respecto al eje)",
+    "angleHint": "Mitad del ángulo de punta: 30° = fresa de 60°, 45° = 90°, 60° = 120°.",
+    "safety": "Margen de seguridad"
+  },
+  "results": {
+    "title": "Resultados",
+    "depth": "Profundidad de penetración Z (punta de la herramienta)",
+    "depthNote": "Profundidad del chaflán {{h}} + margen {{s}}",
+    "topDia": "Diámetro del agujero tras achaflanar",
+    "chamferDepth": "Profundidad del chaflán",
+    "reqTool": "Diámetro de trabajo requerido de la herramienta",
+    "drLabel": "Corrección de desgaste (DR / OFFN)",
+    "drNote": "Tabla: R {{r0}} (Ø {{d0}}) + corrección = R activo {{ra}} (Ø {{da}}). Introduce la corrección en radio o en diámetro, según trabaje tu control numérico.",
+    "drMissing": "Introduce el diámetro registrado en la tabla de herramientas para calcular la corrección.",
+    "chamferNoDr": "Fresa de achaflanar dedicada: algunos controles calculan el contacto de este tipo de herramienta a partir de su propio ángulo, no de un radio simple. Considera el valor anterior como referencia y verifícalo con el ciclo/documentación de la herramienta.",
+    "contourDia": "Diámetro a programar",
+    "contourDiaNote": "Es el diámetro del agujero (su arista). Programa un contorno con este diámetro y activa la compensación de radio.",
+    "centerDia": "Diámetro de la trayectoria del centro de la herramienta",
+    "centerDiaNote": "Programa la trayectoria del eje de la herramienta con este diámetro (radio {{r}} desde el eje del agujero). Compensación de radio desactivada (G40).",
+    "drRadius": "en radio",
+    "drDiameter": "en diámetro",
+    "axisPath": "Trayectoria del eje de la herramienta (tras compensación)"
+  },
+  "warnings": {
+    "toolTooSmall": "La fresa de achaflanar es demasiado pequeña. Este chaflán requiere un diámetro de trabajo de al menos {{required}}, la herramienta tiene {{tool}}. Chaflán máximo para esta herramienta: {{max}}.",
+    "safetyTooBig": "El margen de seguridad es excesivo para este agujero (máx. {{max}}). Redúcelo.",
+    "invalidAngle": "El ángulo de la herramienta debe estar entre 1° y 89°.",
+    "drPositive": "La corrección es positiva: aumenta el radio por encima del valor de la tabla. Es una situación inusual, compruébalo bien antes de ejecutar."
+  },
+  "status": {
+    "toolOk": "La herramienta es adecuada (utiliza {{used}} del diámetro {{tool}}).",
+    "toolMissing": "Introduce el diámetro de la fresa de achaflanar para comprobar si es suficiente."
+  },
+  "empty": "Introduce el diámetro del agujero y la anchura del chaflán para ver los resultados.",
+  "diagramTitle": "Sección transversal",
+  "note": "Se asume punta de herramienta afilada y origen Z en la punta. Para agujeros ciegos, comprueba que la profundidad del agujero sea mayor que Z.",
+  "program": {
+    "title": "Método de programación",
+    "toolModeLabel": "Cómo está definida la herramienta en el control",
+    "toolModeChamfer": "Fresa de achaflanar (geometría propia en tabla)",
+    "toolModeEndmill": "Fresa cilíndrica (diámetro nominal en tabla)",
+    "toolModeInfoTitle": "¿Fresa de achaflanar o fresa cilíndrica?",
+    "toolModeInfoChamfer": "Fresa de achaflanar: el control conoce el ángulo y la geometría de la herramienta (entrada dedicada en la tabla). Generalmente no se requiere corrección DR manual, pero consulta la documentación de tu control sobre cómo gestiona este tipo de herramienta.",
+    "toolModeInfoEndmill": "Fresa cilíndrica: la fresa de achaflanar está registrada en la tabla como una fresa convencional, p. ej. \"Fresa 8\" = radio de 4 mm. El radio de trabajo real difiere del valor en tabla, por lo que se requiere una corrección (Heidenhain: DR; Haas/Fanuc: corrector de radio/desgaste; Sinumerik: OFFN; Mazatrol: normalmente un diámetro diferente en los datos de herramienta).",
+    "toolModeIrrelevant": "En el modo \"Centro (sin compensación)\" esta elección no cambia el resultado; solo influye con la compensación de radio activada.",
+    "tableDia": "Diámetro registrado en la tabla (p. ej. \"Fresa 8\")",
+    "pathModeLabel": "Trayectoria de herramienta en el programa",
+    "pathModeCenter": "Centro — sin compensación de radio",
+    "pathModeComp": "Compensación de radio (RL/RR, G41/G42)",
+    "pathModeInfoTitle": "¿Centro de herramienta o compensación?",
+    "pathModeInfoCenter": "Centro (sin compensación): el programa indica directamente el radio de la trayectoria del centro de la herramienta. La compensación está desactivada (G40).",
+    "pathModeInfoComp": "Compensación: el programa define el contorno de la arista del agujero, y el control desplaza la herramienta según su radio activo. Heidenhain: RL/RR + DR. Haas/Fanuc: G41/G42 + corrector de radio (D). Sinumerik: G41/G42 + OFFN. Mazatrol: habitualmente basta con introducir el diámetro en los datos de herramienta."
+  },
+  "verifyNote": "Antes de ejecutar a avance real, verifica la posición bloque a bloque o en simulación."
+}

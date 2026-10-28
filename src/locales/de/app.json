@@ -31,6 +31,13 @@
       "update": "Update",
       "fix": "Fix"
     },
+    "v310": [
+      "Neuer Rechner für Gewindesteigungswinkel und Zwischenlage (Amboss-Unterlegplatte) beim Gewindedrehen mit Flankenfreiwinkel-Prüfung",
+      "Neuer Lochkreis-Durchmesser (TKD/PCD) Messrechner mit Messschieber und Schritt-für-Schritt-Anleitung",
+      "4 neue Sprachen hinzugefügt: Spanisch (ES), Japanisch (JA), Tschechisch (CS) und Slowakisch (SK)",
+      "PC-Bento-Menüraster vereinheitlicht, einheitliche Symbolgrößen über alle Kategorien und optimierte Desktop-Ansicht",
+      "Dediziertes horizontales Split-View-Layout für den Rechner der wahren Position (True Position)"
+    ],
     "v300": [
       "Neue Desktop-Oberfläche (1080p): Bento Master Grid im Hauptmenü und Split-View-Layout (links: Steuerung, rechts: Ergebnisse) für alle Rechner",
       "Neuer HeliCoil-Gewinderechner (EG M) mit Bohrungs-, Toleranz- und Längendaten",

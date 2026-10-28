@@ -1,0 +1,12 @@
+{
+  "hex": "Šestihran",
+  "square": "Čtyřhran",
+  "fields": {
+    "s": "Rozměr klíče S [mm]",
+    "d": "Úhlopříčka / Min. hřídel D [mm]"
+  },
+  "formula": {
+    "hex": "Šestihran: D = 2·S / √3",
+    "square": "Čtyřhran: D = S · √2"
+  }
+}

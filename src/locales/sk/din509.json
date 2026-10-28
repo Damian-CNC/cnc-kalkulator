@@ -1,0 +1,36 @@
+{
+  "type": "Tvar {{type}}",
+  "entryAngle": "Uhol nábehu:",
+  "exitAngle": "Uhol výbehu:",
+  "radiusR": "r — Polomer zápichu [mm]",
+  "depthT1": "t₁ — Hĺbka valcová [mm]",
+  "select": "— zvoľte —",
+  "dimensionsTitle": "Rozmery z normy DIN 509",
+  "widthF": "f — Šírka zápichu",
+  "offsetG": "g — Výška na čele",
+  "depthT2": "t₂ — Hĺbka čelná",
+  "drawingMark": "Označenie na výkrese",
+  "diameterD1": "d₁ — Odporúčaný priemer",
+  "dimensionsTable": "Tabuľka rozmerov DIN 509",
+  "drawingAlt": "Technický výkres DIN 509 tvaru {{type}}",
+  "radiusTolerance": "Rad 1 / Rad 2 · tolerancia ±0,1 mm",
+  "depthT1Tolerance": "Zápich do priemeru hriadeľa · tolerancia +0,1 / 0 mm",
+  "depthT2Tolerance": "Zápich do čela · tolerancia +0,05 / 0 mm",
+  "widthFTolerance": "Šírka prechodu · tolerancia +0,2 / 0 mm",
+  "offsetGNote": "Prechod na čele · len tvary F, G a H",
+  "diameterNote": "Odporúčaný rad priemerov podľa normy",
+  "loads": {
+    "normal": "bežné zaťaženie",
+    "alternating": "zvýšené striedavé zaťaženie"
+  },
+  "descriptions": {
+    "E": "Pre valcové plochy určené na následné obrábanie (brúsenie). Odľahčovací zápich sa vytvára len na priemere hriadeľa; čelo zostáva rovné (90°).",
+    "F": "Pre valcové plochy s kolmým osadením (súčasné brúsenie valcovej plochy a čela osadenia).",
+    "G": "Kompaktný valcovo-čelný zápich s uhlom nábehu 55° (napr. pre vymeniteľné rezné doštičky).",
+    "H": "Valcovo-čelný zápich s uhlom nábehu 60° a výbehu 15°, používaný pri zvýšenom striedavom zaťažení."
+  },
+  "axis": "os",
+  "chooseHintPrefix": "Zvoľte",
+  "chooseHintMiddle": "a",
+  "chooseHintSuffix": " na načítanie zvyšných rozmerov."
+}

@@ -1,0 +1,15 @@
+{
+  "modeForward": "Rugosidad según avance",
+  "modeReverse": "Avance según Ra objetivo",
+  "cornerRadius": "Radio de punta rε [mm]",
+  "feed": "Avance f / fz [mm/rev]",
+  "targetRa": "Ra objetivo [µm]",
+  "positiveValuesRequired": "Introduce valores positivos.",
+  "surfaceClass": "Clase de superficie:",
+  "finishing": "Acabado",
+  "standard": "Estándar",
+  "rough": "Desbaste",
+  "isoClasses": "Clases ISO N1–N12",
+  "theoreticalFormulas": "Fórmulas teóricas: Rz ≈ f² / (8·rε) · 1000 · Ra ≈ f² / (32·rε) · 1000",
+  "perRev": "rev"
+}

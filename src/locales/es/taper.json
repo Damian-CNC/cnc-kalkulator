@@ -1,0 +1,18 @@
+{
+  "toolHint": "Herramienta para torneros",
+  "axis": "eje",
+  "angleLabel": "Ángulo α/2",
+  "fields": {
+    "d1": "D1 — Diám. mayor (mm)",
+    "d2": "D2 — Diám. menor (mm)",
+    "l": "L — Longitud (mm)",
+    "halfAngle": "α/2 — Ángulo de inclinación (°)"
+  },
+  "clearAll": "Borrar todo",
+  "result": {
+    "fullAngle": "Ángulo total (α)",
+    "settingAngle": "Ángulo de inclinación (α/2) — para la máquina",
+    "taper": "Conicidad"
+  },
+  "hint": "Rellena 3 de los 4 campos — el cuarto se calculará automáticamente."
+}

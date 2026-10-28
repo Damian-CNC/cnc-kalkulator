@@ -1,0 +1,36 @@
+{
+  "type": "Tipo {{type}}",
+  "entryAngle": "Ángulo de entrada:",
+  "exitAngle": "Ángulo de salida:",
+  "radiusR": "r — Radio del desahogo [mm]",
+  "depthT1": "t₁ — Profundidad cilíndrica [mm]",
+  "select": "— seleccionar —",
+  "dimensionsTitle": "Dimensiones según DIN 509",
+  "widthF": "f — Anchura del desahogo",
+  "offsetG": "g — Altura frontal",
+  "depthT2": "t₂ — Profundidad frontal",
+  "drawingMark": "Designación en plano",
+  "diameterD1": "d₁ — Diámetro recomendado",
+  "dimensionsTable": "Tabla de dimensiones DIN 509",
+  "drawingAlt": "Dibujo técnico DIN 509 forma {{type}}",
+  "radiusTolerance": "Serie 1 / Serie 2 · tolerancia ±0,1 mm",
+  "depthT1Tolerance": "Rebaje en el diámetro del eje · tolerancia +0,1 / 0 mm",
+  "depthT2Tolerance": "Rebaje en la cara frontal · tolerancia +0,05 / 0 mm",
+  "widthFTolerance": "Anchura de transición · tolerancia +0,2 / 0 mm",
+  "offsetGNote": "Transición frontal · solo formas F, G y H",
+  "diameterNote": "Rango de diámetro estándar recomendado",
+  "loads": {
+    "normal": "cargas normales",
+    "alternating": "cargas alternas elevadas"
+  },
+  "descriptions": {
+    "E": "Para superficies cilíndricas destinadas a un mecanizado posterior (rectificado). El desahogo se realiza únicamente en el diámetro del eje; la cara frontal permanece plana (90°).",
+    "F": "Para superficies cilíndricas con cara frontal perpendicular (rectificado simultáneo del eje y del resalte frontal).",
+    "G": "Desahogo cilíndrico-frontal compacto con ángulo de entrada de 55° (p. ej. para plaquitas de torneado).",
+    "H": "Desahogo cilíndrico-frontal con ángulo de entrada de 60° y de salida de 15°, utilizado bajo cargas alternas elevadas."
+  },
+  "axis": "eje",
+  "chooseHintPrefix": "Selecciona",
+  "chooseHintMiddle": "y",
+  "chooseHintSuffix": " para consultar las dimensiones restantes."
+}

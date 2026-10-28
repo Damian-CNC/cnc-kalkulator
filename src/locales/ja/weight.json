@@ -1,0 +1,70 @@
+{
+  "title": "素材重量計算",
+  "shapes": {
+    "rod": "丸棒",
+    "tube": "丸パイプ",
+    "flat": "平鋼（フラットバー）",
+    "square": "角棒",
+    "hex": "六角棒",
+    "rhs": "角パイプ",
+    "angle": "アングル（山形鋼）",
+    "channel": "チャンネル（溝形鋼）",
+    "tee": "T形鋼",
+    "ibeam": "I形鋼"
+  },
+  "fields": {
+    "shape": "素材形状",
+    "outerDiameter": "外径 [mm]",
+    "innerDiameter": "内径 [mm]",
+    "length": "長さ [mm]",
+    "dimensionA": "寸法 A [mm]",
+    "dimensionB": "寸法 B [mm]",
+    "material": "材質",
+    "materialSelect": "材質を選択",
+    "quantity": "数量",
+    "side": "辺長 a [mm]",
+    "acrossFlats": "二面幅 s [mm]",
+    "height": "高さ H [mm]",
+    "width": "幅 B [mm]",
+    "wallThickness": "肉厚 g [mm]",
+    "legA": "辺 A [mm]",
+    "legB": "辺 B [mm]",
+    "flangeWidth": "フランジ幅 B [mm]",
+    "flangeThickness": "フランジ厚 t [mm]",
+    "webThickness": "ウェブ厚 s [mm]"
+  },
+  "result": {
+    "totalWeight": "総重量",
+    "pieces": "個",
+    "volume": "体積",
+    "density": "密度",
+    "invalid": "有効な数値を入力してください"
+  },
+  "clear": "クリア",
+  "inventory": {
+    "title": "重量集計リスト",
+    "add": "リストに追加",
+    "added": "リストに追加しました",
+    "empty": "リストは空です。最初の項目を追加してください。",
+    "remove": "項目を削除",
+    "clearList": "リストをクリア",
+    "confirmClear": "リスト全体を消去しますか？",
+    "cleared": "リストをクリアしました",
+    "totalWeight": "合計重量",
+    "totalPieces": "合計数量"
+  },
+  "materialGroups": {
+    "steel": "構造用鋼 (C45, S45C, 42CrMo4, S355)",
+    "stainless": "ステンレス鋼 (SUS304, SUS316, 1.4301)",
+    "toolSteel": "工具鋼 (SKD11/D2, SKS3/O2, 冷間金型鋼)",
+    "castIron": "鋳鉄 (FC250/GJL-250, FCD500/GJS-500)",
+    "aluminium": "アルミニウム合金 (A6082, A7075, 合金)",
+    "brass": "黄銅 / 真鍮 (C3604 / CuZn39Pb3)",
+    "bronze": "青銅 (BC6 / RG7 / B101)",
+    "copper": "純銅 (C1100 / Cu-ETP)",
+    "pomc": "POM-C / ポリアセタール",
+    "pa6": "PA6 / ポリアミド（ナイロン）",
+    "ptfe": "PTFE / テフロン",
+    "peek": "PEEK"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "toolHint": "Nástroj pro soustružníky",
+  "axis": "osa",
+  "angleLabel": "Úhel α/2",
+  "fields": {
+    "d1": "D1 — Větší průměr (mm)",
+    "d2": "D2 — Menší průměr (mm)",
+    "l": "L — Délka (mm)",
+    "halfAngle": "α/2 — Úhel nastavení (°)"
+  },
+  "clearAll": "Vymazat vše",
+  "result": {
+    "fullAngle": "Plný úhel (α)",
+    "settingAngle": "Úhel nastavení (α/2) — pro stroj",
+    "taper": "Kuželovitost"
+  },
+  "hint": "Vyplňte libovolná 3 ze 4 polí — čtvrté bude vypočítáno automaticky."
+}

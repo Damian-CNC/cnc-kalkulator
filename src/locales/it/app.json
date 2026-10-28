@@ -31,6 +31,13 @@
       "update": "Aggiornamento",
       "fix": "Correzione"
     },
+    "v310": [
+      "Nuovo calcolatore dell'angolo d'elica della filettatura e scelta della piastrina di supporto (anvil shim) per tornitura con controllo collisione fianchi",
+      "Nuovo calcolatore diametro primitivo (PCD) da misura con calibro con guida passo-passo",
+      "Aggiunte 4 nuove lingue: Spagnolo (ES), Giapponese (JA), Ceco (CS) e Slovacco (SK)",
+      "Griglia Bento PC unificata, dimensioni delle icone normalizzate e ottimizzazione dell'area di lavoro",
+      "Layout Split View orizzontale dedicato per il calcolatore di Posizione Vera (True Position)"
+    ],
     "v300": [
       "Nuova interfaccia desktop PC (1080p): Bento Master Grid nel menu principale e layout Split View (sinistra: controlli, destra: risultati) per tutte le calcolatrici",
       "Nuovo calcolatore filettature HeliCoil (EG M) con dati completi su punte, tolleranze e lunghezze",

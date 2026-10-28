@@ -31,6 +31,13 @@
       "update": "Aktualizacja",
       "fix": "Poprawka"
     },
+    "v310": [
+      "Nowy kalkulator kąta linii śrubowej gwintu i doboru płytki podporowej (anvil shim) do noża tokarskiego z weryfikacją kolizji bocznej",
+      "Nowy kalkulator średnicy podziałowej (PCD) na podstawie pomiaru suwmiarką z interaktywną instrukcją krok po kroku",
+      "Dodano 4 nowe wersje językowe: Hiszpański (ES), Japoński (JA), Czeski (CS) oraz Słowacki (SK)",
+      "Ujednolicono siatkę Bento w menu głównym na PC, znormalizowano rozmiary ikon i zoptymalizowano przestrzeń roboczą",
+      "Dedykowany układ horyzontalny Split View dla kalkulatora Pozycji Rzeczywistej (True Position)"
+    ],
     "v300": [
       "Nowy interfejs desktopowy PC (1080p): Bento Master Grid w menu głównym oraz układ Split View (lewa kolumna: wybory i kontrolki, prawa kolumna: wyniki i rysunki) dla wszystkich kalkulatorów",
       "Dedykowane proporcje i optymalizacja skalowania pod monitory warsztatowe 1080p",

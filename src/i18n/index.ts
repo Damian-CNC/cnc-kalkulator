@@ -7,6 +7,10 @@ export const supportedLanguages = [
   { code: 'en', label: 'EN', flag: '🇬🇧', name: 'English' },
   { code: 'de', label: 'DE', flag: '🇩🇪', name: 'Deutsch' },
   { code: 'it', label: 'IT', flag: '🇮🇹', name: 'Italiano' },
+  { code: 'es', label: 'ES', flag: '🇪🇸', name: 'Español' },
+  { code: 'cs', label: 'CS', flag: '🇨🇿', name: 'Čeština' },
+  { code: 'sk', label: 'SK', flag: '🇸🇰', name: 'Slovenčina' },
+  { code: 'ja', label: 'JA', flag: '🇯🇵', name: '日本語' },
 ] as const;
 
 type LanguageCode = (typeof supportedLanguages)[number]['code'];

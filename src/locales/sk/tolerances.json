@@ -1,0 +1,22 @@
+{
+  "nominalDimension": "Menovitý rozmer (mm)",
+  "nominalPlaceholder": "napr. 25",
+  "hole": "🕳️ Diera (A–ZC)",
+  "shaft": "🔩 Hriadeľ (a–zc)",
+  "toleranceLetter": "Písmeno tolerancie",
+  "letterPlaceholder": "Písmeno",
+  "itClass": "Stupeň IT",
+  "itPlaceholder": "IT",
+  "rangeInfo": "Rozsah: {{range}} mm · IT{{it}} = {{value}} μm",
+  "deviations": "Odchýlky",
+  "upperDeviation": "Horná (ES/es)",
+  "lowerDeviation": "Dolná (EI/ei)",
+  "finalDimension": "Konečný rozmer",
+  "max": "Max",
+  "min": "Min",
+  "toleranceCenter": "Stred tolerancie (Ideálny)",
+  "aimHere": "↑ Mierte sem",
+  "footerNote": "Výpočet podľa algoritmu ISO 286-1 · Základná tolerančná jednotka i = 0.45·D¹ᐟ³ + 0.001·D",
+  "noDataForCombination": "Žiadne údaje pre túto kombináciu. Skontrolujte rozmer (0–3150 mm).",
+  "enterNominalPrompt": "Zadajte menovitý rozmer pre výpočet tolerancií."
+}

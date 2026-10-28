@@ -1,0 +1,22 @@
+{
+  "nominalDimension": "Dimensión nominal (mm)",
+  "nominalPlaceholder": "ej. 25",
+  "hole": "🕳️ Agujero (A–ZC)",
+  "shaft": "🔩 Eje (a–zc)",
+  "toleranceLetter": "Letra de tolerancia",
+  "letterPlaceholder": "Letra",
+  "itClass": "Calidad IT",
+  "itPlaceholder": "IT",
+  "rangeInfo": "Rango: {{range}} mm · IT{{it}} = {{value}} μm",
+  "deviations": "Desviaciones",
+  "upperDeviation": "Superior (ES/es)",
+  "lowerDeviation": "Inferior (EI/ei)",
+  "finalDimension": "Dimensión final",
+  "max": "Máx.",
+  "min": "Mín.",
+  "toleranceCenter": "Centro de tolerancia (Ideal)",
+  "aimHere": "↑ Apuntar aquí",
+  "footerNote": "Calculado según ISO 286-1 · Unidad de tolerancia estándar i = 0.45·D¹ᐟ³ + 0.001·D",
+  "noDataForCombination": "Sin datos para esta combinación. Comprueba la dimensión (0–3150 mm).",
+  "enterNominalPrompt": "Introduce la dimensión nominal para calcular las tolerancias."
+}

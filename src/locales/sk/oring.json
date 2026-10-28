@@ -1,0 +1,20 @@
+{
+  "modeRadial": "Statické radiálne",
+  "modeAxial": "Statické axiálne",
+  "modeDynamic": "Dynamické",
+  "cordThickness": "Hrúbka šnúry d₂ [mm]",
+  "sealType": "Typ tesnenia",
+  "grooveDimensions": "Rozmery drážky",
+  "depthT": "Hĺbka t",
+  "rangeT": "Rozsah t",
+  "widthB0": "Šírka b (bez oporného krúžku)",
+  "widthB1": "b — 1 oporný krúžok",
+  "widthB2": "b — 2 oporné krúžky",
+  "squeeze": "Stlačenie",
+  "radiusR1": "Polomer dna r₁",
+  "radiusR2": "Polomer hrany r₂",
+  "chamfer": "Montážne skosenie 15°, dĺžka",
+  "fillRatio": "Zaplnenie drážky",
+  "diagram": "Schéma drážky",
+  "note": "Orientačné hodnoty podľa ISO 3601-2. Odporúčané zaplnenie drážky 70–85 %."
+}
