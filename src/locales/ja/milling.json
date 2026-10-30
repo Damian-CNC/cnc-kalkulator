@@ -50,7 +50,11 @@
     "applyC": "計算したCを適用",
     "quickN": "穴数のクイック選択",
     "formula": "計算式:",
-    "measuringPair": "測定する穴の組み合わせ"
+    "measuringPair": "測定する穴の組み合わせ",
+    "waiting": "穴数 N と穴間ピッチ C を入力して PCD を算出します",
+    "outerEdges": "外側間隔 (L_out)",
+    "centerDistance": "中心間距離 C",
+    "caliperMeasurement": "穴径 d でノギスをゼロセットした後の外端測定値 = C"
   },
   "linear": {
     "l": "ピッチ / 間隔 L",
@@ -71,6 +75,12 @@
     "allowed": "許容位置度公差",
     "margin": "残余公差マージン",
     "pass": "合格 (PASS)",
-    "fail": "不合格 (FAIL)"
+    "fail": "不合格 (FAIL)",
+    "explanation": "位置度 (ASME Y14.5 / ISO 1101) は、理論的に正確な位置を中心とした円筒形または円形の公差域を定義します:",
+    "mmcExplanation": "最大実体条件 (MMC Ⓜ) が適用される場合、MMC 状態からの実寸法の偏差に応じたボーナス公差が加算されます。"
+  },
+  "milling": {
+    "solverTitle": "パラメータ自動ソルバー",
+    "solverDesc": "回転速度または送りセクションで既知の2つのパラメータを入力すると、不足している値が瞬時に計算されシアン色で強調表示されます。"
   }
 }

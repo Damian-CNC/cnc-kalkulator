@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import PageLayout from '@/components/PageLayout';
 import ClearFab from '@/components/ClearFab';
 import { Centerline, Dimension, EngineeringDrawing, Leader, Witness } from '@/components/EngineeringDrawing';
@@ -13,6 +14,7 @@ const sign = (v: number) => (v >= 0 ? `+${v.toFixed(3)}` : v.toFixed(3));
 type KeywayDimension = 'd' | 'b' | 't1' | 'control' | null;
 
 const KeywaysPage = () => {
+  const { t } = useTranslation('keyways');
   const L = useLength('mm');
   // wymiary normy w mm; w systemie calowym wyniki w calach (średnica d to oznaczenie w mm)
   const o = (v: number, d = 2) => (L.isImperial ? (v / 25.4).toFixed(4) : v.toFixed(d));
@@ -28,12 +30,12 @@ const KeywaysPage = () => {
   const outOfRange = diameter !== '' && (!d || d <= 0 || !row);
 
   return (
-    <PageLayout title="Wpusty pryzmowe (DIN 6885)" wideDesktop>
+    <PageLayout title={t('pages.keyways', { defaultValue: 'Wpusty pryzmowe (DIN 6885)' })} wideDesktop>
       <div className="lg:grid lg:grid-cols-[320px_1fr] lg:gap-6 lg:items-start space-y-4 lg:space-y-0">
         <div className="space-y-4 lg:sticky lg:top-4">
           <div className="glass-module">
         <label className="block text-xs uppercase tracking-wider text-zinc-400 mb-2">
-          Średnica wału / otworu d [mm] (oznaczenie normy)
+          {t('diameterLabel')}
         </label>
         <input
           type="text"
@@ -47,7 +49,7 @@ const KeywaysPage = () => {
         />
 
         <label className="block text-xs uppercase tracking-wider text-zinc-400 mb-2">
-          Pasowanie szerokości b
+          {t('widthFit')}
         </label>
         <div className="grid grid-cols-3 gap-2">
           {widthFits.map((f) => (
@@ -68,7 +70,7 @@ const KeywaysPage = () => {
 
         {outOfRange && (
           <p className="mt-4 text-sm text-red-400">
-            Brak danych dla tej średnicy. Zakres normy w module: 6–75 mm.
+            {t('noData')}
           </p>
         )}
         </div>
@@ -78,37 +80,37 @@ const KeywaysPage = () => {
         {row && (
         <>
           <div className="glass-module">
-            <h2 className="text-sm uppercase tracking-wider text-zinc-400 mb-4">Wpust b × h</h2>
+            <h2 className="text-sm uppercase tracking-wider text-zinc-400 mb-4">{t('grooveWidth')} b × h</h2>
             <div tabIndex={0} onFocus={() => setActiveDimension('b')} onBlur={() => setActiveDimension(null)} onClick={() => setActiveDimension('b')} className="result-box text-2xl focus:outline-none focus:ring-1 focus:ring-cyan-500/60">
               {L.isImperial ? `${o(row.b)} × ${o(row.h)}` : `${row.b} × ${row.h}`} {L.unit}
             </div>
             <div className="mt-3 text-center text-sm text-zinc-400">
-              {limits && <>Szerokość rowka {fit}: {L.isImperial ? o(row.b) : row.b} {L.unit} ({oSign(limits.upper)} / {oSign(limits.lower)})</>}
+              {limits && <>{t('grooveWidth')} {fit}: {L.isImperial ? o(row.b) : row.b} {L.unit} ({oSign(limits.upper)} / {oSign(limits.lower)})</>}
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="glass-module mb-0">
-              <h3 className="text-sm uppercase tracking-wider text-zinc-400 mb-3">Wałek</h3>
+              <h3 className="text-sm uppercase tracking-wider text-zinc-400 mb-3">{t('shaft')}</h3>
               <div className="space-y-2 text-sm">
                 <div tabIndex={0} onFocus={() => setActiveDimension('t1')} onBlur={() => setActiveDimension(null)} onClick={() => setActiveDimension('t1')} className="flex justify-between rounded focus:outline-none focus:ring-1 focus:ring-cyan-500/60">
-                  <span className="text-zinc-500">Głębokość t₁</span>
+                  <span className="text-zinc-500">{t('depthT1')}</span>
                   <span className="text-cyan-400 font-bold">
                     {o(row.t1, 1)} <span className="text-zinc-500">+{L.isImperial ? o(row.t1Tol, 1) : row.t1Tol}</span>
                   </span>
                 </div>
                 <div tabIndex={0} onFocus={() => setActiveDimension('control')} onBlur={() => setActiveDimension(null)} onClick={() => setActiveDimension('control')} className="flex justify-between rounded focus:outline-none focus:ring-1 focus:ring-cyan-500/60">
-                  <span className="text-zinc-500">Wymiar kontrolny d − t₁</span>
+                  <span className="text-zinc-500">d − t₁</span>
                   <span className="text-cyan-400 font-bold">{o(d - row.t1)} {L.unit}</span>
                 </div>
               </div>
             </div>
 
             <div className="glass-module mb-0">
-              <h3 className="text-sm uppercase tracking-wider text-zinc-400 mb-3">Piasta</h3>
+              <h3 className="text-sm uppercase tracking-wider text-zinc-400 mb-3">Piasta / Hub</h3>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-zinc-500">Głębokość t₂</span>
+                  <span className="text-zinc-500">{t('depthT2')}</span>
                   <span className="text-cyan-400 font-bold">
                     {o(row.t2, 1)} <span className="text-zinc-500">+{L.isImperial ? o(row.t2Tol, 1) : row.t2Tol}</span>
                   </span>

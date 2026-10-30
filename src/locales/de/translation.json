@@ -111,7 +111,18 @@
     "hbInput": "Härte HB",
     "hrcInput": "Härte HRC",
     "resultTitle": "Umrechnungsergebnis",
-    "standard": "Umrechnung nach ISO 18265 (ISO 6506/6508)"
+    "standard": "Umrechnung nach ISO 18265 (ISO 6506/6508)",
+    "typicalRanges": "Typische Stahlhärtebereiche",
+    "carburizedNitrided": "Einsatzgehärtet / Nitriert",
+    "toolHardened": "Werkzeugstahl / Durchgehärtet",
+    "structural": "Baustähle (S355)",
+    "quenched": "Vergütungsstähle (42CrMo4)",
+    "caseHardened": "Einsatzgehärtet / Nitriert",
+    "toolSteel": "Werkzeugstähle / Gehärtet",
+    "errPositive": "Geben Sie einen gültigen positiven Wert ein.",
+    "errRangeHb": "Kein exakter ISO-Vergleichswert für den angegebenen Wert. HB-Bereich: {{min}}–{{max}}.",
+    "errRangeHrc": "Kein exakter ISO-Vergleichswert für den angegebenen Wert. HRC-Bereich: {{min}}–{{max}}.",
+    "errNoMatch": "Kein exakter ISO-Vergleichswert für den angegebenen Wert."
   },
   "menuEdit": {
     "edit": "Menü anpassen",
@@ -128,5 +139,27 @@
     "spacerAddedBottom": "Leerkachel wurde ganz unten im Menü hinzugefügt ⬇️",
     "moveLeft": "Nach links verschieben",
     "moveRight": "Nach rechts verschieben"
+  },
+  "tabs": {
+    "cone": "Kegel",
+    "hardness": "Härte"
+  },
+  "materials": {
+    "group": "Materialgruppe"
+  },
+  "error": {
+    "title": "Seite konnte nicht geladen werden",
+    "desc": "Laden Sie die App neu, um das Modul zu laden.",
+    "refresh": "Aktualisieren"
+  },
+  "favorites": {
+    "title": "Favoriten",
+    "close": "Favoriten schließen",
+    "emptyHint": "Keine Verknüpfungen. Tippen Sie auf den Stern neben dem Modultitel, um hinzuzufügen.",
+    "removeNamed": "{{title}} entfernen",
+    "shortcuts": "Lieblings-Verknüpfungen",
+    "add": "Zu Favoriten hinzufügen (max 4)",
+    "remove": "Aus Favoriten entfernen",
+    "maxReached": "Maximal 4 Favoriten-Verknüpfungen"
   }
 }

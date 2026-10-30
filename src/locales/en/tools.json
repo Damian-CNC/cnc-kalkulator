@@ -248,7 +248,10 @@
     "length": "Min. useful thread length (R)",
     "lengthNote": "per ISO 7-1, external thread",
     "taper": "Taper 1:16 on diameter, half angle {{angle}}. Diameters grow by 0.0625 mm per 1 mm of length.",
-    "footer": "Diameters at the gauge plane per ISO 7-1, others derived from the taper. Internal Rc has the same dimensions. Check lengths in the standard."
+    "footer": "Diameters at the gauge plane per ISO 7-1, others derived from the taper. Internal Rc has the same dimensions. Check lengths in the standard.",
+    "major_d": "major d",
+    "pitch_d2": "pitch d2",
+    "minor_d1": "minor d1"
   },
   "buttress": {
     "menu": "Buttress threads S (DIN 513)",
@@ -274,7 +277,9 @@
     "pitchNut": "Pitch diameter (D2)",
     "minorNut": "Minor diameter (D1)",
     "drillNote": "drill diameter",
-    "footer": "Basic dimensions per DIN 513 (h3 = 0.86777·P, H1 = 0.75·P, R = 0.12427·P). Values may differ by 0.001 from the tables. Tolerance classes (7H…9c) from DIN 513 part 3 are not calculated, check the standard."
+    "footer": "Basic dimensions per DIN 513 (h3 = 0.86777·P, H1 = 0.75·P, R = 0.12427·P). Values may differ by 0.001 from the tables. Tolerance classes (7H…9c) from DIN 513 part 3 are not calculated, check the standard.",
+    "nutDrill": "Nut drill diameter",
+    "nutDrillNote": "Equal to minor diameter D1"
   },
   "calc": {
     "tile": "Calculator",
@@ -282,7 +287,8 @@
     "history": "Recent results",
     "hint": "Tap a result above to insert it · hold to copy",
     "error": "Error",
-    "sign": "Change sign"
+    "sign": "Change sign",
+    "noHistory": "No calculation history"
   },
   "pg": {
     "menu": "Steel conduit threads Pg (DIN 40430)",
@@ -361,6 +367,7 @@
     "eqTitle": "Equivalents in other standards",
     "cmc": "CMC group",
     "more": "Show more",
-    "showAll": "Show all ({{n}})"
+    "showAll": "Show all ({{n}})",
+    "groupLabel": "Material group"
   }
 }

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'sonner';
+import i18n from '@/i18n';
 
 export interface FavoriteItem {
   id: string;
@@ -48,7 +49,7 @@ export function useFavorites() {
     const current = memory ?? read();
     if (current.some((f) => f.path === item.path)) return true;
     if (current.length >= MAX_FAVORITES) {
-      toast.warning('Maksymalnie 4 ulubione skróty');
+      toast.warning(i18n.t('favorites.maxReached', { defaultValue: 'Maksymalnie 4 ulubione skróty' }));
       return false;
     }
     publish([...current, item]);

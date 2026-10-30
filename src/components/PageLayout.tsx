@@ -18,13 +18,6 @@ interface PageLayoutProps {
   wideDesktop?: boolean;
 }
 
-const FAVORITE_VIEW_LABELS: Record<string, string> = {
-  external: 'Zewnętrzny', internal: 'Wewnętrzny', shaft: 'Wałek', bore: 'Otwór',
-  hole: 'Otwór',
-  forward: 'Ra / Rz', reverse: 'Posuw dla Ra', linear: 'Liniowe', chamfer: 'Fazy',
-  radial: 'Promieniowe', axial: 'Osiowe', dynamic: 'Dynamiczne',
-};
-
 const PageLayout = ({
   title,
   children,
@@ -46,7 +39,7 @@ const PageLayout = ({
     ?? new URLSearchParams(location.search).get('fit')
     ?? new URLSearchParams(location.search).get('class');
   const resolvedFavoriteTitle = favoriteTitle
-    ?? (activeView ? `${title} — ${FAVORITE_VIEW_LABELS[activeView] ?? activeView.toUpperCase()}` : title);
+    ?? (activeView ? `${title} — ${t(`tabs.${activeView}`, { defaultValue: activeView.toUpperCase() })}` : title);
 
   const toggleFavorite = () => {
     if (favorited) {
@@ -87,8 +80,8 @@ const PageLayout = ({
             className={`items-center justify-center p-1 rounded-md text-zinc-400 hover:text-amber-400 transition-colors shrink-0 ${
               fullScreenMobile ? 'hidden md:inline-flex' : 'inline-flex'
             }`}
-            title={favorited ? 'Usuń z ulubionych' : 'Dodaj do ulubionych (max 4)'}
-            aria-label={favorited ? 'Usuń z ulubionych' : 'Dodaj do ulubionych (max 4)'}
+            title={favorited ? t('favorites.remove', { defaultValue: 'Usuń z ulubionych' }) : t('favorites.add', { defaultValue: 'Dodaj do ulubionych (max 4)' })}
+            aria-label={favorited ? t('favorites.remove', { defaultValue: 'Usuń z ulubionych' }) : t('favorites.add', { defaultValue: 'Dodaj do ulubionych (max 4)' })}
             aria-pressed={favorited}
           >
             <Star className={`w-4 h-4 transition-colors ${favorited ? 'fill-amber-400 text-amber-400' : 'text-zinc-500 hover:text-amber-400'}`} />

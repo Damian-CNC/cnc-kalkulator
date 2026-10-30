@@ -1,7 +1,7 @@
 {
   "shaftTab": "軸用 — DIN 471",
   "boreTab": "穴用 — DIN 472",
-  "nominalDiameter": "呼び径 d₁ [mm]",
+  "nominalDiameter": "呼び径 d₁ [mm] (規格呼び)",
   "notFound": "8〜100 mmの範囲に標準規格サイズがありません。",
   "grooveDimensions": "溝寸法",
   "grooveBottom": "溝径 d₂ ({{fit}})",
@@ -12,5 +12,11 @@
   "grooveLoad": "溝の許容荷重 F_R（参考値）",
   "grooveDepth": "溝深さ",
   "crossSection": "断面図",
-  "rotationAxis": "回転軸"
+  "rotationAxis": "回転軸",
+  "shaftTitle": "軸用 — DIN 471",
+  "boreTitle": "穴用 — DIN 472",
+  "ringAndStrength": "止め輪仕様および耐荷重",
+  "ringThicknessS": "止め輪厚さ s",
+  "minDistanceN": "端面最小距離 n",
+  "grooveLoadFR": "溝耐荷重 F_R (参考値)"
 }

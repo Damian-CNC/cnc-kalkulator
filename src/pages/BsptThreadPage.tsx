@@ -23,6 +23,7 @@ function ThreadSection({
   d2: number;
   d1: number;
 }) {
+  const { t } = useTranslation('tools');
   const L = useLength('mm');
 
   const cell = (name: string, v: number) => (
@@ -39,9 +40,9 @@ function ThreadSection({
     <div className="rounded-xl border border-emerald-800/40 bg-emerald-950/20 p-4">
       <p className="text-emerald-300 text-sm font-semibold mb-3">{label}</p>
       <div className="grid grid-cols-3 gap-3">
-        {cell('zewn. d', d)}
-        {cell('podziałowa d2', d2)}
-        {cell('wewn. d1', d1)}
+        {cell(t('bspt.major_d', { defaultValue: 'zewn. d' }), d)}
+        {cell(t('bspt.pitch_d2', { defaultValue: 'podziałowa d2' }), d2)}
+        {cell(t('bspt.minor_d1', { defaultValue: 'wewn. d1' }), d1)}
       </div>
     </div>
   );

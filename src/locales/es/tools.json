@@ -248,7 +248,10 @@
     "length": "Longitud mínima de rosca útil (R)",
     "lengthNote": "según ISO 7-1, rosca macho exterior",
     "taper": "Conicidad 1:16 en diámetro, semiángulo {{angle}}. Los diámetros aumentan 0.0625 mm por cada 1 mm de longitud.",
-    "footer": "Diámetros en el plano de referencia según ISO 7-1, los demás derivados de la conicidad. La rosca hembra Rc tiene las mismas dimensiones. Verifica las longitudes en la norma."
+    "footer": "Diámetros en el plano de referencia según ISO 7-1, los demás derivados de la conicidad. La rosca hembra Rc tiene las mismas dimensiones. Verifica las longitudes en la norma.",
+    "major_d": "ext. d",
+    "pitch_d2": "medio d2",
+    "minor_d1": "núcleo d1"
   },
   "buttress": {
     "menu": "Roscas en diente de sierra S (DIN 513)",
@@ -274,7 +277,9 @@
     "pitchNut": "Diámetro medio (D2)",
     "minorNut": "Diámetro interior (D1)",
     "drillNote": "diámetro de taladrado previo",
-    "footer": "Dimensiones nominales según DIN 513 (h3 = 0.86777·P, H1 = 0.75·P, R = 0.12427·P). Los valores pueden diferir en 0.001 de las tablas. Las clases de tolerancia (7H…9c) de DIN 513 parte 3 no están calculadas, consulta la norma."
+    "footer": "Dimensiones nominales según DIN 513 (h3 = 0.86777·P, H1 = 0.75·P, R = 0.12427·P). Los valores pueden diferir en 0.001 de las tablas. Las clases de tolerancia (7H…9c) de DIN 513 parte 3 no están calculadas, consulta la norma.",
+    "nutDrill": "Diámetro de taladro para tuerca",
+    "nutDrillNote": "Igual al diámetro menor D1"
   },
   "calc": {
     "tile": "Calculadora",
@@ -282,7 +287,8 @@
     "history": "Resultados recientes",
     "hint": "Toca un resultado arriba para insertarlo · mantén presionado para copiarlo",
     "error": "Error",
-    "sign": "Cambiar signo"
+    "sign": "Cambiar signo",
+    "noHistory": "Sin historial de cálculos"
   },
   "pg": {
     "menu": "Roscas para tubos blindados Pg (DIN 40430)",
@@ -361,6 +367,7 @@
     "eqTitle": "Equivalencias en otras normas",
     "cmc": "Grupo CMC",
     "more": "Mostrar más",
-    "showAll": "Mostrar todos ({{n}})"
+    "showAll": "Mostrar todos ({{n}})",
+    "groupLabel": "Grupo de material"
   }
 }

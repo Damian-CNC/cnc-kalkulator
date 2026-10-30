@@ -1,10 +1,10 @@
 {
   "diameter": "軸径 / 穴径 d [mm]",
-  "widthFit": "溝幅のはめあい公差 b",
+  "widthFit": "キー溝幅公差 b",
   "outOfRange": "この径の規格データがありません。モジュールの標準範囲: 6〜75 mm。",
   "keyDims": "キー寸法 b × h",
-  "grooveWidth": "溝幅 {{fit}}: {{b}} mm ({{upper}} / {{lower}})",
-  "shaft": "軸（シャフト）",
+  "grooveWidth": "キー溝幅",
+  "shaft": "軸",
   "hub": "ハブ（穴側）",
   "depthT1": "溝深さ t₁",
   "controlDim1": "管理寸法 d − t₁",
@@ -12,5 +12,7 @@
   "controlDim2": "管理寸法 d + t₂",
   "diagram": "概略図",
   "hubLabel": "ハブ",
-  "table": "DIN 6885 規格表"
+  "table": "DIN 6885 規格表",
+  "diameterLabel": "軸 / 穴径 d [mm] (規格呼び)",
+  "noData": "この径の規格データはありません。モジュール適用範囲: 6〜75 mm。"
 }

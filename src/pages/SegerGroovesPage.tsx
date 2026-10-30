@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import PageLayout from '@/components/PageLayout';
 import ClearFab from '@/components/ClearFab';
 import { Centerline, Dimension, EngineeringDrawing, Witness } from '@/components/EngineeringDrawing';
@@ -11,6 +12,7 @@ import useLength from '@/hooks/useLength';
 type SegerDimension = 'd1' | 'd2' | 'm' | 'n' | null;
 
 const SegerGroovesPage = () => {
+  const { t } = useTranslation('seger');
   const L = useLength('mm');
   // wymiary normy są w mm; w systemie calowym wyniki są w calach (średnica nominalna d₁ to oznaczenie w mm)
   const o = (v: number, d = 2) => (L.isImperial ? (v / 25.4).toFixed(4) : v.toFixed(d));
@@ -37,7 +39,7 @@ const SegerGroovesPage = () => {
   const tolM = row ? it13(row.m) : 0;
 
   return (
-    <PageLayout title="Rowki Segera (DIN 471 / 472)" wideDesktop>
+    <PageLayout title={t('pages.seger', { defaultValue: 'Rowki Segera (DIN 471 / 472)' })} wideDesktop>
       <div className="lg:grid lg:grid-cols-[320px_1fr] lg:gap-6 lg:items-start space-y-4 lg:space-y-0">
         {/* Left Column: Type & Diameter Input */}
         <div className="space-y-4 lg:sticky lg:top-4">
@@ -51,7 +53,7 @@ const SegerGroovesPage = () => {
                     : 'bg-zinc-900/50 border-zinc-800 text-zinc-400 hover:text-zinc-200'
                 }`}
               >
-                Wałek — DIN 471
+                {t('shaftTitle')}
               </button>
               <button
                 onClick={() => { setType('bore'); setActiveDimension(null); }}
@@ -61,12 +63,12 @@ const SegerGroovesPage = () => {
                     : 'bg-zinc-900/50 border-zinc-800 text-zinc-400 hover:text-zinc-200'
                 }`}
               >
-                Otwór — DIN 472
+                {t('boreTitle')}
               </button>
             </div>
 
             <label className="block text-xs uppercase tracking-wider text-zinc-400 mb-2">
-              Średnica nominalna d₁ [mm] (oznaczenie normy)
+              {t('nominalDiameter')}
             </label>
             <input
               type="text"
@@ -121,7 +123,7 @@ const SegerGroovesPage = () => {
                   </div>
                   <div tabIndex={0} onFocus={() => setActiveDimension('m')} onBlur={() => setActiveDimension(null)} onClick={() => setActiveDimension('m')} className="bg-zinc-900/60 border border-zinc-800 rounded-xl p-4 focus:outline-none focus:border-cyan-500/60">
                     <div className="text-xs uppercase tracking-wider text-zinc-500 mb-1">
-                      Szerokość m (H13)
+                      {t('widthM')}
                     </div>
                     <div className="text-2xl font-bold text-cyan-400">{o(row.m)}</div>
                     <div className="text-xs text-zinc-500 mt-1">
@@ -133,23 +135,23 @@ const SegerGroovesPage = () => {
 
               <div className="glass-module">
                 <h2 className="text-sm uppercase tracking-wider text-zinc-400 mb-4">
-                  Pierścień i wytrzymałość
+                  {t('ringAndStrength')}
                 </h2>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-zinc-500">Grubość pierścienia s</span>
+                    <span className="text-zinc-500">{t('ringThicknessS')}</span>
                     <span className="text-cyan-400 font-bold">{o(row.s)} {L.unit}</span>
                   </div>
                   <div tabIndex={0} onFocus={() => setActiveDimension('n')} onBlur={() => setActiveDimension(null)} onClick={() => setActiveDimension('n')} className="flex justify-between rounded focus:outline-none focus:ring-1 focus:ring-cyan-500/60">
-                    <span className="text-zinc-500">Min. odległość od krawędzi n</span>
+                    <span className="text-zinc-500">{t('minDistanceN')}</span>
                     <span className="text-cyan-400 font-bold">{o(row.n, 1)} {L.unit}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-zinc-500">Obciążenie rowka F_R (orient.)</span>
+                    <span className="text-zinc-500">{t('grooveLoadFR')}</span>
                     <span className="text-cyan-400 font-bold">{row.fr.toFixed(1)} kN</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-zinc-500">Głębokość rowka</span>
+                    <span className="text-zinc-500">{t('grooveDepth')}</span>
                     <span className="text-cyan-400 font-bold">
                       {o(Math.abs(row.d1 - row.d2) / 2)} {L.unit}
                     </span>
@@ -158,7 +160,7 @@ const SegerGroovesPage = () => {
               </div>
 
               <div className="glass-module">
-                <h2 className="text-sm uppercase tracking-wider text-zinc-400 mb-4">Przekrój</h2>
+                <h2 className="text-sm uppercase tracking-wider text-zinc-400 mb-4">{t('crossSection')}</h2>
                 <EngineeringDrawing label={type === 'shaft' ? 'DIN 471 shaft groove' : 'DIN 472 bore groove'}>
                   {({ arrow, hatch }) => type === 'shaft' ? (
                     <>

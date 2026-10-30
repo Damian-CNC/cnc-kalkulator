@@ -50,7 +50,11 @@
     "applyC": "In Rechner übernehmen",
     "quickN": "Schnellauswahl Lochzahl",
     "formula": "Berechnungsformel:",
-    "measuringPair": "Gemessenes Bohrungspaar"
+    "measuringPair": "Gemessenes Bohrungspaar",
+    "waiting": "Lochzahl N und Achsabstand C eingeben, um den Lochkreisdurchmesser (TKD/PCD) zu berechnen",
+    "outerEdges": "Außenkanten (L_aussen)",
+    "centerDistance": "Mittenabstand C",
+    "caliperMeasurement": "Messschieber-Außenmaß nach Nullen auf d = C"
   },
   "linear": {
     "l": "Teilung / Abstand L",
@@ -71,6 +75,12 @@
     "allowed": "Zulässige Toleranz",
     "margin": "Verbleibende Reserve",
     "pass": "PASS",
-    "fail": "FAIL"
+    "fail": "FAIL",
+    "explanation": "Die wahre Position (nach ASME Y14.5 / ISO 1101) definiert eine zylindrische oder kreisförmige Toleranzzone um den idealen Mittelpunkt:",
+    "mmcExplanation": "Bei Maximum-Material-Bedingung (MMC Ⓜ) erhöht sich die Toleranz um den Betrag der Maßabweichung von der MMC-Grenze (Bonus-Toleranz)."
+  },
+  "milling": {
+    "solverTitle": "Automatischer Parameter-Solver",
+    "solverDesc": "Geben Sie zwei bekannte Parameter im Drehzahl- oder Vorschubbereich ein – der Rechner ermittelt sofort fehlende Werte und hebt sie cyan hervor."
   }
 }

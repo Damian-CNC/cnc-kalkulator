@@ -64,6 +64,8 @@ export interface ConversionResult {
   success: boolean;
   value?: number;
   message?: string;
+  errorKey?: string;
+  errorParams?: Record<string, unknown>;
 }
 
 export function convertHardness(
@@ -73,6 +75,7 @@ export function convertHardness(
   if (isNaN(inputValue) || inputValue <= 0) {
     return {
       success: false,
+      errorKey: 'hardness.errPositive',
       message: 'Wprowadź prawidłową wartość dodatnią.',
     };
   }
@@ -91,6 +94,8 @@ export function convertHardness(
     if (inputValue < minHb || inputValue > maxHb) {
       return {
         success: false,
+        errorKey: 'hardness.errRangeHb',
+        errorParams: { min: minHb, max: maxHb },
         message: `Brak dokładnego odpowiednika w normie ISO dla podanej wartości. Zakres HB: ${minHb}–${maxHb}.`,
       };
     }
@@ -116,6 +121,7 @@ export function convertHardness(
 
     return {
       success: false,
+      errorKey: 'hardness.errNoMatch',
       message: 'Brak dokładnego odpowiednika w normie ISO dla podanej wartości.',
     };
   } else {
@@ -132,6 +138,8 @@ export function convertHardness(
     if (inputValue < minHrc || inputValue > maxHrc) {
       return {
         success: false,
+        errorKey: 'hardness.errRangeHrc',
+        errorParams: { min: minHrc, max: maxHrc },
         message: `Brak dokładnego odpowiednika w normie ISO dla podanej wartości. Zakres HRC: ${minHrc}–${maxHrc}.`,
       };
     }
@@ -157,6 +165,7 @@ export function convertHardness(
 
     return {
       success: false,
+      errorKey: 'hardness.errNoMatch',
       message: 'Brak dokładnego odpowiednika w normie ISO dla podanej wartości.',
     };
   }

@@ -2,10 +2,10 @@
   "modeRadial": "Statické radiální",
   "modeAxial": "Statické axiální",
   "modeDynamic": "Dynamické",
-  "cordThickness": "Tloušťka průřezu d₂ [mm]",
+  "cordThickness": "Tloušťka šňůry d₂ [mm] (normovaný rozměr)",
   "sealType": "Typ těsnění",
   "grooveDimensions": "Rozměry drážky",
-  "depthT": "Hloubka t",
+  "depthT": "Hloubka drážky t",
   "rangeT": "Rozsah t",
   "widthB0": "Šířka b (bez opěrného kroužku)",
   "widthB1": "b — 1 opěrný kroužek",
@@ -16,5 +16,11 @@
   "chamfer": "Zaváděcí sražení 15°, délka",
   "fillRatio": "Zaplnění drážky",
   "diagram": "Schéma drážky",
-  "note": "Orientační hodnoty dle ISO 3601-2. Doporučené zaplnění drážky 70–85 %."
+  "note": "Orientační hodnoty dle ISO 3601-2. Doporučené zaplnění drážky 70–85 %.",
+  "compression": "Stlačení",
+  "bottomRadiusR1": "Poloměr dna r₁",
+  "edgeRadiusR2": "Poloměr hrany r₂",
+  "leadChamfer": "Montážní úkos 15°, délka",
+  "grooveFill": "Zaplnění drážky",
+  "disclaimer": "Orientační hodnoty dle ISO 3601-2. Doporučené zaplnění drážky 70–85 %."
 }

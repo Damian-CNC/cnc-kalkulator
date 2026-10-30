@@ -4,7 +4,7 @@
     "menu": "メニュー",
     "clear": "クリア",
     "clearAll": "すべてクリア",
-    "new": "New",
+    "new": "新機能",
     "loading": "読み込み中...",
     "results": "計算結果",
     "inputs": "入力データ",
@@ -111,7 +111,18 @@
     "hbInput": "ブリネル硬さ HB",
     "hrcInput": "ロックウェル硬さ HRC",
     "resultTitle": "換算結果",
-    "standard": "ISO 18265 (ISO 6506/6508) 準拠の換算"
+    "standard": "ISO 18265 (ISO 6506/6508) 準拠の換算",
+    "typicalRanges": "一般的な鋼材硬さの目安",
+    "carburizedNitrided": "浸炭焼入れ / 窒化処理",
+    "toolHardened": "工具鋼 / 焼入れ焼戻し",
+    "structural": "構造用鋼 (S355 / SS400)",
+    "quenched": "調質鋼 (42CrMo4 / SCM440)",
+    "caseHardened": "浸炭 / 窒化処理",
+    "toolSteel": "工具鋼 / 焼入れ",
+    "errPositive": "有効な正の数値を入力してください。",
+    "errRangeHb": "指定された値に対するISO規格の対応値がありません。HB範囲: {{min}}–{{max}}。",
+    "errRangeHrc": "指定された値に対するISO規格の対応値がありません。HRC範囲: {{min}}–{{max}}。",
+    "errNoMatch": "指定された値に対するISO規格の対応値がありません。"
   },
   "menuEdit": {
     "edit": "メニュー編集",
@@ -128,5 +139,27 @@
     "spacerAddedBottom": "メニューの末尾に空きタイルを追加しました ⬇️",
     "moveLeft": "左へ移動",
     "moveRight": "右へ移動"
+  },
+  "tabs": {
+    "cone": "テーパー",
+    "hardness": "硬さ換算"
+  },
+  "materials": {
+    "group": "材料グループ"
+  },
+  "error": {
+    "title": "ページの読み込みに失敗しました",
+    "desc": "アプリを再読み込みしてモジュールを更新してください。",
+    "refresh": "再読み込み"
+  },
+  "favorites": {
+    "title": "お気に入り",
+    "close": "お気に入りを閉じる",
+    "emptyHint": "ショートカットがありません。モジュールタイトルの横にある星をタップして追加してください。",
+    "removeNamed": "{{title}} を削除",
+    "shortcuts": "お気に入りショートカット",
+    "add": "お気に入りに追加（最大4つ）",
+    "remove": "お気に入りから削除",
+    "maxReached": "お気に入りショートカットは最大4つまでです"
   }
 }

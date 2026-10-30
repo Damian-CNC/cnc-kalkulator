@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Star, ChevronRight, X } from 'lucide-react';
 import useFavorites from '@/hooks/useFavorites';
 import useHaptics from '@/hooks/useHaptics';
@@ -11,6 +12,7 @@ import useHaptics from '@/hooks/useHaptics';
  * Dodawanie do ulubionych: gwiazdka obok tytułu modułu (PageLayout).
  */
 const FavoritesFab = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const { favorites, removeFavorite, maxFavorites } = useFavorites();
@@ -47,14 +49,14 @@ const FavoritesFab = () => {
         <>
           <button
             type="button"
-            aria-label="Zamknij ulubione"
+            aria-label={t('favorites.close', { defaultValue: 'Zamknij ulubione' })}
             tabIndex={-1}
             onClick={() => setIsOpen(false)}
             className="fixed inset-0 z-40 cursor-default"
           />
           <div className="absolute bottom-full left-0 z-50 mb-3 w-64 max-w-[calc(100vw-2rem)] rounded-2xl border border-zinc-800 bg-zinc-950/95 p-2 shadow-2xl backdrop-blur-md animate-in fade-in slide-in-from-bottom-2 duration-150">
             <div className="flex items-center justify-between px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-zinc-500">
-              <span>Ulubione</span>
+              <span>{t('favorites.title', { defaultValue: 'Ulubione' })}</span>
               <span className="font-medium normal-case tracking-normal text-zinc-600">
                 {favorites.length}/{maxFavorites}
               </span>
@@ -62,7 +64,7 @@ const FavoritesFab = () => {
 
             {favorites.length === 0 ? (
               <p className="px-3 py-3 text-center text-xs leading-relaxed text-zinc-500">
-                Brak skrótów. Dotknij gwiazdki obok tytułu modułu, aby dodać.
+                {t('favorites.emptyHint', { defaultValue: 'Brak skrótów. Dotknij gwiazdki obok tytułu modułu, aby dodać.' })}
               </p>
             ) : (
               <div className="flex flex-col gap-0.5">
@@ -87,7 +89,7 @@ const FavoritesFab = () => {
                       </button>
                       <button
                         type="button"
-                        aria-label={`Usuń ${item.title}`}
+                        aria-label={t('favorites.removeNamed', { title: item.title, defaultValue: `Usuń ${item.title}` })}
                         onClick={() => removeFavorite(item.id)}
                         className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-zinc-500 transition-colors hover:text-rose-400"
                       >
@@ -108,7 +110,7 @@ const FavoritesFab = () => {
           triggerLight();
           setIsOpen((prev) => !prev);
         }}
-        aria-label="Ulubione skróty"
+        aria-label={t('favorites.shortcuts', { defaultValue: 'Ulubione skróty' })}
         aria-expanded={isOpen}
         className="relative z-50 flex h-12 w-12 items-center justify-center rounded-full border border-zinc-700/60 bg-zinc-900/85 text-amber-400 shadow-xl backdrop-blur-md transition-all duration-200 active:scale-95 sm:h-[42px] sm:w-[42px]"
       >

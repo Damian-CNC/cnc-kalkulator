@@ -248,7 +248,10 @@
     "length": "Min. užitečná délka závitu (R)",
     "lengthNote": "dle ISO 7-1, vnější závit",
     "taper": "Kuželovitost 1:16 na průměru, úhel sklonu {{angle}}. Průměr roste o 0.0625 mm na 1 mm délky.",
-    "footer": "Průměry v základní rovině dle ISO 7-1, ostatní odvozeny z kuželovitosti. Vnitřní závit Rc má stejné rozměry. Délky ověřte v normě."
+    "footer": "Průměry v základní rovině dle ISO 7-1, ostatní odvozeny z kuželovitosti. Vnitřní závit Rc má stejné rozměry. Délky ověřte v normě.",
+    "major_d": "vnější d",
+    "pitch_d2": "střední d2",
+    "minor_d1": "vnitřní d1"
   },
   "buttress": {
     "menu": "Pilovité závity S (DIN 513)",
@@ -274,7 +277,9 @@
     "pitchNut": "Střední průměr (D2)",
     "minorNut": "Malý průměr (D1)",
     "drillNote": "průměr vrtání",
-    "footer": "Základní rozměry dle DIN 513 (h3 = 0.86777·P, H1 = 0.75·P, R = 0.12427·P). Hodnoty se mohou lišit o 0.001 od tabulek. Toleranční třídy (7H…9c) z DIN 513 část 3 se nepočítají, ověřte dle normy."
+    "footer": "Základní rozměry dle DIN 513 (h3 = 0.86777·P, H1 = 0.75·P, R = 0.12427·P). Hodnoty se mohou lišit o 0.001 od tabulek. Toleranční třídy (7H…9c) z DIN 513 část 3 se nepočítají, ověřte dle normy.",
+    "nutDrill": "Průměr vrtání pro matici",
+    "nutDrillNote": "Rovný vnitřnímu průměru D1"
   },
   "calc": {
     "tile": "Kalkulačka",
@@ -282,7 +287,8 @@
     "history": "Poslední výsledky",
     "hint": "Klepnutím na výsledek výše jej vložíte · podržením zkopírujete",
     "error": "Chyba",
-    "sign": "Změnit znaménko"
+    "sign": "Změnit znaménko",
+    "noHistory": "Žádná historie výpočtů"
   },
   "pg": {
     "menu": "Pancéřové závity Pg (DIN 40430)",
@@ -361,6 +367,7 @@
     "eqTitle": "Ekvivalenty v jiných normách",
     "cmc": "Skupina CMC",
     "more": "Zobrazit více",
-    "showAll": "Zobrazit vše ({{n}})"
+    "showAll": "Zobrazit vše ({{n}})",
+    "groupLabel": "Materiálová skupina"
   }
 }

@@ -2,7 +2,7 @@
   "modeRadial": "Statyczne promieniowe",
   "modeAxial": "Statyczne osiowe",
   "modeDynamic": "Dynamiczne",
-  "cordThickness": "Grubość sznura d₂ [mm]",
+  "cordThickness": "Grubość sznura d₂ [mm] (oznaczenie normy)",
   "sealType": "Rodzaj uszczelnienia",
   "grooveDimensions": "Wymiary rowka",
   "depthT": "Głębokość t",
@@ -16,5 +16,11 @@
   "chamfer": "Skos montażowy 15°, dł.",
   "fillRatio": "Wypełnienie rowka",
   "diagram": "Schemat rowka",
-  "note": "Wartości orientacyjne wg ISO 3601-2. Zalecane wypełnienie rowka 70–85 %."
+  "note": "Wartości orientacyjne wg ISO 3601-2. Zalecane wypełnienie rowka 70–85 %.",
+  "compression": "Ścisk",
+  "bottomRadiusR1": "Promień dna r₁",
+  "edgeRadiusR2": "Promień krawędzi r₂",
+  "leadChamfer": "Skos montażowy 15°, dł.",
+  "grooveFill": "Wypełnienie rowka",
+  "disclaimer": "Wartości orientacyjne wg ISO 3601-2. Zalecane wypełnienie rowka 70–85 %."
 }

@@ -3,7 +3,7 @@
   "widthFit": "Pasowanie szerokości b",
   "outOfRange": "Brak danych dla tej średnicy. Zakres normy w module: 6–75 mm.",
   "keyDims": "Wpust b × h",
-  "grooveWidth": "Szerokość rowka {{fit}}: {{b}} mm ({{upper}} / {{lower}})",
+  "grooveWidth": "Szerokość rowka",
   "shaft": "Wałek",
   "hub": "Piasta",
   "depthT1": "Głębokość t₁",
@@ -12,5 +12,7 @@
   "controlDim2": "Wymiar kontrolny d + t₂",
   "diagram": "Schemat",
   "hubLabel": "piasta",
-  "table": "Tabela DIN 6885"
+  "table": "Tabela DIN 6885",
+  "diameterLabel": "Średnica wału / otworu d [mm] (oznaczenie normy)",
+  "noData": "Brak danych dla tej średnicy. Zakres normy w module: 6–75 mm."
 }

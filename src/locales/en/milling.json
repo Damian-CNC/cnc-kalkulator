@@ -50,7 +50,11 @@
     "applyC": "Use calculated C",
     "quickN": "Quick hole count selection",
     "formula": "Calculation formula:",
-    "measuringPair": "Measured hole pair"
+    "measuringPair": "Measured hole pair",
+    "waiting": "Enter hole count N and center distance C to calculate PCD",
+    "outerEdges": "Outer edges (L_out)",
+    "centerDistance": "Center distance C",
+    "caliperMeasurement": "Caliper outer measurement after zeroing on d = C"
   },
   "linear": {
     "l": "Pitch / spacing L",
@@ -71,6 +75,12 @@
     "allowed": "Allowed tolerance",
     "margin": "Remaining margin",
     "pass": "PASS",
-    "fail": "FAIL"
+    "fail": "FAIL",
+    "explanation": "True Position (per ASME Y14.5 / ISO 1101) defines a cylindrical or circular tolerance zone centered on true position:",
+    "mmcExplanation": "When Maximum Material Condition (MMC Ⓜ) is applied, a bonus tolerance is added equal to the feature size deviation from MMC."
+  },
+  "milling": {
+    "solverTitle": "Automatic Parameter Solver",
+    "solverDesc": "Enter any two known parameters in the speed or feed section – the calculator instantly computes missing values and highlights them in cyan."
   }
 }

@@ -178,22 +178,22 @@ const HelicoilThreadPage = () => {
           {thread && effectivePitch && (
             <div className="space-y-2.5 pt-1">
               <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider px-0.5">
-                Wiercenie pod gwintownik HeliCoil
+                {t('helicoil.tapDrillSTI')}
               </h3>
               <DrillCard
-                label="Wiertło pod gwintownik STI (B)"
+                label={t('helicoil.tapDrillSTI')}
                 diameter={thread.tapDrill}
                 unit="mm"
                 digits={2}
-                note="Średnica wiertła krętego pod gwintownik HeliCoil"
+                note={t('helicoil.tapDrillSTINote')}
               />
               {thread.formDrill !== undefined && (
                 <DrillCard
-                  label="Wiertło pod wygniatak HeliCoil"
+                  label={t('helicoil.formTapDrill')}
                   diameter={thread.formDrill}
                   unit="mm"
                   digits={2}
-                  note="Formowanie bezwiórowe (wygniatak STI)"
+                  note={t('helicoil.formTapDrillNote')}
                 />
               )}
             </div>
@@ -207,11 +207,11 @@ const HelicoilThreadPage = () => {
               {/* Sekcja: Wymiary gwintu gniazda (EG M) */}
               <div className="space-y-3">
                 <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider px-1">
-                  Wymiary gwintu gniazda (DIN 8140-2 · 6H mod)
+                  {t('helicoil.title')} (DIN 8140-2 · 6H mod)
                 </h3>
                 <div className="space-y-3 lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-3">
                   <DiameterCard
-                    label="Średnica zewn. gwintu gniazda (D_HC)"
+                    label={t('helicoil.majorDiaHC')}
                     nominal={thread.holdingThread.D.nom}
                     limits={{ min: thread.holdingThread.D.min, max: thread.holdingThread.D.nom }}
                     unit="mm"
@@ -219,7 +219,7 @@ const HelicoilThreadPage = () => {
                     digits={3}
                   />
                   <DiameterCard
-                    label="Średnica podziałowa gwintu gniazda (D2_HC)"
+                    label={t('helicoil.pitchDiaHC')}
                     nominal={thread.holdingThread.D2.nom}
                     limits={{ min: thread.holdingThread.D2.min, max: thread.holdingThread.D2.max }}
                     unit="mm"
@@ -227,7 +227,7 @@ const HelicoilThreadPage = () => {
                     digits={3}
                   />
                   <DiameterCard
-                    label="Średnica wewn. otworu nagwintowanego (D1_HC)"
+                    label={t('helicoil.minorDiaHC')}
                     nominal={thread.holdingThread.D1.nom}
                     limits={{ min: thread.holdingThread.D1.min, max: thread.holdingThread.D1.max }}
                     unit="mm"
@@ -235,7 +235,7 @@ const HelicoilThreadPage = () => {
                     digits={3}
                   />
                   <PitchCard
-                    label="Skok gwintu (P)"
+                    label={t('threads.pitch')}
                     pitch={effectivePitch}
                     unit="mm"
                   />
@@ -246,14 +246,14 @@ const HelicoilThreadPage = () => {
               <div className="space-y-3 pt-1 border-t border-zinc-800/80">
                 <div className="flex items-center justify-between px-1 pt-1">
                   <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">
-                    Długość wkładki i głębokości (DIN 8140-1)
+                    {t('helicoil.lengthsTitle')}
                   </h3>
                   <button
                     type="button"
                     onClick={() => setShowAllLengths((v) => !v)}
                     className="text-xs text-cyan-400 hover:text-cyan-300 font-medium underline underline-offset-2 cursor-pointer"
                   >
-                    {showAllLengths ? 'Ukryj tabelę' : 'Pokaż wszystkie (1.0d - 3.0d)'}
+                    {showAllLengths ? t('helicoil.hideTable') : t('helicoil.showAll')}
                   </button>
                 </div>
 
@@ -282,25 +282,25 @@ const HelicoilThreadPage = () => {
                 {activeLengthSpec && (
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <AuxCard
-                      label={`Długość wkładki L (${activeLengthSpec.multiplier})`}
+                      label={t('helicoil.insertLength', { mult: activeLengthSpec.multiplier })}
                       value={activeLengthSpec.nominalLength}
                       unit="mm"
                       digits={2}
-                      note="Długość w stanie zamontowanym"
+                      note={t('helicoil.installedLength')}
                     />
                     <AuxCard
-                      label="Min. głębokość gwintu (t2)"
+                      label={t('helicoil.minThreadDepth')}
                       value={activeLengthSpec.minThreadDepth}
                       unit="mm"
                       digits={2}
-                      note="Głębokość naciętego gwintu roboczego"
+                      note={t('helicoil.minThreadDepthNote')}
                     />
                     <AuxCard
-                      label="Min. głębokość wiercenia (t1)"
+                      label={t('helicoil.minDrillDepth')}
                       value={activeLengthSpec.minDrillDepth}
                       unit="mm"
                       digits={2}
-                      note="Głębokość otworu pod gwintownik"
+                      note={t('helicoil.minDrillDepthNote')}
                     />
                   </div>
                 )}
@@ -311,10 +311,10 @@ const HelicoilThreadPage = () => {
                     <table className="w-full text-xs text-left">
                       <thead>
                         <tr className="border-b border-zinc-800 text-zinc-400 uppercase tracking-wider">
-                          <th className="py-2 px-2.5">Oznaczenie</th>
-                          <th className="py-2 px-2.5">Długość L</th>
-                          <th className="py-2 px-2.5">Min. gwint t₂</th>
-                          <th className="py-2 px-2.5">Min. wiercenie t₁</th>
+                          <th className="py-2 px-2.5">{t('common.designation', { defaultValue: 'Oznaczenie' })}</th>
+                          <th className="py-2 px-2.5">{t('helicoil.tableLengthL')}</th>
+                          <th className="py-2 px-2.5">Min. t₂</th>
+                          <th className="py-2 px-2.5">Min. t₁</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-zinc-800/60">
@@ -336,12 +336,12 @@ const HelicoilThreadPage = () => {
               </div>
 
               <p className="text-zinc-500 text-xs text-center mt-3 leading-relaxed">
-                Wymiary gwintu gniazda wg DIN 8140-2 · Tolerancja 6H mod (STI) · Wymiary montażowe wkładek wg DIN 8140-1 (Böllhoff HELICOIL® Plus).
+                {t('helicoil.footerStandard')}
               </p>
             </div>
           ) : (
             <p className="text-center text-zinc-500 py-10">
-              {t('helicoil.emptyMessage', { defaultValue: 'Wpisz średnicę nominalną i wybierz skok, aby zobaczyć wymiary gniazda HeliCoil.' })}
+              {t('helicoil.emptyMessage')}
             </p>
           )}
         </div>

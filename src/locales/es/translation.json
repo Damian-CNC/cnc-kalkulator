@@ -111,7 +111,18 @@
     "hbInput": "Dureza HB",
     "hrcInput": "Dureza HRC",
     "resultTitle": "Resultado de conversión",
-    "standard": "Conversión según ISO 18265 (ISO 6506/6508)"
+    "standard": "Conversión según ISO 18265 (ISO 6506/6508)",
+    "typicalRanges": "Rangos típicos de dureza del acero",
+    "carburizedNitrided": "Cementados / Nitrurados",
+    "toolHardened": "Herramientas / Templados",
+    "structural": "Estructural (S355)",
+    "quenched": "Para temple y revenido (42CrMo4)",
+    "caseHardened": "Cementado / Nitrurado",
+    "toolSteel": "Acero de herramientas / Templado",
+    "errPositive": "Introduzca un valor positivo válido.",
+    "errRangeHb": "No hay equivalente exacto ISO para este valor. Rango HB: {{min}}–{{max}}.",
+    "errRangeHrc": "No hay equivalente exacto ISO para este valor. Rango HRC: {{min}}–{{max}}.",
+    "errNoMatch": "No hay equivalente exacto ISO para este valor."
   },
   "menuEdit": {
     "edit": "Editar menú",
@@ -128,5 +139,27 @@
     "spacerAddedBottom": "Espacio vacío añadido al final del menú ⬇️",
     "moveLeft": "Mover a la izquierda",
     "moveRight": "Mover a la derecha"
+  },
+  "tabs": {
+    "cone": "Conicidad",
+    "hardness": "Dureza"
+  },
+  "materials": {
+    "group": "Grupo de material"
+  },
+  "error": {
+    "title": "No se pudo cargar la página",
+    "desc": "Actualice la aplicación para recargar el módulo.",
+    "refresh": "Actualizar"
+  },
+  "favorites": {
+    "title": "Favoritos",
+    "close": "Cerrar favoritos",
+    "emptyHint": "Sin accesos directos. Toca la estrella junto al título del módulo para agregarlo.",
+    "removeNamed": "Eliminar {{title}}",
+    "shortcuts": "Accesos directos favoritos",
+    "add": "Añadir a favoritos (máx. 4)",
+    "remove": "Eliminar de favoritos",
+    "maxReached": "Máximo 4 accesos directos favoritos"
   }
 }

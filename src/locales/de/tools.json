@@ -248,7 +248,10 @@
     "length": "Min. nutzbare Gewindelänge (R)",
     "lengthNote": "nach ISO 7-1, Außengewinde",
     "taper": "Kegel 1:16 am Durchmesser, halber Winkel {{angle}}. Die Durchmesser wachsen um 0,0625 mm je 1 mm Länge.",
-    "footer": "Durchmesser in der Messebene nach ISO 7-1, übrige aus dem Kegel berechnet. Das Innengewinde Rc hat dieselben Maße. Längen in der Norm prüfen."
+    "footer": "Durchmesser in der Messebene nach ISO 7-1, übrige aus dem Kegel berechnet. Das Innengewinde Rc hat dieselben Maße. Längen in der Norm prüfen.",
+    "major_d": "Außen-Ø d",
+    "pitch_d2": "Flanken-Ø d2",
+    "minor_d1": "Kern-Ø d1"
   },
   "buttress": {
     "menu": "Sägengewinde S (DIN 513)",
@@ -274,7 +277,9 @@
     "pitchNut": "Flankendurchmesser (D2)",
     "minorNut": "Kerndurchmesser (D1)",
     "drillNote": "Bohrdurchmesser",
-    "footer": "Nennmaße nach DIN 513 (h3 = 0,86777·P, H1 = 0,75·P, R = 0,12427·P). Werte können um 0,001 von den Tabellen abweichen. Toleranzklassen (7H…9c) aus DIN 513 Teil 3 werden nicht berechnet, Norm prüfen."
+    "footer": "Nennmaße nach DIN 513 (h3 = 0,86777·P, H1 = 0,75·P, R = 0,12427·P). Werte können um 0,001 von den Tabellen abweichen. Toleranzklassen (7H…9c) aus DIN 513 Teil 3 werden nicht berechnet, Norm prüfen.",
+    "nutDrill": "Kernlochbohrer für Mutter",
+    "nutDrillNote": "Entspricht dem Kerndurchmesser D1"
   },
   "calc": {
     "tile": "Taschenrechner",
@@ -282,7 +287,8 @@
     "history": "Letzte Ergebnisse",
     "hint": "Ergebnis oben antippen zum Einfügen · gedrückt halten zum Kopieren",
     "error": "Fehler",
-    "sign": "Vorzeichen wechseln"
+    "sign": "Vorzeichen wechseln",
+    "noHistory": "Keine Berechnungshistorie"
   },
   "pg": {
     "menu": "Stahlpanzerrohr-Gewinde Pg (DIN 40430)",
@@ -361,6 +367,7 @@
     "eqTitle": "Entsprechungen in anderen Normen",
     "cmc": "CMC-Gruppe",
     "more": "Mehr anzeigen",
-    "showAll": "Alle anzeigen ({{n}})"
+    "showAll": "Alle anzeigen ({{n}})",
+    "groupLabel": "Materialgruppe"
   }
 }

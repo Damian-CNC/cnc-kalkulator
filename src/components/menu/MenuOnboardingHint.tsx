@@ -63,7 +63,7 @@ export const MenuOnboardingHint = ({ onStartEdit }: MenuOnboardingHintProps) => 
             <div className="flex items-center gap-1.5 mb-1">
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">
                 <Sparkles className="w-2.5 h-2.5" />
-                Nowość
+                {t('common.new', { defaultValue: 'Nowość' })}
               </span>
               <h3 className="text-sm sm:text-base font-bold text-zinc-100">
                 {t('menuEdit.hintTitle')}

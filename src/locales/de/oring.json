@@ -2,12 +2,12 @@
   "modeRadial": "Statisch radial",
   "modeAxial": "Statisch axial",
   "modeDynamic": "Dynamisch",
-  "cordThickness": "Schnurdicke d₂ [mm]",
+  "cordThickness": "Schnurstärke d₂ [mm] (Normmaß)",
   "sealType": "Dichtungsart",
   "grooveDimensions": "Nutmaße",
-  "depthT": "Tiefe t",
+  "depthT": "Nuttiefe t",
   "rangeT": "Bereich t",
-  "widthB0": "Breite b (ohne Stützring)",
+  "widthB0": "Nutbreite b (ohne Stützring)",
   "widthB1": "b — 1 Stützring",
   "widthB2": "b — 2 Stützringe",
   "squeeze": "Verpressung",
@@ -16,5 +16,11 @@
   "chamfer": "Einführfase 15°, Länge",
   "fillRatio": "Nutfüllgrad",
   "diagram": "Nutschema",
-  "note": "Näherungswerte nach ISO 3601-2. Empfohlener Nutfüllgrad 70–85 %."
+  "note": "Näherungswerte nach ISO 3601-2. Empfohlener Nutfüllgrad 70–85 %.",
+  "compression": "Verpressung",
+  "bottomRadiusR1": "Nutgrundradius r₁",
+  "edgeRadiusR2": "Kantenradius r₂",
+  "leadChamfer": "Montageschräge 15°, Lg.",
+  "grooveFill": "Nutausfüllung",
+  "disclaimer": "Richtwerte nach ISO 3601-2. Empfohlene Nutausfüllung 70–85 %."
 }

@@ -3,7 +3,7 @@
   "widthFit": "Uložení šířky b",
   "outOfRange": "Pro tento průměr nejsou data. Rozsah normy v modulu: 6–75 mm.",
   "keyDims": "Péro b × h",
-  "grooveWidth": "Šířka drážky {{fit}}: {{b}} mm ({{upper}} / {{lower}})",
+  "grooveWidth": "Šířka drážky",
   "shaft": "Hřídel",
   "hub": "Náboj",
   "depthT1": "Hloubka t₁",
@@ -12,5 +12,7 @@
   "controlDim2": "Kontrolní rozměr d + t₂",
   "diagram": "Schéma",
   "hubLabel": "náboj",
-  "table": "Tabulka DIN 6885"
+  "table": "Tabulka DIN 6885",
+  "diameterLabel": "Průměr hřídele / díry d [mm] (označení normy)",
+  "noData": "Žádná data pro tento průměr. Rozsah normy v modulu: 6–75 mm."
 }

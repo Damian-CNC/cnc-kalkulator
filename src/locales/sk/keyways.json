@@ -3,7 +3,7 @@
   "widthFit": "Uloženie šírky b",
   "outOfRange": "Žiadne údaje pre tento priemer. Štandardný rozsah normy: 6–75 mm.",
   "keyDims": "Pero b × h",
-  "grooveWidth": "Šírka drážky {{fit}}: {{b}} mm ({{upper}} / {{lower}})",
+  "grooveWidth": "Šírka drážky",
   "shaft": "Hriadeľ",
   "hub": "Náboj",
   "depthT1": "Hĺbka t₁",
@@ -12,5 +12,7 @@
   "controlDim2": "Kontrolný rozmer d + t₂",
   "diagram": "Schéma",
   "hubLabel": "náboj",
-  "table": "Tabuľka DIN 6885"
+  "table": "Tabuľka DIN 6885",
+  "diameterLabel": "Priemer hriadeľa / diery d [mm] (označenie normy)",
+  "noData": "Žiadne dáta pre tento priemer. Rozsah normy v modulu: 6–75 mm."
 }

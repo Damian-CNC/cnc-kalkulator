@@ -248,7 +248,10 @@
     "length": "Min. długość gwintu użytecznego (R)",
     "lengthNote": "wg ISO 7-1, gwint zewnętrzny",
     "taper": "Zbieżność 1:16 na średnicy, półkąt {{angle}}. Średnice rosną o 0,0625 mm na każdy 1 mm długości.",
-    "footer": "Średnice w płaszczyźnie pomiarowej wg ISO 7-1, pozostałe przeliczone ze zbieżności. Gwint Rc (wewnętrzny) ma te same wymiary. Długości sprawdź w normie."
+    "footer": "Średnice w płaszczyźnie pomiarowej wg ISO 7-1, pozostałe przeliczone ze zbieżności. Gwint Rc (wewnętrzny) ma te same wymiary. Długości sprawdź w normie.",
+    "major_d": "zewn. d",
+    "pitch_d2": "podziałowa d2",
+    "minor_d1": "wewn. d1"
   },
   "buttress": {
     "menu": "Gwinty oporowe S (DIN 513)",
@@ -274,7 +277,9 @@
     "pitchNut": "Średnica podziałowa (D2)",
     "minorNut": "Średnica rdzenia (D1)",
     "drillNote": "średnica wiercenia",
-    "footer": "Wymiary nominalne wg DIN 513 (h3 = 0,86777·P, H1 = 0,75·P, R = 0,12427·P). Wartości mogą różnić się o 0,001 od tabel. Klasy tolerancji (7H…9c) wg DIN 513 cz. 3 nie są liczone, sprawdź normę."
+    "footer": "Wymiary nominalne wg DIN 513 (h3 = 0,86777·P, H1 = 0,75·P, R = 0,12427·P). Wartości mogą różnić się o 0,001 od tabel. Klasy tolerancji (7H…9c) wg DIN 513 cz. 3 nie są liczone, sprawdź normę.",
+    "nutDrill": "Średnica wiercenia pod nakrętkę",
+    "nutDrillNote": "Równa średnicy wewnętrznej D1"
   },
   "calc": {
     "tile": "Kalkulator",
@@ -282,7 +287,8 @@
     "history": "Ostatnie wyniki",
     "hint": "Dotknij wyniku u góry, by wstawić · przytrzymaj, by skopiować",
     "error": "Błąd",
-    "sign": "Zmień znak"
+    "sign": "Zmień znak",
+    "noHistory": "Brak historii obliczeń"
   },
   "pg": {
     "menu": "Gwinty pancerne Pg (DIN 40430)",
@@ -361,6 +367,7 @@
     "eqTitle": "Odpowiedniki w innych normach",
     "cmc": "Grupa CMC",
     "more": "Pokaż więcej",
-    "showAll": "Pokaż wszystkie ({{n}})"
+    "showAll": "Pokaż wszystkie ({{n}})",
+    "groupLabel": "Grupa materiałowa"
   }
 }

@@ -167,7 +167,10 @@
       "step2": "Tocca il pulsante Condividi nella barra inferiore (quadrato con freccia verso l'alto).",
       "step3": "Scorri verso il basso e seleziona 'Aggiungi alla schermata Home' (icona +).",
       "step4": "Tocca 'Aggiungi' in alto a destra. L'icona apparirà sulla schermata iniziale."
-    }
+    },
+    "desktopDesc": "Funziona in una finestra autonoma senza barre del browser – come un programma nativo Windows/Mac.",
+    "androidDesc": "A schermo intero, avviabile direttamente dalla schermata home dello smartphone.",
+    "iosDesc": "Su iOS è necessario Safari per aggiungere l'app alla schermata Home."
   },
   "formulas": {
     "help": "Formula e spiegazione",
@@ -260,6 +263,18 @@
     "greeting": "Ciao! Sviluppo CNCHub gratuitamente per operatori CNC, programmatori e meccanici.",
     "desc": "Se questo calcolatore ti fa risparmiare tempo in officina, semplifica i calcoli o ti ha evitato errori, considera di offrirmi un caffè. Ogni supporto copre i costi di server e dominio e stimola lo sviluppo continuo!",
     "cta": "Offrimi un caffè ☕",
-    "later": "Forse più tardi"
+    "later": "Forse più tardi",
+    "bullet1": "Costi di hosting e dominio veloce cnchub.app",
+    "bullet2": "Nuovi standard filetti e calcolatori avanzati",
+    "bullet3": "L'applicazione rimane al 100% gratuita per tutti",
+    "whatFor": "A cosa serve il supporto?"
+  },
+  "calculator": {
+    "noHistory": "Nessuna cronologia calcoli"
+  },
+  "error": {
+    "title": "Impossibile caricare la pagina",
+    "desc": "Ricarica l'applicazione per ricaricare il modulo.",
+    "refresh": "Ricarica"
   }
 }

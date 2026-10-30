@@ -3,7 +3,7 @@
   "widthFit": "Width fit b",
   "outOfRange": "No data for this diameter. Module standard range: 6–75 mm.",
   "keyDims": "Key b × h",
-  "grooveWidth": "Groove width {{fit}}: {{b}} mm ({{upper}} / {{lower}})",
+  "grooveWidth": "Groove width",
   "shaft": "Shaft",
   "hub": "Hub",
   "depthT1": "Depth t₁",
@@ -12,5 +12,7 @@
   "controlDim2": "Control dimension d + t₂",
   "diagram": "Diagram",
   "hubLabel": "hub",
-  "table": "DIN 6885 table"
+  "table": "DIN 6885 table",
+  "diameterLabel": "Shaft / bore diameter d [mm] (standard size)",
+  "noData": "No standard data for this diameter. Range in module: 6–75 mm."
 }

@@ -50,7 +50,11 @@
     "applyC": "Usa valore C calcolato",
     "quickN": "Scelta rapida numero fori",
     "formula": "Formula di calcolo:",
-    "measuringPair": "Coppia di fori misurata"
+    "measuringPair": "Coppia di fori misurata",
+    "waiting": "Inserisci il numero fori N e l'interasse C per calcolare il diametro primitivo PCD",
+    "outerEdges": "Bordi esterni (L_est)",
+    "centerDistance": "Interasse centri C",
+    "caliperMeasurement": "Misura calibro bordi esterni dopo azzeramento a d = C"
   },
   "linear": {
     "l": "Passo / interasse L",
@@ -71,6 +75,12 @@
     "allowed": "Tolleranza ammessa",
     "margin": "Margine residuo",
     "pass": "PASS",
-    "fail": "FAIL"
+    "fail": "FAIL",
+    "explanation": "La posizione vera (True Position sec. ASME Y14.5 / ISO 1101) definisce una zona di tolleranza cilindrica o circolare centrata sul punto teorico:",
+    "mmcExplanation": "In condizione di massimo materiale (MMC Ⓜ), si aggiunge una tolleranza bonus pari allo scostamento della quota dallo stato MMC."
+  },
+  "milling": {
+    "solverTitle": "Risolutore automatico dei parametri",
+    "solverDesc": "Inserisci due parametri noti nella sezione velocità o avanzamento: il calcolatore calcola istantaneamente i valori mancanti evidenziandoli in ciano."
   }
 }

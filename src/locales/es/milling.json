@@ -50,7 +50,11 @@
     "applyC": "Usar C calculada",
     "quickN": "Selección rápida de número de agujeros",
     "formula": "Fórmula de cálculo:",
-    "measuringPair": "Par de agujeros medido"
+    "measuringPair": "Par de agujeros medido",
+    "waiting": "Introduce el número de orificios N y la distancia C para calcular el diámetro PCD",
+    "outerEdges": "Bordes exteriores (L_ext)",
+    "centerDistance": "Distancia entre centros C",
+    "caliperMeasurement": "Medición calibre bordes exteriores tras poner a cero en d = C"
   },
   "linear": {
     "l": "Paso / distancia entre centros L",
@@ -71,6 +75,12 @@
     "allowed": "Tolerancia admisible",
     "margin": "Margen restante",
     "pass": "APROBADO",
-    "fail": "RECHAZADO"
+    "fail": "RECHAZADO",
+    "explanation": "La posición real (True Position según ASME Y14.5 / ISO 1101) define una zona de tolerancia cilíndrica o circular centrada en la posición teórica:",
+    "mmcExplanation": "En condición de máximo material (MMC Ⓜ), se añade una tolerancia adicional (bonus) igual a la desviación de la cota respecto al estado MMC."
+  },
+  "milling": {
+    "solverTitle": "Solucionador automático de parámetros",
+    "solverDesc": "Introduzca dos parámetros conocidos en la sección de velocidad o avance: la calculadora calcula al instante los valores que faltan y los resalta en cian."
   }
 }

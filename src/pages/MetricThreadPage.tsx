@@ -224,7 +224,7 @@ const MetricThreadPage = () => {
               >
                 <div className="flex items-center gap-2">
                   <Ruler className="w-4 h-4 text-amber-400 group-hover:scale-110 transition-transform" />
-                  <span>Kąt wzniosu & Płytka podporowa</span>
+                  <span>{t('threads.helixAndShim', { defaultValue: 'Kąt wzniosu & Płytka podporowa' })}</span>
                 </div>
                 <ArrowRight className="w-3.5 h-3.5 text-amber-400 shrink-0 group-hover:translate-x-0.5 transition-transform" />
               </button>
@@ -276,7 +276,7 @@ const MetricThreadPage = () => {
                       unit="mm"
                     />
                     <DepthCard
-                      label="Głębokość nacinania"
+                      label={t('threads.threadDepth', { defaultValue: 'Głębokość nacinania' })}
                       depth={nominal.externalThreadHeight}
                       unit="mm"
                     />
@@ -324,7 +324,7 @@ const MetricThreadPage = () => {
                       unit="mm"
                     />
                     <DepthCard
-                      label="Głębokość nacinania"
+                      label={t('threads.threadDepth', { defaultValue: 'Głębokość nacinania' })}
                       depth={nominal.internalThreadHeight}
                       unit="mm"
                     />

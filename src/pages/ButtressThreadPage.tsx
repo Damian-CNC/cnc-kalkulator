@@ -184,10 +184,10 @@ const ButtressThreadPage = () => {
                         note={`${t('buttress.depthNote')} · ${t('buttress.depthFromNut')}`}
                       />
                       <DrillCard
-                        label="Średnica wiercenia pod nakrętkę"
+                        label={t('buttress.nutDrill', { defaultValue: 'Średnica wiercenia pod nakrętkę' })}
                         diameter={res.D1}
                         unit="mm"
-                        note="Równa średnicy wewnętrznej D1"
+                        note={t('buttress.nutDrillNote', { defaultValue: 'Równa średnicy wewnętrznej D1' })}
                         digits={3}
                       />
                     </div>

@@ -50,7 +50,11 @@
     "applyC": "Použít vypočtené C",
     "quickN": "Rychlá volba počtu otvorů",
     "formula": "Výpočtový vzorec:",
-    "measuringPair": "Měřená dvojice otvorů"
+    "measuringPair": "Měřená dvojice otvorů",
+    "waiting": "Zadejte počet děr N a rozteč C pro výpočet roztečné kružnice PCD",
+    "outerEdges": "Vnější hrany (L_vnejsi)",
+    "centerDistance": "Rozteč středů C",
+    "caliperMeasurement": "Měření posuvným měřítkem po vynulování na d = C"
   },
   "linear": {
     "l": "Rozteč / krok L",
@@ -71,6 +75,12 @@
     "allowed": "Přípustná tolerance",
     "margin": "Zbývající rezerva",
     "pass": "VYHOVUJE",
-    "fail": "NEVYHOVUJE"
+    "fail": "NEVYHOVUJE",
+    "explanation": "Skutečná poloha (True Position dle ASME Y14.5 / ISO 1101) definuje válcovou nebo kruhovou toleranční zónu středu prvku:",
+    "mmcExplanation": "Při uplatnění podmínky maxima materiálu (MMC Ⓜ) se k základní toleranci přičítá bonus rovný odchylce rozměru od stavu MMC."
+  },
+  "milling": {
+    "solverTitle": "Automatický řešič parametrů",
+    "solverDesc": "Zadejte libovolné dva známé parametry v sekci otáček nebo posuvů – kalkulátor okamžitě dopočítá chybějící hodnoty a zvýrazní je azurově."
   }
 }

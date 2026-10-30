@@ -1,16 +1,22 @@
 {
   "shaftTab": "Hriadeľ — DIN 471",
   "boreTab": "Diera — DIN 472",
-  "nominalDiameter": "Menovitý priemer d₁ [mm]",
+  "nominalDiameter": "Menovitý priemer d₁ [mm] (označenie normy)",
   "notFound": "Žiadny normalizovaný rozmer v rozsahu 8–100 mm.",
   "grooveDimensions": "Rozmery drážky",
   "grooveBottom": "Dno drážky d₂ ({{fit}})",
-  "widthM": "Šírka m (H13)",
+  "widthM": "Šírka drážky m (H13)",
   "ringStrength": "Poistný krúžok a pevnosť",
   "ringThickness": "Hrúbka krúžku s",
   "minEdgeDistance": "Min. vzdialenosť od okraja n",
   "grooveLoad": "Zaťaženie drážky F_R (orientačne)",
   "grooveDepth": "Hĺbka drážky",
   "crossSection": "Prierez",
-  "rotationAxis": "os otáčania"
+  "rotationAxis": "os otáčania",
+  "shaftTitle": "Hriadeľ — DIN 471",
+  "boreTitle": "Diera — DIN 472",
+  "ringAndStrength": "Krúžok a nosnosť",
+  "ringThicknessS": "Hrúbka krúžku s",
+  "minDistanceN": "Min. vzdialenosť od okraja n",
+  "grooveLoadFR": "Zaťažiteľnosť drážky F_R (orient.)"
 }

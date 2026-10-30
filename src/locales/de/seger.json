@@ -1,16 +1,22 @@
 {
   "shaftTab": "Welle — DIN 471",
   "boreTab": "Bohrung — DIN 472",
-  "nominalDiameter": "Nenndurchmesser d₁ [mm]",
+  "nominalDiameter": "Nenndurchmesser d₁ [mm] (Normmaß)",
   "notFound": "Kein genormtes Maß im Bereich 8–100 mm.",
   "grooveDimensions": "Nutmaße",
   "grooveBottom": "Nutgrund d₂ ({{fit}})",
-  "widthM": "Breite m (H13)",
+  "widthM": "Nutbreite m (H13)",
   "ringStrength": "Sicherungsring und Festigkeit",
   "ringThickness": "Ringdicke s",
   "minEdgeDistance": "Mind. Randabstand n",
   "grooveLoad": "Nutbelastung F_R (Näherung)",
   "grooveDepth": "Nuttiefe",
   "crossSection": "Querschnitt",
-  "rotationAxis": "Drehachse"
+  "rotationAxis": "Drehachse",
+  "shaftTitle": "Welle — DIN 471",
+  "boreTitle": "Bohrung — DIN 472",
+  "ringAndStrength": "Ring & Tragfähigkeit",
+  "ringThicknessS": "Ringdicke s",
+  "minDistanceN": "Min. Randabstand n",
+  "grooveLoadFR": "Nuttoleranzlast F_R (Richtwert)"
 }

@@ -389,13 +389,13 @@ const TruePositionCalculator = () => {
                 <span>{t('tp.formulaInfo', { defaultValue: 'Formuła True Position' })}</span>
               </div>
               <p className="leading-relaxed">
-                Pozycja rzeczywista (True Position wg ASME Y14.5 / ISO 1101) definiuje cylindryczną lub kołową strefę tolerancji środka elementu:
+                {t('tp.explanation', { defaultValue: 'Pozycja rzeczywista (True Position wg ASME Y14.5 / ISO 1101) definiuje cylindryczną lub kołową strefę tolerancji środka elementu:' })}
               </p>
               <div className="p-2.5 rounded-lg bg-zinc-950 border border-zinc-800 font-mono text-cyan-300 text-center font-bold">
                 TP = 2 × √(ΔX² + ΔY²)
               </div>
               <p className="text-[11px] text-zinc-500 leading-normal">
-                Gdy uwzględniono warunek maksimum materiału (MMC Ⓜ), do bazowej tolerancji dodawana jest premia bonusowa równa odchyłce wymiaru od stanu MMC.
+                {t('tp.mmcExplanation', { defaultValue: 'Gdy uwzględniono warunek maksimum materiału (MMC Ⓜ), do bazowej tolerancji dodawana jest premia bonusowa równa odchyłce wymiaru od stanu MMC.' })}
               </p>
             </div>
           )}

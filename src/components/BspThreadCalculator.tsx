@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { bspThreads, bspSizes } from '@/data/bspThreadsData';
@@ -9,6 +10,7 @@ import ClearFab from '@/components/ClearFab';
 import { DiameterCard, PitchCard, DepthCard, DrillCard } from '@/components/ThreadResultCards';
 
 const BspThreadCalculator = () => {
+  const { t } = useTranslation('threadsCalc');
   const L = useLength('mm');
   const [selectedSize, setSelectedSize] = usePersistedState<string>('bsp-size', '');
   const [threadTab, setThreadTab] = useQueryState('tab', 'external', ['external', 'internal'] as const, 'bsp-tab');
@@ -25,10 +27,12 @@ const BspThreadCalculator = () => {
           {/* LEWA KOLUMNA: Wybór rozmiaru, Oznaczenie, Wybór Czop / Otwór */}
           <div className="space-y-4 lg:sticky lg:top-4 bg-zinc-900/40 p-3.5 sm:p-4 border border-zinc-800/80 rounded-2xl">
             <div className="flex flex-col">
-              <label className="block text-xs font-semibold text-zinc-500 mb-1.5 uppercase tracking-wider">Rozmiar gwintu</label>
+              <label className="block text-xs font-semibold text-zinc-500 mb-1.5 uppercase tracking-wider">
+                {t('common.threadSize', { defaultValue: 'Rozmiar gwintu (G)' })}
+              </label>
               <Select value={selectedSize} onValueChange={setSelectedSize}>
                 <SelectTrigger className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-100 text-lg h-auto md:text-sm md:py-2.5 md:px-3 md:h-10 md:rounded-lg">
-                  <SelectValue placeholder="Wybierz rozmiar" />
+                  <SelectValue placeholder={t('common.selectSize', { defaultValue: 'Wybierz rozmiar' })} />
                 </SelectTrigger>
                 <SelectContent className="bg-zinc-900 border-zinc-700 max-h-60">
                   {bspSizes.map((size) => (
@@ -50,10 +54,10 @@ const BspThreadCalculator = () => {
 
                 <TabsList className="w-full bg-zinc-900 border border-zinc-800 p-1">
                   <TabsTrigger value="external" className="flex-1 text-xs md:text-xs py-1.5 data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50">
-                    🔩 Czop
+                    🔩 {t('threads.bolt')}
                   </TabsTrigger>
                   <TabsTrigger value="internal" className="flex-1 text-xs md:text-xs py-1.5 data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50">
-                    🔧 Otwór
+                    🔧 {t('threads.internalTab')}
                   </TabsTrigger>
                 </TabsList>
               </>
@@ -67,7 +71,7 @@ const BspThreadCalculator = () => {
                 <TabsContent value="external" className="mt-0">
                   <div className="space-y-3 lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-3">
                     <DiameterCard
-                      label="Średnica zewnętrzna (d)"
+                      label={t('threads.majorDiameterD')}
                       limits={{ max: thread.external.d.max, min: thread.external.d.min }}
                       unit="mm"
                       nominal={thread.external.d.nom}
@@ -75,7 +79,7 @@ const BspThreadCalculator = () => {
                       digits={3}
                     />
                     <DiameterCard
-                      label="Średnica podziałowa (d2)"
+                      label={t('threads.pitchDiameterD2')}
                       limits={{ max: thread.external.d2.max, min: thread.external.d2.min }}
                       unit="mm"
                       nominal={thread.external.d2.nom}
@@ -83,7 +87,7 @@ const BspThreadCalculator = () => {
                       digits={3}
                     />
                     <DiameterCard
-                      label="Średnica rdzenia (d1)"
+                      label={t('threads.minorDiameterD1')}
                       limits={{ max: thread.external.d1.max, min: thread.external.d1.min }}
                       unit="mm"
                       nominal={thread.external.d1.nom}
@@ -91,18 +95,18 @@ const BspThreadCalculator = () => {
                       digits={3}
                     />
                     <PitchCard
-                      label="Skok gwintu (P)"
+                      label={t('threads.pitch')}
                       pitch={thread.pitch}
                       tpi={thread.tpi}
                       unit="mm"
                       digits={4}
                     />
                     <DepthCard
-                      label="Głębokość nacinania (h3)"
+                      label={t('threads.threadDepthH3')}
                       depth={thread.h3}
                       unit="mm"
                       digits={3}
-                      note="Radialna głębokość profilu gwintu"
+                      note={t('threads.radialDepthNote')}
                     />
                   </div>
                 </TabsContent>
@@ -110,7 +114,7 @@ const BspThreadCalculator = () => {
                 <TabsContent value="internal" className="mt-0">
                   <div className="space-y-3 lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-3">
                     <DiameterCard
-                      label="Średnica zewnętrzna (D)"
+                      label={t('threads.majorDiameterInternal')}
                       limits={{ max: thread.internal.D.max, min: thread.internal.D.min }}
                       unit="mm"
                       nominal={thread.internal.D.nom}
@@ -118,7 +122,7 @@ const BspThreadCalculator = () => {
                       digits={3}
                     />
                     <DiameterCard
-                      label="Średnica podziałowa (D2)"
+                      label={t('threads.pitchDiameterInternal')}
                       limits={{ max: thread.internal.D2.max, min: thread.internal.D2.min }}
                       unit="mm"
                       nominal={thread.internal.D2.nom}
@@ -126,7 +130,7 @@ const BspThreadCalculator = () => {
                       digits={3}
                     />
                     <DiameterCard
-                      label="Średnica wewnętrzna (D1)"
+                      label={t('threads.minorDiameterInternal')}
                       limits={{ max: thread.internal.D1.max, min: thread.internal.D1.min }}
                       unit="mm"
                       nominal={thread.internal.D1.nom}
@@ -134,42 +138,42 @@ const BspThreadCalculator = () => {
                       digits={3}
                     />
                     <PitchCard
-                      label="Skok gwintu (P)"
+                      label={t('threads.pitch')}
                       pitch={thread.pitch}
                       tpi={thread.tpi}
                       unit="mm"
                       digits={4}
                     />
                     <DepthCard
-                      label="Głębokość nacinania (h3)"
+                      label={t('threads.threadDepthH3')}
                       depth={thread.h3}
                       unit="mm"
                       digits={3}
-                      note="Radialna głębokość profilu gwintu"
+                      note={t('threads.radialDepthNote')}
                     />
                     <DrillCard
-                      label="Wiertło pod gwintownik"
+                      label={t('threads.tapDrill')}
                       diameter={thread.internal.drill}
                       unit="mm"
                       digits={2}
-                      note="Średnica wiercenia"
+                      note={t('threads.drillDiameterNote')}
                     />
                     <DrillCard
-                      label="Wiertło pod wygniatak"
+                      label={t('threads.rollTapDrill')}
                       diameter={thread.internal.formDrill}
                       unit="mm"
                       digits={2}
-                      note="Formowanie bezwiórowe (wygniatanie)"
+                      note={t('threads.rollTapNote')}
                     />
                   </div>
                 </TabsContent>
 
                 <p className="text-zinc-600 text-xs text-center mt-3">
-                  Tolerancje wg ISO 228-1 · Klasa dokładności A · Profil Whitworth 55°
+                  {t('bsp.standards')}
                 </p>
               </>
             ) : (
-              <p className="text-center text-zinc-500 py-10">Wybierz rozmiar gwintu BSP z listy powyżej.</p>
+              <p className="text-center text-zinc-500 py-10">{t('bsp.selectPrompt')}</p>
             )}
           </div>
         </div>

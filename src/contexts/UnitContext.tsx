@@ -72,7 +72,7 @@ export const UnitProvider = ({ children }: { children: React.ReactNode }) => {
         length: imperial ? 'inch' : 'mm',
         speed: imperial ? 'SFM' : 'm/min',
         feedRate: imperial ? 'IPM' : 'mm/min',
-        feedPerTooth: imperial ? 'IPT' : 'mm/ząb',
+        feedPerTooth: imperial ? 'IPT' : 'mm/z',
         mass: imperial ? 'lbs' : 'kg',
       },
     };
@@ -91,7 +91,7 @@ export const useUnits = (): UnitContextValue => {
       setSystem: () => undefined,
       toggle: () => undefined,
       speedConstant: 1000,
-      u: { length: 'mm', speed: 'm/min', feedRate: 'mm/min', feedPerTooth: 'mm/ząb', mass: 'kg' },
+      u: { length: 'mm', speed: 'm/min', feedRate: 'mm/min', feedPerTooth: 'mm/z', mass: 'kg' },
     };
   }
   return ctx;

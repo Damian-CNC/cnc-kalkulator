@@ -337,7 +337,7 @@ const PcdMeasureCalculator = () => {
                 </div>
               ) : (
                 <div className="py-6 text-zinc-400 text-sm">
-                  Wprowadź liczbę otworów N oraz rozstaw C, aby wyznaczyć średnicę PCD
+                  {t('pcdMeasure.waiting', { defaultValue: 'Wprowadź liczbę otworów N oraz rozstaw C, aby wyznaczyć średnicę PCD' })}
                 </div>
               )}
             </div>
@@ -397,7 +397,9 @@ const PcdMeasureCalculator = () => {
                     </div>
 
                     <div className="p-2.5 rounded-xl bg-zinc-900/60 border border-zinc-800/80">
-                      <div className="text-[11px] text-zinc-400">Krawędzie zewn. (Lzew)</div>
+                      <div className="text-[11px] text-zinc-400">
+                        {t('pcdMeasure.outerEdges', { defaultValue: 'Krawędzie zewn. (Lzew)' })}
+                      </div>
                       <div className="text-base font-bold text-zinc-200 font-mono mt-0.5">
                         {calculations.lzew?.toFixed(3)}{' '}
                         <span className="text-xs text-zinc-400">{u.length}</span>
@@ -561,7 +563,7 @@ const PcdMeasureCalculator = () => {
                   <line x1="100" y1="22" x2="220" y2="22" stroke="#f59e0b" strokeWidth="1.75" />
                   <path d="M106 18.5 L100 22 L106 25.5 M214 18.5 L220 22 L214 25.5" stroke="#f59e0b" strokeWidth="1.5" fill="none" strokeLinecap="round" />
                   <text x="160" y="16" fill="#f59e0b" fontSize="10" fontWeight="bold" textAnchor="middle">
-                    Rozstaw środków C
+                    {t('pcdMeasure.centerDistance', { defaultValue: 'Rozstaw środków C' })}
                   </text>
 
                   {/* Szczęki suwmiarki na krawędziach zewnętrznych (78 i 242) */}
@@ -570,7 +572,7 @@ const PcdMeasureCalculator = () => {
                   <line x1="78" y1="92" x2="242" y2="92" stroke="#22d3ee" strokeWidth="1.5" />
                   <path d="M84 88.5 L78 92 L84 95.5 M236 88.5 L242 92 L236 95.5" stroke="#22d3ee" strokeWidth="1.5" fill="none" strokeLinecap="round" />
                   <text x="160" y="105" fill="#22d3ee" fontSize="9.5" fontWeight="bold" textAnchor="middle">
-                    Pomiar krawędzi zewn. po wyzerowaniu na d = C
+                    {t('pcdMeasure.caliperMeasurement', { defaultValue: 'Pomiar krawędzi zewn. po wyzerowaniu na d = C' })}
                   </text>
                 </svg>
               </div>

@@ -169,7 +169,10 @@
       "step2": "Tap the Share button on the bottom bar (box with an upward arrow).",
       "step3": "Scroll down and select 'Add to Home Screen' (plus icon).",
       "step4": "Tap 'Add' in the top right corner. The icon will appear on your home screen."
-    }
+    },
+    "desktopDesc": "Runs in a standalone window without browser bars – like a native Windows/Mac app.",
+    "androidDesc": "Runs full screen and launches directly from your phone's home screen.",
+    "iosDesc": "iOS requires Safari to add the app to your Home Screen."
   },
   "formulas": {
     "help": "Formula and explanation",
@@ -262,6 +265,18 @@
     "greeting": "Hey there! I build CNCHub completely free for machinists, CNC operators, and programmers.",
     "desc": "If this calculator saves you time on the shop floor, helps with cutting formulas, or prevents a costly part mistake – consider buying me a coffee. Your support covers fast server hosting, domain costs, and fuels ongoing development!",
     "cta": "Buy Me a Coffee ☕",
-    "later": "Maybe later"
+    "later": "Maybe later",
+    "bullet1": "Server hosting & fast domain cnchub.app",
+    "bullet2": "New thread standards & advanced calculators",
+    "bullet3": "App remains 100% free for everyone",
+    "whatFor": "What does the support go toward?"
+  },
+  "calculator": {
+    "noHistory": "No calculation history"
+  },
+  "error": {
+    "title": "Failed to load page",
+    "desc": "Refresh the application to reload the module.",
+    "refresh": "Refresh"
   }
 }

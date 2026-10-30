@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import PageLayout from '@/components/PageLayout';
 import ClearFab from '@/components/ClearFab';
 import useLength from '@/hooks/useLength';
@@ -11,13 +12,14 @@ const CORDS = [1.5, 1.78, 2.0, 2.5, 2.62, 3.0, 3.53, 4.0, 5.0, 5.33, 7.0];
 type Mode = 'radial' | 'axial' | 'dynamic';
 type ORingDimension = 'b' | 't' | 'r1' | 'r2' | null;
 
-const modes: { id: Mode; label: string; squeeze: [number, number] }[] = [
-  { id: 'radial', label: 'Statyczne promieniowe', squeeze: [0.15, 0.25] },
-  { id: 'axial', label: 'Statyczne osiowe', squeeze: [0.18, 0.28] },
-  { id: 'dynamic', label: 'Dynamiczne', squeeze: [0.1, 0.18] },
+const modes: { id: Mode; labelKey: string; squeeze: [number, number] }[] = [
+  { id: 'radial', labelKey: 'modeRadial', squeeze: [0.15, 0.25] },
+  { id: 'axial', labelKey: 'modeAxial', squeeze: [0.18, 0.28] },
+  { id: 'dynamic', labelKey: 'modeDynamic', squeeze: [0.1, 0.18] },
 ];
 
 const ORingGroovesPage = () => {
+  const { t } = useTranslation('oring');
   const L = useLength('mm');
   // wymiary normy w mm; w systemie calowym wyniki w calach (grubość sznura d₂ to oznaczenie w mm)
   const o = (v: number) => (L.isImperial ? (v / 25.4).toFixed(4) : v.toFixed(2));
@@ -59,13 +61,13 @@ const ORingGroovesPage = () => {
   );
 
   return (
-    <PageLayout title="Rowki O-ring (ISO 3601)" wideDesktop>
+    <PageLayout title={t('pages.oring', { defaultValue: 'Rowki O-ring (ISO 3601)' })} wideDesktop>
       <div className="lg:grid lg:grid-cols-[340px_1fr] lg:gap-6 lg:items-start space-y-4 lg:space-y-0">
         {/* Left Column: Cord & Mode selectors */}
         <div className="space-y-4 lg:sticky lg:top-4">
           <div className="glass-module">
             <label className="block text-xs uppercase tracking-wider text-zinc-400 mb-2">
-              Grubość sznura d₂ [mm] (oznaczenie normy)
+              {t('cordThickness')}
             </label>
             <div className="flex flex-wrap gap-2 mb-6">
               {CORDS.map((c) => (
@@ -84,7 +86,7 @@ const ORingGroovesPage = () => {
             </div>
 
             <label className="block text-xs uppercase tracking-wider text-zinc-400 mb-2">
-              Rodzaj uszczelnienia
+              {t('sealType')}
             </label>
             <div className="grid grid-cols-1 gap-2">
               {modes.map((m) => (
@@ -97,7 +99,7 @@ const ORingGroovesPage = () => {
                       : 'bg-zinc-900/50 border-zinc-800 text-zinc-400 hover:text-zinc-200'
                   }`}
                 >
-                  {m.label}
+                  {t(m.labelKey)}
                 </button>
               ))}
             </div>
@@ -107,26 +109,26 @@ const ORingGroovesPage = () => {
         {/* Right Column: Groove Dimensions & Diagram */}
         <div className="space-y-4">
           <div className="glass-module">
-            <h2 className="text-sm uppercase tracking-wider text-zinc-400 mb-4">Wymiary rowka</h2>
+            <h2 className="text-sm uppercase tracking-wider text-zinc-400 mb-4">{t('grooveDimensions')}</h2>
             <div className="grid grid-cols-2 gap-4">
-              <Cell label="Głębokość t" value={o(data.t)} dimension="t" />
+              <Cell label={t('depthT')} value={o(data.t)} dimension="t" />
               <Cell
-                label="Zakres t"
+                label={t('rangeT')}
                 value={`${o(data.tMin)}–${o(data.tMax)}`}
               />
-              <Cell label="Szerokość b (bez podparcia)" value={o(data.b0)} dimension="b" />
-              <Cell label="b — 1 pierścień podpierający" value={o(data.b1)} />
-              <Cell label="b — 2 pierścienie" value={o(data.b2)} />
-              <Cell label="Ścisk" value={`${data.squeezePct[0].toFixed(0)}–${data.squeezePct[1].toFixed(0)}`} unit="%" />
-              <Cell label="Promień dna r₁" value={o(data.r1)} dimension="r1" />
-              <Cell label="Promień krawędzi r₂" value={o(data.r2)} dimension="r2" />
-              <Cell label="Skos montażowy 15°, dł." value={o(data.chamfer)} />
-              <Cell label="Wypełnienie rowka" value={data.fill.toFixed(0)} unit="%" />
+              <Cell label={t('widthB0')} value={o(data.b0)} dimension="b" />
+              <Cell label={t('widthB1')} value={o(data.b1)} />
+              <Cell label={t('widthB2')} value={o(data.b2)} />
+              <Cell label={t('compression')} value={`${data.squeezePct[0].toFixed(0)}–${data.squeezePct[1].toFixed(0)}`} unit="%" />
+              <Cell label={t('bottomRadiusR1')} value={o(data.r1)} dimension="r1" />
+              <Cell label={t('edgeRadiusR2')} value={o(data.r2)} dimension="r2" />
+              <Cell label={t('leadChamfer')} value={o(data.chamfer)} />
+              <Cell label={t('grooveFill')} value={data.fill.toFixed(0)} unit="%" />
             </div>
           </div>
 
           <div className="glass-module">
-            <h2 className="text-sm uppercase tracking-wider text-zinc-400 mb-4">Schemat rowka</h2>
+            <h2 className="text-sm uppercase tracking-wider text-zinc-400 mb-4">{t('diagram')}</h2>
             <EngineeringDrawing label="ISO 3601 radial O-ring groove">
               {({ arrow, hatch }) => (
                 <>
@@ -146,7 +148,7 @@ const ORingGroovesPage = () => {
               )}
             </EngineeringDrawing>
             <p className="text-xs text-zinc-600 mt-4">
-              Wartości orientacyjne wg ISO 3601-2. Zalecane wypełnienie rowka 70–85 %.
+              {t('disclaimer')}
             </p>
           </div>
         </div>

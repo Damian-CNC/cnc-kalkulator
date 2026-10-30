@@ -151,7 +151,7 @@ const releaseOverdetermined = (inputs: Values, order: Field[], keep: Field): Val
 };
 
 const ParametersCalculator = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['translation', 'milling']);
   const { t: th } = useTranslation('app');
   const { system, isImperial, speedConstant, u } = useUnits();
   const [state, setState, resetState] = usePersistedState<PersistedShape>('speeds', EMPTY_STATE);
@@ -392,10 +392,10 @@ const ParametersCalculator = () => {
             {/* Pomoc / skrót inżynieryjny */}
             <div className="rounded-2xl border border-zinc-800/80 bg-zinc-900/30 p-4 text-xs text-zinc-400 space-y-2">
               <p className="font-semibold text-zinc-300 uppercase tracking-wider text-[11px]">
-                💡 Automatyczny Solver Parametrów
+                💡 {t('milling:milling.solverTitle', { defaultValue: 'Automatyczny Solver Parametrów' })}
               </p>
               <p className="text-zinc-500 leading-relaxed">
-                Wprowadź dowolne dwa znane parametry w sekcji obrotów lub posuwów – kalkulator natychmiast wyznaczy brakujące wartości i podświetli je na turkusowo.
+                {t('milling:milling.solverDesc', { defaultValue: 'Wprowadź dowolne dwa znane parametry w sekcji obrotów lub posuwów – kalkulator natychmiast wyznaczy brakujące wartości i podświetli je na turkusowo.' })}
               </p>
             </div>
           </div>

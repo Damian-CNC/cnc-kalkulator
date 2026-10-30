@@ -113,7 +113,7 @@ const MaterialsPage = () => {
 
             <div>
               <span className="block text-xs font-semibold text-zinc-500 mb-2 uppercase tracking-wider">
-                Grupa materiałowa
+                {t('mat.groupLabel', { defaultValue: 'Grupa materiałowa' })}
               </span>
               <div className="flex flex-wrap lg:grid lg:grid-cols-1 gap-1.5">
                 <button

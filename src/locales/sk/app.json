@@ -169,7 +169,10 @@
       "step2": "Klepnite na tlačidlo Zdieľať na spodnom paneli (štvorec so šípkou nahor).",
       "step3": "Posuňte sa nadol a vyberte „Pridať na plochu“ (ikona plus).",
       "step4": "Klepnite na „Pridať“ v pravom hornom rohu. Ikona sa objaví na ploche."
-    }
+    },
+    "desktopDesc": "Funguje v samostatnom okne bez pruhov prehliadača – ako natívny program Windows/Mac.",
+    "androidDesc": "Beží na celú obrazovku priamo z plochy telefónu bez zadávania adresy.",
+    "iosDesc": "V systéme iOS je na pridanie aplikácie na plochu vyžadovaný prehliadač Safari."
   },
   "formulas": {
     "help": "Vzorec a vysvetlenie",
@@ -262,6 +265,18 @@
     "greeting": "Ahoj! Vyvíjam CNCHub úplne bezplatne pre obrábačov, CNC operátorov a programátorov.",
     "desc": "Ak vám táto kalkulačka šetrí čas pri stroji, pomáha s reznými vzorcami alebo zabráni drahej chybe na obrobku – zvážte podporu kúpou kávy. Váš príspevok pokrýva náklady na rýchly hosting, doménu a poháňa ďalší vývoj!",
     "cta": "Kúpiť kávu ☕",
-    "later": "Možno neskôr"
+    "later": "Možno neskôr",
+    "bullet1": "Platba hostingu a rýchlej domény cnchub.app",
+    "bullet2": "Nové normy závitov a pokročilé kalkulátory",
+    "bullet3": "Aplikácia zostáva pre všetkých 100% zadarmo",
+    "whatFor": "Na čo ide podpora?"
+  },
+  "calculator": {
+    "noHistory": "Žiadna história výpočtov"
+  },
+  "error": {
+    "title": "Stránku sa nepodarilo načítať",
+    "desc": "Obnovte aplikáciu pre opätovné načítanie modulu.",
+    "refresh": "Obnoviť"
   }
 }

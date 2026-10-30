@@ -167,7 +167,10 @@
       "step2": "Tippe in der unteren Leiste auf das Teilen-Symbol (Quadrat mit Pfeil nach oben).",
       "step3": "Scrolle nach unten und wähle 'Zum Home-Bildschirm' (Plus-Symbol).",
       "step4": "Tippe oben rechts auf 'Hinzufügen'. Das Icon erscheint auf deinem Bildschirm."
-    }
+    },
+    "desktopDesc": "Läuft im eigenen Fenster ohne Browserleisten – wie ein natives Windows/Mac-Programm.",
+    "androidDesc": "Läuft im Vollbild und startet direkt vom Startbildschirm des Handys.",
+    "iosDesc": "Unter iOS ist Safari erforderlich, um die App zum Home-Bildschirm hinzuzufügen."
   },
   "formulas": {
     "help": "Formel und Erklärung",
@@ -260,6 +263,18 @@
     "greeting": "Hallo! Ich entwickle CNCHub völlig kostenlos für Dreher, Fräser, Zerspaner und CNC-Programmierer.",
     "desc": "Wenn dir dieser Rechner wertvolle Zeit in der Werkstatt spart, Berechnungen vereinfacht oder geholfen hat, Ausschuss zu vermeiden – spendiere mir gerne einen virtuellen Kaffee. Jede Unterstützung deckt Server- und Domainkosten und treibt die Entwicklung voran!",
     "cta": "Kaffee spendieren ☕",
-    "later": "Vielleicht später"
+    "later": "Vielleicht später",
+    "bullet1": "Hosting und schnelle cnchub.app-Domain sichern",
+    "bullet2": "Neue Gewindenormen und erweiterte Rechner",
+    "bullet3": "App bleibt für jeden 100% kostenlos",
+    "whatFor": "Wofür wird die Unterstützung verwendet?"
+  },
+  "calculator": {
+    "noHistory": "Kein Berechnungsverlauf vorhanden"
+  },
+  "error": {
+    "title": "Seite konnte nicht geladen werden",
+    "desc": "Bitte aktualisieren Sie die App, um das Modul neu zu laden.",
+    "refresh": "Aktualisieren"
   }
 }

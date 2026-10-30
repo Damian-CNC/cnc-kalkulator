@@ -16,6 +16,7 @@
 
 import CopyableValue from '@/components/CopyableValue';
 import useLength from '@/hooks/useLength';
+import { useTranslation } from 'react-i18next';
 
 /* ─────────────────────────────────────────────
    Types
@@ -230,12 +231,14 @@ export interface DepthCardProps {
 }
 
 export function DepthCard({
-  label = 'Głębokość nacinania',
+  label,
   depth,
   unit,
   note,
   digits = 3,
 }: DepthCardProps) {
+  const { t } = useTranslation('threadsCalc');
+  const resolvedLabel = label ?? t('threads.threadDepth', { defaultValue: 'Głębokość nacinania' });
   const L = useLength(unit);
   const dispUnit = L.unit;
   const fmtVal = unit === 'in' ? L.val(depth, digits) : depth.toFixed(digits);
@@ -243,7 +246,7 @@ export function DepthCard({
 
   return (
     <div className="rounded-xl border border-cyan-800/40 bg-cyan-950/20 p-4 md:p-3">
-      <p className="text-cyan-300 text-sm md:text-xs font-semibold mb-1">{label}</p>
+      <p className="text-cyan-300 text-sm md:text-xs font-semibold mb-1">{resolvedLabel}</p>
       <p className="text-2xl md:text-xl font-bold text-cyan-400 leading-tight">
         <CopyableValue value={rawVal}>{fmtVal}</CopyableValue>
         <span className="text-base md:text-sm text-cyan-500/80 font-normal ml-1">{dispUnit}</span>
@@ -267,13 +270,15 @@ export interface DrillCardProps {
 }
 
 export function DrillCard({
-  label = 'Wiertło pod gwintownik',
+  label,
   diameter,
   unit,
   note,
   metricDrill,
   digits = 3,
 }: DrillCardProps) {
+  const { t } = useTranslation('threadsCalc');
+  const resolvedLabel = label ?? t('threads.tapDrill', { defaultValue: 'Wiertło pod gwintownik' });
   const L = useLength(unit);
   const dispUnit = L.unit;
   const fmtVal = unit === 'in' ? L.val(diameter, digits) : diameter.toFixed(digits);
@@ -281,14 +286,14 @@ export function DrillCard({
 
   return (
     <div className="rounded-xl border border-violet-800/40 bg-violet-950/20 p-4 md:p-3">
-      <p className="text-violet-300 text-sm md:text-xs font-semibold mb-1">{label}</p>
+      <p className="text-violet-300 text-sm md:text-xs font-semibold mb-1">{resolvedLabel}</p>
       <p className="text-2xl md:text-xl font-bold text-violet-400 leading-tight">
         Ø <CopyableValue value={rawVal}>{fmtVal}</CopyableValue>
         <span className="text-base md:text-sm text-violet-500/80 font-normal ml-1">{dispUnit}</span>
       </p>
       {metricDrill !== null && metricDrill !== undefined && !L.isImperial && (
         <p className="text-violet-400/90 text-sm md:text-xs mt-1">
-          Wiertło metryczne: Ø{metricDrill.toFixed(1)} mm
+          {t('threads.metricDrill', { val: metricDrill.toFixed(1), defaultValue: `Wiertło metryczne: Ø${metricDrill.toFixed(1)} mm` })}
         </p>
       )}
       {note && <p className="text-violet-600 text-[11px] md:text-[10px] mt-1.5">({note})</p>}

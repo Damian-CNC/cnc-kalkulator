@@ -4,7 +4,7 @@
     "menu": "Menu",
     "clear": "Wyczyść",
     "clearAll": "Wyczyść wszystko",
-    "new": "New",
+    "new": "Nowość",
     "loading": "Wczytywanie...",
     "results": "Wyniki",
     "inputs": "Dane wejściowe",
@@ -111,7 +111,18 @@
     "hbInput": "Twardość HB",
     "hrcInput": "Twardość HRC",
     "resultTitle": "Wynik konwersji",
-    "standard": "Konwersja zgodna z ISO 18265 (ISO 6506/6508)"
+    "standard": "Konwersja zgodna z ISO 18265 (ISO 6506/6508)",
+    "typicalRanges": "Typowe zakresy twardości stali",
+    "carburizedNitrided": "Nawęglane / Azotowane",
+    "toolHardened": "Narzędziowe / Hartowane",
+    "structural": "Konstrukcyjne (S355)",
+    "quenched": "Do ulepszania (42CrMo4)",
+    "caseHardened": "Nawęglane / Azotowane",
+    "toolSteel": "Narzędziowe / Hartowane",
+    "errPositive": "Wprowadź prawidłową wartość dodatnią.",
+    "errRangeHb": "Brak dokładnego odpowiednika w normie ISO dla podanej wartości. Zakres HB: {{min}}–{{max}}.",
+    "errRangeHrc": "Brak dokładnego odpowiednika w normie ISO dla podanej wartości. Zakres HRC: {{min}}–{{max}}.",
+    "errNoMatch": "Brak dokładnego odpowiednika w normie ISO dla podanej wartości."
   },
   "menuEdit": {
     "edit": "Edytuj menu",
@@ -128,5 +139,27 @@
     "spacerAddedBottom": "Pusty kafelek pojawił się na samym dole menu ⬇️",
     "moveLeft": "Przesuń w lewo",
     "moveRight": "Przesuń w prawo"
+  },
+  "tabs": {
+    "cone": "Stożek",
+    "hardness": "Twardość"
+  },
+  "materials": {
+    "group": "Grupa materiałowa"
+  },
+  "error": {
+    "title": "Nie udało się wyświetlić strony",
+    "desc": "Odśwież aplikację, aby ponownie załadować moduł.",
+    "refresh": "Odśwież"
+  },
+  "favorites": {
+    "title": "Ulubione",
+    "close": "Zamknij ulubione",
+    "emptyHint": "Brak skrótów. Dotknij gwiazdki obok tytułu modułu, aby dodać.",
+    "removeNamed": "Usuń {{title}}",
+    "shortcuts": "Ulubione skróty",
+    "add": "Dodaj do ulubionych (max 4)",
+    "remove": "Usuń z ulubionych",
+    "maxReached": "Maksymalnie 4 ulubione skróty"
   }
 }

@@ -248,7 +248,10 @@
     "length": "Lunghezza minima del filetto utile (R)",
     "lengthNote": "secondo ISO 7-1, filetto esterno",
     "taper": "Conicità 1:16 sul diametro, semiangolo {{angle}}. I diametri crescono di 0,0625 mm ogni 1 mm di lunghezza.",
-    "footer": "Diametri sul piano di misura secondo ISO 7-1, gli altri derivati dalla conicità. Il filetto interno Rc ha le stesse dimensioni. Verifica le lunghezze nella norma."
+    "footer": "Diametri sul piano di misura secondo ISO 7-1, gli altri derivati dalla conicità. Il filetto interno Rc ha le stesse dimensioni. Verifica le lunghezze nella norma.",
+    "major_d": "est. d",
+    "pitch_d2": "medio d2",
+    "minor_d1": "nocciolo d1"
   },
   "buttress": {
     "menu": "Filetti a dente di sega S (DIN 513)",
@@ -274,7 +277,9 @@
     "pitchNut": "Diametro medio (D2)",
     "minorNut": "Diametro di nocciolo (D1)",
     "drillNote": "diametro punta",
-    "footer": "Dimensioni nominali secondo DIN 513 (h3 = 0,86777·P, H1 = 0,75·P, R = 0,12427·P). I valori possono differire di 0,001 dalle tabelle. Le classi di tolleranza (7H…9c) della DIN 513 parte 3 non sono calcolate, verifica la norma."
+    "footer": "Dimensioni nominali secondo DIN 513 (h3 = 0,86777·P, H1 = 0,75·P, R = 0,12427·P). I valori possono differire di 0,001 dalle tabelle. Le classi di tolleranza (7H…9c) della DIN 513 parte 3 non sono calcolate, verifica la norma.",
+    "nutDrill": "Diametro preforo chiocciola",
+    "nutDrillNote": "Pari al diametro di nocciolo D1"
   },
   "calc": {
     "tile": "Calcolatrice",
@@ -282,7 +287,8 @@
     "history": "Ultimi risultati",
     "hint": "Tocca un risultato in alto per inserirlo · tieni premuto per copiare",
     "error": "Errore",
-    "sign": "Cambia segno"
+    "sign": "Cambia segno",
+    "noHistory": "Nessuna cronologia calcoli"
   },
   "pg": {
     "menu": "Filetti per tubi corazzati Pg (DIN 40430)",
@@ -361,6 +367,7 @@
     "eqTitle": "Equivalenti in altre norme",
     "cmc": "Gruppo CMC",
     "more": "Mostra altro",
-    "showAll": "Mostra tutti ({{n}})"
+    "showAll": "Mostra tutti ({{n}})",
+    "groupLabel": "Gruppo materiale"
   }
 }

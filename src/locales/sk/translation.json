@@ -4,7 +4,7 @@
     "menu": "Menu",
     "clear": "Vymazať",
     "clearAll": "Vymazať všetko",
-    "new": "New",
+    "new": "Novinka",
     "loading": "Načítava sa...",
     "results": "Výsledky",
     "inputs": "Vstupné údaje",
@@ -111,7 +111,18 @@
     "hbInput": "Tvrdosť HB",
     "hrcInput": "Tvrdosť HRC",
     "resultTitle": "Výsledok prevodu",
-    "standard": "Prevod podľa normy ISO 18265 (ISO 6506/6508)"
+    "standard": "Prevod podľa normy ISO 18265 (ISO 6506/6508)",
+    "typicalRanges": "Typické rozsahy tvrdosti ocele",
+    "carburizedNitrided": "Cementované / Nitridované",
+    "toolHardened": "Nástrojové / Zušľachtené",
+    "structural": "Konštrukčné (S355)",
+    "quenched": "Na zušľachťovanie (42CrMo4)",
+    "caseHardened": "Cementované / Nitridované",
+    "toolSteel": "Nástrojové / Kalené",
+    "errPositive": "Zadajte platnú kladnú hodnotu.",
+    "errRangeHb": "Žiadny presný ekvivalent v norme ISO pre zadanú hodnotu. Rozsah HB: {{min}}–{{max}}.",
+    "errRangeHrc": "Žiadny presný ekvivalent v norme ISO pre zadanú hodnotu. Rozsah HRC: {{min}}–{{max}}.",
+    "errNoMatch": "Žiadny presný ekvivalent v norme ISO pre zadanú hodnotu."
   },
   "menuEdit": {
     "edit": "Upraviť menu",
@@ -128,5 +139,27 @@
     "spacerAddedBottom": "Prázdna dlaždica bola pridaná na koniec menu ⬇️",
     "moveLeft": "Posunúť doľava",
     "moveRight": "Posunúť doprava"
+  },
+  "tabs": {
+    "cone": "Kužeľ",
+    "hardness": "Tvrdosť"
+  },
+  "materials": {
+    "group": "Skupina materiálu"
+  },
+  "error": {
+    "title": "Stránku sa nepodarilo zobraziť",
+    "desc": "Obnovte aplikáciu pre opätovné načítanie modulu.",
+    "refresh": "Obnoviť"
+  },
+  "favorites": {
+    "title": "Obľúbené",
+    "close": "Zavrieť obľúbené",
+    "emptyHint": "Žiadne skratky. Klepnutím na hviezdičku vedľa názvu modulu ho pridáte.",
+    "removeNamed": "Odstrániť {{title}}",
+    "shortcuts": "Obľúbené skratky",
+    "add": "Pridať do obľúbených (max 4)",
+    "remove": "Odstrániť z obľúbených",
+    "maxReached": "Maximálne 4 obľúbené skratky"
   }
 }

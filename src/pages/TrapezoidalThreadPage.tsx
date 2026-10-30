@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Ruler, ArrowRight } from 'lucide-react';
 import PageLayout from '@/components/PageLayout';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
@@ -28,6 +29,7 @@ const getCrestClearance = (P: number): number => {
 };
 
 const TrapezoidalThreadPage = () => {
+  const { t } = useTranslation('threadsCalc');
   const navigate = useNavigate();
   const [dInput, setDInput] = usePersistedState<string>('trap-d', '');
   const [pInput, setPInput] = usePersistedState<string>('trap-p', '');
@@ -97,7 +99,7 @@ const TrapezoidalThreadPage = () => {
               <div className="grid grid-cols-2 gap-2">
                 <div className="flex flex-col">
                   <label className="block text-xs font-semibold text-zinc-400 mb-1.5 uppercase tracking-wider">
-                    Średnica (d)
+                    {t('threads.diameterD')}
                   </label>
                   <input
                     type="text"
@@ -112,7 +114,7 @@ const TrapezoidalThreadPage = () => {
                 </div>
                 <div className="flex flex-col">
                   <label className="block text-xs font-semibold text-zinc-400 mb-1.5 uppercase tracking-wider">
-                    Skok (P)
+                    {t('threads.pitch')}
                   </label>
                   <input
                     type="text"
@@ -133,15 +135,15 @@ const TrapezoidalThreadPage = () => {
                     <span className="inline-block px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-400 font-bold text-sm md:text-base tracking-wide border border-emerald-500/30">
                       {designation}
                     </span>
-                    <p className="text-zinc-500 text-xs mt-1">Luz wierzchołkowy ac = {L.disp(nominal.ac as number)} {L.unit}</p>
+                    <p className="text-zinc-500 text-xs mt-1">{t('trapezoidal.crestClearance')} ac = {L.disp(nominal.ac as number)} {L.unit}</p>
                   </div>
 
                   <TabsList className="w-full bg-zinc-900 border border-zinc-800">
                     <TabsTrigger value="external" className="flex-1 data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50 text-xs md:text-sm">
-                      🔩 Śruba
+                      🔩 {t('threads.bolt')}
                     </TabsTrigger>
                     <TabsTrigger value="internal" className="flex-1 data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50 text-xs md:text-sm">
-                      🔧 Nakrętka
+                      🔧 {t('threads.nut')}
                     </TabsTrigger>
                   </TabsList>
 
@@ -150,7 +152,7 @@ const TrapezoidalThreadPage = () => {
                     {threadTab === 'external' ? (
                       <div>
                         <ClassPicker
-                          title="Klasa tolerancji śruby"
+                          title={t('trapezoidal.boltToleranceTitle')}
                           options={BOLT_CLASSES}
                           value={boltCls}
                           onChange={(v) => setBoltCls(v as BoltClass)}
@@ -164,7 +166,7 @@ const TrapezoidalThreadPage = () => {
                     ) : (
                       <div>
                         <ClassPicker
-                          title="Klasa tolerancji nakrętki"
+                          title={t('trapezoidal.nutToleranceTitle')}
                           options={NUT_CLASSES}
                           value={nutCls}
                           onChange={(v) => setNutCls(v as NutClass)}
@@ -192,7 +194,7 @@ const TrapezoidalThreadPage = () => {
                 >
                   <div className="flex items-center gap-2">
                     <Ruler className="w-4 h-4 text-amber-400 group-hover:scale-110 transition-transform" />
-                    <span>Kąt wzniosu & Płytka podporowa</span>
+                    <span>{t('threads.helixAndShim')}</span>
                   </div>
                   <ArrowRight className="w-3.5 h-3.5 text-amber-400 shrink-0 group-hover:translate-x-0.5 transition-transform" />
                 </button>
@@ -206,7 +208,7 @@ const TrapezoidalThreadPage = () => {
                   <TabsContent value="external" className="mt-0">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       <DiameterCard
-                        label="Średnica zewnętrzna (d)"
+                        label={t('threads.majorDiameterD')}
                         limits={bolt ? bolt.d : null}
                         unit="mm"
                         nominal={nominal.d as number}
@@ -214,7 +216,7 @@ const TrapezoidalThreadPage = () => {
                         digits={3}
                       />
                       <DiameterCard
-                        label="Średnica podziałowa (d2)"
+                        label={t('threads.pitchDiameterD2')}
                         limits={bolt ? bolt.d2 : null}
                         unit="mm"
                         nominal={nominal.d2 as number}
@@ -222,7 +224,7 @@ const TrapezoidalThreadPage = () => {
                         digits={3}
                       />
                       <DiameterCard
-                        label="Średnica rdzenia (d3)"
+                        label={t('threads.minorDiameterD3')}
                         limits={bolt ? bolt.d3 : null}
                         unit="mm"
                         nominal={nominal.d3 as number}
@@ -230,14 +232,14 @@ const TrapezoidalThreadPage = () => {
                         digits={3}
                       />
                       <PitchCard
-                        label="Skok gwintu (P)"
+                        label={t('threads.pitch')}
                         pitch={parsedP!}
                         unit="mm"
                         digits={3}
                       />
                       <div className="md:col-span-2">
                         <DepthCard
-                          label="Głębokość nacinania (h3)"
+                          label={t('threads.threadDepthH3')}
                           depth={nominal.h3 as number}
                           unit="mm"
                           note="h3 = P/2 + ac"
@@ -247,7 +249,7 @@ const TrapezoidalThreadPage = () => {
                       {!bolt && (
                         <div className="md:col-span-2">
                           <p className="text-xs text-zinc-500 text-center py-2 leading-relaxed">
-                            Tolerancje ISO 2903 dotyczą średnic 5,6–355 mm i znormalizowanych skoków.
+                            {t('trapezoidal.standardRange')}
                           </p>
                         </div>
                       )}
@@ -257,7 +259,7 @@ const TrapezoidalThreadPage = () => {
                   <TabsContent value="internal" className="mt-0">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       <DiameterCard
-                        label="Średnica zewn. w bruzdach (D4)"
+                        label={t('trapezoidal.majorDiaNut')}
                         limits={
                           nut
                             ? { max: Number((nominal.D4 as number).toFixed(3)), min: nut.D4min, tol: Number(((nominal.D4 as number) - nut.D4min).toFixed(3)) }
@@ -270,7 +272,7 @@ const TrapezoidalThreadPage = () => {
                         note="min wg normy"
                       />
                       <DiameterCard
-                        label="Średnica podziałowa (D2)"
+                        label={t('threads.pitchDiameterInternal')}
                         limits={nut ? nut.D2 : null}
                         unit="mm"
                         nominal={nominal.d2 as number}
@@ -278,7 +280,7 @@ const TrapezoidalThreadPage = () => {
                         digits={3}
                       />
                       <DiameterCard
-                        label="Średnica wewnętrzna (D1)"
+                        label={t('threads.minorDiameterInternal')}
                         limits={nut ? nut.D1 : null}
                         unit="mm"
                         nominal={nominal.D1 as number}
@@ -286,29 +288,29 @@ const TrapezoidalThreadPage = () => {
                         digits={3}
                       />
                       <PitchCard
-                        label="Skok gwintu (P)"
+                        label={t('threads.pitch')}
                         pitch={parsedP!}
                         unit="mm"
                         digits={3}
                       />
                       <DepthCard
-                        label="Głębokość nacinania (h3)"
+                        label={t('threads.threadDepthH3')}
                         depth={nominal.h3 as number}
                         unit="mm"
                         note="h3 = P/2 + ac"
                         digits={3}
                       />
                       <DrillCard
-                        label="Średnica wiercenia pod nakrętkę"
+                        label={t('trapezoidal.tapDrill')}
                         diameter={nominal.D1 as number}
                         unit="mm"
-                        note="Równa średnicy wewnętrznej D1"
+                        note={t('trapezoidal.tapDrillNote')}
                         digits={3}
                       />
                       {!nut && (
                         <div className="md:col-span-2">
                           <p className="text-xs text-zinc-500 text-center py-2 leading-relaxed">
-                            Tolerancje ISO 2903 dotyczą średnic 5,6–355 mm i znormalizowanych skoków.
+                            {t('trapezoidal.standardRange')}
                           </p>
                         </div>
                       )}
@@ -317,7 +319,7 @@ const TrapezoidalThreadPage = () => {
                 </>
               ) : (
                 <div className="text-center text-zinc-500 py-16 bg-zinc-900/20 border border-dashed border-zinc-800 rounded-2xl">
-                  Wpisz średnicę nominalną i skok, aby zobaczyć wymiary gwintu.
+                  {t('trapezoidal.emptyPrompt')}
                 </div>
               )}
             </div>

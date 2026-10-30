@@ -169,7 +169,10 @@
       "step2": "Kliknij przycisk Udostępnij na dolnym pasku (ikona kwadratu ze strzałką w górę).",
       "step3": "Przewiń menu w dół i wybierz opcję 'Do ekranu początkowego' (ikona kwadratu z plusem).",
       "step4": "W prawym górnym rogu kliknij 'Dodaj'. Ikona CNCHub pojawi się na Twoim pulpicie."
-    }
+    },
+    "desktopDesc": "Aplikacja działa w osobnym oknie bez pasków przeglądarki – jak natywny program Windows/Mac.",
+    "androidDesc": "Działa na pełnym ekranie i jest dostępna prosto z pulpitu telefonu bez wpisywania adresu.",
+    "iosDesc": "System iOS wymaga przeglądarki Safari do dodania aplikacji na ekran początkowy."
   },
   "formulas": {
     "help": "Wzór i objaśnienie",
@@ -262,6 +265,18 @@
     "greeting": "Cześć! Tworzę CNCHub całkowicie za darmo dla tokarzy, frezerów, operatorów i technologów CNC.",
     "desc": "Jeśli kalkulator ułatwia Twoją codzienną pracę na warsztacie, oszczędza cenny czas lub pomógł uniknąć kosztownego błędu na maszynie – rozważ postawienie wirtualnej kawy. Każda kawa bezpośrednio pomaga utrzymać szybkie serwery, domenę cnchub.app oraz motywuje do ciągłego rozwoju!",
     "cta": "Postaw kawę ☕",
-    "later": "Może później"
+    "later": "Może później",
+    "bullet1": "Opłacenie hostingu i szybkiej domeny cnchub.app",
+    "bullet2": "Nowe normy gwintów i zaawansowane kalkulatory",
+    "bullet3": "Aplikacja pozostaje w 100% darmowa dla każdego",
+    "whatFor": "Na co idzie wsparcie?"
+  },
+  "calculator": {
+    "noHistory": "Brak historii obliczeń"
+  },
+  "error": {
+    "title": "Nie udało się wyświetlić strony",
+    "desc": "Odśwież aplikację, aby ponownie załadować moduł.",
+    "refresh": "Odśwież"
   }
 }

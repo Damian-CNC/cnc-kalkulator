@@ -169,7 +169,10 @@
       "step2": "Toca el botón Compartir en la barra inferior (cuadrado con flecha hacia arriba).",
       "step3": "Desplázate hacia abajo y selecciona 'Añadir a la pantalla de inicio' (icono +).",
       "step4": "Toca 'Añadir' en la esquina superior derecha. El icono aparecerá en tu pantalla de inicio."
-    }
+    },
+    "desktopDesc": "Funciona en ventana independiente sin barras de navegador – como un programa nativo Windows/Mac.",
+    "androidDesc": "Funciona a pantalla completa directamente desde el escritorio móvil sin escribir URL.",
+    "iosDesc": "En iOS es necesario Safari para añadir la aplicación a la pantalla de inicio."
   },
   "formulas": {
     "help": "Fórmula y explicación",
@@ -262,6 +265,18 @@
     "greeting": "¡Hola! Desarrollo CNCHub de forma totalmente gratuita para operarios de CNC, programadores y técnicos de mecanizado.",
     "desc": "Si esta calculadora te ahorra tiempo en el taller, te ayuda con las fórmulas de corte o te evita costosos errores en las piezas, considera invitarme a un café. ¡Tu apoyo cubre los costes de servidor y dominio, y motiva el desarrollo continuo!",
     "cta": "Invítame a un café ☕",
-    "later": "Quizás más tarde"
+    "later": "Quizás más tarde",
+    "bullet1": "Costes de servidor y dominio rápido cnchub.app",
+    "bullet2": "Nuevas normas de roscas y calculadoras avanzadas",
+    "bullet3": "La aplicación permanece 100% gratuita para todos",
+    "whatFor": "¿A qué se destina el apoyo?"
+  },
+  "calculator": {
+    "noHistory": "Sin historial de cálculos"
+  },
+  "error": {
+    "title": "No se pudo cargar la página",
+    "desc": "Recarga la aplicación para volver a cargar el módulo.",
+    "refresh": "Recargar"
   }
 }

@@ -188,7 +188,7 @@ const ThreadHelixCalculator = () => {
         shimDescription = '+4.0° / +4.5°';
       } else {
         recommendedShim = 4.5;
-        shimDescription = '+4.5° lub +5.0° (Duży wznios)';
+        shimDescription = '+4.5° / +5.0°';
       }
     } else {
       if (Math.abs(effectiveAngle) <= 1.0) {
@@ -498,12 +498,12 @@ const ThreadHelixCalculator = () => {
                     </div>
                   </CopyableValue>
                   <p className="text-xs text-zinc-400 font-mono">
-                    L = {result.lead.toFixed(3)} mm (skok wzniosu) · π·d₂ = {result.circumferenceD2.toFixed(2)} mm
+                    L = {result.lead.toFixed(3)} mm ({t('helix.leadPitch')}) · π·d₂ = {result.circumferenceD2.toFixed(2)} mm
                   </p>
                 </div>
               ) : (
                 <div className="py-6 text-zinc-400 text-sm">
-                  Wprowadź średnicę d oraz skok P, aby obliczyć kąt linii śrubowej
+                  {t('helix.inputPrompt')}
                 </div>
               )}
             </div>
@@ -534,7 +534,7 @@ const ThreadHelixCalculator = () => {
                         : 'bg-amber-500/10 text-amber-400 border border-amber-500/30'
                     }`}
                   >
-                    {result.isStandardFactoryOk ? 'Standard OK' : 'Wymiana zalecana'}
+                    {result.isStandardFactoryOk ? t('helix.standardOk') : t('helix.changeRecommended')}
                   </span>
                 </div>
 
@@ -553,14 +553,14 @@ const ThreadHelixCalculator = () => {
                         result.leadingFlankClearance < 1.0 ? 'text-rose-400' : 'text-zinc-200'
                       }`}
                     >
-                      ~{result.leadingFlankClearance.toFixed(1)}° luzu
+                      {t('helix.clearance', { val: result.leadingFlankClearance.toFixed(1) })}
                     </span>
                   </div>
 
                   <div className="p-2 rounded-lg bg-zinc-950/60 border border-zinc-800/80">
                     <span className="text-[11px] text-zinc-400 block">{t('helix.trailingFlank')}</span>
                     <span className="text-sm font-bold font-mono text-zinc-200 mt-0.5 block">
-                      ~{result.trailingFlankClearance.toFixed(1)}° luzu
+                      {t('helix.clearance', { val: result.trailingFlankClearance.toFixed(1) })}
                     </span>
                   </div>
                 </div>
@@ -571,7 +571,7 @@ const ThreadHelixCalculator = () => {
           {/* Rysunek schematyczny rozwinięcia linii śrubowej SVG */}
           <div className="glass-module space-y-3">
             <h3 className="text-xs uppercase tracking-wider text-zinc-400 font-semibold flex items-center justify-between pb-2 border-b border-zinc-800/80">
-              <span>Schemat geometryczny wzniosu</span>
+              <span>{t('helix.diagramTitle')}</span>
               {result && (
                 <span className="text-cyan-400 font-mono text-[11px]">
                   λ = {result.lambdaDeg.toFixed(2)}°
@@ -585,7 +585,7 @@ const ThreadHelixCalculator = () => {
                 <line x1="30" y1="95" x2="310" y2="95" stroke="#3f3f46" strokeWidth="1.5" />
                 <path d="M30 90 V100 M310 90 V100" stroke="#71717a" strokeWidth="1.5" />
                 <text x="170" y="112" fill="#a1a1aa" fontSize="10" textAnchor="middle" fontFamily="monospace">
-                  Obwód π · d₂ = {result ? result.circumferenceD2.toFixed(1) : 'π·d₂'} mm
+                  {t('helix.circumferenceLabel', { val: result ? result.circumferenceD2.toFixed(1) : 'π·d₂' })}
                 </text>
 
                 {/* Linia pionowa (skok linii śrubowej L) */}
@@ -634,9 +634,9 @@ const ThreadHelixCalculator = () => {
                   <table className="w-full text-left border-collapse">
                     <thead>
                       <tr className="border-b border-zinc-800 text-[11px] text-zinc-500 uppercase tracking-wider">
-                        <th className="py-1.5 pr-2">Kąt wzniosu (λ)</th>
-                        <th className="py-1.5 px-2">Podkładka</th>
-                        <th className="py-1.5 pl-2">Zastosowanie / Opis</th>
+                        <th className="py-1.5 pr-2">{t('helix.tableHelixAngle')}</th>
+                        <th className="py-1.5 px-2">{t('helix.tableShim')}</th>
+                        <th className="py-1.5 pl-2">{t('helix.tableApplication')}</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-zinc-800/60 font-mono text-xs">
@@ -644,49 +644,49 @@ const ThreadHelixCalculator = () => {
                         <td className="py-1.5 pr-2 text-zinc-300">&gt; 4.5°</td>
                         <td className="py-1.5 px-2 text-amber-400 font-bold">+4.5°</td>
                         <td className="py-1.5 pl-2 text-zinc-400 font-sans">
-                          Bardzo strome gwinty, ślimaki, wielokrotne
+                          {t('helix.row1Desc')}
                         </td>
                       </tr>
                       <tr>
                         <td className="py-1.5 pr-2 text-zinc-300">3.5° – 4.5°</td>
                         <td className="py-1.5 px-2 text-amber-400 font-bold">+3.5° / +4.0°</td>
                         <td className="py-1.5 pl-2 text-zinc-400 font-sans">
-                          Grube skoki trapezowe na średnich średnicach
+                          {t('helix.row2Desc')}
                         </td>
                       </tr>
                       <tr>
                         <td className="py-1.5 pr-2 text-zinc-300">2.5° – 3.5°</td>
                         <td className="py-1.5 px-2 text-cyan-300 font-bold">+2.5° / +3.0°</td>
                         <td className="py-1.5 pl-2 text-zinc-400 font-sans">
-                          Śruby pociągowe Tr, skoki &gt; 4 mm
+                          {t('helix.row3Desc')}
                         </td>
                       </tr>
                       <tr>
                         <td className="py-1.5 pr-2 text-zinc-300">1.8° – 2.5°</td>
                         <td className="py-1.5 px-2 text-cyan-300 font-bold">+2.0°</td>
                         <td className="py-1.5 pl-2 text-zinc-400 font-sans">
-                          Podwyższony wznios
+                          {t('helix.row4Desc')}
                         </td>
                       </tr>
                       <tr className="bg-cyan-950/20 text-cyan-300">
                         <td className="py-1.5 pr-2 font-bold">0.8° – 1.8°</td>
-                        <td className="py-1.5 px-2 font-bold">+1.5° (Fabryczna)</td>
+                        <td className="py-1.5 px-2 font-bold">+1.5°</td>
                         <td className="py-1.5 pl-2 font-sans font-medium">
-                          Standard w większości oprawek tokarskich
+                          {t('helix.row5Desc')}
                         </td>
                       </tr>
                       <tr>
                         <td className="py-1.5 pr-2 text-zinc-300">&lt; 0.8°</td>
                         <td className="py-1.5 px-2 text-zinc-200 font-bold">+0.5°</td>
                         <td className="py-1.5 pl-2 text-zinc-400 font-sans">
-                          Drobne skoki na dużych średnicach
+                          {t('helix.row6Desc')}
                         </td>
                       </tr>
                       <tr>
-                        <td className="py-1.5 pr-2 text-zinc-300">Kąt ujemny (-)</td>
-                        <td className="py-1.5 px-2 text-rose-400 font-bold">-0.5° do -2.5°</td>
+                        <td className="py-1.5 pr-2 text-zinc-300">{t('helix.rowNegAngle')}</td>
+                        <td className="py-1.5 px-2 text-rose-400 font-bold">-0.5° ... -2.5°</td>
                         <td className="py-1.5 pl-2 text-zinc-400 font-sans">
-                          Gwinty lewe lub toczenie od wrzeciona
+                          {t('helix.rowNegDesc')}
                         </td>
                       </tr>
                     </tbody>

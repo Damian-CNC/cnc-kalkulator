@@ -111,7 +111,18 @@
     "hbInput": "Tvrdost HB",
     "hrcInput": "Tvrdost HRC",
     "resultTitle": "Výsledek převodu",
-    "standard": "Převod podle ISO 18265 (ISO 6506/6508)"
+    "standard": "Převod podle ISO 18265 (ISO 6506/6508)",
+    "typicalRanges": "Typické rozsahy tvrdosti oceli",
+    "carburizedNitrided": "Cementované / Nitridované",
+    "toolHardened": "Nástrojové / Zušlechtěné",
+    "structural": "Konstrukční (S355)",
+    "quenched": "K zušlechťování (42CrMo4)",
+    "caseHardened": "Cementované / Nitridované",
+    "toolSteel": "Nástrojové / Kalené",
+    "errPositive": "Zadejte platnou kladnou hodnotu.",
+    "errRangeHb": "Žádný přesný ekvivalent v normě ISO pro zadanou hodnotu. Rozsah HB: {{min}}–{{max}}.",
+    "errRangeHrc": "Žádný přesný ekvivalent v normě ISO pro zadanou hodnotu. Rozsah HRC: {{min}}–{{max}}.",
+    "errNoMatch": "Žádný přesný ekvivalent v normě ISO pro zadanou hodnotu."
   },
   "menuEdit": {
     "edit": "Upravit menu",
@@ -128,5 +139,27 @@
     "spacerAddedBottom": "Prázdná dlaždice přidána na konec menu ⬇️",
     "moveLeft": "Posunout doleva",
     "moveRight": "Posunout doprava"
+  },
+  "tabs": {
+    "cone": "Kužel",
+    "hardness": "Tvrdost"
+  },
+  "materials": {
+    "group": "Skupina materiálu"
+  },
+  "error": {
+    "title": "Stránku se nepodařilo zobrazit",
+    "desc": "Obnovte aplikaci pro opětovné načtení modulu.",
+    "refresh": "Obnovit"
+  },
+  "favorites": {
+    "title": "Oblíbené",
+    "close": "Zavřít oblíbené",
+    "emptyHint": "Žádné zkratky. Klepnutím na hvězdičku vedle názvu modulu jej přidáte.",
+    "removeNamed": "Odebrat {{title}}",
+    "shortcuts": "Oblíbené zkratky",
+    "add": "Přidat do oblíbených (max 4)",
+    "remove": "Odebrat z oblíbených",
+    "maxReached": "Maximálně 4 oblíbené zkratky"
   }
 }

@@ -217,7 +217,9 @@ const CalculatorPage = () => {
               </button>
             ))}
             {s.history.length === 0 && (
-              <p className="hidden md:block text-xs text-zinc-600 italic py-4">Brak historii obliczeń</p>
+              <p className="hidden md:block text-xs text-zinc-600 italic py-4">
+                {t('calc.noHistory', { defaultValue: 'Brak historii obliczeń' })}
+              </p>
             )}
           </div>
           <p className="text-[10px] sm:text-[11px] text-zinc-600 mb-1 sm:mb-2 text-right md:text-left shrink-0">{t('calc.hint')}</p>

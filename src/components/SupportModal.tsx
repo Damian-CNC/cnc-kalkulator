@@ -90,12 +90,12 @@ const SupportModal = ({ open, onClose, onSupportClick }: SupportModalProps) => {
           <div className="p-3 rounded-2xl border border-zinc-800 bg-zinc-950/70 space-y-1.5 text-xs text-zinc-300">
             <div className="flex items-center gap-2 text-amber-400 font-semibold">
               <Heart className="w-3.5 h-3.5 fill-amber-400 text-amber-400 shrink-0" />
-              <span>Na co idzie wsparcie?</span>
+              <span>{t('support.whatFor', { defaultValue: 'Na co idzie wsparcie?' })}</span>
             </div>
             <ul className="space-y-1 text-zinc-400 pl-5 list-disc marker:text-amber-500/70">
-              <li>Opłacenie hostingu i szybkiej domeny cnchub.app</li>
-              <li>Nowe normy gwintów i zaawansowane kalkulatory</li>
-              <li>Aplikacja pozostaje w 100% darmowa dla każdego</li>
+              <li>{t('support.bullet1', { defaultValue: 'Opłacenie hostingu i szybkiej domeny cnchub.app' })}</li>
+              <li>{t('support.bullet2', { defaultValue: 'Nowe normy gwintów i zaawansowane kalkulatory' })}</li>
+              <li>{t('support.bullet3', { defaultValue: 'Aplikacja pozostaje w 100% darmowa dla każdego' })}</li>
             </ul>
           </div>
         </div>

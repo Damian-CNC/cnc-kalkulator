@@ -50,7 +50,11 @@
     "applyC": "Vložiť do kalkulačky",
     "quickN": "Rýchly výber počtu dier",
     "formula": "Výpočtový vzorec:",
-    "measuringPair": "Meraná dvojica dier"
+    "measuringPair": "Meraná dvojica dier",
+    "waiting": "Zadajte počet dier N a rozstup C pre výpočet rozstupovej kružnice PCD",
+    "outerEdges": "Vonkajšie hrany (L_vonk)",
+    "centerDistance": "Rozstup stredov C",
+    "caliperMeasurement": "Meranie posuvným meradlom po vynulovaní na d = C"
   },
   "linear": {
     "l": "Rozstup / krok L",
@@ -71,6 +75,12 @@
     "allowed": "Dovolená tolerancia",
     "margin": "Zostávajúca rezerva",
     "pass": "VYHOVUJE",
-    "fail": "NEVYHOVUJE"
+    "fail": "NEVYHOVUJE",
+    "explanation": "Skutočná poloha (True Position podľa ASME Y14.5 / ISO 1101) definuje valcovú alebo kruhovú tolerančnú zónu stredu prvku:",
+    "mmcExplanation": "Pri uplatnení podmienky maxima materiálu (MMC Ⓜ) sa k základnej tolerancii pripočítava bonus rovný odchýlke rozmeru od stavu MMC."
+  },
+  "milling": {
+    "solverTitle": "Automatický riešič parametrov",
+    "solverDesc": "Zadajte ľubovoľné dva známe parametre v sekcii otáčok alebo posuvov – kalkulátor okamžite dopočíta chýbajúce hodnoty a zvýrazní ich azúrovo."
   }
 }

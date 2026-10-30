@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import PageLayout from '@/components/PageLayout';
-import { ThreadIcon } from '@/components/icons/CncIcons';
+import { ThreadIcon, HelixAngleIcon } from '@/components/icons/CncIcons';
 
 type Tile = {
   id: string;
@@ -49,11 +49,18 @@ const ThreadsSubmenuPage = () => {
                   {t('common.new')}
                 </span>
               )}
-              <ThreadIcon
-                badge={tile.badge}
-                className={`w-[72px] h-[72px] md:w-[94px] md:h-[94px] ${tile.color} group-hover:scale-105 transition-transform duration-150`}
-                strokeWidth={2.25}
-              />
+              {tile.id === 'helixAngle' ? (
+                <HelixAngleIcon
+                  className={`w-[72px] h-[72px] md:w-[94px] md:h-[94px] ${tile.color} group-hover:scale-105 transition-transform duration-150`}
+                  strokeWidth={2.25}
+                />
+              ) : (
+                <ThreadIcon
+                  badge={tile.badge}
+                  className={`w-[72px] h-[72px] md:w-[94px] md:h-[94px] ${tile.color} group-hover:scale-105 transition-transform duration-150`}
+                  strokeWidth={2.25}
+                />
+              )}
               <span className="text-xs sm:text-sm font-semibold text-zinc-200 group-hover:text-white leading-tight line-clamp-2 px-1">
                 {t(tile.labelKey)}
               </span>

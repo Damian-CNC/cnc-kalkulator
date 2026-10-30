@@ -4,7 +4,7 @@
     "menu": "Menu",
     "clear": "Cancella",
     "clearAll": "Cancella tutto",
-    "new": "Nuovo",
+    "new": "Novità",
     "loading": "Caricamento...",
     "results": "Risultati",
     "inputs": "Dati di ingresso",
@@ -111,7 +111,18 @@
     "hbInput": "Durezza HB",
     "hrcInput": "Durezza HRC",
     "resultTitle": "Risultato conversione",
-    "standard": "Conversione secondo ISO 18265 (ISO 6506/6508)"
+    "standard": "Conversione secondo ISO 18265 (ISO 6506/6508)",
+    "typicalRanges": "Gamme tipiche di durezza dell'acciaio",
+    "carburizedNitrided": "Cementati / Nitrurati",
+    "toolHardened": "Da utensili / Bonificati",
+    "structural": "Strutturale (S355)",
+    "quenched": "Da bonifica (42CrMo4)",
+    "caseHardened": "Cementato / Nitrurato",
+    "toolSteel": "Acciaio per utensili / Temprato",
+    "errPositive": "Inserire un valore positivo valido.",
+    "errRangeHb": "Nessun equivalente esatto ISO per il valore inserito. Intervallo HB: {{min}}–{{max}}.",
+    "errRangeHrc": "Nessun equivalente esatto ISO per il valore inserito. Intervallo HRC: {{min}}–{{max}}.",
+    "errNoMatch": "Nessun equivalente esatto ISO per il valore inserito."
   },
   "menuEdit": {
     "edit": "Modifica menu",
@@ -128,5 +139,27 @@
     "spacerAddedBottom": "Casella vuota aggiunta in fondo al menu ⬇️",
     "moveLeft": "Sposta a sinistra",
     "moveRight": "Sposta a destra"
+  },
+  "tabs": {
+    "cone": "Cono",
+    "hardness": "Durezza"
+  },
+  "materials": {
+    "group": "Gruppo materiale"
+  },
+  "error": {
+    "title": "Impossibile caricare la pagina",
+    "desc": "Aggiorna l'app per ricaricare il modulo.",
+    "refresh": "Aggiorna"
+  },
+  "favorites": {
+    "title": "Preferiti",
+    "close": "Chiudi preferiti",
+    "emptyHint": "Nessuna scorciatoia. Tocca la stella accanto al titolo del modulo per aggiungerlo.",
+    "removeNamed": "Rimuovi {{title}}",
+    "shortcuts": "Scorciatoie preferite",
+    "add": "Aggiungi ai preferiti (max 4)",
+    "remove": "Rimuovi dai preferiti",
+    "maxReached": "Massimo 4 scorciatoie preferite"
   }
 }

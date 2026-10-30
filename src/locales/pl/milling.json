@@ -50,7 +50,11 @@
     "applyC": "Wstaw do kalkulatora",
     "quickN": "Szybki wybór liczby otworów",
     "formula": "Wzór obliczeniowy:",
-    "measuringPair": "Mierzona para otworów"
+    "measuringPair": "Mierzona para otworów",
+    "waiting": "Wprowadź liczbę otworów N oraz rozstaw C, aby wyznaczyć średnicę PCD",
+    "outerEdges": "Krawędzie zewn. (Lzew)",
+    "centerDistance": "Rozstaw środków C",
+    "caliperMeasurement": "Pomiar krawędzi zewn. po wyzerowaniu na d = C"
   },
   "linear": {
     "l": "Rozstaw / skok L",
@@ -71,6 +75,12 @@
     "allowed": "Dopuszczalna tolerancja",
     "margin": "Pozostały margines",
     "pass": "PASS",
-    "fail": "FAIL"
+    "fail": "FAIL",
+    "explanation": "Pozycja rzeczywista (True Position wg ASME Y14.5 / ISO 1101) definiuje cylindryczną lub kołową strefę tolerancji środka elementu:",
+    "mmcExplanation": "Gdy uwzględniono warunek maksimum materiału (MMC Ⓜ), do bazowej tolerancji dodawana jest premia bonusowa równa odchyłce wymiaru od stanu MMC."
+  },
+  "milling": {
+    "solverTitle": "Automatyczny Solver Parametrów",
+    "solverDesc": "Wprowadź dowolne dwa znane parametry w sekcji obrotów lub posuwów – kalkulator natychmiast wyznaczy brakujące wartości i podświetli je na turkusowo."
   }
 }

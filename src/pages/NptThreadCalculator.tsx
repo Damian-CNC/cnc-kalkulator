@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import PageLayout from '@/components/PageLayout';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
@@ -38,6 +39,7 @@ const nptSizes = Object.keys(nptThreads);
 const round = (v: number, n = 3) => Number(v.toFixed(n));
 
 const NptThreadCalculator = () => {
+  const { t } = useTranslation('threadsCalc');
   const L = useLength('mm');
   const [selectedSize, setSelectedSize] = usePersistedState<string>('npt-size', '');
   const [threadTab, setThreadTab] = useQueryState('tab', 'external', ['external', 'internal'] as const, 'npt-tab');
@@ -92,15 +94,15 @@ const NptThreadCalculator = () => {
 
                   <TabsList className="w-full bg-zinc-900 border border-zinc-800">
                     <TabsTrigger value="external" className="flex-1 data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50 text-xs md:text-sm">
-                      🔩 Czop
+                      🔩 {t('threads.bolt')}
                     </TabsTrigger>
                     <TabsTrigger value="internal" className="flex-1 data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-50 text-xs md:text-sm">
-                      🔧 Otwór
+                      🔧 {t('threads.internalTab')}
                     </TabsTrigger>
                   </TabsList>
 
                   <p className="text-zinc-500 text-[11px] text-center pt-2 border-t border-zinc-800/60 leading-relaxed">
-                    Gwint stożkowy 1:16 (kąt 1°47'). Wymiary na czole detalu.
+                    {t('npt.conicalNote')}
                   </p>
                 </>
               )}
@@ -113,25 +115,25 @@ const NptThreadCalculator = () => {
                   <TabsContent value="external" className="mt-0">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       <DiameterCard
-                        label="Średnica zewnętrzna na czole (d)"
+                        label={t('npt.majorDiaFaceExternal')}
                         limits={{ max: result.od, min: result.od }}
                         unit="mm"
                         digits={3}
                       />
                       <DiameterCard
-                        label="Średnica podziałowa na czole (d2)"
+                        label={t('npt.pitchDiaFaceExternal')}
                         limits={{ max: result.pitchDia, min: result.pitchDia }}
                         unit="mm"
                         digits={3}
                       />
                       <DiameterCard
-                        label="Średnica rdzenia (d3)"
+                        label={t('npt.minorDiaFaceExternal')}
                         limits={{ max: result.minor, min: result.minor }}
                         unit="mm"
                         digits={3}
                       />
                       <PitchCard
-                        label="Skok gwintu (P)"
+                        label={t('threads.pitch')}
                         pitch={result.pitch}
                         unit="mm"
                         tpi={result.tpi}
@@ -139,7 +141,7 @@ const NptThreadCalculator = () => {
                       />
                       <div className="md:col-span-2">
                         <DepthCard
-                          label="Wysokość profilu gwintu (h3)"
+                          label={t('npt.threadHeightH3')}
                           depth={result.h3}
                           unit="mm"
                           digits={3}
@@ -152,43 +154,43 @@ const NptThreadCalculator = () => {
                   <TabsContent value="internal" className="mt-0">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       <DiameterCard
-                        label="Średnica zewnętrzna na czole (D)"
+                        label={t('npt.majorDiaFaceInternal')}
                         limits={{ max: result.od, min: result.od }}
                         unit="mm"
                         digits={3}
                       />
                       <DiameterCard
-                        label="Średnica podziałowa na czole (D2)"
+                        label={t('npt.pitchDiaFaceInternal')}
                         limits={{ max: result.pitchDia, min: result.pitchDia }}
                         unit="mm"
                         digits={3}
                       />
                       <DiameterCard
-                        label="Średnica wewnętrzna (D1)"
+                        label={t('npt.minorDiaFaceInternal')}
                         limits={{ max: result.minor, min: result.minor }}
                         unit="mm"
                         digits={3}
                       />
                       <PitchCard
-                        label="Skok gwintu (P)"
+                        label={t('threads.pitch')}
                         pitch={result.pitch}
                         unit="mm"
                         tpi={result.tpi}
                         digits={4}
                       />
                       <DepthCard
-                        label="Wysokość profilu gwintu (h3)"
+                        label={t('npt.threadHeightH3')}
                         depth={result.h3}
                         unit="mm"
                         digits={3}
                         note="h3 = 0,8 × P"
                       />
                       <DrillCard
-                        label="Wiertło pod gwintownik stożkowy"
+                        label={t('npt.taperTapDrill')}
                         diameter={result.tapDrill}
                         unit="mm"
                         digits={1}
-                        note="Standardowe zalecenie"
+                        note="Standard"
                       />
                     </div>
                   </TabsContent>

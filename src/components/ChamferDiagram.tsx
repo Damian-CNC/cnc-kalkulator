@@ -69,7 +69,7 @@ const ChamferDiagram = ({ R, w, h, Z, e, alpha, warn = false }: ChamferDiagramPr
   const fill = warn ? 'rgba(245,158,11,0.15)' : 'rgba(34,211,238,0.16)';
 
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} className="w-full max-w-sm mx-auto block" role="img" aria-label="Przekrój fazy">
+    <svg viewBox={`0 0 ${W} ${H}`} className="w-full max-w-sm mx-auto block" role="img" aria-label="Chamfer cross section">
       {/* materiał */}
       <polygon points={material} fill="#27272a" stroke="#52525b" strokeWidth="1" />
       {/* faza */}

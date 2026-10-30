@@ -111,7 +111,18 @@
     "hbInput": "Hardness HB",
     "hrcInput": "Hardness HRC",
     "resultTitle": "Conversion result",
-    "standard": "Conversion according to ISO 18265 (ISO 6506/6508)"
+    "standard": "Conversion according to ISO 18265 (ISO 6506/6508)",
+    "typicalRanges": "Typical steel hardness ranges",
+    "carburizedNitrided": "Case hardened / Nitrided",
+    "toolHardened": "Tool steel / Through hardened",
+    "structural": "Structural (S355)",
+    "quenched": "Quenched & tempered (42CrMo4)",
+    "caseHardened": "Case-hardened / Nitrided",
+    "toolSteel": "Tool steel / Hardened",
+    "errPositive": "Enter a valid positive number.",
+    "errRangeHb": "No exact ISO equivalent for this value. HB range: {{min}}–{{max}}.",
+    "errRangeHrc": "No exact ISO equivalent for this value. HRC range: {{min}}–{{max}}.",
+    "errNoMatch": "No exact ISO equivalent for this value."
   },
   "menuEdit": {
     "edit": "Edit menu",
@@ -128,5 +139,27 @@
     "spacerAddedBottom": "Empty tile added at the bottom of the menu ⬇️",
     "moveLeft": "Move left",
     "moveRight": "Move right"
+  },
+  "tabs": {
+    "cone": "Taper",
+    "hardness": "Hardness"
+  },
+  "materials": {
+    "group": "Material group"
+  },
+  "error": {
+    "title": "Failed to load page",
+    "desc": "Refresh the app to reload the module.",
+    "refresh": "Refresh"
+  },
+  "favorites": {
+    "title": "Favorites",
+    "close": "Close favorites",
+    "emptyHint": "No shortcuts yet. Tap the star next to a module title to add it.",
+    "removeNamed": "Remove {{title}}",
+    "shortcuts": "Favorite shortcuts",
+    "add": "Add to favorites (max 4)",
+    "remove": "Remove from favorites",
+    "maxReached": "Maximum 4 favorite shortcuts"
   }
 }

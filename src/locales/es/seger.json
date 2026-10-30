@@ -1,16 +1,22 @@
 {
   "shaftTab": "Eje — DIN 471",
   "boreTab": "Agujero — DIN 472",
-  "nominalDiameter": "Diámetro nominal d₁ [mm]",
+  "nominalDiameter": "Diámetro nominal d₁ [mm] (cota normalizada)",
   "notFound": "No hay medida normalizada en el rango 8–100 mm.",
   "grooveDimensions": "Dimensiones de la ranura",
   "grooveBottom": "Fondo de ranura d₂ ({{fit}})",
-  "widthM": "Anchura m (H13)",
+  "widthM": "Anchura de ranura m (H13)",
   "ringStrength": "Anillo elástico y resistencia",
   "ringThickness": "Espesor del anillo s",
   "minEdgeDistance": "Distancia mín. al borde n",
   "grooveLoad": "Carga admisible ranura F_R (aprox.)",
   "grooveDepth": "Profundidad de ranura",
-  "crossSection": "Sección transversal",
-  "rotationAxis": "eje de rotación"
+  "crossSection": "Sección",
+  "rotationAxis": "eje de rotación",
+  "shaftTitle": "Eje — DIN 471",
+  "boreTitle": "Agujero — DIN 472",
+  "ringAndStrength": "Anillo y Capacidad de carga",
+  "ringThicknessS": "Espesor de anillo s",
+  "minDistanceN": "Distancia mínima al borde n",
+  "grooveLoadFR": "Carga admisible ranura F_R (orient.)"
 }

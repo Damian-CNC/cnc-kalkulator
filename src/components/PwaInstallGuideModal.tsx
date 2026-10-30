@@ -135,7 +135,7 @@ const PwaInstallGuideModal = ({
                   {t('pwa.pc.title')}
                 </h3>
                 <p className="text-xs text-zinc-400">
-                  Aplikacja działa w osobnym oknie bez pasków przeglądarki – jak natywny program Windows/Mac.
+                  {t('pwa.desktopDesc', { defaultValue: 'Aplikacja działa w osobnym oknie bez pasków przeglądarki – jak natywny program Windows/Mac.' })}
                 </p>
               </div>
 
@@ -172,7 +172,7 @@ const PwaInstallGuideModal = ({
                   {t('pwa.android.title')}
                 </h3>
                 <p className="text-xs text-zinc-400">
-                  Działa na pełnym ekranie i jest dostępna prosto z pulpitu telefonu bez wpisywania adresu.
+                  {t('pwa.androidDesc', { defaultValue: 'Działa na pełnym ekranie i jest dostępna prosto z pulpitu telefonu bez wpisywania adresu.' })}
                 </p>
               </div>
 
@@ -216,7 +216,7 @@ const PwaInstallGuideModal = ({
                   {t('pwa.ios.title')}
                 </h3>
                 <p className="text-xs text-zinc-400">
-                  System iOS wymaga przeglądarki Safari do dodania aplikacji na ekran początkowy.
+                  {t('pwa.iosDesc', { defaultValue: 'System iOS wymaga przeglądarki Safari do dodania aplikacji na ekran początkowy.' })}
                 </p>
               </div>
 

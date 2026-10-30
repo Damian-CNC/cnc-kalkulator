@@ -1,16 +1,22 @@
 {
   "shaftTab": "Shaft — DIN 471",
   "boreTab": "Bore — DIN 472",
-  "nominalDiameter": "Nominal diameter d₁ [mm]",
+  "nominalDiameter": "Nominal diameter d₁ [mm] (standard size)",
   "notFound": "No standardized size in the 8–100 mm range.",
   "grooveDimensions": "Groove dimensions",
   "grooveBottom": "Groove bottom d₂ ({{fit}})",
-  "widthM": "Width m (H13)",
+  "widthM": "Groove width m (H13)",
   "ringStrength": "Retaining ring and strength",
   "ringThickness": "Ring thickness s",
   "minEdgeDistance": "Min. edge distance n",
   "grooveLoad": "Groove load F_R (approx.)",
   "grooveDepth": "Groove depth",
-  "crossSection": "Cross section",
-  "rotationAxis": "rotation axis"
+  "crossSection": "Cross Section",
+  "rotationAxis": "rotation axis",
+  "shaftTitle": "Shaft — DIN 471",
+  "boreTitle": "Bore — DIN 472",
+  "ringAndStrength": "Ring & Load Capacity",
+  "ringThicknessS": "Ring thickness s",
+  "minDistanceN": "Min. edge distance n",
+  "grooveLoadFR": "Groove load capacity F_R (approx.)"
 }
