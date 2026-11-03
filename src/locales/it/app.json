@@ -14,8 +14,9 @@
     "back": "Indietro"
   },
   "footer": {
+    "refresh": "Aggiorna",
     "changelog": "Cronologia modifiche",
-    "version": "v3.2.0",
+    "version": "v3.2.1",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Impostazioni",
     "feedback": "Segnala bug / Suggerimento",
@@ -31,6 +32,9 @@
       "update": "Aggiornamento",
       "fix": "Correzione"
     },
+    "v321": [
+      "Rinominato il pulsante nel footer in „Aggiorna” e sincronizzazione completa delle traduzioni in tutte le 8 lingue"
+    ],
     "v320": [
       "Nuova schermata skeleton con effetto shimmer metallico durante l'avvio dell'app al posto della schermata nera o del cursore di caricamento",
       "Visualizzazione mobile forzata e stabile su smartphone – impedisce il passaggio involontario al layout desktop quando si ruota il telefono",

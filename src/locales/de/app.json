@@ -14,8 +14,9 @@
     "back": "Zurück"
   },
   "footer": {
+    "refresh": "Aktualisieren",
     "changelog": "Änderungsverlauf",
-    "version": "v3.2.0",
+    "version": "v3.2.1",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Einstellungen",
     "feedback": "Fehler / Vorschlag melden",
@@ -31,6 +32,9 @@
       "update": "Update",
       "fix": "Fix"
     },
+    "v321": [
+      "Umbenennung der Fußzeilenschaltfläche in „Aktualisieren“ und Synchronisierung der Übersetzungen in allen 8 Sprachen"
+    ],
     "v320": [
       "Modernes Skeleton-UI mit metallischem Shimmer-Ladeeffekt anstelle von schwarzem Bildschirm oder Laderad beim App-Start",
       "Erzwungenes stabiles Mobil-Layout auf Smartphones – verhindert ungewollten Wechsel zur Desktop-Ansicht beim Drehen des Telefons",

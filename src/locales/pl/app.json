@@ -14,8 +14,9 @@
     "back": "Wstecz"
   },
   "footer": {
+    "refresh": "Odśwież",
     "changelog": "Historia zmian",
-    "version": "v3.2.0",
+    "version": "v3.2.1",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Ustawienia",
     "feedback": "Zgłoś błąd / Sugestia",
@@ -31,6 +32,9 @@
       "update": "Aktualizacja",
       "fix": "Poprawka"
     },
+    "v321": [
+      "Zmiana nazwy przycisku w stopce z „Wymuś aktualizację” na „Odśwież” oraz pełna synchronizacja tłumaczeń we wszystkich 8 wersjach językowych"
+    ],
     "v320": [
       "Nowoczesny ekran szkieletowy (Skeleton UI / powidok ładowania) z metalicznym efektem shimmer zamiast czarnego ekranu i spinnera podczas uruchamiania aplikacji",
       "Wymuszenie stabilnego widoku mobilnego na smartfonach – zapobieganie przypadkowemu przełączaniu do siatki PC po obróceniu telefonu",

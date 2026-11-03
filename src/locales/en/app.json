@@ -14,8 +14,9 @@
     "back": "Back"
   },
   "footer": {
+    "refresh": "Refresh",
     "changelog": "Changelog",
-    "version": "v3.2.0",
+    "version": "v3.2.1",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Settings",
     "feedback": "Report bug / Suggestion",
@@ -31,6 +32,9 @@
       "update": "Update",
       "fix": "Fix"
     },
+    "v321": [
+      "Renamed the footer update button to 'Refresh' with full localization across all 8 languages"
+    ],
     "v320": [
       "Modern Skeleton UI with metallic shimmer loading screen replacing black screen and spinners during application boot",
       "Forced stable mobile view on smartphones – prevents accidental desktop layout triggering when rotating phone",

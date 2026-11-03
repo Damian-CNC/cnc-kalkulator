@@ -14,8 +14,9 @@
     "back": "Späť"
   },
   "footer": {
+    "refresh": "Obnoviť",
     "changelog": "Zoznam zmien",
-    "version": "v3.2.0",
+    "version": "v3.2.1",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Nastavenia",
     "feedback": "Nahlásiť chybu / Návrh",
@@ -31,6 +32,9 @@
       "update": "Aktualizácia",
       "fix": "Oprava"
     },
+    "v321": [
+      "Premenovanie tlačidla v päte na „Obnoviť“ a kompletná synchronizácia prekladov do všetkých 8 jazykov"
+    ],
     "v320": [
       "Moderné načítavacie Skeleton UI s metalickým shimmer efektom namiesto čiernej obrazovky alebo načítavacieho kolieska pri spúšťaní aplikácie",
       "Vynútené stabilné mobilné zobrazenie na smartfónoch – zabraňuje nechcenému prepnutiu do PC rozloženia pri otočení telefónu",

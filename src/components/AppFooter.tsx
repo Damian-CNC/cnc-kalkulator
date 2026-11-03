@@ -20,7 +20,7 @@ const AppFooter = ({ className = '' }: { className?: string }) => {
   const [feedbackOpen, setFeedbackOpen] = useState(false);
   const [legalOpen, setLegalOpen] = useState(false);
 
-  const handleForceUpdate = async () => {
+  const handleRefresh = async () => {
     try {
       if ('caches' in window) {
         const cacheNames = await caches.keys();
@@ -48,9 +48,9 @@ const AppFooter = ({ className = '' }: { className?: string }) => {
         <UnitSwitcher
           containerClass="flex items-center gap-1 px-1.5 py-1 rounded-xl border border-zinc-800 bg-zinc-900/70 hover:border-zinc-700 hover:bg-zinc-800/60 shadow-sm transition-all"
         />
-        <button type="button" onClick={handleForceUpdate} className={`${BTN} ${TXT}`}>
+        <button type="button" onClick={handleRefresh} className={`${BTN} ${TXT}`}>
           <RefreshCw className={ICON} />
-          {t('common.forceUpdate', { defaultValue: 'Wymuś aktualizację' })}
+          {t('footer.refresh', { defaultValue: 'Odśwież' })}
         </button>
         <button type="button" onClick={() => setOpen(true)} className={`${BTN} ${TXT}`}>
           <History className={ICON} />
