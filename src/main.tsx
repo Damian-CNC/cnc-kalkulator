@@ -2,6 +2,9 @@ import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 import { i18nReady } from "./i18n";
+import { lockPortraitOrientation } from "./hooks/use-mobile";
+
+lockPortraitOrientation();
 
 declare global {
   interface Window {

@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Änderungsverlauf",
-    "version": "v3.0.0",
+    "version": "v3.2.0",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Einstellungen",
     "feedback": "Fehler / Vorschlag melden",
@@ -31,6 +31,11 @@
       "update": "Update",
       "fix": "Fix"
     },
+    "v320": [
+      "Modernes Skeleton-UI mit metallischem Shimmer-Ladeeffekt anstelle von schwarzem Bildschirm oder Laderad beim App-Start",
+      "Erzwungenes stabiles Mobil-Layout auf Smartphones – verhindert ungewollten Wechsel zur Desktop-Ansicht beim Drehen des Telefons",
+      "Bildschirmausrichtungssperre im Hochformat (Portrait Lock) für Mobilgeräte samt intelligenter Aufforderung zum Zurückdrehen"
+    ],
     "v310": [
       "Neuer Rechner für Gewindesteigungswinkel und Zwischenlage (Amboss-Unterlegplatte) beim Gewindedrehen mit Flankenfreiwinkel-Prüfung",
       "Neuer Lochkreis-Durchmesser (TKD/PCD) Messrechner mit Messschieber und Schritt-für-Schritt-Anleitung",
@@ -276,5 +281,10 @@
     "title": "Seite konnte nicht geladen werden",
     "desc": "Bitte aktualisieren Sie die App, um das Modul neu zu laden.",
     "refresh": "Aktualisieren"
+  },
+  "orientation": {
+    "rotateTitle": "Gerät ins Hochformat drehen",
+    "rotateDesc": "CNC HUB ist für die komfortable Einhandbedienung im Hochformat optimiert.",
+    "continueLandscape": "Trotzdem im Querformat nutzen"
   }
 }

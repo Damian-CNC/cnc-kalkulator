@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Historie změn",
-    "version": "v3.0.0",
+    "version": "v3.2.0",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Nastavení",
     "feedback": "Nahlásit chybu / Návrh",
@@ -31,6 +31,11 @@
       "update": "Aktualizace",
       "fix": "Oprava"
     },
+    "v320": [
+      "Moderní načítací Skeleton UI s metalickým shimmer efektem namísto černé obrazovky nebo načítacího kolečka při spouštění aplikace",
+      "Vynucené stabilní mobilní zobrazení na chytrých telefonech – zabraňuje nechtěnému přepnutí na PC rozložení při otočení telefonu",
+      "Zámek orientace obrazovky na výšku (Portrait Lock) pro mobilní zařízení s inteligentním překryvem pro otočení telefonu"
+    ],
     "v310": [
       "Nový kalkulátor úhlu stoupání šroubovice a volby podložkové destičky (shim) pro soustružení závitů s kontrolou boční kolize hřbetu",
       "Nový kalkulátor měření roztečné kružnice (PCD) pomocí posuvného měřítka s interaktivním průvodcem měření krok za krokem",
@@ -278,5 +283,10 @@
     "title": "Stránku se nepodařilo načíst",
     "desc": "Obnovte aplikaci pro opětovné načtení modulu.",
     "refresh": "Obnovit"
+  },
+  "orientation": {
+    "rotateTitle": "Otočte telefon na výšku",
+    "rotateDesc": "Aplikace CNC HUB je optimalizována pro pohodlné ovládání jednou rukou na výšku.",
+    "continueLandscape": "Přesto použít na šířku"
   }
 }

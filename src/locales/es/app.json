@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Historial de cambios",
-    "version": "v3.0.0",
+    "version": "v3.2.0",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Ajustes",
     "feedback": "Notificar error / Sugerencia",
@@ -31,6 +31,11 @@
       "update": "Actualización",
       "fix": "Corrección"
     },
+    "v320": [
+      "Pantalla de carga Skeleton UI moderna con efecto shimmer metálico en lugar de pantalla negra o rueda de carga al iniciar la app",
+      "Vista móvil forzada y estable en smartphones – evita la activación accidental del diseño de escritorio al girar el teléfono",
+      "Bloqueo de orientación vertical (Portrait Lock) para dispositivos móviles con aviso inteligente para volver a colocar el teléfono en vertical"
+    ],
     "v310": [
       "Nueva calculadora de Ángulo de Hélice y Plaquita de Apoyo (calzo) para torneado de roscas con verificación de desahogo de flancos",
       "Nueva calculadora de medición de diámetro primitivo (PCD) con pie de rey y guía de medición paso a paso",
@@ -278,5 +283,10 @@
     "title": "No se pudo cargar la página",
     "desc": "Recarga la aplicación para volver a cargar el módulo.",
     "refresh": "Recargar"
+  },
+  "orientation": {
+    "rotateTitle": "Gira el dispositivo a vertical",
+    "rotateDesc": "CNC HUB está optimizado para un uso cómodo con una sola mano en orientación vertical.",
+    "continueLandscape": "Continuar en horizontal de todos modos"
   }
 }

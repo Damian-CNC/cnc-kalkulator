@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Historia zmian",
-    "version": "v3.0.0",
+    "version": "v3.2.0",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Ustawienia",
     "feedback": "Zgłoś błąd / Sugestia",
@@ -31,6 +31,11 @@
       "update": "Aktualizacja",
       "fix": "Poprawka"
     },
+    "v320": [
+      "Nowoczesny ekran szkieletowy (Skeleton UI / powidok ładowania) z metalicznym efektem shimmer zamiast czarnego ekranu i spinnera podczas uruchamiania aplikacji",
+      "Wymuszenie stabilnego widoku mobilnego na smartfonach – zapobieganie przypadkowemu przełączaniu do siatki PC po obróceniu telefonu",
+      "Blokada orientacji ekranu w pionie (Portrait Lock) dla urządzeń mobilnych oraz inteligentna nakładka z prośbą o obrócenie telefonu"
+    ],
     "v310": [
       "Nowy kalkulator kąta linii śrubowej gwintu i doboru płytki podporowej (anvil shim) do noża tokarskiego z weryfikacją kolizji bocznej",
       "Nowy kalkulator średnicy podziałowej (PCD) na podstawie pomiaru suwmiarką z interaktywną instrukcją krok po kroku",
@@ -278,5 +283,10 @@
     "title": "Nie udało się wyświetlić strony",
     "desc": "Odśwież aplikację, aby ponownie załadować moduł.",
     "refresh": "Odśwież"
+  },
+  "orientation": {
+    "rotateTitle": "Obróć telefon do pionu",
+    "rotateDesc": "Aplikacja CNC HUB jest zoptymalizowana do wygodnej obsługi jedną ręką w orientacji pionowej.",
+    "continueLandscape": "Użyj w poziomie mimo to"
   }
 }

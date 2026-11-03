@@ -2,6 +2,7 @@ import { useEffect, useRef, Suspense, type ComponentType } from "react";
 import { Routes, Route, useLocation, useNavigationType } from "react-router-dom";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { lazyWithRetry } from "@/lib/lazyWithRetry";
+import { PageSkeleton } from "@/components/AppSkeleton";
 
 // Każda strona jest ładowana leniwie, ale zapamiętujemy loadery,
 // żeby po starcie aplikacji pobrać wszystkie chunki w tle.
@@ -227,7 +228,7 @@ const AnimatedRoutes = () => {
               : ""
           }`}
         >
-          <Suspense fallback={<div className="min-h-[50vh]" aria-hidden />}>
+          <Suspense fallback={<PageSkeleton />}>
             <Routes location={location}>
               <Route path="/" element={<Index />} />
               <Route path="/parametry" element={<ParametersPage />} />

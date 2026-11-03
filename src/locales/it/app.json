@@ -15,7 +15,7 @@
   },
   "footer": {
     "changelog": "Cronologia modifiche",
-    "version": "v3.0.0",
+    "version": "v3.2.0",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Impostazioni",
     "feedback": "Segnala bug / Suggerimento",
@@ -31,6 +31,11 @@
       "update": "Aggiornamento",
       "fix": "Correzione"
     },
+    "v320": [
+      "Nuova schermata skeleton con effetto shimmer metallico durante l'avvio dell'app al posto della schermata nera o del cursore di caricamento",
+      "Visualizzazione mobile forzata e stabile su smartphone – impedisce il passaggio involontario al layout desktop quando si ruota il telefono",
+      "Blocco dell'orientamento dello schermo in verticale (Portrait Lock) per dispositivi mobili con overlay di orientamento intelligente"
+    ],
     "v310": [
       "Nuovo calcolatore dell'angolo d'elica della filettatura e scelta della piastrina di supporto (anvil shim) per tornitura con controllo collisione fianchi",
       "Nuovo calcolatore diametro primitivo (PCD) da misura con calibro con guida passo-passo",
@@ -276,5 +281,10 @@
     "title": "Impossibile caricare la pagina",
     "desc": "Ricarica l'applicazione per ricaricare il modulo.",
     "refresh": "Ricarica"
+  },
+  "orientation": {
+    "rotateTitle": "Ruota il dispositivo in verticale",
+    "rotateDesc": "CNC HUB è ottimizzato per un comodo utilizzo con una sola mano in orientamento verticale.",
+    "continueLandscape": "Continua comunque in orizzontale"
   }
 }
