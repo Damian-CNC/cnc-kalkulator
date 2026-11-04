@@ -10,6 +10,7 @@ import usePersistedState from '@/hooks/usePersistedState';
 import useHaptics from '@/hooks/useHaptics';
 import { toast } from '@/hooks/use-toast';
 import ClearFab from '@/components/ClearFab';
+import useMobileInputFlow from '@/hooks/useMobileInputFlow';
 
 type MaterialId =
   | 'steel'
@@ -147,6 +148,23 @@ const WeightCalculator = () => {
   );
 
   const fields = SHAPE_FIELDS[form.shapeType] ?? SHAPE_FIELDS.rod;
+
+  const dimARef = useRef<HTMLInputElement>(null);
+  const dimBRef = useRef<HTMLInputElement>(null);
+  const dimCRef = useRef<HTMLInputElement>(null);
+  const dimDRef = useRef<HTMLInputElement>(null);
+  const lengthRef = useRef<HTMLInputElement>(null);
+  const qtyRef = useRef<HTMLInputElement>(null);
+
+  const inputFlow = useMobileInputFlow({
+    fields: [
+      { key: 'dimA', ref: dimARef, value: form.dimA, active: Boolean(fields[0]) },
+      { key: 'dimB', ref: dimBRef, value: form.dimB, active: Boolean(fields[1]) },
+      { key: 'dimC', ref: dimCRef, value: form.dimC, active: Boolean(fields[2]) },
+      { key: 'dimD', ref: dimDRef, value: form.dimD, active: Boolean(fields[3]) },
+      { key: 'length', ref: lengthRef, value: form.length, active: true },
+    ],
+  });
 
   const result = useMemo(() => {
     const material = MATERIALS.find((m) => m.id === form.materialType);
@@ -318,35 +336,45 @@ const WeightCalculator = () => {
 
           <div className="grid grid-cols-2 gap-2.5">
             <InputField
+              ref={dimARef}
               label={t(`fields.${fields[0]}`)}
               value={form.dimA}
               onChange={(e) => set({ dimA: e.target.value })}
+              {...inputFlow.getFieldProps('dimA')}
             />
             <InputField
+              ref={lengthRef}
               label={t('fields.length')}
               value={form.length}
               onChange={(e) => set({ length: e.target.value })}
+              {...inputFlow.getFieldProps('length')}
             />
 
             {fields[1] && (
               <InputField
+                ref={dimBRef}
                 label={t(`fields.${fields[1]}`)}
                 value={form.dimB}
                 onChange={(e) => set({ dimB: e.target.value })}
+                {...inputFlow.getFieldProps('dimB')}
               />
             )}
             {fields[2] && (
               <InputField
+                ref={dimCRef}
                 label={t(`fields.${fields[2]}`)}
                 value={form.dimC}
                 onChange={(e) => set({ dimC: e.target.value })}
+                {...inputFlow.getFieldProps('dimC')}
               />
             )}
             {fields[3] && (
               <InputField
+                ref={dimDRef}
                 label={t(`fields.${fields[3]}`)}
                 value={form.dimD}
                 onChange={(e) => set({ dimD: e.target.value })}
+                {...inputFlow.getFieldProps('dimD')}
               />
             )}
 
@@ -419,10 +447,18 @@ const WeightCalculator = () => {
               </label>
               <div className="relative">
                 <input
+                  ref={qtyRef}
                   type="text"
                   inputMode="numeric"
+                  enterKeyHint="done"
                   value={form.quantity}
                   onChange={(e) => set({ quantity: e.target.value.replace(/[^0-9]/g, '') })}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      e.currentTarget.blur();
+                    }
+                  }}
                   onFocus={(e) => e.target.select()}
                   className="input-field w-full pr-10"
                 />

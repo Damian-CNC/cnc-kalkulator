@@ -16,7 +16,7 @@
   "footer": {
     "refresh": "Odśwież",
     "changelog": "Historia zmian",
-    "version": "v3.2.1",
+    "version": "v3.2.2",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Ustawienia",
     "feedback": "Zgłoś błąd / Sugestia",
@@ -32,6 +32,9 @@
       "update": "Aktualizacja",
       "fix": "Poprawka"
     },
+    "v322": [
+      "Inteligentna nawigacja klawiatury mobilnej (przycisk Dalej / Gotowe) z automatycznym przeskokiem do kolejnych pól i chowaniem klawiatury po uzupełnieniu w kalkulatorze wagi oraz parametrów skrawania"
+    ],
     "v321": [
       "Zmiana nazwy przycisku w stopce z „Wymuś aktualizację” na „Odśwież” oraz pełna synchronizacja tłumaczeń we wszystkich 8 wersjach językowych"
     ],

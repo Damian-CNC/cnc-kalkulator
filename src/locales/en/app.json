@@ -16,7 +16,7 @@
   "footer": {
     "refresh": "Refresh",
     "changelog": "Changelog",
-    "version": "v3.2.1",
+    "version": "v3.2.2",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Settings",
     "feedback": "Report bug / Suggestion",
@@ -32,6 +32,9 @@
       "update": "Update",
       "fix": "Fix"
     },
+    "v322": [
+      "Smart mobile keyboard navigation (Next / Done action keys) with auto-advancing to required inputs and automatic keyboard dismissal in Weight and Cutting Parameters calculators"
+    ],
     "v321": [
       "Renamed the footer update button to 'Refresh' with full localization across all 8 languages"
     ],

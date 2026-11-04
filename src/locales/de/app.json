@@ -16,7 +16,7 @@
   "footer": {
     "refresh": "Aktualisieren",
     "changelog": "Änderungsverlauf",
-    "version": "v3.2.1",
+    "version": "v3.2.2",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Einstellungen",
     "feedback": "Fehler / Vorschlag melden",
@@ -32,6 +32,9 @@
       "update": "Update",
       "fix": "Fix"
     },
+    "v322": [
+      "Intelligente mobile Tastaturnavigation (Weiter / Fertig) mit automatischem Weiterspringen zu Pflichtfeldern und Tastaturausblendung im Gewichts- und Schnittdatenrechner"
+    ],
     "v321": [
       "Umbenennung der Fußzeilenschaltfläche in „Aktualisieren“ und Synchronisierung der Übersetzungen in allen 8 Sprachen"
     ],

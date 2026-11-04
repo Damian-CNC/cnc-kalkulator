@@ -16,7 +16,7 @@
   "footer": {
     "refresh": "Actualizar",
     "changelog": "Historial de cambios",
-    "version": "v3.2.1",
+    "version": "v3.2.2",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Ajustes",
     "feedback": "Notificar error / Sugerencia",
@@ -32,6 +32,9 @@
       "update": "Actualización",
       "fix": "Corrección"
     },
+    "v322": [
+      "Navegación inteligente con teclado móvil (botón Siguiente / Listo) con salto automático entre campos y cierre de teclado tras completar en calculadoras de peso y parámetros"
+    ],
     "v321": [
       "Cambio de nombre del botón del pie de página a „Actualizar” y sincronización de traducciones en los 8 idiomas"
     ],

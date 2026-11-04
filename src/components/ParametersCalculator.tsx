@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import InputField from './InputField';
 import FormulaHelper from './FormulaHelper';
 import usePersistedState from '@/hooks/usePersistedState';
+import useMobileInputFlow from '@/hooks/useMobileInputFlow';
 import { useUnits, mmToIn, inToMm, mMinToSfm, sfmToMMin } from '@/contexts/UnitContext';
 
 type Field = 'D' | 'Z' | 'vc' | 'n' | 'fz' | 'vf' | 'd2' | 'fc';
@@ -226,6 +227,50 @@ const ParametersCalculator = () => {
 
   const isComputed = (f: Field) => computed.has(f);
 
+  // Mobile virtual keyboard flow for Module 1 (Obroty)
+  const vcRef = useRef<HTMLInputElement>(null);
+  const dRef = useRef<HTMLInputElement>(null);
+  const nRef = useRef<HTMLInputElement>(null);
+
+  const speedFlow = useMobileInputFlow<Field>({
+    fields: [
+      { key: 'vc', ref: vcRef, value: values.vc, computed: isComputed('vc') },
+      { key: 'D', ref: dRef, value: values.D, computed: isComputed('D') },
+      { key: 'n', ref: nRef, value: values.n, computed: isComputed('n') },
+    ],
+    requiredCount: 2,
+  });
+
+  // Mobile virtual keyboard flow for Module 2 (Posuw)
+  const fzRef = useRef<HTMLInputElement>(null);
+  const zRef = useRef<HTMLInputElement>(null);
+  const vfRef = useRef<HTMLInputElement>(null);
+
+  const feedFlow = useMobileInputFlow<Field>({
+    fields: [
+      { key: 'fz', ref: fzRef, value: values.fz, computed: isComputed('fz') },
+      { key: 'Z', ref: zRef, value: values.Z, computed: isComputed('Z') },
+      { key: 'vf', ref: vfRef, value: values.vf, computed: isComputed('vf') },
+    ],
+    requiredCount: 2,
+  });
+
+  // Mobile virtual keyboard flow for Module 3 (Interpolacja kołowa)
+  const circDRef = useRef<HTMLInputElement>(null);
+  const circD2Ref = useRef<HTMLInputElement>(null);
+  const circVfRef = useRef<HTMLInputElement>(null);
+  const circFcRef = useRef<HTMLInputElement>(null);
+
+  const circFlow = useMobileInputFlow<Field>({
+    fields: [
+      { key: 'D', ref: circDRef, value: values.D, computed: isComputed('D') },
+      { key: 'd2', ref: circD2Ref, value: values.d2, computed: isComputed('d2') },
+      { key: 'vf', ref: circVfRef, value: values.vf, computed: isComputed('vf') },
+      { key: 'fc', ref: circFcRef, value: values.fc, computed: isComputed('fc') },
+    ],
+    requiredCount: 3,
+  });
+
 
   return (
     <div className="glass-container p-0 overflow-hidden">
@@ -251,6 +296,7 @@ const ParametersCalculator = () => {
               </h2>
               <div className="flex flex-col gap-3.5">
                 <InputField
+                  ref={vcRef}
                   label={withUnit('params.cuttingSpeed', u.speed)}
                   type="number"
                   step="0.1"
@@ -258,8 +304,10 @@ const ParametersCalculator = () => {
                   value={values.vc}
                   onChange={handleChange('vc')}
                   computed={isComputed('vc')}
+                  {...speedFlow.getFieldProps('vc')}
                 />
                 <InputField
+                  ref={dRef}
                   label={withUnit('params.toolDiameter', u.length)}
                   type="number"
                   step="0.1"
@@ -267,8 +315,10 @@ const ParametersCalculator = () => {
                   value={values.D}
                   onChange={handleChange('D')}
                   computed={isComputed('D')}
+                  {...speedFlow.getFieldProps('D')}
                 />
                 <InputField
+                  ref={nRef}
                   label={t('params.spindleSpeed')}
                   type="number"
                   step="1"
@@ -276,6 +326,7 @@ const ParametersCalculator = () => {
                   value={values.n}
                   onChange={handleChange('n')}
                   computed={isComputed('n')}
+                  {...speedFlow.getFieldProps('n')}
                 />
               </div>
             </div>
@@ -298,6 +349,7 @@ const ParametersCalculator = () => {
               </h2>
               <div className="flex flex-col gap-3.5">
                 <InputField
+                  ref={fzRef}
                   label={withUnit('params.feedPerTooth', isImperial ? 'IPT' : u.feedPerTooth)}
                   type="number"
                   step="0.001"
@@ -305,8 +357,10 @@ const ParametersCalculator = () => {
                   value={values.fz}
                   onChange={handleChange('fz')}
                   computed={isComputed('fz')}
+                  {...feedFlow.getFieldProps('fz')}
                 />
                 <InputField
+                  ref={zRef}
                   label={t('params.teeth')}
                   type="number"
                   step="1"
@@ -314,8 +368,10 @@ const ParametersCalculator = () => {
                   value={values.Z}
                   onChange={handleChange('Z')}
                   computed={isComputed('Z')}
+                  {...feedFlow.getFieldProps('Z')}
                 />
                 <InputField
+                  ref={vfRef}
                   label={withUnit('params.feedRate', u.feedRate)}
                   type="number"
                   step="0.1"
@@ -323,6 +379,7 @@ const ParametersCalculator = () => {
                   value={values.vf}
                   onChange={handleChange('vf')}
                   computed={isComputed('vf')}
+                  {...feedFlow.getFieldProps('vf')}
                 />
               </div>
             </div>
@@ -351,6 +408,7 @@ const ParametersCalculator = () => {
                   {t('params.circularHint')}
                 </p>
                 <InputField
+                  ref={circDRef}
                   label={withUnit('params.toolDiameterD1', u.length)}
                   type="number"
                   step="0.1"
@@ -358,8 +416,10 @@ const ParametersCalculator = () => {
                   value={values.D}
                   onChange={handleChange('D')}
                   computed={isComputed('D')}
+                  {...circFlow.getFieldProps('D')}
                 />
                 <InputField
+                  ref={circD2Ref}
                   label={withUnit('params.workDiameterD2', u.length)}
                   type="number"
                   step="0.1"
@@ -367,8 +427,10 @@ const ParametersCalculator = () => {
                   value={values.d2}
                   onChange={handleChange('d2')}
                   computed={isComputed('d2')}
+                  {...circFlow.getFieldProps('d2')}
                 />
                 <InputField
+                  ref={circVfRef}
                   label={withUnit('params.peripheralFeed', u.feedRate)}
                   type="number"
                   step="0.1"
@@ -376,8 +438,10 @@ const ParametersCalculator = () => {
                   value={values.vf}
                   onChange={handleChange('vf')}
                   computed={isComputed('vf')}
+                  {...circFlow.getFieldProps('vf')}
                 />
                 <InputField
+                  ref={circFcRef}
                   label={withUnit('params.centralFeed', u.feedRate)}
                   type="number"
                   step="0.1"
@@ -385,6 +449,7 @@ const ParametersCalculator = () => {
                   value={values.fc}
                   onChange={handleChange('fc')}
                   computed={isComputed('fc')}
+                  {...circFlow.getFieldProps('fc')}
                 />
               </div>
             </div>

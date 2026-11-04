@@ -16,7 +16,7 @@
   "footer": {
     "refresh": "Obnoviť",
     "changelog": "Zoznam zmien",
-    "version": "v3.2.1",
+    "version": "v3.2.2",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Nastavenia",
     "feedback": "Nahlásiť chybu / Návrh",
@@ -32,6 +32,9 @@
       "update": "Aktualizácia",
       "fix": "Oprava"
     },
+    "v322": [
+      "Inteligentná navigácia na mobilnej klávesnici (tlačidlo Ďalej / Hotovo) z automatickým preskokom na ďalšie polia a skrytím klávesnice po vyplnení v kalkulačke hmotnosti a rezných parametrov"
+    ],
     "v321": [
       "Premenovanie tlačidla v päte na „Obnoviť“ a kompletná synchronizácia prekladov do všetkých 8 jazykov"
     ],
