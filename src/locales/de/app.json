@@ -16,7 +16,7 @@
   "footer": {
     "refresh": "Aktualisieren",
     "changelog": "Änderungsverlauf",
-    "version": "v3.2.2",
+    "version": "v3.2.3",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Einstellungen",
     "feedback": "Fehler / Vorschlag melden",
@@ -32,6 +32,9 @@
       "update": "Update",
       "fix": "Fix"
     },
+    "v323": [
+      "Anzeige der Formel-Info-Fenster („i“-Symbol) auf Mobilgeräten behoben – Fenster öffnen nun als passgenaues Bottom-Sheet mit Schließen-Button und ragen nicht mehr über den Bildschirmrand hinaus"
+    ],
     "v322": [
       "Intelligente mobile Tastaturnavigation (Weiter / Fertig) mit automatischem Weiterspringen zu Pflichtfeldern und Tastaturausblendung im Gewichts- und Schnittdatenrechner"
     ],
@@ -186,6 +189,8 @@
   },
   "formulas": {
     "help": "Formel und Erklärung",
+    "formulaLabel": "Formel",
+    "paramsLabel": "Formelzeichen & Parameter",
     "rpm": {
       "title": "Drehzahl & Vc",
       "note": "K = 1000 (mm, m/min) oder 12 (inch, SFM)",

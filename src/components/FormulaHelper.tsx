@@ -1,5 +1,7 @@
-import { useEffect, useRef, useState, memo } from 'react';
-import { Info } from 'lucide-react';
+import { useEffect, useState, memo } from 'react';
+import { createPortal } from 'react-dom';
+import { Info, X } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export interface FormulaParam {
   symbol: string;
@@ -16,24 +18,19 @@ interface FormulaHelperProps {
 
 const FormulaHelper = ({ title, formula, params = [], note, label }: FormulaHelperProps) => {
   const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLSpanElement>(null);
+  const { t } = useTranslation('app');
 
   useEffect(() => {
     if (!open) return;
-    const onDown = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false);
     };
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
-    document.addEventListener('mousedown', onDown);
     document.addEventListener('keydown', onKey);
-    return () => {
-      document.removeEventListener('mousedown', onDown);
-      document.removeEventListener('keydown', onKey);
-    };
+    return () => document.removeEventListener('keydown', onKey);
   }, [open]);
 
   return (
-    <span ref={ref} className="relative inline-flex align-middle">
+    <>
       <button
         type="button"
         aria-label={label ?? title}
@@ -43,34 +40,84 @@ const FormulaHelper = ({ title, formula, params = [], note, label }: FormulaHelp
           e.stopPropagation();
           setOpen((o) => !o);
         }}
-        className="p-1 rounded-full text-zinc-500 hover:text-cyan-400 transition-colors"
+        className="p-1 rounded-full text-zinc-400 hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors inline-flex items-center justify-center shrink-0"
       >
         <Info className="w-4 h-4" />
       </button>
 
-      {open && (
-        <span
-          role="dialog"
-          className="absolute left-0 top-8 z-50 w-[min(20rem,calc(100vw-3rem))] rounded-2xl border border-zinc-700/70 bg-zinc-900/95 backdrop-blur-xl shadow-2xl p-4 text-left"
-        >
-          <span className="block text-xs uppercase tracking-widest text-zinc-500 mb-2">{title}</span>
-          <span className="block rounded-xl border border-cyan-500/25 bg-cyan-500/5 px-3 py-2 font-mono text-sm text-cyan-400 mb-3">
-            {formula}
-          </span>
-          {params.length > 0 && (
-            <span className="block space-y-1.5">
-              {params.map((p) => (
-                <span key={p.symbol} className="flex gap-2 text-xs leading-relaxed">
-                  <span className="font-mono font-bold text-zinc-200 shrink-0">{p.symbol}</span>
-                  <span className="text-zinc-400">{p.desc}</span>
-                </span>
-              ))}
-            </span>
-          )}
-          {note && <span className="block mt-3 text-[11px] text-zinc-500">{note}</span>}
-        </span>
-      )}
-    </span>
+      {open &&
+        createPortal(
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label={title}
+            className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center bg-black/75 backdrop-blur-md p-0 sm:p-4 animate-in fade-in duration-200"
+            onClick={() => setOpen(false)}
+          >
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className="w-full sm:max-w-md max-h-[85vh] overflow-y-auto rounded-t-3xl sm:rounded-2xl border border-zinc-800 bg-zinc-950 p-5 pb-[calc(1.5rem+env(safe-area-inset-bottom))] sm:pb-5 shadow-2xl space-y-4 animate-in slide-in-from-bottom-4 sm:slide-in-from-bottom-0 sm:zoom-in-95 duration-200"
+            >
+              {/* Header with Title & Close button */}
+              <div className="flex items-start justify-between gap-3 border-b border-zinc-800/80 pb-3">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="w-8 h-8 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center shrink-0">
+                    <Info className="w-4 h-4 text-cyan-400" />
+                  </div>
+                  <h3 className="text-sm sm:text-base font-bold text-zinc-100 tracking-wide truncate">
+                    {title}
+                  </h3>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  aria-label={t('common.close', { defaultValue: 'Zamknij' })}
+                  className="-m-1 p-2 rounded-xl text-zinc-400 hover:text-white hover:bg-zinc-800/80 transition-colors shrink-0"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Formula box */}
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-wider text-zinc-500 mb-1.5">
+                  {t('formulas.formulaLabel', { defaultValue: 'Wzór obliczeniowy' })}
+                </p>
+                <div className="rounded-xl border border-cyan-500/30 bg-cyan-500/10 px-3.5 py-2.5 font-mono text-sm sm:text-base text-cyan-300 font-semibold text-center select-all">
+                  {formula}
+                </div>
+              </div>
+
+              {/* Parameters breakdown */}
+              {params.length > 0 && (
+                <div className="space-y-1.5">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-zinc-500">
+                    {t('formulas.paramsLabel', { defaultValue: 'Oznaczenia parametrów' })}
+                  </p>
+                  <div className="space-y-2 rounded-xl border border-zinc-800/80 bg-zinc-900/60 p-3">
+                    {params.map((p) => (
+                      <div key={p.symbol} className="flex items-baseline gap-2.5 text-xs leading-relaxed">
+                        <span className="font-mono font-bold px-1.5 py-0.5 rounded bg-zinc-800 border border-zinc-700/60 text-cyan-300 shrink-0 min-w-[2.25rem] text-center">
+                          {p.symbol}
+                        </span>
+                        <span className="text-zinc-300 flex-1">{p.desc}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Optional explanatory note */}
+              {note && (
+                <div className="rounded-xl border border-zinc-800/80 bg-zinc-900/40 p-3 text-xs text-zinc-400 leading-relaxed">
+                  💡 {note}
+                </div>
+              )}
+            </div>
+          </div>,
+          document.body
+        )}
+    </>
   );
 };
 

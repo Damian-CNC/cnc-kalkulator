@@ -16,7 +16,7 @@
   "footer": {
     "refresh": "Obnoviť",
     "changelog": "Zoznam zmien",
-    "version": "v3.2.2",
+    "version": "v3.2.3",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Nastavenia",
     "feedback": "Nahlásiť chybu / Návrh",
@@ -32,6 +32,9 @@
       "update": "Aktualizácia",
       "fix": "Oprava"
     },
+    "v323": [
+      "Opravené zobrazenie vyskakovacích okien so vzorcami (ikona „i“) na mobilných telefónoch – okná už nevychádzajú mimo obrazovky a otvárajú sa ako prehľadný spodný panel s tlačidlom zatvorenia"
+    ],
     "v322": [
       "Inteligentná navigácia na mobilnej klávesnici (tlačidlo Ďalej / Hotovo) z automatickým preskokom na ďalšie polia a skrytím klávesnice po vyplnení v kalkulačke hmotnosti a rezných parametrov"
     ],
@@ -188,6 +191,8 @@
   },
   "formulas": {
     "help": "Vzorec a vysvetlenie",
+    "formulaLabel": "Vzorec",
+    "paramsLabel": "Označenie parametrov",
     "rpm": {
       "title": "Otáčky vretena & Vc",
       "note": "K = 1000 (mm, m/min) alebo 12 (inch, SFM)",

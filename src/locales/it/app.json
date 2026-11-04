@@ -16,7 +16,7 @@
   "footer": {
     "refresh": "Aggiorna",
     "changelog": "Cronologia modifiche",
-    "version": "v3.2.2",
+    "version": "v3.2.3",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Impostazioni",
     "feedback": "Segnala bug / Suggerimento",
@@ -32,6 +32,9 @@
       "update": "Aggiornamento",
       "fix": "Correzione"
     },
+    "v323": [
+      "Risolto il problema con i popup delle formule (icona „i”) sui dispositivi mobili – ora si aprono come fogli inferiori con pulsante di chiusura e non escono più dallo schermo"
+    ],
     "v322": [
       "Navigazione intelligente della tastiera mobile (tasto Avanti / Fine) con avanzamento automatico tra i campi richiesti e chiusura automatica nei calcolatori peso e parametri"
     ],
@@ -186,6 +189,8 @@
   },
   "formulas": {
     "help": "Formula e spiegazione",
+    "formulaLabel": "Formula",
+    "paramsLabel": "Parametri e simboli",
     "rpm": {
       "title": "Giri mandrino & Vc",
       "note": "K = 1000 (mm, m/min) oppure 12 (inch, SFM)",
