@@ -166,10 +166,13 @@ const BoltHolesCalculator = () => {
   const head: HeadId = !adv && s.head === 'custom' ? 'socket' : s.head;
   const available = headAvailable(head, s.size);
   const imp = L.isImperial;
-  const numMm = (v: string) => {
-    const n = num(v);
-    return n === undefined ? undefined : imp ? n * 25.4 : n;
-  };
+  const numMm = useCallback(
+    (v: string) => {
+      const n = num(v);
+      return n === undefined ? undefined : imp ? n * 25.4 : n;
+    },
+    [imp]
+  );
 
   const res = useMemo(() => {
     if (!available) return null;
@@ -206,7 +209,7 @@ const BoltHolesCalculator = () => {
       plate: numMm(s.plate),
       material: s.material,
     });
-  }, [s, available, adv, head, imp]);
+  }, [s, available, adv, head, numMm]);
 
   const isCsk = head === 'csk';
   const isNut = head === 'nut';

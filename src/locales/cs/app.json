@@ -16,7 +16,7 @@
   "footer": {
     "refresh": "Obnovit",
     "changelog": "Historie změn",
-    "version": "v3.2.3",
+    "version": "v3.2.4",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Nastavení",
     "feedback": "Nahlásit chybu / Návrh",
@@ -32,6 +32,11 @@
       "update": "Aktualizace",
       "fix": "Oprava"
     },
+    "v324": [
+      "Nasazení oficiální analytiky Cloudflare Web Analytics se sledováním SPA kalkulátorů bez souborů cookies",
+      "Aktualizace sociálních metadat Open Graph a Twitter Card pro doménu cnchub.app",
+      "Přidána mapa stránek sitemap.xml a konfigurace robots.txt pro indexaci ve vyhledávači Google"
+    ],
     "v323": [
       "Opraveno zobrazení vyskakovacích oken se vzorci (ikona „i“) na mobilních telefonech – okna se již nezobrazují mimo obrazovku a otevírají se jako přehledný spodní panel s tlačítkem zavření"
     ],

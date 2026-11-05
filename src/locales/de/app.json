@@ -16,7 +16,7 @@
   "footer": {
     "refresh": "Aktualisieren",
     "changelog": "Änderungsverlauf",
-    "version": "v3.2.3",
+    "version": "v3.2.4",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Einstellungen",
     "feedback": "Fehler / Vorschlag melden",
@@ -32,6 +32,11 @@
       "update": "Update",
       "fix": "Fix"
     },
+    "v324": [
+      "Offizielle Cloudflare Web Analytics mit Cookie-freiem SPA-Seitenaufruf-Tracking integriert",
+      "Aktualisierung der Open Graph- und Twitter Card-Metadaten für die Domain cnchub.app",
+      "Sitemap.xml und robots.txt-Konfiguration für optimale Google-Suchmaschinenindexierung hinzugefügt"
+    ],
     "v323": [
       "Anzeige der Formel-Info-Fenster („i“-Symbol) auf Mobilgeräten behoben – Fenster öffnen nun als passgenaues Bottom-Sheet mit Schließen-Button und ragen nicht mehr über den Bildschirmrand hinaus"
     ],

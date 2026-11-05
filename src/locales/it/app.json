@@ -16,7 +16,7 @@
   "footer": {
     "refresh": "Aggiorna",
     "changelog": "Cronologia modifiche",
-    "version": "v3.2.3",
+    "version": "v3.2.4",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Impostazioni",
     "feedback": "Segnala bug / Suggerimento",
@@ -32,6 +32,11 @@
       "update": "Aggiornamento",
       "fix": "Correzione"
     },
+    "v324": [
+      "Integrazione ufficiale di Cloudflare Web Analytics con tracciamento delle viste SPA senza cookie",
+      "Aggiornamento dei metadati social Open Graph e Twitter Card per il dominio cnchub.app",
+      "Aggiunta della mappa del sito sitemap.xml e configurazione robots.txt per l'indicizzazione su Google"
+    ],
     "v323": [
       "Risolto il problema con i popup delle formule (icona „i”) sui dispositivi mobili – ora si aprono come fogli inferiori con pulsante di chiusura e non escono più dallo schermo"
     ],

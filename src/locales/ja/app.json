@@ -16,7 +16,7 @@
   "footer": {
     "refresh": "更新",
     "changelog": "更新履歴",
-    "version": "v3.2.3",
+    "version": "v3.2.4",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "設定",
     "feedback": "不具合報告 / ご要望",
@@ -32,6 +32,11 @@
       "update": "改善・更新",
       "fix": "修正"
     },
+    "v324": [
+      "Cookieを使用しないCloudflare Web Analytics（SPA計算機ビュー追跡）の正式導入",
+      "cnchub.appドメイン向けOpen GraphおよびTwitter Cardのソーシャルメタデータを最適化",
+      "Google検索インデックス対応のサイトマップ（sitemap.xml）およびrobots.txt設定を追加"
+    ],
     "v323": [
       "モバイル端末での計算式説明ポップアップ（「i」アイコン）の表示崩れを修正 – 画面外にはみ出さず、閉じるボタン付きの快適なボトムシートとして表示されます"
     ],

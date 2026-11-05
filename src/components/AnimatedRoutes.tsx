@@ -280,6 +280,7 @@ const AnimatedRoutes = () => {
               <Route path="/korekcja-temperaturowa" element={<ThermalPage />} />
               <Route path="/baza-materialow" element={<MaterialsPage />} />
               <Route path="/privacy" element={<PrivacyPage />} />
+              <Route path="/privacy-policy" element={<PrivacyPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>

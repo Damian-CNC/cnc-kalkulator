@@ -47,26 +47,32 @@ export function useMobileInputFlow<K extends string = string>({
 
   const targetCount = requiredCount ?? activeFields.length;
 
-  const countFilled = () => activeFields.filter((f) => isPositiveFilled(f.value)).length;
+  const countFilled = useCallback(
+    () => activeFields.filter((f) => isPositiveFilled(f.value)).length,
+    [activeFields]
+  );
 
-  const getNextUnfilled = (currentKey: K): MobileFlowField<K> | null => {
-    const currentIndex = activeFields.findIndex((f) => f.key === currentKey);
-    if (currentIndex === -1) return null;
+  const getNextUnfilled = useCallback(
+    (currentKey: K): MobileFlowField<K> | null => {
+      const currentIndex = activeFields.findIndex((f) => f.key === currentKey);
+      if (currentIndex === -1) return null;
 
-    // 1. Search forward from current index
-    for (let i = currentIndex + 1; i < activeFields.length; i++) {
-      if (!isPositiveFilled(activeFields[i].value)) {
-        return activeFields[i];
+      // 1. Search forward from current index
+      for (let i = currentIndex + 1; i < activeFields.length; i++) {
+        if (!isPositiveFilled(activeFields[i].value)) {
+          return activeFields[i];
+        }
       }
-    }
-    // 2. Wrap around from beginning up to current index
-    for (let i = 0; i < currentIndex; i++) {
-      if (!isPositiveFilled(activeFields[i].value)) {
-        return activeFields[i];
+      // 2. Wrap around from beginning up to current index
+      for (let i = 0; i < currentIndex; i++) {
+        if (!isPositiveFilled(activeFields[i].value)) {
+          return activeFields[i];
+        }
       }
-    }
-    return null;
-  };
+      return null;
+    },
+    [activeFields]
+  );
 
   const getFieldProps = useCallback(
     (key: K) => {
@@ -111,7 +117,7 @@ export function useMobileInputFlow<K extends string = string>({
         onKeyDown,
       };
     },
-    [activeFields, targetCount, onComplete]
+    [activeFields, targetCount, onComplete, countFilled, getNextUnfilled]
   );
 
   return {

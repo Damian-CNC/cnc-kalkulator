@@ -16,7 +16,7 @@
   "footer": {
     "refresh": "Odśwież",
     "changelog": "Historia zmian",
-    "version": "v3.2.3",
+    "version": "v3.2.4",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Ustawienia",
     "feedback": "Zgłoś błąd / Sugestia",
@@ -32,6 +32,11 @@
       "update": "Aktualizacja",
       "fix": "Poprawka"
     },
+    "v324": [
+      "Wdrożenie oficjalnej analityki Cloudflare Web Analytics ze śledzeniem kalkulatorów SPA bez plików cookies",
+      "Aktualizacja metadanych społecznościowych Open Graph / Twitter Card dla domeny cnchub.app",
+      "Dodano mapę witryny sitemap.xml oraz konfigurację indeksowania robots.txt pod pozycjonowanie Google"
+    ],
     "v323": [
       "Poprawiono wyświetlanie okienek objaśnień wzorów (ikonka „i”) na telefonach – okienka nie wychodzą już poza krawędź ekranu, otwierają się jako wygodny arkusz dolny z przyciskiem zamknięcia"
     ],

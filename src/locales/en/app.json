@@ -16,7 +16,7 @@
   "footer": {
     "refresh": "Refresh",
     "changelog": "Changelog",
-    "version": "v3.2.3",
+    "version": "v3.2.4",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Settings",
     "feedback": "Report bug / Suggestion",
@@ -32,6 +32,11 @@
       "update": "Update",
       "fix": "Fix"
     },
+    "v324": [
+      "Integrated official Cloudflare Web Analytics with cookieless SPA calculator view tracking",
+      "Updated Open Graph and Twitter Card social metadata for cnchub.app domain",
+      "Added sitemap.xml and robots.txt configuration for optimal Google search indexing"
+    ],
     "v323": [
       "Fixed formula info popups ('i' icon) on mobile devices – modals now open as native bottom sheets with close buttons and never overflow off the screen"
     ],
