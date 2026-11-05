@@ -59,14 +59,35 @@ interface StatsData {
   };
 }
 
-// Generowanie emoji flagi z 2-literowego kodu kraju (np. PL -> 🇵🇱)
-function getFlagEmoji(countryCode: string): string {
-  if (!countryCode || countryCode.length !== 2 || countryCode === 'XX') return '🌐';
-  const codePoints = countryCode
-    .toUpperCase()
-    .split('')
-    .map((char) => 127397 + char.charCodeAt(0));
-  return String.fromCodePoint(...codePoints);
+// Generowanie emoji flagi z kodu lub nazwy kraju
+function getFlagEmoji(country: string): string {
+  if (!country || country === 'XX') return '🌐';
+  if (country.length > 2) {
+    const map: Record<string, string> = {
+      Poland: '🇵🇱',
+      Germany: '🇩🇪',
+      'United States': '🇺🇸',
+      Czechia: '🇨🇿',
+      'Czech Republic': '🇨🇿',
+      Slovakia: '🇸🇰',
+      'United Kingdom': '🇬🇧',
+      France: '🇫🇷',
+      Italy: '🇮🇹',
+      Spain: '🇪🇸',
+      Japan: '🇯🇵',
+      Ukraine: '🇺🇦',
+    };
+    return map[country] || '🌐';
+  }
+  try {
+    const codePoints = country
+      .toUpperCase()
+      .split('')
+      .map((char) => 127397 + char.charCodeAt(0));
+    return String.fromCodePoint(...codePoints);
+  } catch {
+    return '🌐';
+  }
 }
 
 // Dane startowe na wypadek braku połączenia lub w trakcie pierwszego uruchomienia
@@ -119,7 +140,7 @@ function getInitialData(): StatsData {
   };
 }
 
-const STATS_API_URL = import.meta.env.VITE_STATS_API_URL || '/api/stats';
+const STATS_API_URL = import.meta.env.VITE_STATS_API_URL || 'https://cnchub-stats.mosang271.workers.dev/';
 
 const StatsPage = () => {
   const { t } = useTranslation('app');

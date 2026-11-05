@@ -143,7 +143,7 @@ async function fetchCloudflareAnalytics(accountId, siteTag, apiToken) {
             orderBy: [count_DESC]
           ) {
             count
-            dimensions { country }
+            dimensions { countryName }
           }
           devices: rumPageloadEventsAdaptiveGroups(
             filter: { siteTag: $siteTag, date_geq: $since }
@@ -210,10 +210,10 @@ async function fetchCloudflareAnalytics(accountId, siteTag, apiToken) {
 
   // Top kraje
   const topCountries = (account.countries || []).map((c) => {
-    const code = c.dimensions.country || 'XX';
+    const rawCountry = c.dimensions.countryName || 'Inny';
     return {
-      code,
-      name: COUNTRY_NAMES[code] || code,
+      code: rawCountry.length === 2 ? rawCountry : '🌐',
+      name: COUNTRY_NAMES[rawCountry] || rawCountry,
       views: c.count || 0,
     };
   });
