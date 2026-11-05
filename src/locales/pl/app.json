@@ -16,7 +16,7 @@
   "footer": {
     "refresh": "Odśwież",
     "changelog": "Historia zmian",
-    "version": "v3.2.4",
+    "version": "v1.0.0",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Ustawienia",
     "feedback": "Zgłoś błąd / Sugestia",
@@ -32,132 +32,8 @@
       "update": "Aktualizacja",
       "fix": "Poprawka"
     },
-    "v324": [
-      "Wdrożenie oficjalnej analityki Cloudflare Web Analytics ze śledzeniem kalkulatorów SPA bez plików cookies",
-      "Aktualizacja metadanych społecznościowych Open Graph / Twitter Card dla domeny cnchub.app",
-      "Dodano mapę witryny sitemap.xml oraz konfigurację indeksowania robots.txt pod pozycjonowanie Google"
-    ],
-    "v323": [
-      "Poprawiono wyświetlanie okienek objaśnień wzorów (ikonka „i”) na telefonach – okienka nie wychodzą już poza krawędź ekranu, otwierają się jako wygodny arkusz dolny z przyciskiem zamknięcia"
-    ],
-    "v322": [
-      "Inteligentna nawigacja klawiatury mobilnej (przycisk Dalej / Gotowe) z automatycznym przeskokiem do kolejnych pól i chowaniem klawiatury po uzupełnieniu w kalkulatorze wagi oraz parametrów skrawania"
-    ],
-    "v321": [
-      "Zmiana nazwy przycisku w stopce z „Wymuś aktualizację” na „Odśwież” oraz pełna synchronizacja tłumaczeń we wszystkich 8 wersjach językowych"
-    ],
-    "v320": [
-      "Nowoczesny ekran szkieletowy (Skeleton UI / powidok ładowania) z metalicznym efektem shimmer zamiast czarnego ekranu i spinnera podczas uruchamiania aplikacji",
-      "Wymuszenie stabilnego widoku mobilnego na smartfonach – zapobieganie przypadkowemu przełączaniu do siatki PC po obróceniu telefonu",
-      "Blokada orientacji ekranu w pionie (Portrait Lock) dla urządzeń mobilnych oraz inteligentna nakładka z prośbą o obrócenie telefonu"
-    ],
-    "v310": [
-      "Nowy kalkulator kąta linii śrubowej gwintu i doboru płytki podporowej (anvil shim) do noża tokarskiego z weryfikacją kolizji bocznej",
-      "Nowy kalkulator średnicy podziałowej (PCD) na podstawie pomiaru suwmiarką z interaktywną instrukcją krok po kroku",
-      "Dodano 4 nowe wersje językowe: Hiszpański (ES), Japoński (JA), Czeski (CS) oraz Słowacki (SK)",
-      "Ujednolicono siatkę Bento w menu głównym na PC, znormalizowano rozmiary ikon i zoptymalizowano przestrzeń roboczą",
-      "Dedykowany układ horyzontalny Split View dla kalkulatora Pozycji Rzeczywistej (True Position)"
-    ],
-    "v300": [
-      "Nowy interfejs desktopowy PC (1080p): Bento Master Grid w menu głównym oraz układ Split View (lewa kolumna: wybory i kontrolki, prawa kolumna: wyniki i rysunki) dla wszystkich kalkulatorów",
-      "Dedykowane proporcje i optymalizacja skalowania pod monitory warsztatowe 1080p",
-      "Nowy kalkulator gwintów metrycznych HeliCoil (EG M) z pełnymi wymiarami wierteł, tolerancji i długości wkładek",
-      "Dodano wymiary wierteł pod wygniataki bezwiórowe (Roll Taps) dla gwintów metrycznych oraz calowych G",
-      "Rozbudowane podmenu gwintów z 5 kolumnami i powiększonymi odznakami na komputerach PC"
-    ],
-    "v277": [
-      "Wdrożono zwymiarowane rysunki techniczne DIN 509 dla form E, F, G i H",
-      "Pełna synchronizacja oznaczeń parametrów (r, t₁, t₂, f, g, d₁) z normą DIN 509",
-      "Dodano tabelę doboru wymiarów podcięcia oraz tolerancje wykonawcze"
-    ],
-    "v276": [
-      "Całkowicie zrekonstruowano rysunki DIN 509 E/F/G/H: poprawiono profile podcięć, usunięto wybrzuszenia i prawidłowo osadzono promień r",
-      "Poprawiono wymiarowanie rowka wpustowego DIN 6885 i dodano kontrolny wymiar d − t₁ do pomiaru mikrometrem",
-      "Przebudowano schemat rowka O-ring ISO 3601 z promieniami dna r₁, krawędzi r₂ i fazą montażową 15°–20°"
-    ],
-    "v275": [
-      "Zrekonstruowano rysunki techniczne: DIN 509 (Form E/F), DIN 471/472, DIN 6885 oraz ISO 3601 zgodnie z normami ISO 128",
-      "Wdrożono profesjonalne linie wymiarowe, strzałki, osie symetrii oraz kreskowanie przekrojów (hatching 45°)",
-      "Dodano dynamiczne podświetlanie wymiarów na schemacie przy edycji pól kalkulatora"
-    ],
-    "v274": [
-      "Wizualne ujednolicenie stopki: spójna kolorystyka tekstu, ikon oraz obrysów we wszystkich przyciskach",
-      "Odświeżono wygląd przycisku \"Wymuś aktualizację\" zgodnie z motywem dolnych kontrolek",
-      "Poprawiono kontrast i czytelność przełącznika jednostek oraz wyboru języka"
-    ],
-    "v273": [
-      "Wdrożono 2-etapowy proces powitalny (najpierw wybór języka i jednostek, potem akceptacja warunków)",
-      "Rozbudowano prawną klauzulę inżynieryjną (brak odpowiedzialności za kolizje i braki) oraz politykę prywatności",
-      "Dodano dedykowaną, publiczną podstronę /privacy dla weryfikacji w sklepie Google Play"
-    ],
-    "v272": [
-      "Dodano obowiązkową klauzulę inżynieryjną (wyłączenie odpowiedzialności za kolizje i braki)",
-      "Wdrożono politykę prywatności z uwzględnieniem anonimowej analityki Cloudflare",
-      "Dodano ekran weryfikacji i akceptacji warunków przy pierwszym uruchomieniu aplikacji"
-    ],
-    "v271": [
-      "Kalkulator wagi: wyrównano wysokość etykiet w 2-kolumnowym układzie na telefonach",
-      "Kalkulator wagi: pionowe przyciski +/- (stepper) przy wyborze ilości sztuk",
-      "Kalkulator wagi: pełna szerokość i pogrubione nazwy kategorii na liście materiałów",
-      "Dodawanie do inwentaryzacji zachowuje wybrany kształt i materiał"
-    ],
-    "v281": [
-      "Nowe gwinty w menu Gwinty: UN (UNC/UNF/UNEF wg ASME B1.1), Acme (ASME B1.5, klasy 2G/3G/4G) oraz okrągły Rd (DIN 405)",
-      "Wymiary gwintów calowych są podawane w mm, gdy w aplikacji wybrano jednostki metryczne (w calach przy jednostkach calowych)",
-      "Oznaczenie „nowe” zostaje tylko przy najnowszych kalkulatorach"
-    ],
-    "v280": [
-      "Gwint trapezowy Tr: klasy tolerancji wg ISO 2903 (śruba 7e/8e/8c/9c, nakrętka 7H/8H/9H) z wymiarami granicznymi",
-      "Gwint trapezowy: głębokość nacinania podana także dla nakrętki",
-      "Gwinty metryczne: usunięto uwagę o Thread Depth z Fusion 360"
-    ],
-    "v279": [
-      "Nowy kalkulator „Otwory pod śruby”: otwór przelotowy wg ISO 273, wytoczenie lub pogłębienie pod łeb i podkładkę, tryb podstawowy i zaawansowany",
-      "Nowy kalkulator trygonometrii: trójkąt prostokątny i dowolny, dwa punkty, współrzędne biegunowe; podgląd trójkąta reaguje na wpisane wartości"
-    ],
-    "v278": [
-      "Menu główne na komputerze zmniejszone do ok. 80%, więcej kafelków mieści się na ekranie",
-      "Faza frezem: usunięto kartę z wymaganym promieniem narzędzia",
-      "iPhone: naprawiono podwójną animację przy cofaniu gestem lub przyciskiem „wstecz”"
-    ],
-    "v282": [
-      "Nowe gwinty: rurowy stożkowy R/Rc (BSPT, ISO 7-1) ze średnicami w płaszczyźnie pomiarowej, na małym końcu i na końcu gwintu użytecznego",
-      "Nowy gwint oporowy S (DIN 513) z głębokością nacinania dla śruby i nakrętki"
-    ],
-    "v283": [
-      "Przełącznik jednostek działa teraz w całej aplikacji: gwinty (metryczne, Tr, BSP, NPT, BSW, BSF), ISO 2768, tolerancje ISO 286, chropowatość, rowki Segera, wpusty, O-ringi, DIN 509, kalkulator stożka wiertła i stożków",
-      "Otwory pod śruby: wpisy i wyniki w wybranych jednostkach, wpisane wymiary przeliczają się przy zmianie mm/cale",
-      "W trybie calowym tolerancje podawane są w calach lub µin, a chropowatość w µin"
-    ],
-    "v284": [
-      "Nowy zwykły kalkulator z nawiasami i procentami, w stylu kalkulatora iPhone",
-      "Trzy ostatnie wyniki u góry: dotknięcie wstawia wynik do bieżącego działania, przytrzymanie kopiuje go do schowka",
-      "Dotknięcie wyniku kopiuje go, na komputerze działa też klawiatura",
-      "Menu główne: na samej górze sekcja „Podstawowe” z Parametrami i Kalkulatorem; klawisze kalkulatora są większe i leżą przy dole ekranu"
-    ],
-    "v285": [
-      "Szybszy start aplikacji z ekranu głównego: strona i pliki aplikacji ładują się od razu z pamięci telefonu, a aktualizacja pobiera się w tle (nowa wersja pojawia się przy kolejnym uruchomieniu)",
-      "Czcionka nie blokuje już wyświetlenia pierwszego ekranu",
-      "Wstępne ładowanie stron w tle robi przerwę podczas przejść między ekranami"
-    ],
-    "v286": [
-      "Nowy gwint pancerny Pg (DIN 40430) z głębokością nacinania, średnicą wiercenia i zastępczym gwintem metrycznym"
-    ],
-    "v287": [
-      "Gwinty Acme: dodany wariant Stub Acme (ASME B1.8, klasa 2G, wysokość zarysu 0,3·P) z przełącznikiem nad rozmiarem"
-    ],
-    "v290": [
-      "Nowe kalkulatory: Baza materiałów (oznaczenia EN, odpowiedniki USA, gęstość i rozszerzalność) oraz Korekcja temperaturowa (detal i przyrząd)",
-      "Nowe kalkulatory reagują na przełącznik mm/cale"
-    ],
-    "v291": [
-      "Baza materiałów mocno rozbudowana: polskie oznaczenia PN (np. NC11LV, WCL, WCLV, SW7M, 2H13, 4H13, 38HMJ, ŁH15, PA4, PA6, PA9), nazwy handlowe (K110, Fortal, Anticorodal), stale narzędziowe, nierdzewne, aluminium, mosiądze i więcej tworzyw",
-      "Wyszukiwarka znajduje materiał po nazwie, numerze, oznaczeniu PN, odpowiedniku USA i nazwie handlowej"
-    ],
-    "v292": [
-      "Baza materiałów rozszerzona o tabelę z katalogu Ceratizit: ponad 650 gatunków z odpowiednikami w normach DIN, AFNOR, UNI, ČSN, BS, SIS, UNE, JIS, GOST, UNS i USA oraz kodami grup CMC",
-      "Kolory grup jak w katalogu (P niebieski, M żółty, K łososiowy, N zielony, S pomarańczowy, H szaroniebieski, O szary), nowe grupy H (stale hartowane) i O (tworzywa i kompozyty)",
-      "Wyszukiwarka znajduje gatunek po dowolnym oznaczeniu, a lista ładuje się partiami"
+    "v100": [
+      "Wydanie oficjalnej wersji 1.0.0"
     ]
   },
   "pwa": {

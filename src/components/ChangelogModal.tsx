@@ -10,31 +10,7 @@ type Release = {
 };
 
 const RELEASES: Release[] = [
-  { version: 'v3.2.4', key: 'v324', date: '2026-11', tag: 'update' },
-  { version: 'v3.2.3', key: 'v323', date: '2026-11', tag: 'fix' },
-  { version: 'v3.2.2', key: 'v322', date: '2026-11', tag: 'new' },
-  { version: 'v3.2.1', key: 'v321', date: '2026-11', tag: 'update' },
-  { version: 'v3.2.0', key: 'v320', date: '2026-11', tag: 'update' },
-  { version: 'v3.1.0', key: 'v310', date: '2026-10', tag: 'new' },
-  { version: 'v3.0.0', key: 'v300', date: '2026-10', tag: 'update' },
-  { version: 'v2.9.2', key: 'v292', date: '2026-10', tag: 'update' },
-  { version: 'v2.9.1', key: 'v291', date: '2026-10', tag: 'update' },
-  { version: 'v2.9.0', key: 'v290', date: '2026-10', tag: 'new' },
-  { version: 'v2.8.7', key: 'v287', date: '2026-10', tag: 'new' },
-  { version: 'v2.8.6', key: 'v286', date: '2026-10', tag: 'new' },
-  { version: 'v2.8.5', key: 'v285', date: '2026-10', tag: 'update' },
-  { version: 'v2.8.4', key: 'v284', date: '2026-10', tag: 'new' },
-  { version: 'v2.8.3', key: 'v283', date: '2026-10', tag: 'update' },
-  { version: 'v2.8.2', key: 'v282', date: '2026-10', tag: 'new' },
-  { version: 'v2.8.1', key: 'v281', date: '2026-10', tag: 'new' },
-  { version: 'v2.8.0', key: 'v280', date: '2026-10', tag: 'update' },
-  { version: 'v2.7.9', key: 'v279', date: '2026-10', tag: 'new' },
-  { version: 'v2.7.8', key: 'v278', date: '2026-10', tag: 'update' },
-  { version: 'v2.7.7', key: 'v277', date: '2026-09', tag: 'update' },
-  { version: 'v2.7.6', key: 'v276', date: '2026-09', tag: 'fix' },
-  { version: 'v2.7.5', key: 'v275', date: '2026-09', tag: 'update' },
-  { version: 'v2.7.4', key: 'v274', date: '2026-09', tag: 'update' },
-  { version: 'v2.7.3', key: 'v273', date: '2026-09', tag: 'new' },
+  { version: 'v1.0.0', key: 'v100', date: '2026-11', tag: 'new' },
 ];
 
 

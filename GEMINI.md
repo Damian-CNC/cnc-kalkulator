@@ -51,3 +51,15 @@ Follow this hierarchy strictly—do NOT put everything in global state:
     | { status: 'idle' | 'loading'; data?: never; error?: never }
     | { status: 'success'; data: T; error?: never }
     | { status: 'error'; data?: never; error: Error };
+```
+
+---
+
+## 4. Release, Versioning & Changelog Standards
+
+- **Version Numbering:**
+  - Bump by `0.1` (minor, e.g. 1.0.0 -> 1.1.0) for larger updates and new features.
+  - Bump by `0.0.1` (patch, e.g. 1.0.0 -> 1.0.1) for small fixes and tweaks.
+- **Changelog Maintenance:**
+  - Keep at most the **last 10 releases** in the changelog (`RELEASES` in `ChangelogModal.tsx` and translation files).
+  - Synchronize changelog entries across all 8 supported languages (`pl`, `en`, `de`, `it`, `es`, `ja`, `cs`, `sk`).
