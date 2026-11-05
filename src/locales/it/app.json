@@ -16,12 +16,13 @@
   "footer": {
     "refresh": "Aggiorna",
     "changelog": "Cronologia modifiche",
-    "version": "v1.0.0",
+    "version": "v1.1.0",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Impostazioni",
     "feedback": "Segnala bug / Suggerimento",
     "support": "Offrimi un caffè",
-    "legal": "Termini e Privacy"
+    "legal": "Termini e Privacy",
+    "stats": "Statistiche"
   },
   "changelog": {
     "title": "Cronologia modifiche",
@@ -32,6 +33,9 @@
       "update": "Aggiornamento",
       "fix": "Correzione"
     },
+    "v110": [
+      "Nuova dashboard pubblica delle statistiche (/stats) con grafici di tendenza, calcolatori più usati, paesi e dispositivi"
+    ],
     "v100": [
       "Rilascio ufficiale della versione 1.0.0"
     ]

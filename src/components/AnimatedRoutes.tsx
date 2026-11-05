@@ -57,6 +57,7 @@ const CalculatorPage = page(() => import("@/pages/CalculatorPage"));
 const ThermalPage = page(() => import("@/pages/ThermalPage"));
 const MaterialsPage = page(() => import("@/pages/MaterialsPage"));
 const PrivacyPage = page(() => import("@/pages/PrivacyPage"));
+const StatsPage = page(() => import("@/pages/StatsPage"));
 const NotFound = page(() => import("@/pages/NotFound"));
 
 let preloadStarted = false;
@@ -281,6 +282,8 @@ const AnimatedRoutes = () => {
               <Route path="/baza-materialow" element={<MaterialsPage />} />
               <Route path="/privacy" element={<PrivacyPage />} />
               <Route path="/privacy-policy" element={<PrivacyPage />} />
+              <Route path="/stats" element={<StatsPage />} />
+              <Route path="/statystyki" element={<StatsPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>

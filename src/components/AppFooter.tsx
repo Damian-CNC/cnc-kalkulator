@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { History, MessageSquarePlus, ShieldCheck, RefreshCw, Coffee } from 'lucide-react';
+import { History, MessageSquarePlus, ShieldCheck, RefreshCw, Coffee, BarChart2 } from 'lucide-react';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import UnitSwitcher from '@/components/UnitSwitcher';
 import ChangelogModal from '@/components/ChangelogModal';
@@ -16,6 +17,7 @@ const ICON = 'text-cyan-400 w-3.5 h-3.5 shrink-0';
 
 const AppFooter = ({ className = '' }: { className?: string }) => {
   const { t } = useTranslation('app');
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [feedbackOpen, setFeedbackOpen] = useState(false);
   const [legalOpen, setLegalOpen] = useState(false);
@@ -63,6 +65,10 @@ const AppFooter = ({ className = '' }: { className?: string }) => {
         <button type="button" onClick={() => setLegalOpen(true)} className={`${BTN} ${TXT}`}>
           <ShieldCheck className={ICON} />
           {t('footer.legal')}
+        </button>
+        <button type="button" onClick={() => navigate('/stats')} className={`${BTN} ${TXT}`}>
+          <BarChart2 className={ICON} />
+          {t('footer.stats', { defaultValue: 'Statystyki' })}
         </button>
         <a
           href="https://buymeacoffee.com/cnchub"

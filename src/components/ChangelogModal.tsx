@@ -10,6 +10,7 @@ type Release = {
 };
 
 const RELEASES: Release[] = [
+  { version: 'v1.1.0', key: 'v110', date: '2026-11', tag: 'new' },
   { version: 'v1.0.0', key: 'v100', date: '2026-11', tag: 'new' },
 ];
 
