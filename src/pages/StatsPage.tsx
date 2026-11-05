@@ -157,19 +157,27 @@ const StatsPage = () => {
       });
       if (res.ok) {
         const json = await res.json();
-        // Formatowanie daty dla osi X
+        // Uzupełnienie do 7 ostatnich dni, jeśli historia z Cloudflare dopiero startuje
+        const historyMap = new Map<string, DailyStat>();
+        const now = new Date();
+        for (let i = 6; i >= 0; i--) {
+          const d = new Date(now.getTime() - i * 24 * 60 * 60 * 1000);
+          const iso = d.toISOString().split('T')[0];
+          const label = `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth() + 1).padStart(2, '0')}`;
+          historyMap.set(iso, { date: label, visits: 0, pageviews: 0 });
+        }
+
         if (json.history && Array.isArray(json.history)) {
-          json.history = json.history.map((h: DailyStat) => {
-            const parts = h.date.split('-');
-            if (parts.length === 3) {
-              return {
-                ...h,
-                date: `${parts[2]}.${parts[1]}`,
-              };
+          json.history.forEach((h: { date: string; visits: number; pageviews: number }) => {
+            if (h.date && historyMap.has(h.date)) {
+              const current = historyMap.get(h.date)!;
+              current.visits = h.visits || 0;
+              current.pageviews = h.pageviews || 0;
             }
-            return h;
           });
         }
+        json.history = Array.from(historyMap.values());
+
         setData(json);
         setLastRefreshed(new Date());
       }
@@ -396,40 +404,46 @@ const StatsPage = () => {
               <span className="text-xs text-zinc-500 font-mono">Ranking</span>
             </div>
 
-            <div className="space-y-3">
-              {data.topPages.map((page, idx) => {
-                const percent = Math.round((page.views / totalViews) * 100);
-                const barWidth = Math.max(8, Math.round((page.views / maxPageViews) * 100));
-                return (
-                  <div key={page.path} className="space-y-1">
-                    <div className="flex items-center justify-between text-xs">
-                      <div className="flex items-center gap-2 truncate">
-                        <span className="w-5 text-center font-mono font-bold text-zinc-500 text-[11px]">
-                          #{idx + 1}
-                        </span>
-                        <span className="font-medium text-zinc-200 truncate">{page.name}</span>
-                        <span className="text-[10px] text-zinc-500 font-mono hidden sm:inline">
-                          {page.path}
-                        </span>
+            {data.topPages.length === 0 ? (
+              <div className="py-8 text-center text-xs text-zinc-500 border border-dashed border-zinc-800 rounded-xl px-4">
+                Oczekiwanie na pierwsze odsłony kalkulatorów z Cloudflare... Wejdź w kalkulatory i odśwież!
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {data.topPages.map((page, idx) => {
+                  const percent = Math.round((page.views / totalViews) * 100);
+                  const barWidth = Math.max(8, Math.round((page.views / maxPageViews) * 100));
+                  return (
+                    <div key={page.path} className="space-y-1">
+                      <div className="flex items-center justify-between text-xs">
+                        <div className="flex items-center gap-2 truncate">
+                          <span className="w-5 text-center font-mono font-bold text-zinc-500 text-[11px]">
+                            #{idx + 1}
+                          </span>
+                          <span className="font-medium text-zinc-200 truncate">{page.name}</span>
+                          <span className="text-[10px] text-zinc-500 font-mono hidden sm:inline">
+                            {page.path}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-2 shrink-0">
+                          <span className="text-zinc-400 font-mono">{page.views.toLocaleString()}</span>
+                          <span className="text-[11px] font-bold text-cyan-400 font-mono w-8 text-right">
+                            {percent}%
+                          </span>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-2 shrink-0">
-                        <span className="text-zinc-400 font-mono">{page.views.toLocaleString()}</span>
-                        <span className="text-[11px] font-bold text-cyan-400 font-mono w-8 text-right">
-                          {percent}%
-                        </span>
+                      {/* Pasek postępu */}
+                      <div className="w-full h-1.5 rounded-full bg-zinc-800/80 overflow-hidden">
+                        <div
+                          className="h-full rounded-full bg-gradient-to-r from-cyan-500 to-cyan-400 transition-all duration-500"
+                          style={{ width: `${barWidth}%` }}
+                        />
                       </div>
                     </div>
-                    {/* Pasek postępu */}
-                    <div className="w-full h-1.5 rounded-full bg-zinc-800/80 overflow-hidden">
-                      <div
-                        className="h-full rounded-full bg-gradient-to-r from-cyan-500 to-cyan-400 transition-all duration-500"
-                        style={{ width: `${barWidth}%` }}
-                      />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
           {/* Kraje użytkowników */}
@@ -442,36 +456,42 @@ const StatsPage = () => {
               <span className="text-xs text-zinc-500 font-mono">Globalny ruch</span>
             </div>
 
-            <div className="space-y-3">
-              {data.topCountries.map((c) => {
-                const percent = Math.round((c.views / totalViews) * 100);
-                const barWidth = Math.max(8, Math.round((c.views / maxCountryViews) * 100));
-                return (
-                  <div key={c.code} className="space-y-1">
-                    <div className="flex items-center justify-between text-xs">
-                      <div className="flex items-center gap-2">
-                        <span className="text-base">{getFlagEmoji(c.code)}</span>
-                        <span className="font-medium text-zinc-200">{c.name}</span>
-                        <span className="text-[10px] text-zinc-500 font-mono">({c.code})</span>
+            {data.topCountries.length === 0 ? (
+              <div className="py-8 text-center text-xs text-zinc-500 border border-dashed border-zinc-800 rounded-xl px-4">
+                Oczekiwanie na pierwsze zliczone kraje z Cloudflare...
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {data.topCountries.map((c) => {
+                  const percent = Math.round((c.views / totalViews) * 100);
+                  const barWidth = Math.max(8, Math.round((c.views / maxCountryViews) * 100));
+                  return (
+                    <div key={c.code} className="space-y-1">
+                      <div className="flex items-center justify-between text-xs">
+                        <div className="flex items-center gap-2">
+                          <span className="text-base">{getFlagEmoji(c.code)}</span>
+                          <span className="font-medium text-zinc-200">{c.name}</span>
+                          <span className="text-[10px] text-zinc-500 font-mono">({c.code})</span>
+                        </div>
+                        <div className="flex items-center gap-2 shrink-0">
+                          <span className="text-zinc-400 font-mono">{c.views.toLocaleString()}</span>
+                          <span className="text-[11px] font-bold text-emerald-400 font-mono w-8 text-right">
+                            {percent}%
+                          </span>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-2 shrink-0">
-                        <span className="text-zinc-400 font-mono">{c.views.toLocaleString()}</span>
-                        <span className="text-[11px] font-bold text-emerald-400 font-mono w-8 text-right">
-                          {percent}%
-                        </span>
+                      {/* Pasek postępu */}
+                      <div className="w-full h-1.5 rounded-full bg-zinc-800/80 overflow-hidden">
+                        <div
+                          className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-emerald-400 transition-all duration-500"
+                          style={{ width: `${barWidth}%` }}
+                        />
                       </div>
                     </div>
-                    {/* Pasek postępu */}
-                    <div className="w-full h-1.5 rounded-full bg-zinc-800/80 overflow-hidden">
-                      <div
-                        className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-emerald-400 transition-all duration-500"
-                        style={{ width: `${barWidth}%` }}
-                      />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
 
