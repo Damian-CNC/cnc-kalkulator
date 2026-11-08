@@ -16,7 +16,7 @@
   "footer": {
     "refresh": "Aktualisieren",
     "changelog": "Änderungsverlauf",
-    "version": "v1.2.0",
+    "version": "v1.2.1",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Einstellungen",
     "feedback": "Fehler / Vorschlag melden",
@@ -37,6 +37,9 @@
       "update": "Update",
       "fix": "Fix"
     },
+    "v121": [
+      "Optimierung der Statistikseite (/stats): Bereinigung der Rechner-Rangliste um fremde Pfade und Anpassung der oberen Abstände an die iPhone Dynamic Island"
+    ],
     "v120": [
       "PWA-Installer & Installationsanleitung: 1-Klick-Direktinstallation auf Android, detaillierte Schritt-für-Schritt-Anleitung für iOS (Safari, Chrome und In-App-Browser Facebook/Messenger) sowie Schnellinstallations-Button auf Mobilgeräten"
     ],

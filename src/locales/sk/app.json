@@ -16,7 +16,7 @@
   "footer": {
     "refresh": "Obnoviť",
     "changelog": "Zoznam zmien",
-    "version": "v1.2.0",
+    "version": "v1.2.1",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Nastavenia",
     "feedback": "Nahlásiť chybu / Návrh",
@@ -37,6 +37,9 @@
       "update": "Aktualizácia",
       "fix": "Oprava"
     },
+    "v121": [
+      "Optimalizácia stránky štatistík (/stats): odfiltrovanie cudzích ciest z rebríčka kalkulačiek a úprava horného odsadenia pre Dynamic Island na iPhone"
+    ],
     "v120": [
       "Inštalátor PWA a sprievodca inštaláciou: priama inštalácia 1 kliknutím na Androide, podrobný návod krok za krokom pre iOS (Safari, Chrome a integrované prehliadače Facebook/Messenger) a tlačidlo rýchlej inštalácie na mobile"
     ],

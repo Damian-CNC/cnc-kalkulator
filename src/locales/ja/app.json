@@ -16,7 +16,7 @@
   "footer": {
     "refresh": "更新",
     "changelog": "更新履歴",
-    "version": "v1.2.0",
+    "version": "v1.2.1",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "設定",
     "feedback": "不具合報告 / ご要望",
@@ -37,6 +37,9 @@
       "update": "改善・更新",
       "fix": "修正"
     },
+    "v121": [
+      "統計ページ（/stats）の最適化: 人気計算機ランキングからの不要な外部パスの除外、およびiPhoneのDynamic Islandに対応した上部余白の調整"
+    ],
     "v120": [
       "PWAインストーラーと導入ガイド: Android向け1クリック直接インストール、iOS向け詳細ステップガイド（Safari、Chrome、Facebook/Messenger内蔵ブラウザ対応）、モバイル下部のクイックインストールボタン"
     ],

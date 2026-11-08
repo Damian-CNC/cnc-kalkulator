@@ -16,7 +16,7 @@
   "footer": {
     "refresh": "Aggiorna",
     "changelog": "Cronologia modifiche",
-    "version": "v1.2.0",
+    "version": "v1.2.1",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Impostazioni",
     "feedback": "Segnala bug / Suggerimento",
@@ -37,6 +37,9 @@
       "update": "Aggiornamento",
       "fix": "Correzione"
     },
+    "v121": [
+      "Ottimizzazione della pagina statistiche (/stats): esclusione dei percorsi non pertinenti dalla classifica dei calcolatori e regolazione del margine superiore per Dynamic Island su iPhone"
+    ],
     "v120": [
       "Programma di installazione PWA e guida: installazione diretta in 1 clic su Android, guida dettagliata passo passo per iOS (Safari, Chrome e browser in-app Facebook/Messenger) e pulsante di installazione mobile rapido"
     ],

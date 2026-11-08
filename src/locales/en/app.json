@@ -16,7 +16,7 @@
   "footer": {
     "refresh": "Refresh",
     "changelog": "Changelog",
-    "version": "v1.2.0",
+    "version": "v1.2.1",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Settings",
     "feedback": "Report bug / Suggestion",
@@ -37,6 +37,9 @@
       "update": "Update",
       "fix": "Fix"
     },
+    "v121": [
+      "Analytics optimization (/stats): filtered out non-CNC paths from top calculators ranking and adjusted top safe-area padding for iPhone Dynamic Island and notch"
+    ],
     "v120": [
       "PWA Installer & Setup Guide: 1-click direct installation on Android, detailed step-by-step guides for iOS (Safari, Chrome, and Facebook/Messenger in-app browsers), plus quick-access mobile install button"
     ],

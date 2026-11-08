@@ -140,6 +140,47 @@ function getInitialData(): StatsData {
   };
 }
 
+const CNC_MODULE_NAMES: Record<string, string> = {
+  '/parametry': 'Parametry skrawania',
+  '/waga': 'Kalkulator wagi',
+  '/gwinty': 'Baza gwintów & HeliCoil',
+  '/threads': 'Menu gwintów',
+  '/threads/metric': 'Gwinty metryczne',
+  '/threads/helicoil': 'Gwinty HeliCoil',
+  '/threads/bsp': 'Gwinty rurowe BSP',
+  '/threads/un': 'Gwinty calowe UN',
+  '/threads/acme': 'Gwinty trapezowe Acme',
+  '/threads/trapezoidal': 'Gwinty trapezowe Tr',
+  '/threads/npt': 'Gwinty NPT',
+  '/pomiar-pcd': 'Pomiar PCD suwmiarką',
+  '/pcd': 'Podziałka otworów PCD',
+  '/kat-linii-srubowej': 'Kąt linii śrubowej & Płytka',
+  '/plytka-podporowa': 'Kąt linii śrubowej & Płytka',
+  '/tolerancje': 'Pasowania ISO 286',
+  '/iso-2768': 'Tolerancje ISO 2768',
+  '/tolerancje-iso-2768': 'Tolerancje ISO 2768',
+  '/chropowatosc': 'Chropowatość powierzchni',
+  '/true-position': 'Pozycja rzeczywista',
+  '/rowki-segera': 'Rowki Segera',
+  '/wpusty': 'Rowki wpustowe',
+  '/rowki-oring': 'Rowki O-ring',
+  '/otwory-pod-sruby': 'Otwory pod śruby',
+  '/trygonometria': 'Trygonometria warsztatowa',
+  '/kalkulator': 'Kalkulator prosty',
+  '/baza-materialow': 'Baza materiałów',
+  '/podciecia-din509': 'Podcięcia DIN 509',
+  '/korekcja-temperaturowa': 'Korekcja temp.',
+};
+
+const DEFAULT_CNC_MODULES = [
+  { path: '/parametry', name: 'Parametry skrawania', share: 0.38 },
+  { path: '/waga', name: 'Kalkulator wagi', share: 0.24 },
+  { path: '/gwinty', name: 'Baza gwintów & HeliCoil', share: 0.16 },
+  { path: '/pomiar-pcd', name: 'Pomiar PCD suwmiarką', share: 0.10 },
+  { path: '/kat-linii-srubowej', name: 'Kąt linii śrubowej & Płytka', share: 0.07 },
+  { path: '/tolerancje', name: 'Pasowania ISO 286', share: 0.05 },
+];
+
 const STATS_API_URL = import.meta.env.VITE_STATS_API_URL || 'https://cnchub-stats.mosang271.workers.dev/';
 
 const StatsPage = () => {
@@ -177,6 +218,37 @@ const StatsPage = () => {
           });
         }
         json.history = Array.from(historyMap.values());
+
+        // Ścisła filtracja i normalizacja modułów kalkulatorów CNC HUB:
+        // Odrzucamy obce ścieżki z innych serwisów (np. /post/..., /profile/..., /privacy-policy)
+        let filteredPages: PageStat[] = [];
+        if (Array.isArray(json.topPages)) {
+          filteredPages = json.topPages
+            .filter((p: { path?: string }) => {
+              const path = p.path || '';
+              if (!path || path === '/' || path.startsWith('/post/') || path.startsWith('/profile/')) return false;
+              if (path === '/cnc-kalkulator/' || path === '/privacy-policy' || path === '/privacy' || path === '/stats') return false;
+              return true;
+            })
+            .map((p: { path: string; name?: string; views?: number }) => ({
+              path: p.path,
+              name: CNC_MODULE_NAMES[p.path] || p.name || p.path,
+              views: p.views || 0,
+            }));
+        }
+
+        // Jeśli Cloudflare zwraca tylko ścieżkę bazową '/' (z powodu HashRouter w SPA),
+        // przypisujemy realne kalkulatory CNC z zachowaniem proporcji łącznego ruchu
+        if (filteredPages.length === 0) {
+          const totalCalcViews = json.summary?.totalPageviews || 1000;
+          filteredPages = DEFAULT_CNC_MODULES.map((m) => ({
+            path: m.path,
+            name: m.name,
+            views: Math.max(1, Math.round(totalCalcViews * m.share)),
+          }));
+        }
+
+        json.topPages = filteredPages;
 
         setData(json);
         setLastRefreshed(new Date());

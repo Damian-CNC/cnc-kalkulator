@@ -16,7 +16,7 @@
   "footer": {
     "refresh": "Odśwież",
     "changelog": "Historia zmian",
-    "version": "v1.2.0",
+    "version": "v1.2.1",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Ustawienia",
     "feedback": "Zgłoś błąd / Sugestia",
@@ -37,6 +37,9 @@
       "update": "Aktualizacja",
       "fix": "Poprawka"
     },
+    "v121": [
+      "Optymalizacja podstrony statystyk (/stats): odfiltrowanie obcych ścieżek z rankingu kalkulatorów oraz dopasowanie marginesów górnych do Dynamic Island i wcięcia ekranu na iPhone"
+    ],
     "v120": [
       "Instalator PWA i przewodnik instalacji: bezpośrednia instalacja 1-kliknięciem na Androidzie, szczegółowe instrukcje krok po kroku dla iOS (Safari, Chrome oraz przeglądarki wbudowane Facebook/Messenger) oraz wygodny przycisk instalacji na dole ekranu"
     ],
