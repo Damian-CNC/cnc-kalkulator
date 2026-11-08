@@ -16,13 +16,17 @@
   "footer": {
     "refresh": "Actualizar",
     "changelog": "Historial de cambios",
-    "version": "v1.1.0",
+    "version": "v1.2.0",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Ajustes",
     "feedback": "Notificar error / Sugerencia",
     "support": "Invítame a un café",
     "legal": "Términos y Privacidad",
-    "stats": "Estadísticas"
+    "stats": "Estadísticas",
+    "installApp": "Instalar",
+    "installCardTitle": "Instalar calculadora en tu teléfono",
+    "installCardSubtitle": "Funciona sin conexión en el taller y se abre directamente desde la pantalla de inicio (Android & iOS)",
+    "installGuideBtn": "Guía (Android & iOS)"
   },
   "changelog": {
     "title": "Historial de cambios",
@@ -33,6 +37,9 @@
       "update": "Actualización",
       "fix": "Corrección"
     },
+    "v120": [
+      "Instalador PWA y guía de instalación: instalación directa en 1 clic en Android, instrucciones detalladas paso a paso para iOS (Safari, Chrome y navegadores integrados de Facebook/Messenger) y botón de instalación móvil rápido"
+    ],
     "v110": [
       "Nuevo panel público de estadísticas (/stats) con gráficos de tendencias, calculadoras más populares, países y dispositivos"
     ],
@@ -43,32 +50,69 @@
   "pwa": {
     "message": "Instala la app en tu teléfono o PC para usarla al instante y sin conexión en el taller",
     "install": "Instalar",
+    "installShort": "Instalar",
+    "installNow": "Instalar ahora",
+    "installedSuccess": "¡La app ya está instalada!",
+    "installedSuccessDesc": "Puedes abrir CNC HUB directamente desde la pantalla de inicio.",
+    "installedLabel": "¡Instalado!",
+    "quickInstall": "Instalación directa",
+    "quickInstallDesc": "¡Tu navegador permite la instalación directa en 1 clic!",
+    "yourDevice": "Tu dispositivo",
+    "freeAppNotice": "La app es 100% gratuita y no requiere descargas de Google Play / App Store.",
+    "pcPromptAvailable": "Instala CNC HUB como una aplicación independiente en tu PC Windows/Mac.",
     "dismiss": "Descartar",
     "guide": "Guía",
-    "modalTitle": "Cómo instalar CNCHub",
+    "modalTitle": "Cómo instalar CNC HUB",
     "modalSubtitle": "Selecciona tu dispositivo para ver la guía paso a paso",
     "tabPc": "PC / Escritorio",
     "tabAndroid": "Android",
     "tabIos": "iPhone / iOS",
     "pc": {
       "title": "Escritorio (Chrome, Edge, Brave)",
+      "step1Title": "Barra de direcciones",
       "step1": "En la barra de direcciones del navegador (a la derecha), haz clic en el icono de Instalar (pantalla con flecha o signo +).",
-      "step2": "Alternativamente: haz clic en el menú de tres puntos ⋮ arriba a la derecha y selecciona 'Instalar CNCHub' o 'Aplicaciones > Instalar'.",
+      "step2Title": "O desde el menú",
+      "step2": "Alternativamente: haz clic en el menú de tres puntos ⋮ arriba a la derecha y selecciona 'Instalar CNC HUB' o 'Aplicaciones > Instalar'.",
+      "step3Title": "¡Listo!",
       "step3": "Haz clic en 'Instalar'. La aplicación se abrirá en su propia ventana independiente y aparecerá en tu Escritorio."
     },
     "android": {
-      "title": "Smartphone Android (Chrome)",
-      "step1": "Abre cnchub.app en el navegador Chrome.",
-      "step2": "Toca el menú de tres puntos ⋮ en la esquina superior derecha.",
-      "step3": "Toca 'Instalar aplicación' o 'Añadir a la pantalla de inicio'.",
-      "step4": "Confirma la instalación. El icono de CNCHub aparecerá en tu pantalla de inicio como cualquier aplicación nativa."
+      "title": "Smartphone Android (Chrome / Edge / Brave)",
+      "step1Title": "Abre el menú del navegador",
+      "step1": "En Chrome o Brave, toca el menú de tres puntos (⋮) en la esquina superior derecha.",
+      "step2Title": "Selecciona Instalar",
+      "step2": "Elige 'Instalar aplicación' o 'Añadir a la pantalla de inicio'.",
+      "step3Title": "Confirma",
+      "step3": "Toca 'Instalar' en la ventana emergente de confirmación.",
+      "step4Title": "¡Listo!",
+      "step4": "El icono de CNC HUB aparecerá en tu pantalla de inicio y funcionará a pantalla completa y sin conexión."
     },
     "ios": {
       "title": "iPhone / iPad (Safari)",
+      "inAppWarning": "Abierto en Facebook / Messenger / Instagram",
+      "inAppDesc": "Apple bloquea la instalación de aplicaciones en navegadores integrados de redes sociales. Para añadir la app a la pantalla de inicio, abre esta página en Safari.",
+      "copyLink": "Copiar enlace (cnchub.app)",
+      "linkCopied": "¡Enlace copiado!",
+      "selectBrowser": "¿Qué navegador estás usando en iPhone?",
+      "safariStep1Title": "Toca Compartir",
+      "safariStep2Title": "Selecciona 'Añadir a la pantalla de inicio'",
+      "safariStep3Title": "Toca 'Añadir'",
       "step1": "Abre el sitio web en Safari (Apple requiere Safari para la instalación de PWA).",
-      "step2": "Toca el botón Compartir en la barra inferior (cuadrado con flecha hacia arriba).",
+      "step2": "Toca el botón Compartir en la barra inferior (cuadrado con flecha hacia arriba ⎋).",
       "step3": "Desplázate hacia abajo y selecciona 'Añadir a la pantalla de inicio' (icono +).",
-      "step4": "Toca 'Añadir' en la esquina superior derecha. El icono aparecerá en tu pantalla de inicio."
+      "step4": "Toca 'Añadir' en la esquina superior derecha. El icono de CNC HUB aparecerá en tu pantalla de inicio.",
+      "inAppStep1Title": "Toca el menú en la esquina",
+      "inAppStep1": "Toca el menú de tres puntos (⋯) o el icono Compartir en la esquina superior o inferior.",
+      "inAppStep2Title": "Elige 'Abrir en Safari'",
+      "inAppStep2": "En el menú, selecciona 'Abrir en Safari' o 'Abrir en el navegador predeterminado'.",
+      "inAppStep3Title": "Instala desde Safari",
+      "inAppStep3": "En Safari, toca Compartir ⎋ ➔ 'Añadir a la pantalla de inicio' ➔ 'Añadir'.",
+      "chromeStep1Title": "Toca Compartir en Chrome",
+      "chromeStep1": "En la barra de direcciones de Chrome, toca el icono Compartir o el menú ⋯.",
+      "chromeStep2Title": "Selecciona 'Añadir a pantalla de inicio'",
+      "chromeStep2": "Desplázate hacia abajo y toca 'Añadir a la pantalla de inicio' (disponible en iOS 16.4+).",
+      "chromeStep3Title": "¿Opción no visible?",
+      "chromeStep3": "Si no ves esta opción, copia el enlace cnchub.app y ábrelo en Safari."
     },
     "desktopDesc": "Funciona en ventana independiente sin barras de navegador – como un programa nativo Windows/Mac.",
     "androidDesc": "Funciona a pantalla completa directamente desde el escritorio móvil sin escribir URL.",

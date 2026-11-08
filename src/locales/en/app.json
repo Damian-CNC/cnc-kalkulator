@@ -16,13 +16,17 @@
   "footer": {
     "refresh": "Refresh",
     "changelog": "Changelog",
-    "version": "v1.1.0",
+    "version": "v1.2.0",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Settings",
     "feedback": "Report bug / Suggestion",
     "support": "Buy me a coffee",
     "legal": "Terms & Privacy",
-    "stats": "Statistics"
+    "stats": "Statistics",
+    "installApp": "Install",
+    "installCardTitle": "Install Calculator on Your Phone",
+    "installCardSubtitle": "Works offline on the shop floor and launches directly from your home screen (Android & iOS)",
+    "installGuideBtn": "Instructions (Android & iOS)"
   },
   "changelog": {
     "title": "Changelog",
@@ -33,6 +37,9 @@
       "update": "Update",
       "fix": "Fix"
     },
+    "v120": [
+      "PWA Installer & Setup Guide: 1-click direct installation on Android, detailed step-by-step guides for iOS (Safari, Chrome, and Facebook/Messenger in-app browsers), plus quick-access mobile install button"
+    ],
     "v110": [
       "New public live analytics dashboard (/stats) with trend charts, top calculators, visitor countries, and devices"
     ],
@@ -43,35 +50,72 @@
   "pwa": {
     "message": "Install the app on your phone or PC to use it instantly and offline on the shop floor",
     "install": "Install",
+    "installShort": "Install",
+    "installNow": "Install Now",
+    "installedSuccess": "App is already installed!",
+    "installedSuccessDesc": "You can launch CNC HUB directly from your home screen.",
+    "installedLabel": "Installed!",
+    "quickInstall": "Direct Installation",
+    "quickInstallDesc": "Your browser supports 1-click direct installation!",
+    "yourDevice": "Your Device",
+    "freeAppNotice": "The app is 100% free and does not require Google Play / App Store downloads.",
+    "pcPromptAvailable": "Install CNC HUB as a standalone application on your Windows/Mac desktop.",
     "dismiss": "Dismiss",
     "guide": "Guide",
-    "modalTitle": "How to Install CNCHub",
+    "modalTitle": "How to Install CNC HUB",
     "modalSubtitle": "Select your device for a quick step-by-step walkthrough",
     "tabPc": "PC / Desktop",
     "tabAndroid": "Android",
     "tabIos": "iPhone / iOS",
     "pc": {
       "title": "Desktop (Chrome, Edge, Brave)",
+      "step1Title": "Browser Address Bar",
       "step1": "In the browser address bar (on the right side), click the Install App icon (monitor with arrow or plus icon).",
-      "step2": "Alternatively: click the three-dot menu ⋮ at top right and choose 'Install CNCHub' or 'Apps > Install'.",
+      "step2Title": "Or Via Options Menu",
+      "step2": "Alternatively: click the three-dot menu ⋮ at top right and choose 'Install CNC HUB' or 'Apps > Install'.",
+      "step3Title": "Done!",
       "step3": "Click 'Install'. The app will launch in its own standalone window and appear on your Desktop."
     },
     "android": {
-      "title": "Android Smartphone (Chrome)",
-      "step1": "Open cnchub.app in Chrome browser.",
-      "step2": "Tap the three dots menu ⋮ in the upper right corner.",
-      "step3": "Tap 'Install app' or 'Add to Home screen'.",
-      "step4": "Confirm install. The CNCHub icon will appear on your home screen like any native app."
+      "title": "Android Smartphone (Chrome / Edge / Brave)",
+      "step1Title": "Open Browser Menu",
+      "step1": "In Chrome or Brave, tap the three-dot menu (⋮) in the top-right corner of the screen.",
+      "step2Title": "Select Install",
+      "step2": "From the menu, choose 'Install app' or 'Add to Home screen'.",
+      "step3Title": "Confirm Prompt",
+      "step3": "Tap 'Install' on the confirmation pop-up.",
+      "step4Title": "Done!",
+      "step4": "The CNC HUB icon will appear on your home screen and run in standalone fullscreen mode."
     },
     "ios": {
       "title": "iPhone / iPad (Safari)",
-      "step1": "Open the website in Safari (Apple requires Safari for PWA installation).",
-      "step2": "Tap the Share button on the bottom bar (box with an upward arrow).",
-      "step3": "Scroll down and select 'Add to Home Screen' (plus icon).",
-      "step4": "Tap 'Add' in the top right corner. The icon will appear on your home screen."
+      "inAppWarning": "Opened in Facebook / Messenger / Instagram App",
+      "inAppDesc": "Apple blocks PWA installation inside social media in-app browsers. To add the app to your Home Screen, you must open this page in Safari.",
+      "copyLink": "Copy Link (cnchub.app)",
+      "linkCopied": "Link Copied!",
+      "selectBrowser": "Which browser are you using on iPhone?",
+      "safariStep1Title": "Tap the Share Icon",
+      "safariStep2Title": "Select 'Add to Home Screen'",
+      "safariStep3Title": "Tap 'Add'",
+      "step1": "Make sure you are in Safari (Apple requires Safari for full PWA installation).",
+      "step2": "Tap the Share button on the bottom bar (box with an upward arrow ⎋).",
+      "step3": "Scroll down and select 'Add to Home Screen' (plus icon +).",
+      "step4": "Tap 'Add' in the top right corner. The CNC HUB icon will appear on your Home Screen.",
+      "inAppStep1Title": "Tap Corner Menu Icon",
+      "inAppStep1": "Tap the three-dot menu (⋯) or Share icon in the top-right or bottom-right corner.",
+      "inAppStep2Title": "Select 'Open in Safari'",
+      "inAppStep2": "From the menu, choose 'Open in Safari' or 'Open in external browser'.",
+      "inAppStep3Title": "Install from Safari",
+      "inAppStep3": "Once in Safari, tap Share ⎋ ➔ 'Add to Home Screen' ➔ 'Add'.",
+      "chromeStep1Title": "Tap Share in Chrome",
+      "chromeStep1": "In Chrome address bar or menu, tap the Share icon or the three-dot menu ⋯.",
+      "chromeStep2Title": "Select 'Add to Home Screen'",
+      "chromeStep2": "Scroll down and tap 'Add to Home Screen' (supported in iOS 16.4+).",
+      "chromeStep3Title": "Option not available?",
+      "chromeStep3": "If this option is missing in your Chrome version, copy cnchub.app link and open in Safari."
     },
     "desktopDesc": "Runs in a standalone window without browser bars – like a native Windows/Mac app.",
-    "androidDesc": "Runs full screen and launches directly from your phone's home screen.",
+    "androidDesc": "Runs full screen and launches directly from your phone's home screen without typing the URL.",
     "iosDesc": "iOS requires Safari to add the app to your Home Screen."
   },
   "formulas": {

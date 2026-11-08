@@ -16,13 +16,17 @@
   "footer": {
     "refresh": "Aggiorna",
     "changelog": "Cronologia modifiche",
-    "version": "v1.1.0",
+    "version": "v1.2.0",
     "copyright": "© 2026 Damian Drewniak",
     "settings": "Impostazioni",
     "feedback": "Segnala bug / Suggerimento",
     "support": "Offrimi un caffè",
     "legal": "Termini e Privacy",
-    "stats": "Statistiche"
+    "stats": "Statistiche",
+    "installApp": "Installa",
+    "installCardTitle": "Installa calcolatore su smartphone",
+    "installCardSubtitle": "Funziona offline in officina e si avvia direttamente dalla schermata iniziale (Android & iOS)",
+    "installGuideBtn": "Guida (Android & iOS)"
   },
   "changelog": {
     "title": "Cronologia modifiche",
@@ -33,6 +37,9 @@
       "update": "Aggiornamento",
       "fix": "Correzione"
     },
+    "v120": [
+      "Programma di installazione PWA e guida: installazione diretta in 1 clic su Android, guida dettagliata passo passo per iOS (Safari, Chrome e browser in-app Facebook/Messenger) e pulsante di installazione mobile rapido"
+    ],
     "v110": [
       "Nuova dashboard pubblica delle statistiche (/stats) con grafici di tendenza, calcolatori più usati, paesi e dispositivi"
     ],
@@ -43,32 +50,69 @@
   "pwa": {
     "message": "Installa l'app sul telefono o su PC per usarla all'istante e offline in officina",
     "install": "Installa",
+    "installShort": "Installa",
+    "installNow": "Installa ora",
+    "installedSuccess": "L'app è già installata!",
+    "installedSuccessDesc": "Puoi avviare CNC HUB direttamente dalla tua schermata Home.",
+    "installedLabel": "Installato!",
+    "quickInstall": "Installazione diretta",
+    "quickInstallDesc": "Il tuo browser supporta l'installazione diretta con 1 clic!",
+    "yourDevice": "Tuo dispositivo",
+    "freeAppNotice": "L'app è gratuita al 100% e non richiede download da Google Play o App Store.",
+    "pcPromptAvailable": "Installa CNC HUB come app autonoma sul tuo desktop Windows/Mac.",
     "dismiss": "Chiudi",
     "guide": "Guida",
-    "modalTitle": "Come installare l'app CNCHub",
+    "modalTitle": "Come installare CNC HUB",
     "modalSubtitle": "Seleziona il tuo dispositivo per seguire la guida passo dopo passo",
     "tabPc": "PC / Computer",
     "tabAndroid": "Android",
     "tabIos": "iPhone / iOS",
     "pc": {
       "title": "Computer (Chrome, Edge, Brave)",
+      "step1Title": "Barra degli indirizzi",
       "step1": "Nella barra degli indirizzi del browser (a destra), clicca sull'icona di installazione (schermo con freccia o simbolo +).",
-      "step2": "In alternativa: clicca sul menu a tre puntini ⋮ in alto a destra e scegli 'Installa CNCHub' o 'App > Installa'.",
+      "step2Title": "Oppure dal menu",
+      "step2": "In alternativa: clicca sul menu a tre puntini ⋮ in alto a destra e scegli 'Installa CNC HUB' o 'App > Installa'.",
+      "step3Title": "Fatto!",
       "step3": "Clicca su 'Installa'. L'app si aprirà in una finestra autonoma e apparirà sul Desktop."
     },
     "android": {
-      "title": "Smartphone Android (Chrome)",
-      "step1": "Apri cnchub.app nel browser Chrome.",
-      "step2": "Tocca il menu a tre puntini ⋮ in alto a destra.",
-      "step3": "Tocca 'Installa app' o 'Aggiungi a schermata Home'.",
-      "step4": "Conferma l'installazione. L'icona apparirà nella schermata Home come una normale app."
+      "title": "Smartphone Android (Chrome / Edge / Brave)",
+      "step1Title": "Apri menu del browser",
+      "step1": "In Chrome o Brave, tocca il menu a tre puntini (⋮) in alto a destra.",
+      "step2Title": "Seleziona installa",
+      "step2": "Scegli 'Installa app' o 'Aggiungi a schermata Home'.",
+      "step3Title": "Conferma",
+      "step3": "Tocca 'Installa' nella finestra di conferma.",
+      "step4Title": "Fatto!",
+      "step4": "L'icona CNC HUB apparirà nella schermata Home ed è accessibile anche offline."
     },
     "ios": {
       "title": "iPhone / iPad (Safari)",
+      "inAppWarning": "Aperto nell'app Facebook / Messenger / Instagram",
+      "inAppDesc": "Apple blocca l'installazione di app all'interno dei browser social. Per aggiungere l'app alla schermata iniziale, apri questa pagina in Safari.",
+      "copyLink": "Copia link (cnchub.app)",
+      "linkCopied": "Link copiato!",
+      "selectBrowser": "Quale browser stai usando su iPhone?",
+      "safariStep1Title": "Tocca Condividi",
+      "safariStep2Title": "Seleziona 'Aggiungi alla schermata Home'",
+      "safariStep3Title": "Tocca 'Aggiungi'",
       "step1": "Apri il sito nel browser predefinito Safari (Apple richiede Safari per installare le PWA).",
-      "step2": "Tocca il pulsante Condividi nella barra inferiore (quadrato con freccia verso l'alto).",
+      "step2": "Tocca il pulsante Condividi nella barra inferiore (quadrato con freccia verso l'alto ⎋).",
       "step3": "Scorri verso il basso e seleziona 'Aggiungi alla schermata Home' (icona +).",
-      "step4": "Tocca 'Aggiungi' in alto a destra. L'icona apparirà sulla schermata iniziale."
+      "step4": "Tocca 'Aggiungi' in alto a destra. L'icona CNC HUB apparirà sulla schermata iniziale.",
+      "inAppStep1Title": "Tocca menu in alto/basso",
+      "inAppStep1": "Tocca l'icona a tre puntini (⋯) o l'icona Condividi nell'angolo.",
+      "inAppStep2Title": "Scegli 'Apri in Safari'",
+      "inAppStep2": "Dal menu seleziona 'Apri in Safari' o 'Apri nel browser predefinito'.",
+      "inAppStep3Title": "Installa da Safari",
+      "inAppStep3": "Una volta in Safari, tocca Condividi ⎋ ➔ 'Aggiungi alla schermata Home' ➔ 'Aggiungi'.",
+      "chromeStep1Title": "Tocca Condividi in Chrome",
+      "chromeStep1": "Nella barra di Chrome tocca l'icona Condividi o il menu ⋯.",
+      "chromeStep2Title": "Seleziona 'Aggiungi a schermata Home'",
+      "chromeStep2": "Scorri verso il basso e seleziona 'Aggiungi a schermata Home' (da iOS 16.4+).",
+      "chromeStep3Title": "Opzione non visibile?",
+      "chromeStep3": "Se non vedi questa opzione, copia il link cnchub.app e aprilo in Safari."
     },
     "desktopDesc": "Funziona in una finestra autonoma senza barre del browser – come un programma nativo Windows/Mac.",
     "androidDesc": "A schermo intero, avviabile direttamente dalla schermata home dello smartphone.",
