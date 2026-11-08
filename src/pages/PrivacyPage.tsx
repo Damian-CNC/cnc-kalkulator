@@ -8,7 +8,7 @@ const PrivacyPage = () => {
   const navigate = useNavigate();
 
   return (
-    <main className="min-h-[100dvh] bg-zinc-950 px-4 py-6 flex justify-center">
+    <main className="min-h-[100dvh] bg-zinc-950 px-4 pt-12 pt-[calc(env(safe-area-inset-top,0px)+1.25rem)] pb-[max(2.5rem,env(safe-area-inset-bottom))] flex justify-center">
       <div className="w-full max-w-2xl">
         <button
           type="button"

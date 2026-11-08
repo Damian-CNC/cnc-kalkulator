@@ -197,7 +197,7 @@ const StatsPage = () => {
   const maxCountryViews = data.topCountries[0]?.views || 1;
 
   return (
-    <main className="min-h-[100dvh] bg-[#09090b] text-zinc-100 px-4 py-6 flex justify-center pb-20">
+    <main className="min-h-[100dvh] bg-[#09090b] text-zinc-100 px-4 pt-12 pt-[calc(env(safe-area-inset-top,0px)+1.25rem)] pb-[max(2.5rem,env(safe-area-inset-bottom))] flex justify-center">
       <div className="w-full max-w-4xl space-y-6">
         {/* Pasek nawigacji górnej */}
         <div className="flex items-center justify-between gap-4">
